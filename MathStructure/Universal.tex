@@ -1,0 +1,1069 @@
+\chapter{Universal Structures}
+The universal constructions in category theory include
+\begin{itemize}
+  \item representable functors
+  \item adjoint functors
+  \item limits/colimits
+  \item ends/coends
+  \item Kan extensions
+  \item dependent sums/dependent products
+\end{itemize}
+
+Each of these may be defined by requiring it to satisfy a universal property. A universal property is a property of some construction which boils down to (is manifestly equivalent to) the property that an associated object is a universal initial object of some (auxiliary) category.
+
+In good cases, every single one of these is a special case of every other, so somehow one single concept here comes to us with many different faces.
+
+\minitoc
+\newpage
+\section{Adjoint functors}
+The key ideal of adjoint functor is that they are dual to each other.
+  \begin{defn}
+    Two functor $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ are said to be \termin[adjoint]{adjoint functor}, or more explicitly $L$ is the \termin{left adjoint} of $R$ and $R$ is the \termin{right adjoint} of $L$, if there exists a binary natural isomorphism
+    \begin{equation*}
+      \Hom_{\Bb}(L(-),-)\cong\Hom_{\Aa}(-,R(-))
+    \end{equation*}
+    This isomorphism is called the \termin{adjunction isomorphism} and the image of an element under this isomorphism is called its \termin{adjunct}.
+  \end{defn}
+
+  \begin{defn}
+    An \termin{adjunction} $L \dashv R$\glsadd{adjunction} is a pair of two functors $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ equipped with natural transformations $\eta\colon\Id_{\Aa} \to R \circ L$ (called \termin{unit}) and $\epsilon\colon L \circ R \to \Id_{\Bb}$ (called \termin{counit}) satisfying the \termin{triangle identities}
+    \begin{displaymath}
+      \xymatrix@R=0.5cm{
+        &L\circ R\circ L\ar[dr]^-{\epsilon\ast L}&&&R\circ L\circ R\ar[dr]^-{R\ast\epsilon}&\\
+        L\ar[ur]^-{L\ast\eta}\ar[rr]^{\Id_L}&&L&R\ar[ur]^-{\eta\ast R}\ar[rr]^{\Id_R}&&R
+        }
+    \end{displaymath}
+  \end{defn}
+  \begin{rem}
+    As diagrams, the triangle identities are
+    \begin{displaymath}
+      \xymatrix{
+        \Aa\ar[r]^{L}\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Bb\ar[r]^{R}\rrlowertwocell<-12>^{}_{\Id_{\Bb}}{\epsilon}&\Aa\ar[r]^{L}&\Bb\ar@{}[r]|{=}&\Aa\ar[r]^{L}&\Bb
+        }
+    \end{displaymath}
+    and
+    \begin{displaymath}
+      \xymatrix{
+        \Bb\ar[r]^{R}\rrlowertwocell<-12>^{}_{\Id_{\Bb}}{\epsilon}&\Aa\ar[r]^{L}\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Bb\ar[r]^{R}&\Aa\ar@{}[r]|{=}&\Bb\ar[r]^{R}&\Aa
+        }
+    \end{displaymath}
+  \end{rem}
+  \begin{prop}
+    Two functors $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ are adjoint if and only if they form an adjunction $L \dashv R$. The left or right adjoint of any functor, if it exists, is unique up to unique isomorphism.
+  \end{prop}
+  \begin{proof}
+    If $L$ and $R$ are adjoint, then for any $\Aa-$object $A$, we have
+    \begin{equation*}
+      \Hom_{\Bb}(L(A),L(A))\approx\Hom_{\Aa}(A,R\circ L(A))
+    \end{equation*}
+
+    Thus, by taking adjuncts of identities, we get a natural transformation $\eta\colon\Id_{\Aa} \to R \circ L$. Similarly, we get the other one $\epsilon\colon L \circ R \to \Id_{\Bb}$.
+
+    On the other hand, by the naturality of  adjunction isomorphism, we get the following commutative diagram
+    \begin{displaymath}
+      \xymatrix{
+        \Hom_{\Bb}(L(A),L(A))&\Hom_{\Aa}(A,R\circ L(A))\ar@{}[l]|-{\approx}\\
+        \Hom_{\Bb}(L\circ R\circ L(A),L(A))\ar[u]_{\circ(L\ast\eta)_{L(A)}}
+        &\Hom_{\Aa}(R\circ L(A),R\circ L(A))\ar[u]_{\circ\eta_A}\ar@{}[l]|-{\approx}
+        }
+    \end{displaymath}
+    Thus we get
+    \begin{equation*}
+      (\epsilon\ast L)_{L(A)}\circ(L\ast\eta)_{L(A)} = 1_{L(A)}
+    \end{equation*}
+    Therefore
+    $(\epsilon\ast L)\circ(L\ast\eta) = \Id_L$.
+    Similarly, $(R\ast \epsilon)\circ(\eta\ast R) = \Id_R$.
+
+    Conversely, if $L$ and $R$ form an adjunction, let $\eta\colon\Id_{\Aa} \to R \circ L$ and $\epsilon\colon L \circ R \to \Id_{\Bb}$ be the corresponding natural transformations. Then we get the following functions:
+    \longmapdes{l_{A,B}}{\Hom_{\Bb}(L(A),B)}{\Hom_{\Aa}(A,R(B))}{f}{R(f)\circ\eta_A}
+    \longmapdes{r_{A,B}}{\Hom_{\Aa}(A,R(B))}{\Hom_{\Bb}(L(A),B)}{f}{\epsilon_B\circ L(f)}
+
+    It is not difficult to verify that they form two mutually inverse natural transformations.
+
+    Assume $L,L'$ are both left adjoint of $R$, then
+    \begin{equation*}
+      \Hom_{\Bb}(L(-),-)\cong\Hom_{\Aa}(-,R(-))\cong\Hom_{\Bb}(L'(-),-)
+    \end{equation*}
+    Thus, by Yoneda Lemma, $L\cong L'$. Similarly, the right adjoint is unique up to unique isomorphism.
+  \end{proof}
+
+\subsection{Adjoint functors and representable functors}
+  Let $F\colon\Aa\to\Bb$ be a functor between essentially small categories, then it induces a ``pullback'' functor
+  \begin{equation*}
+    F^{\ast}\colon\PSh(\Bb)\To\PSh(\Aa)
+  \end{equation*}
+  By restriction along the Yoneda embedding $\Upsilon\colon\Bb\to\PSh(\Bb)$ this yields the functor
+  \begin{equation*}
+    \overline{F}\colon\Bb\markar{\Upsilon}\PSh(\Bb)\markar{F^{\ast}}\PSh(\Aa)
+  \end{equation*}
+  \begin{defn}
+    If for some $B\in\ob\Bb$, $\overline{L}(B)$ is representable and is represented by $A$ with a universal element $f$, then we say $(A,f)$ is a \termin{coreflection} of $B$ along $F$.
+  \end{defn}
+  In plain word, $(A,f)$ is a coreflection of $B$ along $F$ means
+  \begin{equation*}
+    \phi\colon\Hom_{\Aa}(-,A)\To\Hom_{\Bb}(F(-),B)
+  \end{equation*}
+  is an isomorphism and $\phi_A(1_A)=f$.
+  \begin{prop}
+    $F$ has a right adjoint if and only if every $B\in\ob\Bb$ has a coreflection along $F$.
+  \end{prop}
+  \begin{proof}
+    If $F$ has a right adjoint $R$, then for any $B\in\ob\Bb$, $(R(B),\epsilon_B)$ is a coreflection of it along $F$.
+
+    If every $B\in\ob\Bb$ has a coreflection along $F$, then it is easy to see that the representative is functorial on $B$, thus we get a functor $R\colon\Bb\to\Aa$ such that $\overline{F}\cong\Upsilon\circ R$. Then $R$ is the right adjoint of $F$.
+  \end{proof}
+
+  Similarly, we have the notion of reflection. In plain word, $(A,f)$ is a \termin{reflection} of $B$ along $F$ means
+  \begin{equation*}
+    \phi\colon\Hom_{\Aa}(A,-)\To\Hom_{\Bb}(B,F(-))
+  \end{equation*}
+  is an isomorphism and $\phi_A(1_A)=f$. Thus $F$ has a left adjoint precisely if every $B\in\ob\Bb$ has a reflection along $F$.
+
+\subsection{Adjoint functors and universal arrows}
+  \begin{defn}
+    Given a functor $R\colon\Bb\to\Aa$, and an object $A$ in $\Aa$, a \termin{universal arrow} from $A$ to $R$ is an initial object of the comma category $(A\down R)$. That is, it consists of an object $L(A)\in\Bb$ and a morphism $i_A : A\to R\circ L(A)$ (called the \termin{unit}) such that for any $B\in\Bb$, any morphism $f \colon A\to R(B)$ factors through the unit $i_A$ as
+    \begin{displaymath}
+      \xymatrix@R=0.5cm{
+        &A\ar[dl]_{i_A}\ar[dr]^{f}&\\
+        R\circ L(A)\ar[rr]^{R(\tilde{f})}&&R(B)
+        }
+    \end{displaymath}
+    for a unique $\tilde{f}\colon L(A)\to B$.%, the adjunct of $f$.
+  \end{defn}
+  \begin{prop}
+    $R$ has a left adjoint if and only if every $A\in\ob\Aa$ has a universal arrow to $R$.
+  \end{prop}
+  \begin{proof}
+    If $R$ has a left adjoint $L$. For any $A\in\ob\Aa$ and $B\in\ob\Bb$,
+    let $\tilde{f} \colon L(A) \to B$ be the image of $f \colon A \to R(B)$ under the bijection
+    \begin{equation*}
+      \Hom_{\Aa}(A,R(B))\approx\Hom_{\Bb}(L(A),B)
+    \end{equation*}
+    and consider the naturality square
+    \begin{displaymath}
+      \xymatrix{
+        \Hom_{\Bb}(L(A),L(A))\ar@{}[r]|-{\approx}\ar[d]^{\tilde{f}\circ}
+        &\Hom_{\Aa}(A,R\circ L(A))\ar[d]^{R(\tilde{f})\circ}
+        \\
+        \Hom_{\Bb}(L(A),B)\ar@{}[r]|-{\approx}
+        &\Hom_{\Aa}(A,R(B))
+        }
+    \end{displaymath}
+
+    Then the unit $i_A\colon A\to R\circ L(A)$ is the image of $1_{L(A)}$ under the hom-isomorphism. Chase this identity through the commuting square, we obtain
+    \begin{displaymath}
+      \xymatrix{
+        (1_{L(A)})\ar@{|->}[r]\ar@{|->}[d]^{\tilde{f}\circ}
+        &(i_A)\ar@{|->}[d]^{R(\tilde{f})\circ}
+        \\
+        (\tilde{f})\ar@{|->}[r]
+        &(f)
+        }
+    \end{displaymath}
+
+    Conversely, if every $A\in\ob\Aa$ has a universal arrow $(L(A),i_A)$ to $R$. Then we have a bijection
+    \begin{equation*}
+      \Hom_{\Aa}(A,R(B))\cong\Hom_{\Bb}(L(A),B)
+    \end{equation*}
+    which it is easy to see is natural in $B$. In this case there is a unique way to make $L$ into a functor so that this isomorphism is natural in $A$ as well.
+  \end{proof}
+
+\subsection{Adjoint functors and cographs}
+  Recall that a graph of a function $f\colon X\to Y$ is the subset
+  \begin{equation*}\glsadd{Graph}
+    \Graph(f) = \{(x,f(x))\mid x\in X\} \subset  X\times Y
+  \end{equation*}
+  determined by the pullback square
+    \begin{displaymath}
+      \xymatrix{
+        \Graph(f)\ar[d]\ar[r]&Y\ar[d]^{1_Y}\\
+        X\ar[r]^{f}&Y
+        }
+    \end{displaymath}
+
+  Imitate this, let $F\colon\Aa\to\Bb$ be a functor, then the comma category $(F^{\op}\down\Id_{\Bb})$ can be view as the \termin[graph]{graph of a functor} of $F$. (Here we take the opposite functor for technical reason.)
+
+  On the other hand, the graph of a function can also be obtained by this square:
+    \begin{displaymath}
+      \xymatrix{
+        \Graph(f)\ar@{ (->}[d]\ar[r]&1\ar[d]\\
+        X\times Y\ar[r]^-{\chi_f}&\{0,1\}
+        }
+    \end{displaymath}
+    where $\chi_f$ is the characteristic function
+    \begin{equation*}
+      \chi_f(x,y)=
+      \begin{cases}
+      1&\text{if }f(x)=y\\
+      0&\text{otherwise}
+      \end{cases}
+    \end{equation*}
+
+    Imitate this, a graph of a functor can also be view as the category of elements of the characteristic functor $\chi_F$
+    \begin{equation*}
+      \chi_F\colon\Aa^{\op}\times\Bb\markar{F^{\op}\times\Id_{\Bb}}\Bb^{\op}\times\Bb\markar{\Hom_{\Bb}(-,-)}\Set
+    \end{equation*}
+
+    Indeed, an object in $\Elts(\chi_F)$ is a pair $(h,\Hom_{\Bb}(F^{\op}(A),B))$ such that $h\in\Hom_{\Bb}(F^{\op}(A),B)$. It can be viewed as an object $(A,h,B)$ in $(F^{\op}\down\Id_{\Bb})$ and vice versa.
+
+    A morphism from $(h,\Hom_{\Bb}(F^{\op}(A),B))$ to $(h',\Hom_{\Bb}(F^{\op}(A'),B'))$ in $\Elts(\chi_F)$ is a morphism $\phi\colon(A,B)\to(A',B')$ in $\Aa^{\op}\times\Bb$, which consists of an $\Aa-$morphism $f\colon A\to A'$ and a $\Bb-$morphism $g\colon B\to B'$, such that it induces a hom-function mapping $h$ to $h'$. In other word, $g\circ h\circ F^{\op}(f^{\op}) = h'$. Thus this morphism can be also viewed as a morphism from $(A,h,B)$ to $(A',h',B')$.
+
+  Let's consider the notion of \termin{cograph of a functor}, which should be dual to that of graph of a functor.
+
+  In the terminology system of Bill Lawvere, a cograph of a function $f\colon X\to Y$ is the quotient set determined by the pushout square
+    \begin{displaymath}
+      \xymatrix{
+        X\ar[r]^{f}\ar[d]_{1_X}&Y\ar[d]\\
+        X\ar[r]&\Cograph(f)
+        }
+    \end{displaymath}
+    However, this definition is lose of fine. So Jacob Lurie give another definition in high-dimensional category theory context, see \cite{lurieHTT}. Here we give the $0-$dimensional case.
+
+    Let $f\colon X\to Y$ be a function, then it induces a functor $\bar{f}$ from the category $\mathbf{2}$ to $\Set$ mapping the nonidentity arrow to $f$. Then the cograph\glsadd{Cograph} of $f$ is the category of elements of $\bar{f}$, as described there: the objects of $X\star^fY$ are the disjoint union of $X$ and $Y$: $\ob(X\star^fY)=X\sqcup Y$ and the nontrivial morphisms are of the form $x\to y$ whenever $x\in X, y\in Y$ and $f(x)=y$. Such a construction is obviously finer than the original one.
+
+    Imitate this, we have
+    \begin{defn}
+      Let $F\colon\Aa\to\Bb$ be a functor, the \termin[cograph]{cograph of a functor} of $F$ is the category $\Aa\star^F\Bb$ with $\ob(\Aa\star^F\Bb)=\ob\Aa\sqcup\ob\Bb$ and with
+      \begin{equation*}
+        \Hom_{\Aa\star^F\Bb}(A,B)=
+        \begin{cases}
+          \Hom_{\Aa}(A,B)&\text{if }A,B\in\ob\Aa\\
+          \Hom_{\Bb}(A,B)&\text{if }A,B\in\ob\Bb\\
+          \Hom_{\Bb}(F(A),B)&\text{if }A\in\ob\Aa,B\in\ob\Bb\\
+          \varnothing&\text{if }A\in\ob\Bb,B\in\ob\Aa
+        \end{cases}
+      \end{equation*}
+      with composition defined as induced from $\Aa$, from $\Bb$, and from the action of $F$.
+    \end{defn}
+    \begin{prop}
+      Two functors $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ are adjoint if and only if $\Aa\star^L\Bb$ and $(\Bb^{\op}\star^{R^{\op}}\Aa^{\op})^{\op}$ are isomorphic under $\Aa$ and $\Bb$.
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar@{ (->}[d]\ar@{ (->}[dr]&\Bb\ar@{ (->}[dl]\ar@{ (->}[d]\\
+          \Aa\star^L\Bb\ar@{}[r]|-{\approx}&(\Bb^{\op}\star^{R^{\op}}\Aa^{\op})^{\op}
+         }
+      \end{displaymath}
+    \end{prop}
+    \begin{proof}
+      The canonical functors from $\Aa$ and $\Bb$ to the cographs are the inclusions, thus an isomorphism $\phi$ from $\Aa\star^L\Bb$ to $(\Bb^{\op}\star^{R^{\op}}\Aa^{\op})^{\op}$ under them must work as the identity functor of $\Aa$ and $\Bb$ when restrict on $\Aa$ and $\Bb$ respectively.
+
+      Therefore, $\Aa\star^L\Bb$ and $(\Bb^{\op}\star^{R^{\op}}\Aa^{\op})^{\op}$ are isomorphic if and only if
+      \begin{equation*}
+        \Hom_{\Bb}(F(A),B) \cong \Hom_{\Bb}(A,R(B))
+      \end{equation*}
+      naturally in $A\in\ob\Aa$ and $B\in\ob\Bb$. That is, $L$ and $R$ are adjoint.
+    \end{proof}
+
+
+
+\subsection{Exercises}
+  \begin{ex}
+    Consider the category $\Cc$ with a single object $\ast$ and just two arrows: the identity $1$ on $\ast$ and a morphism $f$ such that $f \circ f = 1$. Show that $f$ determines a natural transformation $\phi\colon\Id\to\Id$. The identity functor $\Id$ is left adjoint to itself and the unit $\eta\colon\Id\to\Id\circ\Id$ and counit $\epsilon\colon\Id\circ\Id\to\Id$ can both be chosen to be the identity; but they can also both be chosen to be the transformation $\phi$. However, the identity and $\phi$ do not exhibit the adjunction.
+  \end{ex}
+  \begin{ex}
+    Consider the category $\mathbf{Idem}$ whose objects are the pairs $(X,v)$ of a set $X$ provided with an idempotent endomorphism $v\colon X\to X, v\circ v=v$. A morphism $(X, v) \to (Y, w)$ is just a function $f\colon X \to Y$ satisfying $w\circ f = f\circ v$.
+    There is a canonical full embedding of the category $\Set$ in $\mathbf{Idem}$:
+    \longmapdes{\imath}{\Set}{\mathbf{Idem}}{X}{(X,1_X)}
+    Consider now the functor determined by
+    \longmapdes{\jmath}{\mathbf{Idem}}{\Set}{(X,v)}{\{x\in X\mid v(x)=x\}}
+    Prove that $\jmath$ is both left and right adjoint to $\imath$.
+  \end{ex}
+
+
+\newpage\section{Properties of adjoint functors}
+  \begin{prop}
+    Consider the following situation:
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar@<-0.5ex>[r]_{F}&\Bb\ar@<-0.5ex>[l]_{G}\ar@<-0.5ex>[r]_{H}&\Cc\ar@<-0.5ex>[l]_{K}
+         }
+      \end{displaymath}
+  where $F,G,H,K$ are functors, with $G$ left adjoint to $F$ and $K$ left adjoint to $H$. In this case $G\circ K$ is left adjoint to $H\circ F$.
+  \end{prop}
+
+  \begin{prop}\label{prop:adjoint functor preserves limits}
+    Let $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ be a pair of adjoint functors. Then $L$ preserves colimits in $\Aa$, $R$ preserves limits in $\Bb$.
+  \end{prop}
+  \begin{proof}
+    Let $D\colon\Ii^{\op}\to\Bb$ be a diagram whose limit $\invlim D$ exists. Then we have a sequence of natural isomorphisms, natural in $A\in\ob\Aa$:
+    \begin{align*}
+      \Hom_{\Aa}(A,R(\invlim D)) & \cong \Hom_{\Bb}(L(A),\invlim D)  \\
+       & \cong \invlim\Hom_{\Bb}(L(A),D) \\
+       & \cong \invlim\Hom_{\Aa}(A,R(D)) \\
+       & \cong \Hom_{\Aa}(A,\invlim R(D))
+    \end{align*}
+    where we used the adjunction isomorphism and the fact that any hom-functor preserves limits (see Proposition \ref{prop:representable functor preserves limits}). Because this is natural in $A$ the Yoneda lemma implies that we have an isomorphism
+    \begin{equation*}
+      R\invlim D\approx\invlim R(D)
+    \end{equation*}
+    The argument that shows the preservation of colimits by $L$ is analogous.
+  \end{proof}
+
+Let $\Ii$ be a small category and $F$ a $\Ii-$diagram in $\Cc$, we have a presheaf
+\begin{equation*}
+  \Cc\markar{\Delta}[\Ii,\Cc]\markar{\Hom(-,F)}\Set
+\end{equation*}
+It is not difficult to verify that it is represented by $C$ if and only if $C$ is a limit object of $F$.
+
+Similarly, $L$ is a colimit object of $F$ precisely if it is a representing object of the functor
+\begin{equation*}
+  \Cc\markar{\Delta}[\Ii,\Cc]\markar{\Hom(F,-)}\Set
+\end{equation*}
+
+Therefore, if $\Cc$ has all $\Ii-$limits and colimits, we have:
+\begin{prop}\label{prop:limits as adjoint functors}
+  Let the category $\Ii$ be small and $\Cc$ has all $\Ii-$limits and colimits. The left adjoint of the diagonal functor $\Delta\colon\Cc\to[\Ii,\Cc]$ sends every diagram to its colimit. The right adjoint of $\Delta$ sends every diagram to its limit.
+  \begin{equation*}
+    \dirlim\dashv\Delta\dashv\invlim
+  \end{equation*}
+\end{prop}
+
+  \begin{prop}
+    Consider a functor $L\colon\Aa\to\Bb$ with a right adjoint $R\colon\Bb\to\Aa$. If $\Ii$ is any small category, then $R_{\ast}\colon[\Ii,\Bb]\to[\Ii,\Aa]$ is itself right adjoint to $L_{\ast}\colon[\Ii,\Aa]\to[\Ii,\Bb]$.
+  \end{prop}
+  \begin{proof}
+    Let $\eta\colon\Id_{\Aa} \to R \circ L$ and $\epsilon\colon L \circ R \to \Id_{\Bb}$ be the natural transformations describing the adjunction $L\dashv R$. Then for any functor $F\colon\Ii\to\Aa$ and $G\colon\Ii\to\Bb$, we have corresponding natural transformations
+    \begin{align*}
+      \eta\ast G&\colon G\then L_{\ast}R_{\ast}G  \\
+      \epsilon\ast F&\colon R_{\ast}L_{\ast}F\then F
+    \end{align*}
+    This yields two natural transformations
+    \begin{align*}
+      \bar{\eta}&\colon \Id_{[\Ii,\Bb]}\then L_{\ast}\circ R_{\ast}  \\
+      \bar{\epsilon}&\colon R_{\ast}\circ L_{\ast}\then \Id_{[\Ii,\Aa]}
+    \end{align*}
+    It is easy to verify that they satisfies the triangle identities.
+  \end{proof}
+
+\subsection{Fully faithful adjoint functors}
+
+  \begin{prop}
+    Let $L\colon\Aa\to\Bb$ and $R\colon\Bb\to\Aa$ be a pair of adjoint functors with unit $\eta\colon\Id_{\Aa} \to R \circ L$ and counit $\epsilon\colon L \circ R \to \Id_{\Bb}$. Then
+    \begin{enumerate}
+      \item $R$ is faithful if and only if the counit $\epsilon$ is pointwise epi, i.e. its component over every object is an epimorphism.
+      \item $L$ is faithful if and only if the unit $\eta$ is pointwise monoic.
+      \item $R$ is full if and only if the counit $\epsilon$ is pointwise split monoic.
+      \item $L$ is full if and only if the unit $\eta$ is pointwise split epi.
+      \item $R$ is full and faithful if and only if the counit $\epsilon$ is a natural isomorphism.
+      \item $L$ is full and faithful if and only if the unit $\eta$ is a natural isomorphism.
+      \item The following are equivalent:
+      \begin{enumerate}
+        \item $L$ and $R$ are both full and faithful;
+        \item $L$ is an equivalence with weak inverse $R$;
+        \item $R$ is an equivalence.
+      \end{enumerate}
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    For the characterization of faithful $R$ by epi counit components, just notice that $\epsilon_X\colon L\circ R(X)\to X$ being an epimorphism is equivalent to the induced function
+    \begin{equation*}
+      \Hom(X,B)\to\Hom(L\circ R(X),B)
+    \end{equation*}
+    being an injection for all objects $B$.
+    By adjointness, we have an isomorphism
+    \begin{equation*}
+      \Hom(L\circ R(X),B)\approx\Hom(R(X),R(B))
+    \end{equation*}
+    Then, by the formula for adjuncts and the triangle identity, the composite of them
+    \begin{equation*}
+      R_{X,B}\colon\Hom(X,B)\to\Hom(L\circ R(X),B)\approx\Hom(R(X),R(B))
+    \end{equation*}
+    is computed by
+    \begin{align*}
+      (X\markar{f}B)&\mapsto(L\circ R(X)\To X\markar{f} B)\\
+       &\mapsto(R\circ L\circ R(X)\To R(X)\markar{R(f)}R(B))\\
+       &\mapsto(R(X)\To R\circ L\circ R(X)\To R(X)\markar{R(f)}R(B))\\
+       &=(R(X)\markar{R(f)}R(B))
+    \end{align*}
+    Therefore $R_{X,B}$ is just the induced hom-function of the functor $R$.
+
+    The characterization of full $R$ is just the same reasoning applied to the fact that $\epsilon_X\colon L\circ R(X)\to X$ is a split monomorphism iff for all objects $B$ the induced function
+    \begin{equation*}
+      \Hom(X,B)\to\Hom(L\circ R(X),B)
+    \end{equation*}
+    is a surjection.
+
+    The other statements can be proved analogously or just obtained as corollaries.
+  \end{proof}
+  \begin{prop}\label{prop:two side adjoint}
+    Consider a functor $F\colon\Aa\to\Bb$ with both a left adjoint functor $G$ and a right adjoint functor $H$. If one of those adjoint functors is fully faithful, so is the other adjoint functor.
+  \end{prop}
+  \begin{proof}
+    Let $\eta\colon\Id_{\Bb}\then F\circ G$ and $\epsilon\colon G\circ F\then\Id_{\Aa}$ be the unit and counit of the adjunction $G\dashv F$, while $\alpha\colon\Id_{\Aa}\then H\circ F$ and $\beta\colon F\circ H\then\Id_{\Bb}$ be unit and counit of $F\dashv H$.
+
+    Assume $G$ is fully faithful, then $\eta$ is an isomorphism, let $\mu$ be its inverse. To show $H$ is fully faithful, it suffices to show that $\beta$ is an isomorphism.
+
+    To do this, we consider the following composite
+    \begin{equation*}
+      \Id_{\Bb}\markar{\eta} F\circ G\markar{F\ast\alpha\ast G} F\circ H\circ F\circ G \markar{(F\circ H)\ast\mu} F\circ H
+    \end{equation*}
+    We claim that it is the inverse of $\beta$.
+
+    First, we calculate
+    \begin{equation*}
+      \beta \circ \left((F\circ H)\ast\mu\right) \circ (F\ast\alpha\ast G) \circ \eta
+    \end{equation*}
+    That is the composite of the natural transformations
+    \begin{displaymath}
+      \xymatrix{
+        \Bb\ar[r]^{G}\ar@/^5pc/[rrrr] ^{\Id_{\Bb}}="a"
+        \rrlowertwocell<-12>_{\Id_{\Bb}}^{}{\mu}
+        &\Aa\ar[r]^{F}\ar@/^2.5pc/[rr] ^{\Id_{\Aa}}="b"\ar@{}[rr]^{}="c"
+        &\Bb\ar[r]^{H}\rrlowertwocell<-12>_{\Id_{\Bb}}^{}{\beta}
+        &\Aa\ar[r]^{F}
+        &\Bb
+        \ar@{}^{\eta}|-{\SelectTips{eu}{}\object@{=>}} "a";"b"
+        \ar@{}^{\alpha}|-{\SelectTips{eu}{}\object@{=>}} "b";"c"
+        }
+    \end{displaymath}
+    By the triangle identity of $F\dashv H$, the above composite becomes
+    \begin{displaymath}
+      \xymatrix{
+        \Bb\ar[r]^{G}\rruppertwocell^{\Id_{\Bb}}_{}{\eta}\rrlowertwocell^{}_{\Id_{\Bb}}{\mu}
+        &\Aa\ar[r]^{F}
+        &\Bb
+        }
+    \end{displaymath}
+    Thus
+    \begin{equation*}
+      \beta \circ \left((F\circ H)\ast\mu\right) \circ (F\ast\alpha\ast G) \circ \eta = \Id
+    \end{equation*}
+
+    Now we calculate
+    \begin{equation*}
+      \left((F\circ H)\ast\mu\right) \circ (F\ast\alpha\ast G) \circ \eta \circ \beta
+    \end{equation*}
+    That is the composite of the natural transformations
+    \begin{displaymath}
+      \xymatrix{
+        \Bb\ar[r]^{H}\rrlowertwocell<-12>_{\Id_{\Bb}}^{}{\beta}
+        &\Aa\ar[r]^{F}
+        &\Bb\ar[r]^{G}\ar@/^5pc/[rrrr] ^{\Id_{\Bb}}="a"
+        \rrlowertwocell<-12>_{\Id_{\Bb}}^{}{\mu}
+        &\Aa\ar[r]^{F}\ar@/^2.5pc/[rr] ^{\Id_{\Aa}}="b"\ar@{}[rr]^{}="c"
+        &\Bb\ar[r]^{H}
+        &\Aa\ar[r]^{F}
+        &\Bb
+        \ar@{}^{\eta}|-{\SelectTips{eu}{}\object@{=>}} "a";"b"
+        \ar@{}^{\alpha}|-{\SelectTips{eu}{}\object@{=>}} "b";"c"
+        }
+    \end{displaymath}
+    Notice that $\mu\ast F = F\ast \epsilon$ (Since $(F\ast \epsilon)\circ(\eta\ast F)=\Id_F$), thus the above composite becomes
+    \begin{displaymath}
+      \xymatrix{
+        \Bb\ar[r]^{H}\ar@/_5pc/[rrrr] _{\Id_{\Bb}}="1"
+        &\Aa\ar[r]^{F}\ar@/_2.5pc/[rr] _{\Id_{\Aa}}="2"\ar@{}[rr]^{}="3"
+        &\Bb\ar[r]^{G}\ar@/^5pc/[rrrr] ^{\Id_{\Bb}}="a"
+        &\Aa\ar[r]^{F}\ar@/^2.5pc/[rr] ^{\Id_{\Aa}}="b"\ar@{}[rr]^{}="c"
+        &\Bb\ar[r]^{H}
+        &\Aa\ar[r]^{F}
+        &\Bb
+        \ar@{}^{\eta}|-{\SelectTips{eu}{}\object@{=>}} "a";"b"
+        \ar@{}^{\alpha}|-{\SelectTips{eu}{}\object@{=>}} "b";"c"
+        \ar@{}^{\epsilon}|-{\SelectTips{eu}{}\object@{=>}} "3";"2"
+        \ar@{}^{\beta}|-{\SelectTips{eu}{}\object@{=>}} "2";"1"
+        }
+    \end{displaymath}
+    By the triangle identities of $F\dashv H$ and $G\dashv F$, the above composite is just the identity transformation $\Id_{F\circ H}$.
+  \end{proof}
+  \begin{defn}
+    A pair of adjoint functors that is also an equivalence of categories is called an \termin{adjoint equivalence}.
+  \end{defn}
+  \begin{cor}
+    Let $F\colon\Aa\to\Bb$ be an equivalence. If $\Aa$ is (finitely) complete, then so is $\Bb$.
+  \end{cor}
+
+
+\subsection{The adjoint functor theorem}
+  Adjoint functor theorems are theorems stating that under certain conditions a functor that preserves limits is a right adjoint, and that a functor that preserves colimits is a left adjoint. It is one of the most important result in this chapter and elementary category theory.
+
+  The basic idea of an adjoint functor theorem is that if we could assume that a category $\Bb$ had all limits over small and large diagrams, then for $R\colon\Bb\to\Aa$ a functor that preserves all these limits we might define its left adjoint $L$ by taking $L(A)$ to be the limit over the comma category $(A\down R)$ of the projection functor $(A\down R)\to \Bb$,
+  \begin{equation*}
+    L(A)=\invlim_{A\to R(B)} B
+  \end{equation*}
+
+  Because $R$ preserves limits, we would have an isomorphism
+  \begin{equation*}
+    R\circ L(A)=\invlim_{A\to R(B)} R(B)
+  \end{equation*}
+  and hence an obvious morphism of cone tips $A\To R\circ L(A)$. Moreover, thoese morphisms form a natural transformation $\eta\colon\Id_{\Aa} \to R \circ L$.
+
+  Because with this definition there would be for every $B$ an obvious morphism (the component morphism over $B$ of the limiting cone)
+  \begin{equation*}
+    L\circ R(B)=\invlim_{R(B)\to R(B')} B' \To B
+  \end{equation*}
+  Moreover, thoese morphisms form a natural transformation $\epsilon\colon L \circ R \to \Id_{\Bb}$.
+
+  It is easy to check that $\eta$ and $\epsilon$ would be the unit and counit of the adjunction $L\dashv R$.
+
+  The problem with this would-be argument is that in general the comma category $(A\down R)$ may not be small. But one can generally not expect a category to have all large limits: even if every $(A\down R)$ is considered small, a classical theorem of Freyd says that any complete small category is a preordered set (see Proposition \ref{prop:complete small category = proset}). Thus, the argument we gave above is necessarily an adjoint functor theorem for preordered sets:
+  \begin{thm}
+    If $R\colon\Bb\to\Aa$ is any functor between preordered sets such that $\Bb$ has, and $R$ preserves, all small products, then $R$ has a left adjoint.
+  \end{thm}
+  To obtain adjoint functor theorems for categories that are not preordered sets, one must therefore impose various additional ``size conditions'' on the category $\Bb$ and/or the functor $R$.
+
+  \begin{defn}
+    A functor $F\colon \Aa\to \Bb$ satisfies the \termin{solution set condition} if for every $\Bb-$object $B$ there exists a set $S_B$ of $\Aa-$objects such that any morphism $h\colon B \to F(A)$ can be factored as
+    \begin{equation*}
+      B\markar{f}F(A')\markar{F(t)}F(A)
+    \end{equation*}
+    for some $t\colon A'\to A$ and some $A'\in S_B$.
+  \end{defn}
+  \begin{rem}
+    The fact that $B$ admits a reflection $(A,f)$ along $F$ implies that $S_B = \{A\}$ can be chosen as solution set. So the solution set condition is a much weaker requirement than the existence of a reflection.
+  \end{rem}
+
+  \begin{thm}[General adjoint functor theorem]
+    If a continuous functor $R\colon\Bb\to\Aa$ satisfies the solution set condition and $\Bb$ is complete, then $R$ has a left adjoint.
+  \end{thm}
+  \begin{proof}
+    Consider the full subcategory $\Ss_A$ of $(A\down R)$ whose objects are the pair $(B,f)$ with $B\in S_A$. Since this category is small, it suffices to show that the inclusion functor $\Ss_A\hookrightarrow(A\down R)$ is co-cofinal.
+
+    Indeed, the solution set condition can be reformulated as the fact that, given $(B,f)\in\ob(A \down R)$, there exist $(B',f')\in\ob\Ss_A$ and a morphism $t\colon(B', f') \to (B, f)$, this is precisely the dual of requirement in Proposition \ref{prop:cofinal subcategory}.
+
+    Since $R$ is continuous, $(A\down R)$ is complete, and the universal arrow from $A$ to $R$ is just a limit over $\Ss_A$ thus exists.
+  \end{proof}
+
+  \begin{thm}[Special adjoint functor theorem]
+    A continuous functor $R\colon\Bb\to\Aa$ has a left adjoint, if its domain $\Bb$ satisfies the following conditions:
+    \begin{enumerate}
+      \item $\Bb$ is complete;
+      \item $\Bb$ is well-powered;
+      \item $\Bb$ has a cogenerating set.
+    \end{enumerate}
+  \end{thm}
+  \begin{proof}
+    We assume that $\Bb$ is complete, well-powered, has a cogenerating set $\{B_i\}_{i\in I}$.
+    As before, for each object $A$ of $\Aa$, the comma category $(A\down R)$ is complete. Moreover, it is easy to check that it is well-powered, and that the set of all objects of the form $A\to R(B_i)$ is a cogenerating set for $(A\down R)$.
+
+    It then remains to prove that any complete, well-powered category $\Cc$ with a cogenerating set $\{K_s\}_{s\in S}$ has an initial object. The initial object $0$ is constructed as the minimal subobject of $\prod_sK_s$. Then, given $f,g\colon0\to X$, the equalizer $\ker(f,g)$ is isomorphic to $0$ because $0$ is minimal, and so $f=g$: there is at most one arrow $0\to X$ for each $X$.
+
+    On the other hand, for each $X$ the canonical map
+    \begin{equation*}
+      i\colon X\To\prod_{s\in S}K_s^{\Hom(X,K_s)}
+    \end{equation*}
+    is monic since the $K_s$ cogenerate.
+    The following pullback of it,
+      \begin{displaymath}
+        \xymatrix{
+          K\ar[r]\ar[d]&X\ar[d]^{i}\\
+          \prod_sK_s\ar[r]&\prod_{s}K_s^{\Hom(X,K_s)}
+         }
+      \end{displaymath}
+      gives a subobject $K$ of $\prod_sK_s$ that maps to $X$. Since $0$ is minimal, there exists a morphism $0\to K\to X$, and we conclude $0$ is initial.
+  \end{proof}
+  \begin{cor}
+    A continuous functor $R\colon\Bb\to\Aa$ has a left adjoint, if its domain $\Bb$ satisfies the following conditions:
+    \begin{enumerate}
+      \item $\Bb$ is complete;
+      \item $\Bb$ is well-powered;
+      \item $\Bb$ has a cogenerator.
+    \end{enumerate}
+  \end{cor}
+  \begin{cor}
+    A continuous functor $R\colon\Bb\to\Aa$ has a left adjoint, if its domain $\Bb$ satisfies the following conditions:
+    \begin{enumerate}
+      \item $\Bb$ is complete;
+      \item $\Bb$ has a strong generating family;
+      \item $\Bb$ has a cogenerating set.
+    \end{enumerate}
+  \end{cor}
+  \begin{cor}
+    A continuous functor $R\colon\Bb\to\Aa$ has a left adjoint, if its domain $\Bb$ satisfies the following conditions:
+    \begin{enumerate}
+      \item $\Bb$ is complete;
+      \item $\Bb$ has a strong generator;
+      \item $\Bb$ has a cogenerator.
+    \end{enumerate}
+  \end{cor}
+
+
+
+\newpage\section{Reflective subcategories}
+  \begin{defn}
+    A full subcategory is \termin[reflective]{reflective subcategory} if the inclusion functor has a left adjoint.
+    The left adjoint is sometimes called the \termin{reflector}, and a functor which is a reflector is called a \termin{reflection}.
+  \end{defn}
+  \begin{rem}
+    Of course, there are dual notions of \termin{coreflective subcategory}, \termin{coreflector}, and \termin{coreflection}.
+  \end{rem}
+  \begin{rem}
+    Whenever $\Aa$ is a full subcategory of $\Bb$, we can say that objects of $\Aa$ are objects of $\Bb$ with some extra property. But if $\Aa$ is reflective in $\Bb$, then we can turn this around and (by thinking of the left adjoint as a forgetful functor) think of objects of $\Bb$ as objects of $\Aa$ with (if we're lucky) some extra structure or (in any case) some extra stuff.
+
+    This can always be made to work by brute force, but sometimes there is something insightful about it. For example, a metric space is a complete metric space equipped with a dense subset. Or, a possibly nonunital ring is a unital ring equipped with a unital homomorphism to the ring of integers.
+  \end{rem}
+
+  \begin{prop}
+    Let $\Aa$ be a reflective subcategory of $\Bb$. Then a morphism $f$ is monic in $\Aa$ if and only if it is monic in $\Bb$.
+  \end{prop}
+  \begin{proof}
+    The ``if'' is obvious. To show the ``only if'', consider a monomorphism $f\colon A\to B$ in $\Aa$. Let $\imath\colon\Aa\hookrightarrow\Bb$ be the inclusion, $r$ be its left adjoint and $\epsilon\colon r\circ\imath\to\Id_{\Aa}$ be the counit.
+    Then for any object $T$ with two morphisms $x,y\colon T\to\imath(A)$ in $\Bb$, we have
+    \begin{equation*}
+      \Hom_{\Bb}(T,\imath(B)) \approx \Hom_{\Aa}(r(T),B)
+    \end{equation*}
+    Then it maps $\imath(f)\circ x$ and $\imath(f)\circ y$ to $\epsilon_B\circ r(\imath(f)\circ x)$ and $\epsilon_B\circ r(\imath(f)\circ y)$. But
+    \begin{equation*}
+      \epsilon_B\circ (r\circ\imath)(f) = f\circ\epsilon_A
+    \end{equation*}
+    Therefore, if $\imath(f)\circ x = \imath(f)\circ y$ then $f\circ\epsilon_A \circ r(x)=  f\circ\epsilon_A\circ r(y)$, thus
+    \begin{equation*}
+      \epsilon_A \circ r(x)= \epsilon_A\circ r(y)
+    \end{equation*}
+
+    On the other hand, we have
+    \begin{equation*}
+      \Hom_{\Bb}(T,\imath(A)) \approx \Hom_{\Aa}(r(T),A)
+    \end{equation*}
+    which maps $x$ and $y$ to $\epsilon_A\circ r(x)$ and $\epsilon_A\circ r(y)$ respectively.
+    Therefore, $x=y$ and thus $\imath(f)$ is monic.
+  \end{proof}
+
+
+  \begin{prop}\label{prop:reflection of limits}
+    A reflective subcategory $\Aa$ of a (finitely) complete category $\Bb$ is (finitely) complete.
+  \end{prop}
+  \begin{proof}
+    Let $\imath\colon\Aa\hookrightarrow\Bb$ be the inclusion functor with left adjoint $r$. For a (finitely) small diagram $D\colon\Ii^{\op}\to\Aa$, $\imath\circ D$ is a diagram in $\Bb$. Since $\Bb$ is (finitely) complete, we have a limit of $\imath\circ D$, say $\mu\colon\Delta_L\then\imath\circ D$.
+
+    Consider the cone $r\ast\mu\colon\Delta_{r(L)}\then F\circ\imath\circ D$. Since $\imath$ is fully faithful, the counit $\epsilon$ is an isomorphism, then $r\circ\imath\circ D\cong D$, thus $r\ast\mu$ is a cone over $D$. Then $\imath\ast r\ast\mu$ is a cone over $\imath\circ D$. Thus there exists a unique factorization $f\colon r(L)\to L$ of $\imath\ast r\ast\mu$ by $\mu$. On the other hand, by the adjunct of $1_{r(L)}$ gives a morphism $\eta_L\colon L\to\imath\circ r(L)$ in $\Bb$.
+      \begin{displaymath}
+        \xymatrix{
+          \imath\circ r(L)\ar@<-0.5ex>[r]_-{f}\ar@{}[dr]_{(\imath\circ r)\ast\mu}|-{\SelectTips{eu}{}\object@{=>}}
+          &L\ar@<-0.5ex>[l]_-{\eta_L}\ar@{}[d]^-{\mu}|-{\SelectTips{eu}{}\object@{=>}}\\
+          &\imath\circ D
+         }
+      \end{displaymath}
+
+      By the naturality of the unit $\eta$, the above diagram commutes. Then $f\circ\eta_L = 1_L$.
+      Since $\imath$ is fully faithful, we have a unique $g\colon r(L)\to r(L)$ such that $\imath(g)=\eta_L\circ f$.
+      We have
+      \begin{equation*}
+        \imath(g)\circ\eta_L = \eta_L\circ f\circ\eta_L = \eta_L = \imath(1_{r(L)})\circ\eta_L
+      \end{equation*}
+
+      Since taking adjunct $g \mapsto \imath(g)\circ\eta_L$ is unique, $g=1_{r(L)}$ and thus $f$ is an isomorphism. Therefore $(\imath\circ r)\ast\mu$ is a limit of $\imath\circ D$ and then $r\ast\mu$ is a limit of $D$.
+  \end{proof}
+  By duality, a coreflective subcategory of a cocomplete category is itself cocomplete. This obvious remark stands here just to emphasize the fact that our next result is by no means dual to the previous one.
+  \begin{prop}\label{prop:reflection of colimits}
+    A reflective subcategory $\Aa$ of a (finitely) cocomplete category $\Bb$ is (finitely) cocomplete.
+  \end{prop}
+  \begin{proof}
+    Let $\imath\colon\Aa\hookrightarrow\Bb$ be the inclusion functor with left adjoint $r$. For a (finitely) small diagram $D\colon\Ii\to\Aa$, $\imath\circ D$ is a diagram in $\Bb$. Since $\Bb$ is (finitely) cocomplete, we have a colimit of $\imath\circ D$, say $\mu\colon\imath\circ D\then\Delta_C$. Since left adjoint preserves colimits, $r\ast\mu\colon r\circ\imath\circ D\then\Delta_{r(C)}$ is a colimit of $r\circ\imath\circ D$. But since $\imath$ is fully faithful, the counit $\epsilon$ is an isomorphism, then $r\circ\imath\circ D\cong D$. Hence $F\ast\mu$ is a colimit of $D$.
+  \end{proof}
+
+  \begin{defn}
+    A \termin{localization} of a category $\Bb$ with finite limits is a reflective subcategory $\Aa$ of $\Bb$ whose reflection preserves finite limits.
+  \end{defn}
+  \begin{defn}
+    An \termin{essential localization} of a category $\Bb$ is a reflective subcategory $\Aa$ of $\Bb$ whose rejection itself admits a left adjoint.
+  \end{defn}
+
+  A functor with a left adjoint preserves all limits (Proposition \ref{prop:adjoint functor preserves limits}). So when $\Bb$ has finite limits, every essential localization of $\Bb$ is certainly a localization.
+  Moreover if $\imath\colon\Aa\to\Bb$ is the canonical inclusion and $L\dashv r\dashv\imath$ are the reflection and its left adjoint, the functor $L$ is again full and faithful (by Proposition \ref{prop:two side adjoint}).
+  Therefore the full subcategory $L(\Aa)\subset\Bb$ is, up to an equivalence, a coreflective subcategory of $\Bb$. It should be noticed that $L$ has in general no reason at all to coincide with the canonical inclusion $\imath$.
+
+  \begin{prop}
+    Consider a category $\Bb$ with finite limits and filtered colimits, and a localization $\Aa$ of $\Bb$. If in $\Bb$, finite limits commute with filtered colimits, the same property holds in $\Aa$.
+  \end{prop}
+  \begin{proof}
+    Let $\imath\Aa\to\Bb$ be the canonical inclusion and $r$ be its left adjoint. Consider a diagram
+    \begin{equation*}
+      D\colon\Ii\times\Jj\To\Aa
+    \end{equation*}
+    with $\Ii$ finite and $\Jj$ filtered.
+
+    The proof of Proposition \ref{prop:reflection of limits} shows that
+    \begin{equation*}
+      \invlim_{\Jj}D \approx r(\invlim_{\Jj}\imath\circ D)
+    \end{equation*}
+
+    Then, by proof of Proposition \ref{prop:reflection of colimits},
+    \begin{equation*}
+      \dirlim_{\Ii}r(\invlim_{\Jj}\imath\circ D) \approx r(\dirlim_{\Ii}\imath\circ r(\invlim_{\Jj}\imath\circ D))
+    \end{equation*}
+
+    Notice that $\imath,r$ preserve limits and $r$ preserves colimits, we have
+    \begin{equation*}
+       r(\dirlim_{\Ii}\imath\circ r(\invlim_{\Jj}\imath\circ D)) \approx r\circ\imath\circ r (\dirlim_{\Ii}\invlim_{\Jj}\imath\circ D)
+    \end{equation*}
+
+    Since finite limits commute with filtered colimits in $\Bb$, we have
+    \begin{equation*}
+       \dirlim_{\Ii}\invlim_{\Jj}\imath\circ D \approx \invlim_{\Jj}\dirlim_{\Ii}\imath\circ D
+    \end{equation*}
+
+    Based on the above, we have
+    \begin{align*}
+      \dirlim_{\Ii}\invlim_{\Jj}D &\approx r\circ\imath\circ r (\invlim_{\Jj}\dirlim_{\Ii}\imath\circ D) \\
+                                                  &\approx r\circ\imath (\invlim_{\Jj}\dirlim_{\Ii}r\circ\imath\circ D)  \\
+                                                  &\approx \invlim_{\Jj}\dirlim_{\Ii}D
+    \end{align*}
+
+    Where the last isomorphism is based on the constructions in proof of Proposition \ref{prop:reflection of limits} and \ref{prop:reflection of colimits}.
+  \end{proof}
+
+\subsection{Epireflective subcategories}
+  \begin{defn}
+    Consider a category $\Bb$ and a reflective subcategory $\Aa$ of $\Bb$. Its reflection $r$ is said to be an \termin{epireflection} if the unit $\eta\colon\Id_{\Bb}\to\imath\circ r$ is pointwise epi.
+  \end{defn}
+
+  \begin{prop}
+    Consider a category $\Bb$ in which every morphism can be factored as an epimorhism followed by a strong monomorphism. For a reflective subcategory $r\dashv\imath\colon\Aa\hookrightarrow\Bb$, the following conditions are equivalent:
+    \begin{enumerate}
+      \item the reflection is an epireflection;
+      \item given a strong monomorphism $u\colon B\to\imath(A)$ in $\Bb$, then the object $B$ belongs to $\Aa$,
+    \end{enumerate}
+  \end{prop}
+
+\newpage
+\section{Kan extensions}
+  The \termin{Kan extension} of a functor $F\colon\Aa\to\Bb$ with respect to a functor $p\colon\Aa\to\Aa'$ is, if it exists, a kind of best approximation to the problem of finding a functor $\Aa'\to\Bb$ such that
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[r]^{F}\ar[d]_{p}&\Bb\\
+          \Aa'\ar[ur]&
+         }
+      \end{displaymath}
+  hence to extending the domain of $F$ through $p$ from $\Aa$ to $\Aa'$.
+
+  Similarly, a \termin{Kan lift} is the best approximation to lifting a functor $F\colon\Aa\to\Bb$ through a functor $q\colon\Bb'\to\Bb$ to a functor $\hat{F}$:
+      \begin{displaymath}
+        \xymatrix{
+          &\Bb'\ar[d]^{q}\\
+          \Aa\ar[ur]^{\hat{F}}\ar[r]^{F}&\Bb
+         }
+      \end{displaymath}
+
+  Kan extensions are ubiquitous.
+
+  \begin{defn}
+    Consider two functors $F\colon\Aa\to\Bb$ and $p\colon\Aa\to\Aa'$. The \termin{left Kan extension} of $F$ along $p$, if it exists, is a pair $(G,\alpha)$ where
+    \begin{itemize}
+      \item $G\colon\Aa'\to\Bb$ is a functor;
+      \item $\alpha\colon F\then G\circ p$ is a natural transformation
+    \end{itemize}
+    satisfying the following universal property:
+    if $(H,\beta)$ is another pair with
+    \begin{itemize}
+      \item $H\colon\Aa'\to\Bb$ is a functor;
+      \item $\beta\colon F\then H\circ p$ is a natural transformation
+    \end{itemize}
+    there exists a unique natural transformation $\gamma\colon G\then H$ satisfying the equality $(\gamma\ast p)\circ\alpha=\beta$.
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[rr]^{F}\rrlowertwocell<-12>~{\dir{}}~'{\dir{}}^{}_{}{\alpha}\ar[dr]_{p}&&\Bb\\
+          &\Aa'\ar[ur]^{G}\urlowertwocell^{}_{H}{\gamma}&
+         }
+      \end{displaymath}
+
+    We shall use the notation $\Lan_pF$ to denote the \termin{left Kan extension} of $F$ along $p$. The notation $\Ran_pF$ is used for the dual notion of \termin{right Kan extension}.\glsadd{Lan}\glsadd{Ran}
+  \end{defn}
+
+    Let $p\colon\Aa\to\Aa'$ be a functor between small categories. For $\Bb$ any other category, write
+  \begin{equation*}
+    p^{\ast}\colon[\Aa',\Bb]\to[\Aa,\Bb]
+  \end{equation*}
+  for the induced functor which sends a functor $H\colon\Aa'\to\Bb$ to the composite functor $H\circ p\colon\Aa\to\Aa'\to\Bb$.
+
+  Then the left Kan extension of $F$ along $p$ is precisely a corepresentation of the functor $\Hom_{[\Aa,\Bb]}(F,p^{\ast}(-))$, which is a specified natural isomorphism
+  \begin{equation*}
+    \Hom_{[\Aa,\Bb]}(F,p^{\ast}(-))\cong\Hom_{[\Aa',\Bb]}(\Lan_pF,-)
+  \end{equation*}
+  with corepresenting object $\Lan_pF$.
+
+  Moreover, if for any functor $F\colon\Aa\to\Bb$, its left Kan extension along $p$ exists, then those corepresenting objects form a functor
+  \begin{equation*}
+    \Lan_p\colon[\Aa,\Bb]\to[\Aa',\Bb]
+  \end{equation*}
+  left adjoint to $p^{\ast}$.
+  \begin{defn}
+    Let $p\colon\Aa\to\Aa'$ be a functor and $p^{\ast}$ its induced pullback functor. The left adjoint of $p^{\ast}$, if it exists, is called the \termin{left Kan extension operation} along $p$ and denoted by $p_{!}$ or $\Lan_p$. The right adjoint, if it exists, is called the \termin{right Kan extension operation} along $p$ and denoted by $p_{\ast}$ or $\Ran_p$.
+  \end{defn}
+
+  Use the fact that $[\one,\Aa]\simeq\Aa$ and Proposition \ref{prop:limits as adjoint functors}, we have
+  \begin{prop}
+    Let $\Aa'$ be the terminal category $\one$, then
+    \begin{enumerate}
+      \item the left Kan extension operation forms the colimit of a functor;
+      \item the right Kan extension operation forms the limit of a functor.
+    \end{enumerate}
+  \end{prop}
+
+\subsection{Preserving Kan extensions}
+  \begin{defn}
+    We say that a Kan extension $\Lan_pF$ is \termin[preserved]{preserve Kan extension} by a functor $G$ if the composite $G\circ\Lan_pF$ is a Kan extension of $G\circ F$ along $p$, and moreover the universal natural transformation $G\circ F\then G\circ \Lan_pF\circ p$ is the composite of $G$ with the universal transformation $F\then \Lan_pF\circ p$.
+  \end{defn}
+  \begin{prop}
+    Left adjoint functor preserves left Kan extensions.
+  \end{prop}
+  \begin{proof}
+    Let $L$ be a functor with right adjoint $R$, then we need to show that $L\circ\Lan_pF=\Lan_p(L\circ F)$.
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[d]_p\ar[r]^{F}&\Bb\ar@<0.5ex>[r]^{L}&\Cc\ar@<0.5ex>[l]^{R}\\
+          \Aa'\ar[ur]|{\Lan_pF}\ar@/_1.1pc/[urr]|{\Lan_p(L\circ F)}
+         }
+      \end{displaymath}
+
+      Indeed, for any functor $G\colon\Aa'\to\Cc$, we have
+      \begin{align*}
+        \Nat(L\circ\Lan_pF,G) &\approx\Nat(\Lan_pF,R\circ G)  \\
+         &\approx\Nat(F,R\circ G\circ p) \\
+         &\approx\Nat(L\circ F,G\circ p) \\
+         &\approx\Nat(\Lan_p(L\circ F),G)
+      \end{align*}
+      So $L\circ\Lan_pF=\Lan_p(L\circ F)$, by putting successively $H=L\circ\Lan_pF$ and $H=\Lan_p(L\circ F)$.
+  \end{proof}
+
+  \begin{prop}
+    Consider a functor $p\colon\Aa\to\Aa'$ between small categories. The following conditions are equivalent:
+    \begin{enumerate}
+      \item $p$ has a right adjoint $q$;
+      \item $\Lan_p\Id_{\Aa}$ exists, and for every functor $F\colon\Aa\to\Bb$, the isomorphism $F\circ\Lan_p\Id_{\Aa}\cong\Lan_pF$ holds;
+      \item $\Lan_p\Id_{\Aa}$ exists, and the isomorphism $p\circ\Lan_p\Id_{\Aa}\cong\Lan_pp$ holds.
+    \end{enumerate}
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[d]_p\ar[r]^{\Id_{\Aa}}&\Aa\ar[r]^{F}&\Bb\\
+          \Aa'\ar[ur]|{\Lan_p\Id_{\Aa}}\ar@/_1.1pc/[urr]|{\Lan_pF}
+         }
+      \end{displaymath}
+  \end{prop}
+  \begin{proof}
+    For \emph{1} $\then$ \emph{2}, let $\eta\colon\Id_{\Aa}\then q\circ p$ and $\epsilon\colon p\circ q\then\Id_{\Aa'}$ be the unit and counit of the adjunction $p\dashv q$, then we get a natural transformation $\alpha=F\ast\eta$. For any functor $G\colon\Aa'\to\Bb$ and natural transformation $\beta\colon F\then G\circ p$, consider the composite
+      \begin{displaymath}
+        \xymatrix{
+          \Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}&\Aa\ar[r]^p\rruppertwocell<12>^{F}_{}{\beta}&\Aa'\ar[r]^G&\Bb
+         }
+      \end{displaymath}
+    \begin{equation*}
+      \gamma=(G\ast\epsilon)\circ(\beta\ast q)\colon F\circ q\then G\circ p\circ q\then G
+    \end{equation*}
+
+    Then, by the triangle identity, it is not difficult to see that $(\gamma\ast p)\circ\alpha=\beta$ from the following calculation
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}&\Aa\ar[r]^p\rruppertwocell<12>^{F}_{}{\beta}&\Aa'\ar[r]^G&\Bb
+         }
+         =
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{F}_{}{\beta}&\Aa'\ar[r]^G&\Bb
+         }
+      \end{displaymath}
+
+      To see such $\gamma$ is unique, consider another natural transformation $\gamma'$ such that $(\gamma'\ast p)\circ\alpha=\beta$, i.e.
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{G}{\gamma'}&\Aa\ar[r]^F&\Bb
+         }
+         =
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{F}_{}{\beta}&\Aa'\ar[r]^G&\Bb
+         }
+      \end{displaymath}
+
+      Therefore, we have
+      \begin{align*}
+        \xymatrix{
+          \Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{G}{\gamma'}&\Aa\ar[r]^F&\Bb
+         }
+        & =
+        \xymatrix{
+          \Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}&\Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{G}{\gamma'}&\Aa\ar[r]^F&\Bb
+         }
+         \\
+         & =
+        \xymatrix{
+          \Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}&\Aa\ar[r]^p\rruppertwocell<12>^{F}_{}{\beta}&\Aa'\ar[r]^G&\Bb
+         }
+      \end{align*}
+
+      \begin{align*}
+        \gamma' &= \gamma'\circ(F\ast q\ast\epsilon)\circ(\alpha\ast q) \\
+                         &= (G\ast\epsilon)\circ(\gamma'\ast p\ast q)\circ(\alpha\ast q)\\
+                         &= (G\ast\epsilon)\circ(\beta\ast q) = \gamma
+      \end{align*}
+
+      This prove $\Lan_pF=F\circ q$ for every functor $F\colon\Aa\to\Bb$. Specially, $\Lan_p\Id_{\Aa}=q$.
+
+      \emph{2} $\then$ \emph{3} is obvious.
+
+      For \emph{3} $\then$ \emph{1}, we need to show that $\Lan_p\Id_{\Aa}$ is the right adjoint of $p$. The canonical natural transformation $\eta\colon\Id_{\Aa}\then(\Lan_p\Id_{\Aa})\circ p$ should be the unit. It suffices to construct the counit and check the triangle identities.
+
+      Set $q=\Lan_p\Id_{\Aa}$.
+      By our assumption, $\alpha=p\ast\eta\colon p\then p\circ q\circ p$ is the canonical natural transformation of $\Lan_pp$.
+
+      Consider the functor $\Id_{\Aa'}\colon\Aa'\to\Aa'$ and the natural transformation $\Id_p\colon p\then p$. Then, by the universal property of Kan extension. there exists a unique natural transformation $\epsilon\colon p\circ q\then\Id_{\Aa'}$ such that $(\epsilon\ast p)\circ\alpha=\Id_p$, which is just the triangle identity
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}&\Aa\ar[r]^p&\Aa'
+         }
+         =
+        \xymatrix{
+          \Aa\ar[r]^p&\Aa'
+         }
+      \end{displaymath}
+
+      For the other triangle identity, consider that the composite $(q\ast\epsilon)\circ(\eta\ast q)$ satisfying
+      \begin{displaymath}
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q\rrlowertwocell<-12>^{}_{\Id_{\Aa'}}{\epsilon}
+          &\Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q&\Aa
+         }
+         =
+        \xymatrix{
+          \Aa\ar[r]^p\rruppertwocell<12>^{\Id_{\Aa}}_{}{\eta}&\Aa'\ar[r]^q&\Aa
+         }
+      \end{displaymath}
+
+      For functor $q\colon\Aa'\to\Aa$ and natural transformation $\eta\colon\Id_{\Aa}\then q\circ p$, the factorization $\gamma\colon q\then q$ satisfying $(\gamma\ast p)\circ \eta=\eta$ is unique. Therefore, $(q\ast\epsilon)\circ(\eta\ast q)=\Id_q$ and thus $\eta,\epsilon$ are the unit and counit of adjunction $p\dashv q$.
+  \end{proof}
+  \begin{rem}
+    This proposition also shows that adjoint functions are special Kan extensions.
+  \end{rem}
+
+\subsection{Pointwise Kan extension}
+  \begin{thm}
+    Let $F\colon\Aa\to\Bb$ be a functor from a small category $\Aa$ to a cocomplete category $\Bb$. Then for any $p\colon\Aa\to\Aa'$, the left Kan extension of $F$ along $p$ exists and its value on an object $X$ in $\Aa'$ is given by the colimit
+    \begin{equation*}
+      (\Lan_pF)(X)\cong\dirlim((p\down\Delta_X)\to\Aa\markar{F}\Bb)
+    \end{equation*}
+    where
+    \begin{itemize}
+      \item $(p\down\Delta_X)$ is the comma category;
+      \item $(p\down\Delta_X)\to\Aa$ is the domain functor.
+    \end{itemize}
+
+    Likewise, if $\Bb$ is complete, then for any $p\colon\Aa\to\Aa'$, the right Kan extension of $F$ along $p$ exists and its value on an object $X$ in $\Aa'$ is given by the limit
+    \begin{equation*}
+      (\Ran_pF)(X)\cong\invlim((\Delta_X\down p)\to\Aa\markar{F}\Bb)
+    \end{equation*}
+    where
+    \begin{itemize}
+      \item $(\Delta_X\down p)$ is the comma category;
+      \item $(\Delta_X\down p)\to\Aa$ is the codomain functor.
+    \end{itemize}
+  \end{thm}
+  \begin{proof}
+    Consider the case of the left Kan extension, the other case works analogously, but dually.
+
+    First notice that the above pointwise definition of values of a functor canonically extends to an actual functor:
+
+    For any morphism $f\colon X_1\to X_2$ in $\Aa'$, we get a functor
+    \begin{equation*}
+      (p\down\Delta_{X_1})\To(p\down\Delta_{X_2})
+    \end{equation*}
+    of comma categories, by postcomposition. Then we get a morphism from the diagram
+    \begin{equation*}
+      (p\down\Delta_{X_1})\to\Aa\markar{F}\Bb
+    \end{equation*}
+    to
+    \begin{equation*}
+      (p\down\Delta_{X_2})\to\Aa\markar{F}\Bb
+    \end{equation*}
+    which induces canonically a corresponding morphism of their colimits.
+    \begin{equation*}
+       (\Lan_pF)(X_1)\To(\Lan_pF)(X_2)
+    \end{equation*}
+
+    Now we consider that, for any $X$ in $\Aa'$, as a cocone of the diagram
+    \begin{equation*}
+      (p\down\Delta_X)\to\Aa\markar{F}\Bb
+    \end{equation*}
+    $(\Lan_pF)(X)$ gives a family of commutative diagrams:
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+          (p\down\Delta_X)&(p(A_1)\markar{f} X)\ar[rr]^{p(h)}&&(p(A_2)\markar{g} X)\\
+          \Bb&F(A_1)\ar[rr]^{F(h)}\ar[dr]_{s_f}&&F(A_2)\ar[dl]^{s_g}\\
+          &&(\Lan_pF)(X)&
+         }
+      \end{displaymath}
+      and induces a natural transformation
+      \begin{equation*}
+        \eta_F\colon F\then p^{\ast}\Lan_pF
+      \end{equation*}
+      satisfying the required universal property
+      by taking
+      \begin{equation*}
+        \eta_F(A)=s_{1_{p(A)}}\colon F(A)\to(\Lan_pF)(p(A)).
+      \end{equation*}
+
+    It is straightforward, if somewhat tedious, to check that these are natural, and that the natural transformation defined this way has the required universal property.
+  \end{proof}
+  A Kan extension is called pointwise when every $\Lan_pF(X)$ can be computed by the colimit formula in this theorem. It should be noted, though, that pointwise Kan extensions can still exist, and hence the particular requisite (co)limits exist, even if $\Bb$ is not (co)complete.
+
+  Here, we give a formal definition of pointwise Kan extension that doesn't rely on any computational framework
+  \begin{defn}
+    A right Kan extension is called \termin[pointwise]{pointwise Kan extension} when it is preserved by all representable functors. A left Kan extension is called \termin[pointwise]{pointwise Kan extension} when its opposite is a pointwise right Kan extension.
+  \end{defn}
+
+  \begin{thm}\label{thm:pointwise Kan extension}
+    A right Kan extension $\Ran_pF$ is pointwise if and only if for any $X$ in $\Aa'$, the limit $\invlim((\Delta_X\down p)\to\Aa\markar{F}\Bb)$ exists.
+    Dually, a left Kan extension $\Lan_pF$ is pointwise if and only if for any $X$ in $\Aa'$, the colimit $ \dirlim((p\down\Delta_X)\to\Aa\markar{F}\Bb)$ exists.
+  \end{thm}
+  \begin{proof}
+    Since representable functors preserve limits, the ``if'' is obvious.
+
+    Conversely, assume the right Kan extension $\Ran_pF$ is pointwise. Then for any $X$ in $\Aa'$, we need to show that $(\Ran_pF)(X)$ is the limit of the composite $(\Delta_X\down p)\to\Aa\markar{F}\Bb$.
+
+    Let $H$ denote the composite of the representable functor $\Hom_{\Bb}(B,-)$ with $\Ran_pF$. Then by the covariant Yoneda lemma,
+    \begin{equation*}
+      \Nat(\Hom_{\Aa'}(X,-),H)\approx H(X)
+    \end{equation*}
+
+    By our assumption, $H$ is the right Kan extension of the composite of $\Hom_{\Bb}(B,-)$ and $F$, so we have
+    \begin{equation*}
+      \Hom_{[\Aa,\Set]}(p^{\ast}(-),\Hom_{\Bb}(B,F(-)))\cong\Hom_{[\Aa',\Set]}(-,H)
+    \end{equation*}
+    Therefore we get the following bijection.
+    \begin{equation*}
+      \Hom_{\Bb}(B,(\Ran_pF)(X))\approx\Nat(\Hom_{\Aa'}(X,p(-)),\Hom_{\Bb}(B,F(-)))
+    \end{equation*}
+
+    It is not difficult to see that the right side set is equivalent to the set of cones over the composite $(\Delta_X\down p)\to\Aa\markar{F}\Bb$. Thus $(\Ran_pF)(X)$ is its limit.
+  \end{proof}
+
+  \begin{prop}
+    Let $\Lan_pF$ be a pointwise Kan extension with $p$ fully faithful, then the canonical natural transformation $\eta_F\colon F\then p^{\ast}(\Lan_pF)$ is an isomorphism.
+  \end{prop}
+  \begin{proof}
+    In the proof of Theorem \ref{thm:pointwise Kan extension}, we have constructed the natural transformation
+    \begin{equation*}
+      \eta_F\colon F\then p^{\ast}(\Lan_pF)
+    \end{equation*}
+    whose component $\eta_F(A)$ at $A\in\ob\Aa$ is the component $s_{1_{p(A)}}$ of the colimit cocone
+    \begin{equation*}
+      \dirlim((p\down\Delta_X)\to\Aa\markar{F}\Bb)
+    \end{equation*}
+    under index $(A,1_{p(A)})$.
+
+    Therefore, to show $\eta_F$ is an isomorphism, it suffices to show that for every $A\in\ob\Aa$, $s_{1_{p(A)}}$ is an isomorphism. To do this, we shall point out that $(A,1_{p(A)})$ is a terminal object in $(p\down\Delta_{p(A)})$, then the colimit is just $F(A)$ and $s_{1_{p(A)}}=1_{F(A)}$.
+
+    Indeed, for any $(A',g)$ in $(p\down\Delta_{p(A)})$, since $p$ is fully faithful, there exists a unique morphism $f\in\Hom(A',A)$ such that $p(f)=g$. Then $f$ is a morphism from $(A',g)$ to $(A,1_{p(A)})$. Conversely, for any morphism $f$ from $(A',g)$ to $(A,1_{p(A)})$, we have $p(f)=g$. Thus $(A,1_{p(A)})$ is the terminal object.
+  \end{proof}
+
+\subsection{Exercises}
+
+  \begin{ex}
+    Consider two functors $p\colon\Aa\to\Aa'$ and $F\colon\Aa\to\Bb$, with the property
+    \begin{equation*}
+      \forall A,A\in\ob\Aa, \forall f,f'\colon A\to A',  F(f)=F(f')\Longrightarrow p(f)=p(f')
+    \end{equation*}
+    Suppose $\Aa,\Aa'$ are small, $\Bb$ is cocomplete and $p$ is full. 
+    Show that $\Lan_pF$ exists and the isomorphism $F = \Lan_pF \circ p$ holds.
+  \end{ex}
+  \begin{ex}
+    Consider a functor $p\colon\Aa\to\Aa'$ between small categories. For each object $A$ in $\Aa$, the Kan extension $\Lan_p\Hom_{\Aa}(A,-)$ exists and is given by 
+    $\Hom_{\Aa'}(p(A),-)$. [Hint: apply the Yoneda lemma.] The equality 
+    \begin{equation*}
+      \Lan_p\Hom_{\Aa}(A,-)\circ p = \Hom_{\Aa}(A,-)
+    \end{equation*}
+    holds precisely when $p$ is fully faithful.
+  \end{ex}
+  \begin{ex}
+    Consider the category $\one$ with a single object $A$ and a single arrow $1_A$, the category $\mathbf{2}$ with two distinct objects $A, B$ and just the identity arrows $1_A,1_B$, and the category $\vec{\mathbf{2}}$ with two distinct objects $A, B$, the identity arrrows $1_A, 1_B$ and an additional arrow $f\colon B \to A$. 
+    Define the functors $p\colon \one \to \vec{\mathbf{2}}$ and $F\colon \one \to \mathbf{2}$ by $p(A) = A, F(A) = A$. 
+    Observe that the only two functors from $\vec{\mathbf{2}}$ to $\mathbf{2}$ are the constant functors $\Delta_A$ and $\Delta_{A'}$. Check that $A$ a is the left Kan extension $\Lan_pF$. Prove that $(p\down\Delta_A)$ is an empty category and $\Delta_A(B)$ is not isomorphic to the colimit of $(p\down\Delta_X)\to\one\markar{F}\mathbf{2}$. So the Kan extension $\Lan_pF$ is not pointwise.
+  \end{ex}

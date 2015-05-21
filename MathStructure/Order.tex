@@ -1,0 +1,348 @@
+\chapter{Order Theory}
+  In this chapter, we introduce some basic concepts in order theory by treat it as a special case of category theory.
+\minitoc
+\newpage
+\section{Relations and orders}
+  \begin{defn}
+    Given a family $(S_i)_{i\in I}$ of sets, a \termin{relation} on that family is a subset $R$ of the cartesian product $\prod_{i\in I}S_i$.
+
+    A \termin{unary relation} on $A$ is a relation on the singleton family $(A)$. This is the same as a subset of $A$.
+
+    A \termin{binary relation} on $A$ and $B$ is a relation on the family $(A,B)$, that is a subset of $A\times B$. This is also called a relation from $A$ to $B$.
+
+    A \termin{binary relation} on $A$ is a relation on $(A,A)$, that is a relation from $A$ to itself. This is sometimes called simply a relation on $A$.
+
+    An \termin{$n-$ary relation} on $A$ is a relation on a family of $n$ copies of $A$, that is a subset of $A^n$.
+
+    For a binary relation, one often uses a symbol such as $\sim$ and writes $a\sim b$ instead of $(a,b)\in\sim$. Actually, even when a relation is given by a letter such as $R$, one often sees $aRb$ instead of $(a,b)\in R$, although now that does not look so good.
+  \end{defn}
+
+    Binary relations form a $2-$category $\Rel$.
+
+    The objects are sets, the morphisms from $A$ to $B$ are the binary relations from $A$ to $B$, and there is a $2-$morphism from $R$ to $S$ (both from $A$ to $B$) if $R$ implies $S$ (that is, when $(a,b)\in R$, then $(a,b)\in S$).
+
+    The interesting definition is composition
+  \begin{defn}
+    If $R$ is a relation from $A$ to $B$ and $S$ is a relation from $B$ to $C$, then their \termin{composite relation} $S\circ R$ from $A$ to $C$ is defined as follows:
+    \begin{equation*}
+      (a,c)\in S\circ R \iff \exists b\in B, (a,b)\in R \wedge (b,c)\in S
+    \end{equation*}
+  \end{defn}
+
+  The identity morphism is given by \termin{equality} (also called \termin{diagonal}):
+  \begin{equation*}\glsadd{equality}
+    1_A=\Delta_A:=\{(a,a)\mid a\in A\}
+  \end{equation*}
+
+  Moreover, there exists another operation on $\Rel$, the \termin[reverse]{reverse relation}:
+  \begin{equation*}
+    R^{\op}:=\{(y,x)\mid(x,y)\in R\}
+  \end{equation*}
+
+  It is obvious that:
+  \begin{equation*}
+    (S\circ R)^{\op}=R^{\op}\circ S^{\op}\qquad 1_A^{\op}=1_A
+  \end{equation*}
+
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[transitive]{transitive relation} if in every chain of three pairwise related elements $x\sim y, y\sim z$, the first and last elements are also related $x\sim z$.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is transitive if and only if it contains its composite with itself:
+  \begin{equation*}
+    R^2\subset R
+  \end{equation*}
+  from which it follows that $R^n\subset R$ for any natural number $n$ except $n=0$.
+
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[reflexive]{reflexive relation} if every element of $A$ is related to itself.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is reflexive if and only if it contains the equality:
+  \begin{equation*}
+    1_A\subset R
+  \end{equation*}
+
+  The antithetical case is
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[irreflexive]{irreflexive relation} if no element of $A$ is related to itself.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is irreflexive if and only if it is disjoint from the the equality:
+  \begin{equation*}
+    1_A\cap R=\varnothing
+  \end{equation*}
+
+  Another interesting case is
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[symmetric]{symmetric relation} if any two elements that are related in one order are also related in the other order.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is symmetric if and only if it contains its reverse:
+  \begin{equation*}
+    R^{\op}\subset R
+  \end{equation*}
+
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[antisymmetric]{antisymmetric relation} if any two elements that are related in both orders are equal.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is antisymmetric if and only if its intersection with its reverse is contained in the equality:
+  \begin{equation*}
+    R^{\op}\cap R\subset 1_A
+  \end{equation*}
+
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[asymmetric]{asymmetric relation} if no two elements are related in both orders.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is asymmetric if and only if it is disjoint from its reverse:
+  \begin{equation*}
+    R^{\op}\cap R = \varnothing
+  \end{equation*}
+
+  The next important case is
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[total]{total relation} if any two elements that are related in one order or the other.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is total if and only if its union with its reverse is the \termin{universal relation}:
+  \begin{equation*}
+    R^{\op}\cup R = A\times A
+  \end{equation*}
+
+  \begin{defn}
+    A binary relation $\sim$ on an set $A$ is \termin[left euclidean]{left euclidean relation} if every two elements both related to a third are also related to each other. A relation $\sim$ is \termin[right euclidean]{right euclidean relation} if this works in the other order.
+  \end{defn}
+  \begin{rem}
+    One could also say \termin[euclidean]{euclidean relation} and \termin[coeuclidean]{coeuclidean relation} or \termin[opeuclidean]{opeuclidean relation}.
+  \end{rem}
+  In $\Rel$, a relation $R\colon A\to A$ is left euclidean if and only if it contains its composite with its reverse:
+  \begin{equation*}
+    R^{\op}\circ R \subset R
+  \end{equation*}
+  a relation $R\colon A\to A$ is right euclidean if and only if it contains the composite of its reverse with itself:
+  \begin{equation*}
+    R\circ R^{\op} \subset R
+  \end{equation*}
+
+  An important example of the combination of those concepts is
+  \begin{defn}
+    An \termin{equivalence relation} on a set $S$ is a binary relation $\sim$ on $S$ that is reflexive, symmetric and transitive.
+  \end{defn}
+  \begin{prop}
+    A binary relation is an equivalence relation if and only if it is reflexive and euclidean in either direction.
+  \end{prop}
+
+\subsection{Orders}
+    An \termin{order} on a set $S$ is a binary relation that is, at least, transitive.
+
+  Actually, there are several different notions of order that are each useful in their own ways:
+  \begin{itemize}
+    \item A \termin{preorder} on a set $S$ is a reflexive and transitive relation, generally written $\leqslant$. A \termin{preordered set}, or \termin{proset}, is a set equipped with a preorder.
+    \item A \termin{quasiorder} (or \termin{strict preorder}) on a set $S$ is a irreflexive and transitive relation, generally written $<$. A \termin{quasiordered set}, or \termin{quoset}, is a set equipped with a quasiorder.
+    \item A \termin{partial order} on a set $S$ is an antisymmetric preorder. A \termin{partial ordered set}, or \termin{poset}, is a set equipped with a partial order.
+    \item A \termin{total order} on a set $S$ is a total partial order. A \termin{total ordered set}, or \termin{toset}, is a set equipped with a total order.
+  \end{itemize}
+
+  For a preorder $\leqslant$, one can define its strict preorder $<$ by subtracting the diagonal. Conversely, a preorder can be obtained by putting $x\leqslant y$ whenever $x<y$ or $x=y$.
+
+  We have already seen that a poset can be viewed as a category (see Example \ref{exam:category2}). Then all posets form a $2-$category, called $\Pos$.
+
+  A morphism $f\colon A\to B$ between two poset $(A,\leqslant)$ and $(B,\leqslant)$ is a functor by definition. In other word, $f$ is a function preserving the partial order:
+  \begin{equation*}
+    x\leqslant y\then f(x)\leqslant f(y).
+  \end{equation*}
+  Such a function is called a \termin{monotone function}.
+
+  It is not difficult to see that for any two poset $A,B$, there exists a natural partial order on the hom-set $\Hom(A,B)$ making it to be a poset and thus proving the $2-$morphisms between monotone functions.
+
+  Recall that a \termin{thin} category is a category whose every hom-set is a singleton. It is not difficult to verify that a \emph{proset}, viewed as a category (follow Example \ref{exam:category2}), is just a thin category.
+
+  Since every poset is also a proset, then $\Pos$ is a sub$-2-$category of the $2-$category of prosets, $\Proset$. But moreover, we have
+  \begin{prop}
+    Any proset is equivalent to a poset.
+  \end{prop}
+  This is a special case of the theorem that every category has a skeleton.
+
+\subsection{Negation}
+  Negation is the logic duality.
+
+  In the context of relations, the \termin[negation]{negation} $\not\sim$ of a binary relation $\sim$ on $A$ is just the complement in the universal relation $A\times A$. In $\Rel$, we denote the negation of a relation $R\colon A\to A$ by $\neg R$ or $R^c$.
+
+  Now we consider the negation of the conceptions in previous.
+  \begin{defn}
+    A \termin{comparison} on a set $A$ is a binary relation $\sim$ on $A$ such that in every pair of related elements, any other     element is related to one of the original elements in the same order as the original pair:
+    \begin{equation*}
+      \forall(x,y,z\in A),x\sim z \then x\sim y\vee y\sim z
+    \end{equation*}
+  \end{defn}
+  Comparison is the negation of transitivity, that means a binary relation $\sim$ on $A$ is a comparison if and only if $\not\sim$ is transitive.
+
+  \begin{defn}
+    An \termin{apartness relation} on a set $A$ is a comparison $\sim$ on $A$ that is irreflexive and symmetric.
+  \end{defn}
+  Apartness relation is the nagation of equivalence relation.
+
+  \begin{defn}
+    A binary relation $\sim$ on a set $A$ is \termin[connected]{connected relation} if any two elements that are related in neither order are equal. In other word, $\not\sim$ is antisymmetric.
+  \end{defn}
+  In $\Rel$, a relation $R\colon A\to A$ is connected if and only if its union with its reverse and the diagonal is the universal relation:
+  \begin{equation*}
+    R^{\op}\cup R\cup1_A = A\times A
+  \end{equation*}
+
+  The negation of total order is
+  \begin{defn}
+    A \termin{linear order} on a set $S$ is a irreflexive, asymmetric, transitive and connected comparison.	 A \termin{linearly ordered set}, or \termin{loset}, is a set equipped with a linear order.
+  \end{defn}
+
+\subsection{Operations on a proset}
+  As a special kind of category, we can consider some classical categorical concepts on a proset $A$.
+  \begin{itemize}
+    \item A \termin{bottom} $\bot$ of $A$ is just the initial object in $A$.
+    \item A \termin{top} $\top$ of $A$ is just the terminal object in $A$.
+  \end{itemize}
+  \begin{rem}
+    Since a poset is a skeletal category, the top and bottom in a poset is thus unique.
+  \end{rem}
+  
+  \begin{itemize}
+    \item A \termin{lower bound} of a subset $B$ of $A$ is just a cone over elements in $B$.
+    \item A \termin{upper bound} of a subset $B$ of $A$ is just a cocone under elements in $B$.
+  \end{itemize}
+
+  A proset with a top element and a bottom element is called \termin[bounded]{bounded poset}. This is different from the notion of a subset $B$ of a proset $A$ to be \termin[bounded]{bounded subset}, which means $B$ has both a lower bound and an upper bound.
+
+  More generally, A proset is \termin{bounded above} if it is has a top element and \termin{bounded below} if it has a bottom element.
+  
+  \begin{itemize}
+    \item The \termin{meet} $x\wedge y$ of two elements $x,y\in A$ is just their product in $A$.
+    \item The \termin{infimum} $\inf\limits_{i\in I}x_i$ of a family of elements $\{x_i\}_{i\in I}$ of $A$ is just their product in $A$.
+  \end{itemize}
+  \begin{rem}
+    It may be more common to use ``meet'' for a meet of finitely many elements and ``infimum'' for a meet of (possibly) infinitely many elements, but they are the same concept. The meet may also be called the \termin{minimum} if it equals one of the original elements.
+  \end{rem}
+  \begin{itemize}
+    \item The \termin{join} $x\vee y$ of two elements $x,y\in A$ is just their coproduct in $A$.
+    \item The \termin{supremum} $\sup\limits_{i\in I}x_i$ of a family of elements $\{x_i\}_{i\in I}$ of $A$ is just their coproduct in $A$.
+  \end{itemize}
+  \begin{rem}
+    It may be more common to use ``join'' for a join of finitely many elements and ``supremum'' for a join of (possibly) infinitely many elements, but they are the same concept. The join may also be called the \termin{maximum} if it equals one of the original elements.
+  \end{rem}
+
+  Since for any two elements in a proset, there can not be more than one morphism between them, thus by Theorem \ref{thm:complete_category} and its dual, a proset is complete (resp. cocomplete) as a category if and only if it has all infima (resp. suprema).
+  Since we often consider posets, we call a poset satisfying such proerty an \termin{inflattice} (resp. \termin{suplattice}).
+  Likewise, a \termin{meet-semilattice} is a poset having all finitely meets, a \termin{join-semilattice} is a poset having all finitely joins.
+
+  \begin{itemize}
+    \item A \termin{directed set} is a proset which is a filtered category.
+  \end{itemize}
+  
+\subsection{Exercises}
+  \begin{ex}
+    Check the ``if and only if'' statements in text and prove the rest propositions.
+  \end{ex}
+  \begin{ex}
+    Given two poset $A,B$, find a natural partial order on the hom-set $\Hom(A,B)$ making it to be a poset.
+  \end{ex}
+  \begin{ex}
+    Point out that the \termin{extensional property} which states that any two elements in a poset having the same lower bounds are equal is actually a special case of the Yoneda Lemma's corollary \ref{coro:Yoneda2}. [Hint: What is $\Upsilon(x)$ for an element $x$ of a poset $A$?]
+  \end{ex}
+
+
+\newpage\section{Subsets of a proset}
+  For $(X,\leqslant)$ a proset, a subset $A$ of $X$ is then again a proset whose preorder is the restriction of $\leqslant$ on $A$. In other word, there exists a canonical way to make a subset of a proset be a full subcategory of it. Thus when we say a subset of a proset, we actually mean a full subcategory of it.
+
+  Among subsets of a proset, a special kind is noteworthy, that is chains.
+  \begin{defn}
+  A \termin{chain} of a proset is a subset that itself is a toset.
+  \end{defn}
+  This notion plays a critical role in Zorn's lemma and thus the theory of Noetherianess.
+
+  Another important kind of subsets are intervals.
+
+  \begin{defn}
+    Given a proset $(X,\leqslant)$ and an elements $x$ of $X$.
+    \begin{itemize}
+      \item The \termin{upwards unbounded interval} $[x,+\infty)$ is the subset
+                 \begin{equation*}
+                 \{y\in X\mid x\leqslant y\}
+                 \end{equation*}
+                 It is also called the \termin{up set} of $x$, and denoted by $x\uparrow$.
+      \item The \termin{downwards unbounded interval} $(-\infty,x]$ is the subset
+                 \begin{equation*}
+                 \{y\in X\mid y\leqslant x\}
+                 \end{equation*}
+                 It is also called the \termin{down set} of $x$, and denoted by $x\down$.
+    \end{itemize}
+    Given another element $y$ of $X$, the \termin{bounded interval} $[x,y]$ is the subset
+    \begin{equation*}
+      \{z\in X\mid x\leqslant z\leqslant y\}
+    \end{equation*}
+
+    Moreover, besides the \termin[closed intervals]{closed interval} above, we also have the \termin[open intervals]{open interval}
+    \begin{itemize}
+      \item $(x,+\infty):=[x,+\infty)\setminus\{x\}=\{y\in X\mid x<y\}$,
+      \item $(-\infty,x):=(-\infty,x]\setminus\{x\}=\{y\in X\mid y<x\}$,
+      \item $(x,y):=[x,y]\setminus\{x,y\}=\{z\in X\mid x<z<y\}$,
+    \end{itemize}
+    as well as the \termin[half-open intervals]{half-open interval}
+    \begin{itemize}
+      \item $[x,y):=[x,y]\setminus\{y\}=\{z\in X\mid x\leqslant z<y\}$,
+      \item $(x,y]:=[x,y]\setminus\{x\}=\{z\in X\mid x<z\leqslant y\}$.
+    \end{itemize}
+  \end{defn}
+  It is obvious that, as categories, the up set $x\uparrow$ is isomorphic to the slide category $X/x$, the down set $x\down$ is isomorphic to the coslide category $x/X$.
+
+  \begin{defn}
+    In a proset $X$, an \termin{upper set} $U$ is a subset satisfying
+    \begin{quote}
+      whenever $x\leqslant y$ and $x\in U$, then $y\in U$.
+    \end{quote}
+    while a \termin{lower set} $L$ is a subset satisfying
+    \begin{quote}
+      whenever $y\leqslant x$ and $x\in L$, then $y\in L$.
+    \end{quote}
+    
+    Given a subset $A$ of $X$, the upper set \emph{generated} by $A$ is
+    \begin{equation*}
+      A\uparrow:=\{y\in X\mid \exists x\in A \st x\leqslant y\}
+    \end{equation*}
+    while the lower set \emph{generated} by $B$ is
+    \begin{equation*}
+      A\down:=\{y\in X\mid \exists x\in A \st y\leqslant x\}
+    \end{equation*}
+  \end{defn}
+  Obviously, $A\uparrow=\bigcup_{x\in A}x\uparrow$, $A\down=\bigcup_{x\in A}x\down$.
+
+\subsection{Alexandroff topology}
+  The Alexandroff topology, is a natural structure of a topological space induced on the underlying set of a proset. Spaces with this topology, called Alexandroff spaces and named after Paul Alexandroff (Pavel Aleksandrov), should not be confused with Alexandrov spaces (which arise in differential geometry and are named after Alexander Alexandrov).
+  \begin{defn}
+    Given a proset $X$. Declare subset $U$ of $X$ to be an open subset if it is an upper set. This defines a topology on $X$, called the \termin{specialization topology} or \termin{Alexandroff topology}.
+  \end{defn}
+  \begin{prop}
+    A proset $X$ is a poset if and only if its Alexandroff topology is $T_0$.
+  \end{prop}
+
+
+\newpage\section{Lattices}
+  Recall that a meet-semilattice is a poset having all finitely meets, a join-semilattice is a poset having all finitely joins.
+  It is not difficult to find that to say a poset is a meet-semilattice is the same to say its opposite is a join-semilattice.
+  Thus, a meet-semilattice is often called a \termin{semilattice} for brevity.
+
+  A \termin{semilattice homomorphism} $f$ from a semilattice $A$ to a semilattice $B$ is a function from $A$ to $B$ that preserves finitely meets, view $f$ as a functor, this equals to say that $f$ is continuous.
+
+  Semilattices and semilattice homomorphisms form a concrete category $\SemiLat$.
+
+  \begin{defn}
+  A poset that is both a meet-semilattice and join-semilattice is called a \termin{lattice}.
+  \end{defn}
+  A \termin{lattice homomorphism} $f$ from a lattice $A$ to a lattice $B$ is a function from $A$ to $B$ that preserves finitely meets and joins, view $f$ as a functor, this equals to say that $f$ is continuous and cocontinuous.
+
+  Lattices and lattice homomorphisms form a concrete category $\Lat$.
+
+  \begin{defn}
+  A poset that is both a inflattice and suplattice is called a \termin{complete lattice}.
+  \end{defn}
+  \begin{rem}
+    By the adjoint functor theorem for posets, having either all infima or all suprema is sufficient for the other. However, a inflattice morphism may preserve only infima, while dually an suplattice morphism may preserve only suprema.
+  \end{rem}
+  There are concepts of inflattice homomorphisms, suplattice homomorphisms and complete homomorphisms, which can be defined analogously.
+
+  Complete lattices and complete lattice homomorphisms form a concrete category $\CompLat$.
+
+

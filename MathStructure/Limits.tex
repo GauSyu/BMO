@@ -1,0 +1,1875 @@
+\chapter{Theory of Limits}
+  In this chapter, we develop a general theory about limits in categories. Cartesian product, quotient, kernel, union, intersection, and etc. are just particular cases of this theory.
+\minitoc
+\newpage
+\section{Diagrams and cones}
+  In category theory, people often draw commutative diagrams by draw some objects connected by arrows labelled by morphisms.
+  For instance, every kind of limit require such diagrams to define their universal property.
+  Therefore, to give a general definition of limits, we need to formalize the concept of diagram first.
+  \begin{defn}
+    Let $\Ii$ and $\Cc$ be categories. A \termin{diagram of shape $\Ii$} or a \termin{$\Ii-$diagram} in $\Cc$ is a functor $D\colon \Ii\to \Cc$.
+  \end{defn}
+  \begin{rem}
+    The category $\Ii$ is called the \termin{index category} of the diagram $D$. If it is small, then we say the diagram is small; if it is finite (that means it has only finitely many objects and arrows), then we say the diagram is finite.
+    For an object $i$ in the index category, we often write $D_i$ instead of $D(i)$.
+  \end{rem}
+
+\begin{defn}
+  A \termin{cone} over a diagram $D$ is an object in the comma category $(\Delta\downarrow D)$, where $\Delta\colon\Cc\to[\Ii,\Cc]$ is the diagonal functor. In other words, a cone over $D$ is a natural transformation from a constant functor $\Delta_C$ to $D$.
+
+  More specifically, a cone over $D$ consists of an object $C$ in $\Cc$ and a family of arrows in $\Cc$,
+  \begin{equation*}
+    (c_i\colon C\longrightarrow D_i)_{i\in\ob\Ii}
+  \end{equation*}
+  such that for each arrow $\alpha\colon i\to j$ in $\Ii$, the following triangle commutes.
+  \begin{displaymath}
+      \xymatrix{
+         &C\ar[ld]_{c_i}\ar[rd]^{c_j}&\\
+         D_i\ar[rr]^{D_{\alpha}}&&D_j
+      }
+  \end{displaymath}
+
+  A morphism of cones
+  \begin{equation*}
+    \theta\colon (C,c_i)\longrightarrow (C',c'_i)
+  \end{equation*}
+  is an arrow $\theta$ in $\Cc$, making each triangle
+  \begin{displaymath}
+      \xymatrix{
+         C\ar[rd]_{c_i}\ar[rr]^{\theta}&&C'\ar[ld]^{c'_i}\\
+         &D_i&
+      }
+  \end{displaymath}
+  commute.
+\end{defn}
+\begin{rem}
+  We also denote the category of cones over $D$ by $\Cone(D)$.
+\end{rem}
+
+%  Dually, a co-cone is a cone in the dual category. That is
+\begin{defn}
+  A \termin{co-cone} under a diagram $D$ is an object in the comma category $(D\downarrow\Delta)$. In other words, a co-cone under $D$ is a natural transformation from $D$ to a constant functor $\Delta_C$.
+
+  More specifically, a co-cone under $D$ consists of an object $C$ in $\Cc$ and a family of arrows in $\Cc$,
+  \begin{equation*}
+    (c_i\colon D_i\longrightarrow C)_{i\in\ob\Ii}
+  \end{equation*}
+  such that for each arrow $\alpha\colon i\to j$ in $\Ii$, the following triangle commutes.
+  \begin{displaymath}
+      \xymatrix{
+         D_i\ar[rr]^{D_{\alpha}}\ar[rd]_{c_i}&&D_j\ar[ld]^{c_j} \\
+         &C&
+      }
+  \end{displaymath}
+
+  A morphism of co-cones
+  \begin{equation*}
+    \theta\colon (C,c_i)\longrightarrow (C',c'_i)
+  \end{equation*}
+  is an arrow $\theta$ in $\Cc$, making each triangle
+  \begin{displaymath}
+      \xymatrix{
+         &D_i\ar[ld]_{c_i}\ar[rd]^{c'_i}& \\
+         C\ar[rr]^{\theta}&&C'
+      }
+  \end{displaymath}
+  commute.
+\end{defn}
+\begin{rem}
+  We also denote the category of co-cones under $D$ by $\Cocone(D)$.
+\end{rem}
+
+\begin{rem}
+  In the definition above, we mention the functor category $[\Ii,\Cc]$, which is not locally small in general and thus not a category in usual sense. To fix this, one approach is to consider small diagrams only, or at most essentially small diagrams. This works well in practice.
+
+  A more immediate approach is to notice that in the definition, we only need the category $\Cone(D)$ and $\Cocone(D)$ to be locally small, which is always true even $\Ii$ is not essentially small.
+\end{rem}
+
+Commutative triangles, squares and, more generally, diagrams abound in category theory. We now give them a formal definition.
+
+\begin{defn}
+  Let $f\colon A\to B$ be a morphism. If there exists an object $C$ equipped with two morphisms $g\colon A\to C$ and $h\colon C\to B$ such that $f = h\circ g$. Then we say ``$f$ \termin{factors through} $C$ by $g$ and $h$'', or simply ``$f$ factors through $C$ (resp. $g$ or $h$)''. The triple $(C,g,h)$ (or one of them) is called a \termin{factorization} of $f$.
+\end{defn}
+
+\begin{defn}
+  A diagram $D$ is said to be \termin[commutative]{commutative diagram}, if it factors through a poset. Informally, a diagram is commutative means its composition is path-independent.
+\end{defn}
+
+\subsection{Exercises}
+  \begin{ex}
+    Let $\Ii$ be one of the following categories, describe the diagrams of shape $\Ii$ and their cones and co-cones in terms of objects and morphisms.
+    \begin{itemize}
+      \item $\one$, which has only one object and one morphism.
+      \item a \termin{discrete category}, whose only morphisms are the identities.
+      \item two parallel arrows
+                     \begin{displaymath}
+                           \xymatrix{
+                              1\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &2
+                           }
+                     \end{displaymath}
+      \item two convergence arrows (called a \termin{cospan})
+                \begin{displaymath}
+                  \xymatrix{
+                     \cdot\ar[r]&\cdot&\cdot\ar[l]
+                  }
+                \end{displaymath}
+      \item two divergence arrows (called a \termin{span})
+                \begin{displaymath}
+                  \xymatrix{
+                     \cdot&\cdot\ar[l]\ar[r]&\cdot
+                  }
+                \end{displaymath}
+      \item a \termin{directed partially ordered set} (DPOS), which means a poset satisfies that for each two elements $i,j$, there exist another element $k\in I$ such that $i\leqslant k,j\leqslant k$.
+    \end{itemize}
+
+    For example, when $\Ii=\mathbf{0}$, the empty category, there is only one diagram of shape $\mathbf{0}$: the empty one. A cone over or a co-cone under the empty diagram is essentially just an object.
+  \end{ex}
+
+\newpage\section{Initial and terminal objects}
+  \begin{defn}\label{def:universal-object}
+    Let $\Cc$ be a category. An \termin{initial object} of $\Cc$ is an object $0$ in $\Cc$ such that for every object $X$ in $\Cc$, there exists precisely one morphism $0\to X$.
+    Dually, an object $1$ is called a \termin{terminal object}, if for every object $X$ in $\Cc$, there exists a unique morphism $X\to 1$.
+  \end{defn}
+  \begin{rem}
+    It is easy to see that the initial object and terminal object are unique up to unique isomorphism.
+  \end{rem}
+
+  \begin{exam}
+    In the category $\Set$, the empty set is the initial object and a singleton is a terminal object. The same holds in the category $\Top$. Similar, the empty category $\mathbf{0}$ is the initial object in $\Cat$ and $\one$ is the terminal object.
+  \end{exam}
+  \begin{rem}
+    Therefore $\one$ is sometimes called the \termin{terminal category}.
+  \end{rem}
+  \begin{exam}
+    In the categories of groups, abelian groups, vector spaces, Banach spaces, and so on, $\{0\}$ is both the initial and the terminal object.
+  \end{exam}
+
+  Not every category has terminal objects, for example:
+  \begin{exam}
+    The category of infinite groups do not have a terminal object: given any infinite group $G$ there are infinitely many morphisms $\ZZ\to G$, so $G$ cannot be terminal.
+  \end{exam}
+
+  \begin{defn}
+    If a category $\Cc$ has a terminal object $1$, then a \termin{global element} of another object $X$ is a morphism $1\to X$.
+  \end{defn}
+  \begin{exam}
+    In $\Set$, global elements are just elements.
+  \end{exam}
+  \begin{exam}
+    In $\Cat$, global elements are objects.
+  \end{exam}
+  \begin{exam}
+    In a slice category $\Cc/I$, a global element of the object $A\to I$ is just a section of it in $\Cc$.
+  \end{exam}
+
+
+\newpage\section{Limits and colimits}
+\begin{defn}
+  A \termin{limit} of a diagram $D\colon \Ii\to\Cc$ is a terminal object in the comma category $\Cone(D)$.
+  A \termin{colimit} is a initial object in $\Cocone(D)$.
+  % In particular, a finite limit is a limit of a diagram on a finite index category $\Ii$.
+\end{defn}
+\begin{rem}
+  Since the limit of a diagram $D$ is unique up to unique isomorphism, one can just write $\invlim D$ for the limit without confusion.
+
+  However, it is usually helpful to indicate how the functor is evaluated on objects, in which case the limit is written in the form $\invlim\limits_i D_i$.\glsadd{limit}
+
+  Since a cone is not just an object (sometimes, we colloquially call it a \textbf{limit}) but together with a family of morphisms (called \termin[projections]{projection (category theory)}), thus the full formula should be like this
+  \begin{equation*}
+    \left(p_j\colon\invlim_{i\in\ob\Ii}D_i \To D_j\right)_{j\in\ob\Ii}
+  \end{equation*}
+
+  Like limit, a colimit of $D$ can be dented by $\dirlim D$ for brevity, or $\dirlim\limits_i D_i$ if it is needed to indicate how the functor is evaluated on objects, or the full formula             \glsadd{colimit}
+  \begin{equation*}
+    \left(q_j\colon\dirlim_{i\in\ob\Ii}D_i \Ot D_j\right)_{j\in\ob\Ii}
+  \end{equation*}
+  consisting of an object (called \textbf{colimit}) and a family of morphisms (called \termin[injections]{injection (category theory)}).
+\end{rem}
+\begin{rem}
+  In some schools of mathematics, limits are called \termin[projective limits]{projective limit}, while colimits are called \termin[inductive limits]{inductive limit}. Also seen are (respectively) \termin[inverse limits]{inverse limit} and \termin[direct limits]{direct limit}. Both these systems of terminology are alternatives to using ``co-'' when distinguishing limits and colimits.
+\end{rem}
+\begin{rem}
+  Often, the general theory of limits (but not colimits!) works better if the functor $D$ is taken to be contravariant.
+  Thus, some authors define a \termin{projective system} (or, \termin{inverse system}) as a contravariant diagram $\Ii^{\op}\to\Cc$ and an \termin{inductive system} (or, \termin{direct system}) as a covariant diagram $\Ii\to\Cc$.
+\end{rem}
+\begin{rem}
+  Sometimes the term ``limit'' or ``colimit'' just refers to the vertices object in a limit cone or colimit co-cone. To emphasize this, we may call them ``\termin{limit object}'' and ``\termin{colimit object}'' if needed.
+\end{rem}
+
+  Here are some typical examples.
+\begin{exam}
+  A limit of the empty diagram is just a \termin{terminal object}, while a colimit is just an \termin{initial object}.
+\end{exam}
+\begin{exam}
+  A limit of the identity functor is just an \termin{initial object}, while a colimit is just a \termin{terminal object}.
+\end{exam}
+\begin{exam}
+  Take $\Ii=\{1,2\}$ the discrete category with two objects and no nonidentity arrows. A diagram $D\colon\Ii\to\Cc$ hence is a pair of objects $D_1, D_2$ in $\Cc$. A cone over $D$ is an object $C$ equipped with arrows
+  \begin{displaymath}
+      \xymatrix{
+         D_1&C\ar[l]_-{c_1}\ar[r]^-{c_2}&D_2
+      }
+  \end{displaymath}
+  A co-cone under $D$ is an object $C$ equipped with arrows
+  \begin{displaymath}
+      \xymatrix{
+         D_1\ar[r]^-{c_1}&C&D_2\ar[l]_-{c_2}
+      }
+  \end{displaymath}
+  A limit of $D$ is just a \termin[product]{product (category theory)} of $D_1$ and $D_2$ in $\Cc$.
+  A colimit of $D$ is just a \termin[coproduct]{coproduct (category theory)} of $D_1$ and $D_2$ in $\Cc$.
+\end{exam}
+
+\begin{exam}\label{exam:equalizer}
+  Take $\Ii$ to be the following category:
+  \begin{displaymath}
+      \xymatrix{
+         1\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &2
+      }
+  \end{displaymath}
+  Hence a diagram $D$ of shape $\Ii$ looks like
+  \begin{displaymath}
+      \xymatrix{
+         D_1\ar@<0.5ex>[r]^{D_{\alpha}}\ar@<-0.5ex>[r]_{D_{\beta}} &D_2
+      }
+  \end{displaymath}
+  A limit of $D$ is an \termin{equalizer} of $D_{\alpha},D_{\beta}$, a colimit is a \termin{coequalizer}.
+\end{exam}
+
+\begin{exam}
+%  Let $(I,\leqslant)$ be a \termin{filtered partially ordered set} (FPOS), which means a poset satisfies that for each two elements $i,j$, there exist another element $k$ such that $k\leqslant i,k\leqslant j$. As in Example \ref{exam:category2}, treat $I$ as a category.
+  Let $(I,\leqslant)$ be a \termin{directed set} (dpos), which means a poset satisfies that for each two elements $i,j$, there exist another element $k\in I$ such that $i\leqslant k,j\leqslant k$. As in Example \ref{exam:category2}, treat $I$ as a category.
+
+  Let $\Cc$ be a category, a projective system (inverse system) then is a set of objects $\{A_i\}_{i\in I}$ such that for each $i\leqslant j$, there exists a morphism $A_{i\leqslant j}\colon A_j\to A_i$ such that for any $i\leqslant j\leqslant k$, $A_{i\leqslant j}A_{j\leqslant k}=A_{i\leqslant k}$.
+  A inductive system (direct system) is a set of objects $\{B_i\}_{i\in I}$ such that for each $i\leqslant j$, there exists a morphism $B_{i\leqslant j}\colon B_i\to B_j$ such that for any $i\leqslant j\leqslant k$, $B_{j\leqslant k}B_{i\leqslant j}=B_{i\leqslant k}$.
+\end{exam}
+
+A limit of a diagram sometimes works like a monomorphism, although an individual arrow in it may not be monic.
+\begin{prop}\label{prop:globalmonic}
+  Let $(L,\{p_i\}_{i\in\ob\Ii})$ be a limit. Then two morphisms $f,g\colon B\to A$ are equal as long as $p_if=p_ig$ for every $i\in\ob\Ii$.
+\end{prop}
+
+A colimit of a diagram sometimes works like an epimorphism, although an individual arrow in it may not be epi.
+\begin{prop}\label{prop:globalepi}
+  Let $(C,\{q_i\}_{i\in\ob\Ii})$ be a colimit. Then two morphisms $f,g\colon A\to B$ are equal as long as $fq_i=gq_i$ for every $i\in\ob\Ii$.
+\end{prop}
+
+%Colimits are linked to limits via the following proposition.
+\begin{prop}\label{prop:limit-colimit}
+  Let $F\colon\Ii^{\op}\to\Cc$ and $G\colon\Jj\to\Cc$ be two diagrams and $X, Y$ be two objects. If the limits and colimits involved exist, then we have
+  \begin{align*}
+    \Hom(X,\invlim_{\Ii^{\op}} F_j) &\approx \invlim_{\Ii^{\op}} \Hom(X,F_j) \\
+    \Hom(\dirlim_{\Jj} G_i, Y) &\approx \invlim_{\Jj^{\op}} \Hom(G_i,Y)
+  \end{align*}
+\end{prop}
+  \begin{proof}
+    For any connection morphism $\phi^i_j\colon F_i\To F_j$ in the diagram $F$, the corresponding connection map in diagram $(\Hom(X,F_i))$ is
+    \mapdes{\Hom(X,F_i)}{\Hom(X,F_j)}{f}{\phi^i_j\circ f}
+
+    For any connection morphism $\psi^i_j\colon G_i\To G_j$ in the diagram $G$, the corresponding connection map in diagram $(\Hom(G_i,Y))$ is
+    \mapdes{\Hom(G_j,Y)}{\Hom(G_i,Y)}{f}{f\circ\psi^i_j}
+
+    Use these correspondings, the statements are easy to verify.
+  \end{proof}
+\subsection{Exercises}
+  \begin{ex}
+    Shows that a colimit of a diagram $D$ is just the opposite of a limit of its opposite $D^{\op}$. And use this fact to give another proof of the second statement in Proposition \ref{prop:limit-colimit} under the assumption that the first one it true.
+  \end{ex}
+  \begin{ex}
+    Describe the limits in $\Set$ explicitly.
+  \end{ex}
+  \begin{ex}\label{def:limit as rep functor}
+    In \cite{Cat&Shf}, a projective limit of a projective system $D\colon\Ii^{\op}\to\Cc$ is defined as a representative of the representable presheaf on $\Cc$ which maps every object $X$ in $\Cc$ to the limit of projective system $\Hom(X,D)$ in $\Set$.
+    (Of course, if the presheaf is not representable or even not exists, then the projective limits do not exist.)
+
+    Similarly, an inductive limit of an inductive system $D'\colon\Ii\to\Cc$ is defined as a representative of the representatble functor which maps every object $X$ in $\Cc$ to the limit of projective system $\Hom(D',X)$ in $\Set$.
+
+    Shows that these definitions are coincide with our definitions given in this section. A benefit of such a system of notations is that it allows us to talk about some properties of limits without assumption their existence.
+  \end{ex}
+
+  \begin{ex}
+    Let $D\colon\Ii\to[\Jj,\Cc]$ be an inductive system, then, by \ref{prop:power law for functor}, it can be also viewed as a functor from $\Jj$ to $[\Ii,\Cc]$.
+    Shows that
+    \begin{equation*}
+      (\dirlim_{\Ii}D)(j)\cong\dirlim_{\Ii}(D(j))\quad\forall j\in\ob\Jj
+    \end{equation*}
+    i.e. the functor $\dirlim_{\Ii}D$ is naturally isomorphic to the functor which maps every object $j$ in $\Jj$ to the inductive limit of the functor $D(j)$.
+
+    Prove the similar result for projective limit.
+  \end{ex}
+
+  \begin{ex}
+    Let $\Ii$ be a \termin{connected category} (that is a nonempty category in which every two objects are connected by a zigzag of morphisms) and $X$ be an object in a category $\Cc$. Shows that $X\approx\invlim\Delta_X$ and $\dirlim\Delta_X\approx X$.
+    [Hint: one can direct check them. Or first prove them in $\Set$, then use \ref{def:limit as rep functor}.]
+  \end{ex}
+
+\newpage\section{Products and coproducts}
+\begin{defn}\label{def:product}
+  Consider a diagram of shape $\Ii$, where $\Ii$ is a discrete category, it looks like a family of objects without arrows between them. A limit of such a diagram is called a \termin{product} of these objects. Dually, a colimit of such a diagram is called a \termin{coproduct} of these objects.
+
+  More explicitly, a product of a family of objects $\{A_i\}_{i\in I}$ is an object $P$ equipped with a family of ``projections'' $\{p_i\colon P\to A_i\}_{i\in I}$ satisfying the following universal property:
+  \begin{quote}
+    For any object $T$ and morphisms $\{t_i\colon T\to A_i\}_{i\in I}$, there exist a unique morphism $T\to P$ making the triangles commutative:
+    \begin{displaymath}
+      \xymatrix{
+         T\ar@{-->}^{\exists!}[r]\ar[dr]_{t_i}&P\ar[d]^{p_i}\\
+         &A_i
+      }
+    \end{displaymath}
+  \end{quote}
+\end{defn}
+\begin{rem}
+  Since the product (resp. coproduct) is unique up to unique isomorphism, it make sense to write ``the'' product (resp. coproduct) of a family of objects $\{A_i\}_{i\in I}$ and we often denote it by $\prod_{i\in I} A_i$ (resp. $\coprod_{i\in I} A_i$). \glsadd{prod}\glsadd{coprod}
+\end{rem}
+\begin{rem}
+  The product of two objects $A$ and $B$ is traditionally denoted by $A\times B$. A morphism from a cone $(C,f,g)$ to the product $A\times B$ is the unique factorization of $f$ and $g$ through $A\times B$. It is usually denoted by $\<f,g\>$.
+  \glsadd{mor-prod}
+\end{rem}
+\begin{exam}
+  Let $f\colon A\to B$ be a morphism, then $(A,1_A,f)$ is also a cone over the diagram of two discrete objects $A, B$. The unique cone-morphism $\<1_A,f\>$ is called the \termin[graph]{graph of morphism} of $f$ and denoted by $\Gamma_f$.
+  \glsadd{graph}
+\end{exam}
+\begin{rem}
+  It is a common mistake to think that the projections of a product are epimorphisms. This is not true, not even in the category $\Set$.
+
+  Another common mistake is to think that once the object $\prod_{i\in I} A_i$ in a product has been fixed, the corresponding projections are necessarily unique. It is not at all.
+\end{rem}
+
+  Since the nullary discrete category is the empty category, the \termin{nullary product} is just the terminal object. Similar, the \termin{unary product} of any object is itself.
+
+  Since a binary discrete category is itself symmetric and can be viewed as a full subcategory of a trinary discrete category, the \termin{binary product} is a commutative associate binary operation on a category.
+
+  More general, we have
+  \begin{prop}\label{prop:assofprod}
+    Consider a set $I$ and a partition $I = \bigcup_{k\in K}J_k$ of this set into disjoint subsets. Consider a family $\{C_i\}_{i\in I}$ of objects in a category $\Cc$. When all the products involved exist, the following isomorphism holds:
+    \begin{equation*}
+      \prod_{i\in I}C_i \approx \prod_{k\in K}(\prod_{j\in J_k}C_j)
+    \end{equation*}
+  \end{prop}
+  \begin{rem}
+    It should be noticed that the existence of the product of a family of objects does not imply the existence of the product of a subfamily of those objects. For example, consider the full subcategory $\Set_n$ of $\Set$ whose objects are the sets with fewer than $n$ elements. It is easy to prove that products in $\Set_n$, when they exist, are just cartesian products of sets. Therefore the product of two sets with $i$ and $j$ elements exists in $\Set_n$ precisely when $ij<n$. But the product of an arbitrary family containing the empty set always exists: it is just the empty set.
+  \end{rem}
+
+  By duality, we have similar facts for \termin{nullary coproduct}, \termin{unary coproduct}, \termin{binary coproduct} and, more general,
+  \begin{prop}\label{prop:assofcoprod}
+    Consider a set $I$ and a partition $I = \bigcup_{k\in K}J_k$ of this set into disjoint subsets. Consider a family $\{C_i\}_{i\in I}$ of objects in a category $\Cc$. When all the products involved exist, the following isomorphism holds:
+    \begin{equation*}
+      \coprod_{i\in I}C_i \approx \coprod_{k\in K}(\coprod_{j\in J_k}C_j)
+    \end{equation*}
+  \end{prop}
+
+  \begin{exam}
+    In $\Set$, products are just the cartesian products, while coproducts are the disjoint unions.
+    \begin{equation*}
+      \coprod_{i\in I}X_i = \{(x_i,i)\mid x_i\in X_i, i\in I\}
+    \end{equation*}
+  \end{exam}
+  \begin{exam}
+    In $\Cat$, products are the products of categories, while coproducts are the category whose objects and hom-sets are disjiont unions.
+  \end{exam}
+
+
+\newpage\section{Equalizers and coequalizers}
+  \begin{defn}
+    Let $f,g\colon A\to B$ be two parallel morphisms, which can be view as a diagram. an \termin{equalizer} is a limit of the diagram.     Dually, a \termin{coequalizer} is a colimit.
+  \end{defn}
+  \begin{rem}
+    Since the equalizer (resp. coequalizer) is unique up to unique isomorphism, it make sense to write ``the'' equalizer (resp. coequalizer) of two parallel morphisms $f,g\colon A\to B$ and we often denote it by $\ker(f,g)$ (resp. $\coker(f,g)$).The notation follows from the alternative name: the \termin{difference kernel} (resp. \termin{difference cokernel}).\glsadd{equalizer}\glsadd{coequalizer}
+  \end{rem}
+
+  \begin{prop}
+    An equalizer (resp. coequalizer) of two morphisms must be monic (resp. epi).
+  \end{prop}
+  \begin{proof}
+    Let $(K,k)$ be an equalizer of $f,g\colon A\to B$. For any parallel morphisms $u,v\colon T\to K$ such that $k\circ u=k\circ v$, the composition $k\circ u$ itself is a cone over $f,g\colon A\to B$. Thus it must factor through $K$ by a unique morphism $T\to K$, which force $u=v$.
+
+    Similar argument shows that a coequalizer must be epi.
+  \end{proof}
+
+  \begin{prop}
+    An epi equalizer must be an isomorphism. A monic coequalizer must be an isomorphism.
+  \end{prop}
+  \begin{proof}
+    Let $(K,k)$ be an epi equalizer of $f,g\colon A\to B$, then $f\circ k=g\circ k$ implies $f=g$. Thus $(A,1_{A})$ is also an equalizer, which force $k$ to be an isomorphism. The proof for monic coequalizer is similar.
+  \end{proof}
+
+  \begin{exam}
+    In $\Set$, the equalizer of two functions $f,g\colon X\to Y$ is
+    \begin{equation*}
+      K=\{x\in X\mid f(x)=g(x)\}
+    \end{equation*}
+    and the coequalizer is $C=Y/K$, i.e. the quotient set of $Y$ with the equivalence relation generated by $f(x)\sim g(x)$ for all $x\in X$.
+  \end{exam}
+
+  \begin{exam}
+    Coequalisers can be large: There are exactly two functors from the category $\one$ having one object and one identity arrow, to the category $\mathbf{2}$ with two objects and exactly one non-identity arrow going between them. The coequaliser of these two functors is the monoid of natural numbers under addition, considered as a one-object category. In particular, this shows that while every coequalising arrow is epic, it is not necessarily surjective.
+  \end{exam}
+
+\subsection{Exercises}
+  \begin{ex}
+    Describe a coproduct of a family of objects $\{A_i\}_{i\in I}$ by a universal property.
+  \end{ex}
+  \begin{ex}
+    Describe an equalizer and a coequalizer of two parallel morphisms by universal properties.
+  \end{ex}
+
+\newpage\section{Pullbacks and pushouts}
+  \begin{defn}
+    Let $\Ii$ be
+    \begin{displaymath}
+      \xymatrix{
+         \cdot&\cdot\ar[l]\ar[r]&\cdot
+      }
+    \end{displaymath}
+    then a projective system of shape $\Ii$ is of the form
+    \begin{displaymath}
+      \xymatrix{
+         A\ar[r]^{f}&C&B\ar[l]_{g}
+      }
+    \end{displaymath}
+    Thus a limit of it can be view as a commutative square:
+    \begin{displaymath}
+      \xymatrix{
+         P\ar[r]^{f'}\ar[d]_{g'}&B\ar[d]^{g}\\
+         A\ar[r]^{f}&C
+      }
+    \end{displaymath}
+    we call it a \termin{pullback square} or \termin{cartesian diagram}, and say $g'$ is the \termin{pullback} of $g$ through $f$, $f'$ is the \termin{pullback} of $f$ through $g$.
+    We also call this limit a \termin{fibre product} of $A$ and $B$ over $C$, and denote it by $A\times_CB$.\glsadd{fibreprod}
+
+    A inductive system of shape $\Ii$ is of the form
+    \begin{displaymath}
+      \xymatrix{
+         B&C\ar[l]_{g}\ar[r]^{f}&A
+      }
+    \end{displaymath}
+    Thus a colimit of it can be view as a commutative square in $\Cc$:
+    \begin{displaymath}
+      \xymatrix{
+         C\ar[r]^{f}\ar[d]_{g}&A\ar[d]^{g'}\\
+         B\ar[r]^{f'}&P
+      }
+    \end{displaymath}
+    we call it a \termin{pushout square} or \termin{cocartesian diagram}, and say $g'$ is the \termin{pushout} of $g$ through $f$, $f'$ is the \termin{pushout} of $f$ through $g$. We also call this limit the \termin{fibre sum} or \termin{amalgamed sum} of $A$ and $B$ under $C$, and denoted by $A\amalg_CB$.\glsadd{amalgam}
+  \end{defn}
+
+  \begin{prop}
+    Monomorphisms are \termin{stable} under pullback, that means the pullback of a monomorphism is also a monomorphism. Moreover, so are isomorphisms.
+  \end{prop}
+  \begin{proof}
+    Assume $g\colon B\to C$ is monic and $g'\colon P\to A$ is its pullback through $f\colon A\to C$. Let $u,v\colon T\to P$ be two parallel morphisms such that $g'\circ u=g'\circ v$, then
+    \begin{equation*}
+      g\circ f'\circ u = f\circ g'\circ u = f\circ g'\circ v = g\circ f'\circ v
+    \end{equation*}
+    Thus $f'\circ u=f'\circ v$. Therefore $T$ equipped with compositions $g'\circ u, g\circ f'\circ u$ and $f'\circ u$ is a cone over the diagram, which force $u=v$.
+
+    Similar, assume $g$ is an isomorphism and $g'$ is its pullback through $f$. Then $A$ equipped with $1_A$ and $g^{-1}\circ f$ is a cone over the diagram, which force $A$ itself be a fibre product as $P$, thus $g'$ is an isomorphism.
+  \end{proof}
+  \begin{rem}
+    Epimorphisms may not be stable under pullback.
+  \end{rem}
+
+
+  By the duality principle, it is easy to get corresponding properties for pushouts from the knowledge of pullbacks.
+
+\subsection{Kernel pairs}
+  \begin{defn}
+    A \termin{kernel pair} of a morphism in a category is the fiber product of the morphism with itself.
+  \end{defn}
+  \begin{prop}
+    Let $(P,\alpha,\beta)$ be a kernel pair of a morphism $f\colon A\to B$, then $\alpha,\beta$ are split epimorphisms.
+  \end{prop}
+  \begin{proof}
+    Since $(A,1_A,1_A)$ is a cone over the diagram, there exists a unique morphism $t\colon A\to P$ such that $1_A=\alpha\circ t=\beta\circ t$. Thus $\alpha,\beta$ are retractions of $t$ and must be split epimorphisms.
+  \end{proof}
+  \begin{prop}\label{prop:mono and kernel pair}
+    Consider a morphism $f\colon A\to B$, then followings are equivalent:
+    \begin{enumerate}
+      \item $f$ is a monomorphism;
+      \item the kernel pair of $f$ exists and is given by $(A, 1_A, 1_A)$;
+      \item the kernel pair $(P, \alpha, \beta)$ of $f$ exists and is such that $\alpha=\beta$.
+    \end{enumerate}
+  \end{prop}
+
+  \begin{prop}\label{prop:effective1}
+    In a category, if a coequalizer has a kernel pair, then it is a coequalizer of its kernel pair.
+  \end{prop}
+  \begin{proof}
+    Consider the following diagram
+    \begin{displaymath}
+      \xymatrix{
+         &X\ar@<-0.5ex>[d]_{x}\ar@<0.5ex>[d]^{y}\ar[dl]_{z}&\\
+         P\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta}&A\ar[r]^{f}\ar[d]_{g}&B\ar[dl]^{h}\\
+         &C&
+      }
+    \end{displaymath}
+    where, $f=\coker(x,y)$ and $\alpha,\beta$ is the kernel pair of $f$. Hence there exists a unique factorization $z$ such that $\alpha\circ z=x, \beta\circ z=y$.
+    We need to show that $f=\coker(\alpha,\beta)$.
+
+    To do this, consider an arbitrary morphism $g$ such that $g\circ\alpha=g\circ\beta$. Then $g\circ x=g\circ\alpha\circ z=g\circ\beta\circ z=g\circ y$. Thus we get a unique factorization $h$ through $f=\coker(x,y)$.
+  \end{proof}
+  Conversely, we have
+  \begin{prop}\label{prop:effective2}
+    In a category, if a kernel pair has a coequalizer, then it is a kernel pair of its coequalizer.
+  \end{prop}
+  \begin{proof}
+    Consider the following diagram
+    \begin{displaymath}
+      \xymatrix{
+         &X\ar@<-0.5ex>[d]_{x}\ar@<0.5ex>[d]^{y}\ar[dl]_{z}&\\
+         P\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta}&A\ar[r]^{f}\ar[d]_{g}&B\ar[dl]^{h}\\
+         &C&
+      }
+    \end{displaymath}
+    where, $\alpha,\beta$ is the kernel pair of $g$ and $f=\coker(\alpha,\beta)$. Since $g\circ\alpha=g\circ\beta$, we get a unique factorization $h$ through $f=\coker(\alpha,\beta)$.
+    We need to show that $\alpha,\beta$ is the kernel pair of $f$.
+
+    To do this, consider two parallel morphisms $x,y$ such that $f\circ x=f\circ y$. Then $g\circ x=h\circ f\circ x=h\circ f\circ y=g\circ y$. Thus there exists a unique factorization $z$ such that $\alpha\circ z=x, \beta\circ z=y$.
+  \end{proof}
+
+\subsection{Diagram chase}
+  When duel with universal properties, people often check equations along the commutative diagram, such a method is called \termin{diagram chase}.
+
+  The following proportion is a good example.
+  \begin{prop}[Associativity]\label{prop:assofpullback}
+    Consider a commutative diagram as below:
+    \begin{displaymath}
+      \xymatrix{
+         \cdot\ar[r]\ar[d]&\cdot\ar[r]\ar[d]&\cdot\ar[d]\\
+         \cdot\ar[r]&\cdot\ar[r]&\cdot
+      }
+    \end{displaymath}
+    \begin{enumerate}
+      \item  If the two small squares are cartesian, then so is the outer rectangle.
+      \item  If the right square and the outer rectangle are cartesian, then so is the left square.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    For \emph{1}, since we want to prove the outer rectangle is cartesian, we draw a commutative diagram as below:
+    \begin{displaymath}
+      \xymatrix{
+         \cdot\ar@/_/[ddr]_{u}\ar@/^/[rrrd]^{v}\ar@{-->}[dr]|{w}&&&\\
+         &\cdot\ar[r]_{a}\ar[d]^{c}&\cdot\ar[r]_{b}\ar[d]^{d}&\cdot\ar[d]^{e}\\
+         &\cdot\ar[r]_{f}&\cdot\ar[r]_{g}&\cdot
+      }
+    \end{displaymath}
+
+    More explicitly, let $u,v$ be two morphisms from a same domain and is such that $g\circ f\circ u=e\circ v$. Then we need to show that there exists a unique morphism $w$ such that $c\circ w=u, b\circ a\circ w=v$.
+
+    To prove the existence, we chase the diagram as following:
+
+    1, Since $g\circ f\circ u=e\circ v$ and the right square is cartesian, there exists a unique morphism $x$ such that $d\circ x=f\circ u, b\circ x=v$.
+
+    2, Since $d\circ x=f\circ u$ and the left square is cartesian, there exists a unique morphism $w$ such that $c\circ w=u, a\circ w=x$.
+
+    3, Since $c\circ w=u, a\circ w=x, b\circ x=v$, we have $c\circ w=u, b\circ a\circ w=v$.
+
+    To prove the uniqueness, we assume that there exists a morphism $w'$ such that $c\circ w'=u, b\circ a\circ w'=v$ and prove that $a\circ w'=x$. Then the uniqueness follows from the condition that the left square is cartesian.
+    To do this, we chase the diagram as following:
+
+    1, Since $d\circ a=f\circ c$ and $c\circ w'=u$, we have $d\circ a\circ w'=f\circ u$.
+
+    2, Since $d\circ a\circ w'=f\circ u, b\circ a\circ w'=v$ and the right square is cartesian, $a\circ w'=x$.
+
+    For \emph{2}, since we want to prove the left square is cartesian, we draw a commutative diagram as below:
+    \begin{displaymath}
+      \xymatrix{
+         \cdot\ar@/_/[ddr]_{u}\ar@/^/[rrd]^{v}\ar@{-->}[dr]|{w}&&&\\
+         &\cdot\ar[r]_{a}\ar[d]^{c}&\cdot\ar[r]_{b}\ar[d]^{d}&\cdot\ar[d]^{e}\\
+         &\cdot\ar[r]_{f}&\cdot\ar[r]_{g}&\cdot
+      }
+    \end{displaymath}
+
+    More explicitly, let $u,v$ be two morphisms from a same domain and is such that $f\circ u=d\circ v$. Then we need to show that there exists a unique morphism $w$ such that $c\circ w=u, a\circ w=v$.
+
+    To prove the existence, we chase the diagram as following:
+
+    1, Since $e\circ b=g\circ d$ and $f\circ u=d\circ v$, we have $g\circ f\circ u=e\circ b\circ v$.
+
+    2, Since $g\circ f\circ u=e\circ b\circ v$ and the outer rectangle is cartesian, there exists a unique morphism $w$ such that $c\circ w=u, b\circ a\circ w=b\circ v$.
+
+    3, Since $d\circ a=f\circ c$ and $c\circ w=u$, we have $d\circ a\circ w=f\circ u$.
+
+    4, Since $d\circ a\circ w=f\circ u, b\circ a\circ w=b\circ v$ and the right square is cartesian, $a\circ w=v$.
+
+    To prove the uniqueness, we assume that there exists a morphism $w'$ such that $c\circ w'=u, a\circ w'=v$ and prove that $b\circ a\circ w'=b\circ v$. Then the uniqueness follows from the condition that the outer rectangle is cartesian. However, this is obvious.
+  \end{proof}
+  \begin{cor}
+    The pullback of a commutative triangle (if it exists) is a commutative triangle.
+    \begin{displaymath}
+      \xymatrix@R=0.3cm{
+         \cdot\ar@{-->}[rr]\ar[dd]\ar[dr]&&\cdot\ar[dd]\ar[dr]&\\
+         &\cdot\ar@{-->}[rr]\ar[dl]&&\cdot\ar[dl]\\
+         \cdot\ar@{-->}[rr]&&\cdot
+      }
+    \end{displaymath}
+  \end{cor}
+
+\subsection{Examples}
+  \begin{exam}\label{exam:fibreprodofset}
+    In the category $\Set$, the pullback of pair $\xymatrix@1{A\ar[r]^{f}&C&B\ar[l]_{g}}$ is given by
+    \begin{gather*}
+      P=\{(a,b)\mid a\in A, b\in B, f(a)=f(b)\},\\
+      g'(a,b)=a,f'(a,b)=b
+    \end{gather*}
+  \end{exam}
+  \begin{exam}
+    Under the conditions of \ref{exam:fibreprodofset}, when $B$ is a subset of $C$ and $g$ is the canonical inclusion, then $P$ is isomorphic to the fibre $f^{-1}(B)$, i.e. the inverse image of $B$ along $f$.
+  \end{exam}
+  \begin{rem}
+    In general, when $g$ is monic, we can write $P$ as $f^{-1}(B)$ and call it ``\termin[the inverse image of $g$ along $f$]{inverse image}''.
+  \end{rem}
+  \begin{exam}\label{exam:intersection=pullback}
+    Under the conditions of \ref{exam:fibreprodofset}, if both $A$ and $B$ are subsets of $C$ with $f,g$ the canonical inclusions, then $P$ is isomorphic to the intersection $A\cap B$.
+  \end{exam}
+  \begin{rem}
+    In general, when $f,g$ are monic, we can write $P$ as $A\cap B$ and call it ``\termin[the intersection of $f$ and $g$]{intersection}''.
+  \end{rem}
+  \begin{exam}
+    In the category $\Set$, the kernel pair of a function $f$ is just the equivalence relation on $A$ determined by $f$.
+  \end{exam}
+\subsection{Exercises}
+  \begin{ex}
+    Describe pullbacks and pushouts by universal properties.
+  \end{ex}
+  \begin{ex}
+    Describe the corresponding concepts and propositions in this section for pushouts. Then prove these propositions.
+  \end{ex}
+  \begin{ex}\label{prop:pullback=eq+prod}
+    Let $\xymatrix@1{A\ar[r]^{f}&C&B\ar[l]_{g}}$ be a pair of morphisms, and $(A\times B, p_A, p_B)$ be a product of $A$ and $B$, $e\colon E\to A\times B$ is an equalizer of $f\circ p_A$ and $g\circ p_B$. Then the following diagram is cartesian:
+    \begin{displaymath}
+      \xymatrix{
+         E\ar[r]^{p_B\circ e}\ar[d]_{p_A\circ e}&B\ar[d]^{g}\\
+         A\ar[r]^{f}&C
+      }
+    \end{displaymath}
+    Conversely, if there exists a morphism $e\colon E\to A\times B$ making the above square cartesian, then $(E,e)$ is an equalizer of $f\circ p_A$ and $g\circ p_B$.
+  \end{ex}
+
+\newpage\section{Limits and colimits in $\Set$}
+\begin{prop}
+  The initial object in $\Set$ is the empty set $\varnothing$, while a terminal object is a singleton $\Pt$.
+\end{prop}
+\begin{prop}
+  The product of a set of sets $\{X_i\}_{i\in I}$ is the usual cartesian product of them: $\prod_{i\in I}X_i =\{(x_i)_{i\in I}\mid\forall i\in I, x_i\in X_i\}$.
+  The coproduct of them is the disjoint union $\bigsqcup_{i\in I}X_i =\{(i,x)\mid i\in I, x\in X_i\}$.
+\end{prop}
+\begin{prop}
+  the product of all sets is the empty set $\varnothing$. Indeed, any product of a set of sets  which involves $\varnothing$ must be $\varnothing$ itself. However, the coproduct of all sets do not exists.
+\end{prop}
+\begin{prop}
+  The equalizer of two parallel functions $f_0,f_1\colon S\to T$ is the subset of $S$: $\{s\in S\mid f_0(s)=f_1(s)\}$.
+  The coequalizer of them is the quotient set of $T$ by the equivalence relation $R\subset T\times T$ generated by $\{(f_0(s),f_1(s))\mid s\in S\}$. More explicitly, for any $x,y\in T$, $XRy$ means there exists a sequence of elements $s_1,\cdots,s_n\in S$ and a sequence of binary digits $\epsilon_1,\cdots,\epsilon_n$ such that
+    \begin{align*}
+      f_{\epsilon_1}(s_1) & = x\\
+      &\cdots\\
+      f_{1-\epsilon_i}(s_i) & = f_{\epsilon_{i+1}}(s_{i+1})\\
+      &\cdots\\
+      f_{1-\epsilon_n}(s_n) & = y
+    \end{align*}
+\end{prop}
+\begin{prop}
+  The fibre product of $f\colon A\to C$ and $g\colon B\to C$ is the subset of the cartesian product:
+  $A\times_CB=\{(a,b)\mid f(a)=g(b)\}\subset A\times B$.
+\end{prop}
+\begin{prop}
+  The amalgamed sum of $f\colon C\to A$ and $g\colon C\to B$ is the quotient of the disjoint union:
+  $A\amalg_CB=(A\sqcup B)/R$ by the equivalence relation $R$ generated by $\{(f(s),g(s))\mid s\in S\}$
+\end{prop}
+
+\begin{prop}
+  The limit of $D\colon\Ii^{\op}\to\Set$ is
+  the set of natural transformations from the diagram constant on the singleton to $D$, or equivalently,
+  the set of global elements of $D$.
+\end{prop}
+
+  To give an explicit description, let $D\colon\Ii^{\op}\to\Set$ be a small diagram, it is not difficult to see that a cone over the diagram $D$ is the same thing as a cone over the following diagram: (For brevity, we abbreviate ``target of $f$'' and ``source of $f$'' just as $t.f$, $s.f$.)
+  \begin{displaymath}
+    \xymatrix{\prod\limits_{i\in\ob\Ii} D_i\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}&\prod\limits_{f\in\hom\Ii}D_{s.f}}
+  \end{displaymath}
+  Where $\alpha,\beta$ is given by
+  \begin{align*}
+    \alpha(x_i)_{i\in\ob\Ii} &= (x_{s.f})_{f\in\hom\Ii}  \\
+    \beta(x_i)_{i\in\ob\Ii}  &= (D_f(x_{t.f}))_{f\in\hom\Ii}
+  \end{align*}
+
+  Therefore, the limit $L$ of $D$ can be given by the equalizer
+  \begin{displaymath}
+    \xymatrix{L\ar@{ >->}[r]&\prod\limits_{i\in\ob\Ii} D_i\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}&\prod\limits_{f\in\hom\Ii}D_{s.f}}
+  \end{displaymath}
+
+  More explicitly,
+  \begin{equation*}
+    L=\{(x_i)_{i\in\ob\Ii}\mid x_i\in D_i; D_f(x_i)=x_j, \forall f\colon j\to i\}
+  \end{equation*}
+
+  Dually,
+  let $D\colon\Ii\to\Set$ be a small diagram,
+  the colimit $C$ of $D$ can be given by the coequalizer
+  \begin{displaymath}
+    \xymatrix{
+    \bigsqcup\limits_{f\in\hom\Ii}D_{s.f}\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}
+    &\bigsqcup\limits_{i\in\ob\Ii} D_i\ar@{->>}[r]
+    &C
+    }
+  \end{displaymath}
+  Where $\alpha,\beta$ is given by
+  \begin{align*}
+    \alpha(x_{s.f}\in D_{s.f})  &= x_{s.f}\in D_{s.f}  \\
+    \beta(x_{s.f}\in D_{s.f})   &= D_f(x_{s.f})\in D_{t.f}
+  \end{align*}
+
+  The colimit of $D$ is given by a quotient set
+  \begin{equation*}
+    \dirlim D = (\bigsqcup_{i\in\ob\Ii} D_i)/\sim
+  \end{equation*}
+  where the equivalence relation $\sim$ is that which is generated by
+  \begin{equation*}
+    \{(x\in D_i)\sim(x'\in D_{i'})\mid \exists(f\colon i\to i')\st(D_f(x)=x')\}
+  \end{equation*}
+
+
+\newpage\section{Complete categories}
+  In a category $\Cc$, if every diagram of shape $\Ii$ admits a limit (resp. colimit), then we say it \textbf{has} all $\Ii-$limits (resp. $\Ii-$colimits). For instance, the category $\Set$ has all pullbacks, pushouts, kernel pairs, cokernel pairs, equalizers, coequalizers and has products and coproducts of a set of objects. In later body, one can see the existence of previous limits (resp. colimits) ensure $\Set$ has all small limits (resp. colimits).
+
+  Such a category is undoubtedly very nice, thus one may ask when a category has all limits or colimits.
+
+  \begin{defn}
+    A category is said to be \termin[complete]{complete category}, if every small diagram in it has a limit. Similar, a \termin{finitely complete category} is such a category, in which every finite diagram has a limit.
+    Dually, we have concepts of \termin{cocomplete category} and \termin{finitely cocomplete category}.
+  \end{defn}
+
+    Large (not small) limits may exists. For example, the product of all sets in $\Set$ is the empty set.
+
+    However, this is an exception. Indeed, a category has all limits must be \termin[thin]{thin category}. That is, its every hom-set is a singleton.
+
+  We do not prove this. Instead, we give a similar proposition.
+  \begin{prop}\label{prop:complete small category = proset}
+    A complete small category must be thin.
+  \end{prop}
+  \begin{proof}
+    Let $\Cc$ be a complete small category. For any pair of objects $A,B$ in $\Cc$ and any $f,g\in\Hom(A,B)$. We need to show $f=g$.
+
+    If not, then consider the product of $\kappa$ copies of $B$, say $B^{\kappa}$. Where $\kappa$ is the cardinal of the set of all arrows of $\Cc$. Then, use $f$ and $g$, one can already construct $2^{\kappa}$ distinct cones over the copies of $B$, each of them admits a factorization $A\to B^{\kappa}$. From this, it is clear that $\Hom(A,B^{\kappa})$ has the cardinal no less than $2^{\kappa}$, which contracts with the assumption of $\kappa$.
+  \end{proof}
+
+  Based on the same reasoning, a category has all limits with index category larger than itself must be thin. Particularly, a finite complete finite category must be a finite preordered set.
+
+  Our next goal is to get the condition of completeness for non-small categories.
+
+  Consider our most familiar category $\Set$. Let $D\colon\Ii^{\op}\to\Set$ be a small diagram, it is not difficult to see that a cone over the diagram $D$ is the same thing as a cone over the following diagram: (For brevity, we abbreviate ``target of $f$'' and ``source of $f$'' just as $t.f$, $s.f$.)
+  \begin{displaymath}
+    \xymatrix{\prod\limits_{i\in\ob\Ii} D_i\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}&\prod\limits_{f\in\hom\Ii}D_{s.f}}
+  \end{displaymath}
+  Where $\alpha,\beta$ is given by
+  \begin{align*}
+    \alpha(x_i)_{i\in\ob\Ii} &= (x_{s.f})_{f\in\hom\Ii}  \\
+    \beta(x_i)_{i\in\ob\Ii}  &= (D_f(x_{t.f}))_{f\in\hom\Ii}
+  \end{align*}
+
+  Therefore, the limit $L$ of $D$ can be given by the equalizer
+  \begin{displaymath}
+    \xymatrix{L\ar@{ >->}[r]&\prod\limits_{i\in\ob\Ii} D_i\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}&\prod\limits_{f\in\hom\Ii}D_{s.f}}
+  \end{displaymath}
+
+  More explicitly,
+  \begin{equation*}
+    L=\{(x_i)_{i\in\ob\Ii}\mid x_i\in D_i; D_f(x_i)=x_j, \forall f\colon j\to i\}
+  \end{equation*}
+
+  This construction can be generalized to an arbitrary category. Thus we get the following theorem.
+  \begin{thm}\label{thm:complete_category}
+    A category $\Cc$ is complete if and only if each set of objects has a product and each pair of parallel arrows has an equalizer.
+  \end{thm}
+  \begin{proof}
+    It suffices to show the ``if''.
+
+    Let $D\colon\Ii^{\op}\to\Cc$ be a small diagram. We construct the products
+    \begin{equation*}
+      \prod_{i\in\ob\Ii}D_i\qquad\&\qquad\prod_{f\in\hom\Ii}D_{s.f}
+    \end{equation*}
+    with $\{p'_i\}_{i\in\ob\Ii}$ and $\{p''_f\}_{f\in\hom\Ii}$ be their respective projections.
+
+    Let $\alpha$ be the unique factorization such that $p''_f\circ\alpha = p'_{s.f}$, $\beta$ be the unique factorization such that $p''_f\circ\beta = D_f\circ p'_{t.f}$, and $(L,l)$ be the equalizer of pair $(\alpha,\beta)$. Denote each $p'_i\circ l$ by $p_i$, now we prove that $(L,(p_i)_{i\in\ob\Ii})$ is a limit of $D$.
+    \begin{displaymath}
+    \xymatrix{
+    C\ar@<0.5ex>[r]^{q}\ar@<-0.5ex>[r]_{\bar{q}}\ar@/_1.5pc/[drr]_-{q_i}\ar@{-->}@/^2pc/[rr]^-{q'}&
+    L\ar[r]^-{l}\ar[dr]_-{p_i}&
+    \prod\limits_{i\in\ob\Ii} D_i\ar@<0.5ex>[r]^-{\alpha}\ar@<-0.5ex>[r]_-{\beta}\ar[d]^-{p'_i}\ar[dr]_{p'_j}&
+    \prod\limits_{f\in\hom\Ii}D_{s.f}\ar[d]^-{p''_f} \\
+    &
+    &D_i\ar[r]_{D_f}
+    &D_j
+    }
+    \end{displaymath}
+
+    First, it is a cone over $D$. Indeed, for any arrow $f\colon j\to i$, we have
+    \begin{align*}
+      D_f\circ p_i & = D_f\circ p'_i\circ l \\
+                           & = p''_f\circ\beta\circ l \\
+                           & = p''_f\circ\alpha\circ l \\
+                           & = p'_j\circ l = p_j
+    \end{align*}
+
+    Moreover, let $(C,(q_i)_{i\in\ob\Ii})$ be another cone over $D$, we need to show that there exists a unique $\Cone(D)-$morphism $q$, that is a unique factorization $q$ such that $p_i\circ q = q_i$.
+
+   Since $(C,(q_i)_{i\in\ob\Ii})$ is also a cone over the family of objects $\{D_i\}_{i\in\ob\Ii}$. There exists a unique factorization $q'$ such that $p'_i\circ q' = q_i$.
+
+   For each arrow $f\colon j\to i$, we have
+    \begin{align*}
+      p''_f\circ\alpha\circ q' & = p'_j\circ q' \\
+                           & = q_j \\
+                           & = D_f\circ q_i \\
+                           & = D_f\circ p'_i\circ q'\\
+                           & = p''_f\circ\beta\circ q'
+    \end{align*}
+    From which $\alpha\circ q'=\beta\circ q'$. This implies the existence of the factorization $q$ such that $l\circ q=q'$. Then
+    \begin{equation*}
+      p_i\circ q = p'_i\circ l\circ q = p'_i\circ q' = q_i
+    \end{equation*}
+    So this $q$ is our require factorization.
+
+    The uniqueness is easy to see by the universal property of equalizer. Or, consider another factorization $\bar{q}$ such that $p_i\circ \bar{q} = q_i$. Since $l$ must be monic, it suffices to show $l\circ q=l\circ\bar{q}$. Indeed, for any $i\in\ob\Ii$, we have
+    \begin{align*}
+      p'_i\circ l\circ q & = p'_i\circ q' \\
+                           & = q_i \\
+                           & = p_i\circ \bar{q} \\
+                           & = p'_i\circ l \circ \bar{q}
+    \end{align*}
+    Then, by Proposition \ref{prop:globalmonic}, $l\circ q=l\circ\bar{q}$.
+  \end{proof}
+
+  \begin{prop}
+    For a category $\Cc$, the followings are equivalent.
+    \begin{enumerate}
+      \item $\Cc$ is finitely complete;
+      \item $\Cc$ has terminal objects, binary products and equalizers;
+      \item $\Cc$ has terminal objects and pullbacks.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    \emph{1} $\then$ \emph{2} and \emph{1} $\then$ \emph{3} are obvious. \emph{2} $\then$ \emph{3} comes from Exercise \ref{prop:pullback=eq+prod}.
+    Or, by the associativity of products (see \ref{prop:assofprod}) and induction, \emph{2} implies the existence of products of finite and non-empty family of objects. Notice that, in the proof of Theorem \ref{thm:complete_category}, when the diagram $D$ is finite, then so are the corresponding products, therefore \emph{2} $\then$ \emph{1}.
+
+    To show \emph{3} $\then$ \emph{2}, we assume \emph{3}. It is obvious that a fibre product over the terminal object is just a product. To show the existence of equalizers, consider a pair of morphisms $\xymatrix@1{f,g\colon A\ar@<0.5ex>[r]\ar@<-0.5ex>[r]&B}$.
+    For any triple $(P,k,l)$ making the following square commutative
+    \begin{displaymath}
+    \xymatrix{
+      P\ar[r]^{l}\ar[d]_{k}&A\ar[d]_-{\Gamma_g}\\
+      A\ar[r]^-{\Gamma_f}&A\times B
+    }
+    \end{displaymath}
+    we have
+    \begin{gather*}
+      k = p_A\circ\Gamma_f\circ k = p_A\circ\Gamma_g\circ l = l \\
+      f\circ k = p_B\circ\Gamma_f\circ k = p_B\circ\Gamma_g\circ l = g\circ l
+    \end{gather*}
+    This implies that $k=l$ and $(P,k)$ is a cone over the pair $(\Gamma_f,\Gamma_g)$.
+    Therefore the pullback of $(\Gamma_f,\Gamma_g)$ is precisely the equalizer of $(f,g)$.
+  \end{proof}
+
+  \begin{defn}
+    A category $\Ii$ is said to be finitely generated if
+    \begin{itemize}
+      \item $\Ii$ has finitely many objects;
+      \item there are finitely many arrows $f_1,\cdots,f_n$ such that each arrow of $\Ii$ is the composite of finitely many of these $f_i$.
+    \end{itemize}
+ \end{defn}
+
+  \begin{prop}\label{prop:finitely generated limits}
+    Let $D$ be a diagram in a finitely complete category. If the index category of $D$ is finitely generated, then $\invlim D$ exists.
+  \end{prop}
+  \begin{proof}
+    Notice that a cone over $D$ is uniquely determined by these $D_{f_i}$, thus we can replace the second product in the proof of \ref{thm:complete_category} by $\prod\limits_{i=1}^n D_{s.f_i}$, and the statement follows.
+  \end{proof}
+
+\subsection{Exercises}
+  \begin{ex}
+    Describe and verify the dual notations and propositions in this section for colimit.
+  \end{ex}
+  \begin{ex}
+    Let $\Cc$ be a complete category and $\Ii$ a small category. Then taking projective limit objects is a functor from $[\Ii^{\op},\Cc]$ to $\Cc$, while taking inductive limit objects is a functor from $[\Ii,\Cc]$ to $\Cc$.
+  \end{ex}
+  \begin{ex}
+    Product preserving monomorphisms. That is the product of a family of monomorphisms is also a monomorphism.
+  \end{ex}
+  \begin{ex}
+    Let $\Cc$ be a complete category and $f\colon A\to B$ a morphism in $\Cc$. Then taking pullback along $f$ is a functor from $\Cc/B$ to $\Cc/A$ and taking pushout is a functor form $A/\Cc$ to $B/\Cc$.
+  \end{ex}
+
+
+\newpage\section{Persevering limits}
+  In this section and the followings, we will consider how limits or colimits behave under functors. Thus to view them as natural transformations may be more suitable.
+  \begin{defn}
+    A functor $F \colon \Aa \to \Bb$ is said to \termin{preserve limits} of shape $\Ii^{\op}$ if, whenever $\mu\colon \Delta_L\then D$ is a limit of a diagram $D\colon\Ii^{\op}\to\Aa$, the cone $F\ast \mu$ is then a limit of the diagram $F\circ D\colon\Ii^{\op}\to\Bb$. Briefly
+    \begin{equation*}
+      F(\invlim D) \approx \invlim F\circ D
+    \end{equation*}
+
+    A functor that preserves all small limits is simply said to \textbf{preserve limits} and is called a \termin{continuous functor}.
+  \end{defn}
+  \begin{rem}
+    From the definition, on can see that a functor preserving limits of shape $\Ii^{\op}$ also preserving the existence of limits of $\Ii^{\op}-$diagrams. Indeed, $F(\invlim D)$ gives a limit of $F\circ D$.
+  \end{rem}
+    As an immediate consequence of Theorem \ref{thm:complete_category}, we get
+  \begin{prop}
+    Let $\Aa$ be a (finitely) complete category and $\Bb$ an arbitrary category A functor $F\colon\Aa\to\Bb$ preserves (finite) limits precisely when it preserves (finite) products and equalizers.
+  \end{prop}
+    By Proposition \ref{prop:mono and kernel pair}, we have
+  \begin{prop}
+    A functor which preserves pullbacks also preserves monomorphisms.
+  \end{prop}
+
+  The following proposition provides examples of continuous functors.
+  \begin{prop}\label{prop:representable functor preserves limits}
+    A covariant representable functor is continuous. Moreover, it preserves all existing limits including large ones.
+  \end{prop}
+  \begin{proof}
+    It suffices to show that for any $C\in\ob\Cc$ and $D$ a diagram in $\Cc$, we have
+    \begin{equation*}
+      \Hom(C,\invlim D) \approx \invlim \Hom(C,D)
+    \end{equation*}
+    Which is precisely Proposition \ref{prop:limit-colimit}.
+  \end{proof}
+  Similarly, we have
+  \begin{prop}
+    A representable presheaf transforms colimits into limits and epimorphisms to monomorphisms.
+  \end{prop}
+
+  A related concept of preserving limits is reflecting limits.
+  \begin{defn}
+    A functor $F \colon \Aa \to \Bb$ is said to \termin{reflect limits} of shape $\Ii^{\op}$ when, for each cone $\mu\colon \Delta_L\then D$ over a diagram $D\colon\Ii^{\op}\to\Aa$, it is a limit of $D$ if its image $F\ast\mu$ is a limit of the diagram $F\circ D\colon\Ii^{\op}\to\Bb$.
+    A functor that reflects all small limits is simply said to \textbf{reflect limits}.
+  \end{defn}
+  \begin{rem}
+    A limits reflecting functor may \textbf{not} ensure the existence of limits. It is possible that the diagram $F\circ D$ has limits in $\Bb$ but none of them has a preimage in $\Aa$.
+  \end{rem}
+
+  \begin{prop}
+    Let $F\colon\Aa\to\Bb$ be a continuous functor. If $\Aa$ is complete and $F$ reflects isomorphisms, then $F$ also reflects limits.
+  \end{prop}
+  \begin{proof}
+    Let $\mu\colon \Delta_C\then D$ be a cone over a small diagram $D\colon\Ii^{\op}\to\Aa$ such that $F\ast\mu$ is a limit of $F\circ D$.
+
+    Since $\Aa$ is complete, there exists a limit $\nu\colon \Delta_L\then D$ of $D$ and a unique factorization $f\colon C\to L$ of $\mu$ by $\nu$.
+
+    The continuous functor $F$ transforms it to a limit $F\ast\nu$ of $F\circ D$ and $f$ to an isomorphism between these two limits of $F\circ D$.
+
+    Since $F$ reflects isomorphisms, $f$ is also an isomorphism and thus $\mu$ is a limit of $D$.
+  \end{proof}
+
+  \begin{prop}
+    Let $\Aa,\Bb$ be finitely complete categories and $F\colon\Aa\to\Bb$ a functor which preserves (resp. reflects) finite limits. Then $F$ preserves (resp. reflects) finitely generated limits.
+  \end{prop}
+  \begin{proof}
+    A finitely generated limit can be expressed via equalizers and finite products (see \ref{prop:finitely generated limits}), from which the result follows.
+  \end{proof}
+
+  \begin{prop}
+    A fully faithful functor reflects limits.
+  \end{prop}
+  \begin{proof}
+    Notice that a fully faithful functor reflects terminal objects, thus the result follows.
+  \end{proof}
+
+\subsection{Exercises}
+  \begin{ex}
+    Describe the corresponding concepts (``preserve colimits'', ``cocontinuous functor'', ``reflect colimit'') and propositions for colimits and then prove them.
+  \end{ex}
+  \begin{ex}
+    Consider a category $\Cc$ having products and a diagram $D$ with small index category. Construct $\alpha$ and $\beta$ as in the proof of Theorem \ref{thm:complete_category}. Prove that $\ker(\alpha,\beta)$ exists if and only if $\invlim D$ exists.
+  \end{ex}
+  \begin{ex}
+    Consider a category $\Aa$ having products and a functor $F\colon\Aa\To\Bb$ preserving products and equalizers. Show that $F$ preserves limits.
+  \end{ex}
+
+
+\newpage\section{Absolute colimits}
+  In the previous section we were concerned with a functor preserving all limits. Now we shall have a look at those limits preserved by all functors. In fact we shall develop the theory in the case of colimits since this is the case most commonly referred to in the examples.
+  \begin{defn}
+    A particular colimit diagram in a category $\Cc$ is called an \termin{absolute colimit} if it is preserved by every functor with domain $\Cc$.
+  \end{defn}
+  In general a colimit is absolute because the colimit is a colimit for purely ``diagrammatic'' reasons. For instance, split epimorphisms is absolute in this sense, because of the equation describe the section of a split epimorphism is preserved under any functor. While, an general epimorphism may be not absolute.
+  \begin{exam}
+    Initial objects are never absolute. Indeed, if $0$ is an initial object, then it is never preserved by the covariant representable functor $\hom(0,-)\colon\Cc\to\Set$.
+  \end{exam}
+  \begin{exam}
+    Similarly, coproducts are never absolute.
+  \end{exam}
+  \begin{exam}
+    The trivial example for absolute coequalizers is that the coequalizer of a pair of same epimorphism is absolute. Indeed, it is just the identity of codomain.
+  \end{exam}
+  The most common example is a split coequalizer.
+  \begin{defn}
+    A \termin{split coequalizer} $(C,e)$ of a pair $(f,g)$ is a co-cone under this pair such that the morphism $(f,e)\colon g\to e$ has a section in the arrow category.
+  \end{defn}
+  \begin{prop}\label{prop:split coeq is abs}
+    A split coequalizer is an absolute coequalizer.
+  \end{prop}
+  \begin{proof}
+    Let $(r,s)\colon e\to g$ be a section of $(f,e)$ in the arrow category. Then we have
+    \begin{equation*}
+      f\circ r=1_B\quad e\circ s=1_C\quad s\circ e=g\circ r
+    \end{equation*}
+    \begin{displaymath}
+    \xymatrix{
+      A\ar@<0.5ex>[r]^{f}\ar@<-0.5ex>[r]_{g}
+      &B\ar[r]^{e}\ar@/_1.5pc/[l]_{r}\ar[dr]_-{p}
+      &C\ar@/_1.5pc/[l]_{s}\ar@<0.5ex>[d]^-{q}\ar@<-0.5ex>[d]_-{\bar{q}}\\
+      &&D
+    }
+    \end{displaymath}
+
+    By the definition, $(C,e)$ is a co-cone under the pair $(f,g)$. Now we consider another co-cone $(D,p)$. Define $q=p\circ s$, then we have
+    \begin{align*}
+      q\circ e & = p\circ s\circ e \\
+       & = p\circ g\circ r \\
+       & = p\circ f\circ r \\
+       & = p
+    \end{align*}
+    and if there exists another $\bar{q}$ such that $\bar{q}\circ e = p$, then
+    \begin{align*}
+      \bar{q} & = \bar{q}\circ e\circ s \\
+       & = p\circ s\\
+       & = q
+    \end{align*}
+
+    So, $(C,e)$ is a coequalizer of $(f,g)$. Moreover, since the equalities of the statement are preserved by any functor, the same conclusion applies to the image of above diagram under any functor.
+  \end{proof}\label{prop:abs coeq}
+  We now give a general characterization of absolute coequalizers, the previous example are just special cases of it.
+  \begin{prop}
+    Let $(C,e)$ be a co-cone under a pair $f_0,f_1\colon A\to B$. $(C,e)$ is an absolute coequalizer of $(f_0,f_1)$ if and only if there exist a section $s$ of $e$, a sequence of morphisms $r_1,\cdots,r_n\colon B\to A$ and a sequence of binary digits $\epsilon_1,\cdots,\epsilon_n$ such that
+    \begin{align*}
+      e\circ s & = 1_C \\
+      f_{\epsilon_1}\circ r_1 & = 1_B\\
+      &\cdots\\
+      f_{1-\epsilon_i}\circ r_i & = f_{\epsilon_{i+1}}\circ r_{i+1}\\
+      &\cdots\\
+      f_{1-\epsilon_n}\circ r_n & = s\circ e
+    \end{align*}
+  \end{prop}
+  \begin{proof}
+    To show the ``only if'', just notice that, an absolute coequalizer must be preserved, in particular, by the hom-functor $\Hom(C,-)$ and $\Hom(B,-)$.
+
+    The previous one shows the function $e_{\ast}\colon\Hom(C,B)\to\Hom(C,C)$ is split epi, thus the existence of the section $s$ follows. The latter one shows that $1_B$ and $s\circ e$ are in the same equivalence class in $\Hom(B,B)$ under the equivalence relation generated by the image of $(f_0,f_1)\colon A\to B\times B$, thus there exists a sequence connected them.
+
+    Conversely, it is easy to check that if such section $s$ and sequence $r_1,\cdots,r_n$ exist, the given co-cone must be a coequalizer, for essentially the same reasoning in the proof of Proposition \ref{prop:split coeq is abs}.
+  \end{proof}
+
+  More generally, we offer some pleasant characterizations for absolute colimits.
+  \begin{thm}
+     For a co-cone $\mu\colon D\then\Delta_C$ under a diagram $D\colon \Ii\to \Cc$, the followings are equivalent:
+     \begin{enumerate}
+       \item $\mu$ is an absolute colimit.
+       \item $\mu$ is a colimit which is preserved by the Yoneda embedding $\Upsilon$.
+       \item $\mu$ is a colimit which is preserved by the covariant representable functors $\Hom(D_i,-)\colon \Cc\to \Set$ (for all $i\in\ob\Ii$) and $\Hom(C,-)\colon \Cc\to \Set$.
+       \item There exists $i_0\in\ob\Ii$ and $d_0\colon C\to D_{i_0}$ such that
+       \begin{enumerate}
+         \item For every $i\in\ob\Ii$, $d_0 \circ \mu_i$ and $1_{D_i}$ are in the same connected component of the comma category $(D_i \down D)$.
+         \item $\mu_{i_0} \circ d_0 = 1_{C}$.
+       \end{enumerate}
+     \end{enumerate}
+  \end{thm}
+  \begin{proof}
+    \emph{1 $\then$ 2 $\then$ 3} are obvious.
+
+    To see \emph{3 $\then$ 4}, notice that in $\Set$, a colimit is a quotient set of the disjoint union of objects in the diagram. Apply this fact to the colimit $\Hom(C,-)\ast\mu$, we see that $1_C\in\Hom(C,C)$ must have a preimage in some $\Hom(C,D_{i_0})$. That means $\mu_{i_0}$ have sections $d_0\colon C\to D_{i_0}$. Which is \emph{b)}.
+
+    Next we check \emph{a)} for such $i_0$ and $d_0$. To do this, we consider the colimit $\Hom(D_i,-)\ast\mu$. We have
+    \begin{align*}
+      \mu_{i_0}\circ d_0\circ \mu_i & = \mu_i \\
+      1_{D_i}\circ \mu_i & = \mu_i
+    \end{align*}
+    Thus $d_0 \circ \mu_i$ and $1_{D_i}$ have the same image in the colimit $\Hom(D_i,C)$, which is a quotient set of the disjoint union $\bigsqcup\limits_{j\in\ob\Ii}\Hom(D_i,D_j)$. Notice that the quotient is under the equivalence relation generated by the morphisms in the diagram $D$. Then the similar reasoning as in the proof of Proposition \ref{prop:abs coeq} shows that there exists a sequence of morphisms in the diagram $D$ such that $d_0 \circ \mu_i$ and $1_{D_i}$ are connected by them. Which is \emph{a)}.
+
+    Finally, we prove \emph{4 $\then$ 1}. Let $\mu\colon D\then\Delta_C$ be a co-cone satisfies the conditions in \emph{4} and $\nu\colon D\then\Delta_T$ be another co-cone. We need to show that there exists a unique factorization $f\colon C\to T$ of $\nu$ by $\mu$ and make sure such a proof is purely ``diagrammatic''.
+
+    Let $f=\nu_{i_0}\circ d_0$. Then $f\circ \mu_i = \nu_{i_0} \circ (d_0 \circ \mu_i)$. Since $d_0 \circ \mu_i$ and $1_{D_i}$ are connected in $(D_i \down D)$, we have
+    \begin{align*}
+      f\circ \mu_i & = \nu_{i_0} \circ (d_0 \circ \mu_i) \\
+      & \cdots \\
+      & = \nu_i \circ 1_{D_i} = \nu_{i}
+    \end{align*}
+    Which shows that $f$ is the required factorization.
+
+    To show the uniqueness, consider another factorization $\bar{f}$. Then
+    \begin{align*}
+      \bar{f} & = \bar{f} \circ \mu_{i_0} \circ d_0 \\
+      & = \nu_{i_0} \circ d_0 = f
+    \end{align*}
+
+    Therefore, $\mu$ is a colimit of $D$. Moreover, the equations in this proof are obvious preserved by any functor. Thus $\mu$ is absolute.
+  \end{proof}
+\subsection{Exercises}
+\begin{exam}
+  Let $(C,e)$ be the coequalizer of its kernel pair $(f,g)$. Shows that if $e$ is split epi, then the coequalizer is split and thus absolute.
+\end{exam}
+
+
+\newpage\section{Final functor}
+A final functor $F \colon\Ii\to\Jj$ is which that if we can restrict diagrams on $\Jj$ to diagrams on $\Ii$ along $F$ without changing their colimit.
+
+\begin{defn}
+  A functor $F\colon\Ii\to\Jj$ is said to be \termin[cofinal]{cofinal functor} if for every object $j \in \Jj$ the comma category $(j\down F)$ is connected.
+  A functor is said to be \termin[initial]{initial functor} (or \termin[co-cofinal]{co-cofinal functor}) if its opposite is final.
+\end{defn}
+\begin{rem}
+  Beware that these properties are pretty much unrelated to that of a functor being an initial object or terminal object in the functor category $[\Ii,\Jj]$.
+\end{rem}
+\begin{rem}
+  The prefix ``co-'' in the term ``cofinal'' does not mean it is the dual of ``final''. Indeed, ``\termin{final functor}'' is just another name of ``cofinal functor''.
+\end{rem}
+
+\begin{lem}\label{lem:restrict diagram}
+  Let $F\colon\Ii\to\Jj$ be a functor and $D\colon\Jj\to\Cc$ be a diagram. Then any co-cone $\alpha$ under $D$ can be restricted to be a co-cone $\alpha\ast F$ under $D\circ F$. If $F$ is cofinal, then any co-cone $\alpha$ under $D\circ F$ can be uniquely extended to a co-cone $\beta$ under $D$ such that $\beta\ast F=\alpha$.
+\end{lem}
+\begin{proof}
+  The first statement is obvious, we now prove the second.
+
+  For any $j\in\ob\Jj$, since $(j\down F)$ is nonempty, then there exists an $\Jj-$arrow $j\to F(i)$ for some $i\in\Ii$. Let $\beta_j$ be the composite $\alpha_i\circ D(j\to F(i))$. Then such a morphism $\beta_j$ is independent for the choice of $i$. Indeed, for any $\Ii-$arrow $i\to i'$ inducing a morphism in $(j\down F)$, it is easy to see that $\alpha_i\circ D(j\to F(i)) = \alpha_{i'}\circ D(j\to F(i'))$. Since $(j\down F)$ is connected, the same thing hold for all objects in it and the result composite is then independent for choice of $i$.
+  By similar reasoning, it is easy to see that $\beta$ form a co-cone under $D$.
+
+  Since $\beta_{F(i)} = \alpha_i\circ D(1_{F(i)}) = \alpha_i$, we get $\beta\ast F=\alpha$.
+
+  If there exists another co-cone $\gamma$ under $D$ such that $\gamma\ast F=\alpha$, then we have $\gamma_{F(i)}=\alpha_i$ for all $i\in\ob\Ii$. For any $j\in\ob\Jj$, since $(j\down F)$ is nonempty, then there exists an $\Jj-$arrow $j\to F(i)$ for some $i\in\Ii$. Then we have $\gamma_j = \gamma_{F(i)}\circ D(j\to F(i)) = \alpha_i\circ D(j\to F(i)) =\beta_j$.
+\end{proof}
+\begin{rem}
+  Similar result holds for cones.
+\end{rem}
+
+\begin{thm}\label{thm:cofinal}
+Let $F\colon\Ii\to\Jj$ be a functor, then the following conditions are equivalent.
+  \begin{enumerate}
+    \item $F$ is cofinal.
+    \item For all diagrams $D\colon\Jj\to\Set$ the natural function between colimits
+          \begin{equation*}
+              \dirlim D \circ F \to \dirlim D
+          \end{equation*}
+          is bijective.
+    \item For all categories $\Cc$ and all diagrams $D\colon\Jj\to\Cc$ the natural morphism between colimits
+          \begin{equation*}
+              \dirlim D \circ F \to \dirlim D
+          \end{equation*}
+          is an isomorphism.
+    \item For all diagrams $D\colon\Jj^{op}\to\Set$ the natural function between limits
+          \begin{equation*}
+              \invlim D \to \invlim D \circ F^{\op}
+          \end{equation*}
+          is bijective.
+    \item For all categories $\Cc$ and all diagrams $D\colon\Jj^{\op}\to\Cc$ the natural morphism
+          \begin{equation*}
+              \invlim D \to \invlim D \circ F^{\op}
+          \end{equation*}
+          is an isomorphism.
+    \item For all $j \in \Jj$
+          \begin{equation*}
+              \dirlim_{i\in\ob\Ii} \Hom_{\Jj}(j,F(i))\approx\Pt
+          \end{equation*}
+          where $\Pt$ denote a singleton.
+\end{enumerate}
+\end{thm}
+\begin{rem}
+  The isomorphisms in these condition should be understood as follows: whenever one of the both sides exists, then so does the other side and the morphism thus exists and must be an isomorphism. Or see \ref{def:limit as rep functor}.
+\end{rem}
+
+
+
+\begin{proof}
+  \emph{3} $\then$ \emph{2}, \emph{5} $\then$ \emph{4}, \emph{2} $\Leftrightarrow$ \emph{4} and \emph{3} $\Leftrightarrow$ \emph{5} are obvious.
+
+%  By \ref{def:limit as rep functor}, we can regard these limits and colimits as presheaves and functors to avoid to discuss the existence of them.
+
+  \emph{1} $\then$ \emph{3}. Assume $\dirlim D\circ F = \nu\colon D\circ F\then \Delta_C$, by Lemma \ref{lem:restrict diagram}, we can uniquely extended it to a co-cone $\mu\colon D\then\Delta_C$. We now show that it is a colimit of $D$.
+
+  For any co-cone $\tau\colon D\then\Delta_T$ under $D$, $\tau\ast F$ is a co-cone under $D\circ F$,  then we get a unique factorization $\phi\colon C\to T$ of $\tau\ast F$ by $\nu=\mu\ast F$. That is $\phi\circ\mu\ast F=\tau\ast F$. By  Lemma \ref{lem:restrict diagram}, it can be uniquely extended to a co-cone under $D$, which is $\phi\circ\mu = \tau$.
+
+  If there exists another factorization $\psi\colon C\to T$ of $\tau$ by $\mu$. Then it is also a factorization of $\tau\ast F$ by $\nu=\mu\ast F$ and thus $\psi=\phi$.
+
+  Conversely, assume $\dirlim D = \mu\colon D\then \Delta_C$. Any co-cone under $D\circ F$ can be uniquely extended to a co-cone under $D$, then the unique factorization follows and $\mu\ast F$ is a colimit of $D\circ F$.
+
+  \emph{2} $\then$ \emph{6}. For an arbitrary $j_0\in\ob\Jj$. Let $D$ be the functor $j\mapsto\Hom_{\Jj}(j_0,j)$, then
+  $\dirlim D\circ F = \dirlim D$. We only need to check that $\dirlim D$ is a singleton. Indeed, for any $f\in\Hom_{\Jj}(j_0,j)$, we have $f\circ 1_{j_0} = f$. Consider the functions
+  \begin{equation*}
+    \Hom(j_0,j_0)\markar{f_{\ast}}\Hom(j_0,j)\to\dirlim D
+  \end{equation*}
+  One can see that the image of $f$ in $\dirlim D$ should be the image of $1_{j_0}$ and thus $\dirlim D$ is a singleton.
+
+  \emph{6} $\Leftrightarrow$ \emph{1}. Since $\dirlim_{i\in\ob\Ii} \Hom_{\Jj}(j,F(i))$ is a quotient set of the disjoint union of those $\Hom_{\Jj}(j,F(i))$ and two objects $j\to F(i)$ and $j\to F(i')$ are in the same equivalent class if they are connected by a zigzag of morphisms in $(j\down F)$, the cardinal of $\dirlim_{i\in\ob\Ii} \Hom_{\Jj}(j,F(i))$ is the same as the cardinal of the set of connected components in $(j\down F)$.
+\end{proof}
+
+\begin{lem}\label{lem:connected category}
+  A category $\Ii$ is connected if and only if $\dirlim_{\Ii}\Delta_{\Pt}=\Pt$.
+\end{lem}
+\begin{proof}
+  Since $\dirlim_{\Ii}\Delta_{\Pt}$ is a quotient set of the disjoint union of a family of $\Pt_i$ indexed by $\Ii$ and two objects $x_i\in\Pt_i$ and $x_{i'}\in\Pt_{i'}$ are in the same equivalent class if they are connected by a zigzag of functions between those singletons, the cardinal of $\dirlim_{\Ii}\Delta_{\Pt}$ is the same as the cardinal of the set of connected components in $\Ii$.
+\end{proof}
+
+\begin{prop}
+If $F\colon\Ii\to\Jj$ is cofinal then $\Ii$ is connected if and only if $\Jj$ is.
+\end{prop}
+\begin{proof}
+  Let $\Delta^{\Ii}_{\Pt}\colon\Ii\to\Set$ and $\Delta^{\Jj}_{\Pt}\colon\Jj\to\Set$ be the constant functors. Then $\Delta^{\Ii}_{\Pt}=\Delta^{\Jj}_{\Pt}\circ F$ and thus $\dirlim\Delta^{\Ii}_{\Pt}=\dirlim\Delta^{\Jj}_{\Pt}$.
+\end{proof}
+
+\begin{prop}
+Let $F\colon\Ii\to\Jj$ and $G\colon\Jj\to\Kk$ be two functors.
+\begin{enumerate}
+  \item If $F$ and $G$ are cofinal, then so is their composite $G \circ F$.
+  \item If $F$ and the composite $G \circ F$ are cofinal, then so is $G$.
+  \item If $G$ is a fully faithful functor and the composite $G \circ F$ is cofinal, then both functors separately are cofinal.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+  Let $D\colon\Kk\to\Set$ be a functor, then consider the natural functions:
+  \begin{equation*}
+    \dirlim D\circ G\circ F \To \dirlim D\circ G \To \dirlim D
+  \end{equation*}
+
+  Then \emph{1}, \emph{2} are obvious. For \emph{3}, since $G$ is fully faithful, we have $(j\down F)\simeq(G(j)\down G\circ F)$. The latter comma category is connected since $G \circ F$ is cofinal, thus $F$ is cofinal and the result follows from \emph{2}.
+\end{proof}
+
+\begin{exam}
+If $\Ii$ has a terminal object then the functor $F\colon\one \to \Ii$ that picks that terminal object is cofinal: for every $i \in \ob\Ii$ the comma category $(i\down F)$ is equivalent to $\one$. The converse is also true: if a functor $\one\to\Ii$ is cofinal, then its image is a terminal object.
+
+In this case the statement about preservation of colimits states that the colimit over a category with a terminal object is the value of the diagram at that object. Which is also readily checked directly.
+\end{exam}
+
+\begin{defn}
+  A subcategory $\Ii$ of $\Jj$ is said to be \termin[cofinal]{cofinal subcategory} if the inclusion functor is cofinal.
+\end{defn}
+A useful sufficient condition is
+\begin{prop}\label{prop:cofinal subcategory}
+  A full subcategory $\Ii$ of $\Jj$ is cofinal if for any $j\in\Jj$, there exists an arrow $j\to i$ such that $i\in\Ii$.
+\end{prop}
+\begin{cor}
+  If $\Ii$ has a terminal object $1$, then the $\{1\}$ itself is a cofinal subcategory of $\Ii$.
+\end{cor}
+\begin{cor}
+  If $\Ii$ has a terminal object $1$, then for any $\Ii-$diagram $D$, $\mu\colon D\then \Delta_{D_1}$ is a colimit of $D$.
+  Similarly, If $\Ii$ has a initial object $0$, then for any $Ii-$diagram $D$, $\mu\colon\Delta_{D_0}\then D$ is a limit of $D$.
+\end{cor}
+
+\begin{defn}
+  A category $\Ii$ is said to be \termin[cofinally small]{cofinally small category} if there exists a small category $\Ii_0$ and a cofinal functor $\Ii_0\to\Ii$.
+\end{defn}
+
+\begin{defn}
+  Two diagrams $D,D'$ in a category $\Cc$ are said to be \termin[cofinal]{cofinal diagram} if they have equivalent colimits.
+\end{defn}
+\begin{rem}
+  It is often said that two diagrams are cofinal even when neither has a colimit, if they acquire a common colimit on passing to a suitable completion of $\Cc$. This can probably be phrased internally to $\Cc$, at the cost of intuition.
+\end{rem}
+
+\subsection{Exercises}
+  \begin{ex}
+    Let $D\colon\Ii^{\op}\to\Cc$ be a diagram. The category $\Cone(D)$ has a functor to $\Cc$, mapping each cone to its vertex. Prove that $D$ has a limit if and only if this functor has a colimit.
+  \end{ex}
+
+\newpage\section{Commutativity of limits and colimits}
+  In this section, we consider the following kind of diagram
+  \begin{equation*}
+    D\colon\Ii\times\Jj\To\Cc
+  \end{equation*}
+
+  If we fix an $i\in\ob\Ii$, the bifunctor $D$ induces the following diagram:
+  \begin{equation*}
+    D(i,-)\colon\Jj\To\Cc
+  \end{equation*}
+
+  Then we can consider its limits and colimits.
+%  After that, we vary the index $i$ and consider the limits and colimits.
+
+  A morphism $f\colon i\to i'$ in $\Ii$ induces a natural transformation
+  \begin{equation*}
+    D(f,-)\colon D(i,-)\then D(i',-)
+  \end{equation*}
+  and actually defines a functor
+  \longmapdes{D(f,-)_{\ast}}{\Cone(D(i,-))}{\Cone(D(i',-))}{\mu}{D(f,-)\circ\mu}
+%  \longmapdes{D(f,-)^{\ast}}{\Cocone(D(i',-))}{\Cocone(D(i,-))}{\nu}{\nu\circ D(f,-)}
+
+  If the limits of $D(i,-)$ and $D(i',-)$ exist, then $D(f,-)_{\ast}$ maps the limit of $D(i,-)$ to a cone over $D(i',-)$, which is equipped with a unique morphism to the limit of $D(i',-)$. Therefore the functor induces a unique factorization:
+  \begin{displaymath}
+    \xymatrix{
+      {\invlim_{\Jj} D(i,-)}\ar@{=>}[d] \ar@{-->}[r]^{L_f} & {\invlim_{\Jj} D(i',-)}\ar@{=>}[d] \\
+      D(i,-)\ar@{=>}[r] & D(i',-)
+    }
+  \end{displaymath}
+  Notice that since cones are actually natural transformations from constant functors, thus the top row is just a morphism in $\Cc$.
+
+  If all the functor $D(i,-)$ have limits, then taking limit is a functor $L\colon\Ii\to\Cc$ which maps object $i$ to $\invlim_{\Jj} D(i,-)$ and arrow $f$ to $L_f$.
+
+  Now, $L$ itself is a diagram of shape $\Ii$, thus we can consider its limit and colimit, which are denoted by
+  \begin{equation*}
+    \invlim_{\Ii}\invlim_{\Jj} D \qquad\text{and}\qquad \dirlim_{\Ii}\invlim_{\Jj} D
+  \end{equation*}
+
+  On the other hand, an analogous reasoning shows that if all the functor $D(i,-)$ have colimits, then taking colimit is a functor $C\colon\Ii\to\Cc$. Thus we can consider its limit and colimit, which are denoted by
+  \begin{equation*}
+    \invlim_{\Ii}\dirlim_{\Jj} D \qquad\text{and}\qquad \dirlim_{\Ii}\dirlim_{\Jj} D
+  \end{equation*}
+
+  Similarly, we can begin with fixing a $j\in\Jj$ and do the same things. Then we have the following mixed limits and colimits
+  \begin{equation*}
+    \invlim_{\Jj}\invlim_{\Ii} D \qquad \dirlim_{\Jj}\invlim_{\Ii} D \qquad \invlim_{\Jj}\dirlim_{\Ii} D \qquad \dirlim_{\Jj}\dirlim_{\Ii} D
+  \end{equation*}
+
+  Here the question follows: what is the relationship of these limits and colimits listed above ?
+
+\subsection{Interchange property}
+  \begin{prop}\label{prop:interchange property of limits}
+    Consider a complete category $\Cc$ and two small categories $\Ii,\Jj$. Given a functor $D\colon\Ii\times\Jj\to\Cc$ and using the previous notations, the following interchange property holds:
+    \begin{equation*}
+      \invlim_{\Ii}\invlim_{\Jj} D \cong \invlim_{\Jj}\invlim_{\Ii} D
+    \end{equation*}
+  \end{prop}
+  \begin{proof}
+    We construct some canonical morphisms and show that they are isomorphisms. Then the require property follows.
+
+    Notice that an arrow $(i,j)\to(i',j')$ in $\Ii\times\Jj$ consists of an arrow $i\to i'$ in $\Ii$ and an arrow $j\to j'$ in $\Jj$, that the limit $\invlim_{\Ii}\invlim_{\Jj} D$ is a cone over those $\invlim_{\Jj} D(i,-)$ while each of them is a cone over those $D(i,j)$ with $i$ fixed and that the similar fact holds for $\invlim_{\Jj}\invlim_{\Ii} D$. We have the following commutative diagram
+  \begin{displaymath}
+    \xymatrix{
+      &&{\invlim_{\Jj}\invlim_{\Ii} D}\ar[d]\ar[dr]\ar@{-->}[dl]_{\nu}
+      &\\
+      &{\invlim_{\Ii\times\Jj} D}\ar[dr]\ar@{-->}[d]\ar@{-->}[r]\ar@{-->}@/_1.5pc/[dl]_{\mu'}\ar@{-->}@/^1.5pc/[ur]^{\nu'}
+      &{\invlim_{\Ii} D(-,j)}\ar[d]\ar[r]
+      &{\invlim_{\Ii} D(-,j')}\ar[d]
+      \\{\invlim_{\Ii}\invlim_{\Jj} D}\ar[r]\ar[dr]\ar@{-->}[ur]^{\mu}
+      &{\invlim_{\Jj} D(i,-)}\ar[r]\ar[d]
+      &{D(i,j)}\ar[r]\ar[d]\ar[dr]
+      &{D(i,j')}\ar[d]
+      \\&{\invlim_{\Jj} D(i',-)}\ar[r]
+      &{D(i',j)}\ar[r]
+      &{D(i',j')}
+    }
+  \end{displaymath}
+
+  Then we can see that both $\invlim_{\Ii}\invlim_{\Jj} D$ and $\invlim_{\Jj}\invlim_{\Ii} D$ are cones over $D$ thus there exist unique factorizations $\mu$ and $\nu$ respectively. Those are our require canonical morphisms.
+
+  On the other hand, for any fixed $i$, the limit $\invlim_{\Ii\times\Jj} D$ is a cone over $D(i,-)$, thus the unique factorization exists. Moreover, this factorization commute with the morphisms between those $D(i,-)$ and make $\invlim_{\Ii\times\Jj} D$ to be a cone over $L$, which ensure that there exists a unique factorization $\mu'$. Similarly, a unique factorization $\mu'$.
+
+  It is easy to check that $\mu'$ and $\nu'$ are the inverse of $\mu$ and $\nu$ respectively, thus $\mu$ and $\nu$ are isomorphisms.
+
+  To see the naturality, consider another diagram $D'$ of shape $\Ii\times\Jj$ and a natural transformation $\alpha$ between $D$ and $D'$. Then we have a similar commutative diagram for $D'$ as above one and the lower right squares are connected by $\alpha$. Then use the universal properties of limits, it is easy to see that $\alpha$ provides a corresponding of those diagrams and the naturality follows.
+  \end{proof}
+  \begin{exam}
+    \begin{equation*}
+      \prod_{i}(\prod_{j} D_{i,j}) \approx \prod_{j}(\prod_{i} D_{i,j})
+    \end{equation*}
+  \end{exam}
+  \begin{exam}
+    \begin{equation*}
+      \ker(\prod_i f_i,\prod_i g_i) \approx \prod_i \ker(f_i,g_i)
+    \end{equation*}
+  \end{exam}
+
+\subsection{Filtered colimits commute with finite limits}
+  Now we consider the mixed interchange property for
+  \begin{equation*}
+    \dirlim_{\Ii}\invlim_{\Jj} D \qquad\text{and}\qquad \invlim_{\Jj}\dirlim_{\Ii} D
+  \end{equation*}
+
+  However, it is easy to see that the mixed interchange property does not hold in general. For instance, consider the following mixed interchange property
+  \begin{equation*}
+    (A\times B)\sqcup(C\times D)\approx(A\sqcup B)\times(C\sqcup D)
+  \end{equation*}
+  It is easy to see that it is false just by a cardinality argument.
+
+  Now there is a very important case in which the mixed interchange property holds in $\Set$: this is the case where $\Ii$ is filtered and $\Jj$ is finite.
+  \begin{defn}
+    A \termin{filtered category} is a category $\Cc$ in which every finite diagram has a cocone.
+  \end{defn}
+  This can be rephrased in more elementary terms by saying that
+  \begin{prop}\label{prop:filtered category}
+    A category $\Cc$ is filtered if and only if
+    \begin{enumerate}
+      \item $\Cc$ is not empty.
+      \item For any two objects $A,B\in\ob\Cc$, there exists an object $C\in\ob\Cc$ and morphisms $A\to C$ and $B\to C$.
+      \item For any two parallel morphisms $f,g\colon A\to B$ in $\Cc$, there exists a morphism $h\colon B\to C$ such that $h\circ f=h\circ g$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    Just as all finite colimits can be constructed from initial objects, binary coproducts, and coequalizers, so a cocone on any finite diagram can be constructed from these three.
+
+    In deed, whenever there is two objects in the diagram, we can apply \emph{b)} to find an object under them, if there is an arrow between them, we can then apply \emph{c)} to treat the triangle commutative. After this surgery, we get a smaller diagram such that a co-cone under the original diagram is a co-cone under it. Since we consider finite diagrams, after finitely many steps, we get an object, which is a require co-cone.
+  \end{proof}
+
+  \begin{exam}
+    A directed poset (or filtered poset, it depends on how you view the order as arrows) is a filtered category.
+  \end{exam}
+  \begin{exam}
+    Filtered categories are not necessarily small, or even not essentially small. For example, the category of all ordinals is filtered and not essentially small.
+  \end{exam}
+  \begin{exam}
+    Every category with a terminal object is filtered.
+  \end{exam}
+  \begin{exam}
+    Every category which has finite colimits is filtered.
+  \end{exam}
+  \begin{exam}
+    A product of filtered categories is filtered.
+  \end{exam}
+
+  Recall that the colimit of a diagram $D$ in the category $\Set$ is given by a quotient set
+  \begin{equation*}
+    \dirlim D = (\bigsqcup_{i\in\ob\Ii} D_i)/\sim
+  \end{equation*}
+  where the equivalence relation $\sim$ is that which is generated by
+  \begin{equation*}
+    \{(x\in D_i)\sim(x'\in D_{i'})\mid \exists(f\colon i\to i')\st(D_f(x)=x')\}
+  \end{equation*}
+
+  If the index category $\Ii$ is filtered, then the equivalence relation $\sim$ can be write down explicitly
+  \begin{equation*}
+    (x\in D_i)\sim(x'\in D_{i'})\text{ if }\exists(f\colon i\to i'',g\colon i'\to i'')\st(D_f(x)=D_g(x'))
+  \end{equation*}
+
+  This gives a very esay description of colimits in $\Set$ and allowed us to write down the mixed interchange property in $\Set$ explicitly.
+
+  \begin{thm}\label{thm:mixed interchange property}
+    Consider a filtered category $\Ii$ and a finite category $\Jj$. Given a functor $D\colon\Ii\times\Jj\to\Set$, the following mixed interchange property holds:
+    \begin{equation*}
+      \dirlim_{\Ii}\invlim_{\Jj} D \cong \invlim_{\Jj}\dirlim_{\Ii} D
+    \end{equation*}
+  \end{thm}
+  \begin{proof}
+    First of all, we construct the canonical morphism between them. Consider the following commutative diagram
+    \begin{displaymath}
+      \xymatrix{
+      &{\invlim_{\Jj} D(i,-)}\ar[r]\ar[d]\ar[dl]
+      &{D(i,j)}\ar[r]\ar[d]
+      &{D(i,j')}\ar[d]
+      \\{\dirlim_{\Ii}\invlim_{\Jj} D}\ar@{-->}[ddrr]_{\lambda}
+      &{\invlim_{\Jj} D(i',-)}\ar[r]\ar[l]
+      &{D(i',j)}\ar[r]\ar[d]
+      &{D(i',j')}\ar[d]
+      \\&&{\dirlim_{\Ii} D(-,j)}\ar[r]
+      &{\dirlim_{\Ii} D(-,j')}
+      \\&&{\invlim_{\Jj}\dirlim_{\Ii} D}\ar[u]\ar[ur]
+      &
+      }
+    \end{displaymath}
+
+    It is easy to see that each $\invlim_{\Jj} D(i,-)$ is a cone over those $\dirlim_{\Ii} D(-,j)$ and thus there exists a unique factorization from it to $\invlim_{\Jj}\dirlim_{\Ii} D$. Consider these factorizations for all $\invlim_{\Jj} D(i,-)$, it is easy to check that $\invlim_{\Jj}\dirlim_{\Ii} D$ is a co-cone under them. Thus the unique factorization $\lambda$ exists.
+
+    Moreover, this diagrammatic construction ensure that the canonical morphism is natural.
+
+    But, as we have seen in the beginning of this subsection, the canonical morphism is not an isomorphism in general. So we need to write down it explicitly in our cases.
+
+    Recall that, in $\Set$, the limit $\invlim_{\Jj} D(i,-)$ is given by
+    \begin{equation*}
+      L_i=\{(x_j)_{j\in\ob\Jj}\mid x_j\in D(i,j); D(i,f)(x_j)=x_{j'}, \forall f\colon j\to j'\}
+    \end{equation*}
+    Thus
+    \begin{equation*}
+      \dirlim_{\Ii}\invlim_{\Jj} D = (\bigsqcup_{i\in\ob\Ii} L_i)/\sim
+    \end{equation*}
+    Where the equivalence relation $\sim$ is given by
+    \begin{align*}
+      &((x_j)_{j\in\ob\Jj}\in L_i) \sim ((y_j)_{j\in\ob\Jj}\in L_{i'})\quad \text{if}\\
+      & \exists(f\colon i\to i'',g\colon i'\to i'')\st(\forall j\in\ob\Jj)(D(f,j)(x_j)=D(g,j)(y_j))
+    \end{align*}
+
+    Similarly,
+    \begin{equation*}
+      \invlim_{\Jj}\dirlim_{\Ii} D = \{([x_j])_{j\in\ob\Jj}\mid x_j\in C_j; C_f([x_j])=[x_{j'}], \forall f\colon j\to j'\}
+    \end{equation*}
+    Where
+    \begin{equation*}
+      C_j = (\bigsqcup_{i\in\ob\Ii} D(i,j)/\sim_j\qquad C_f = [D(i,f)]
+    \end{equation*}
+    and the equivalence relation $\sim_j$ is given by
+    \begin{align*}
+      &(x\in D(i,j))\sim_j(y\in D(i',j))\quad \text{if}\\
+      &\exists(f\colon i\to i'',g\colon i'\to i'')\st(D(f,j)(x)=D(g,j)(y))
+    \end{align*}
+
+    Use these explicit descriptions above, it is not difficult to verify that the canonical morphism $\lambda$ is given by
+    \begin{equation*}
+      \lambda([(x_j)_{j\in\ob\Jj}]) = ([x_j])_{j\in\ob\Jj}
+    \end{equation*}
+
+    Now we prove it is bijective.
+
+    Let us prove first that $\lambda$ is injective. Consider $(x_j)_{j\in\ob\Jj}\in L_i$ and $(y_j)_{j\in\ob\Jj}\in L_{i'}$ such that $[x_j]=[y_j]$ for every $j\in\ob\Jj$. We need to show that $[(x_j)_{j\in\ob\Jj}]=[(y_j)_{j\in\ob\Jj}]$.
+
+    For each $j\in\ob\Jj$, $[x_j]=[y_j]$ means there exists arrows $f_j\colon i\to i_j$ and $g_j\colon i'\to i_j$ such that $D(f_j,j)(x_j)=D(g_j,j)(y_j)$. For these $f_j$ and $g_j$, since $\Ii$ is filtered, we can find two composite morphisms $f\colon i\to i''$ and $g\colon i'\to i''$ such that $D(f,j)(x_j)=D(g,j)(y_j)$ for all $j\in\ob\Jj$. Which is that $[(x_j)_{j\in\ob\Jj}]=[(y_j)_{j\in\ob\Jj}]$.
+
+    Let us now prove that $\lambda$ is surjective. Consider $([x_j])_{j\in\ob\Jj}$ in the right set, we need to show that there exist $[(y_j)_{j\in\ob\Jj}]$ in the left set such that $x_j\sim_jy_j$ for every $j\in\ob\Jj$.
+
+    For those $x_j\in D(i_j,j)$, since $\Ii$ is filtered, we can find morphisms $f_j\colon i_j\to i$ with common target. Then we have $D(f_j,j)(x_j)\sim_jx_j$ for every $j\in\ob\Jj$. But this does not mean that $(D(f_j,j)(x_j))_{j\in\ob\Jj}$ lies in $L_i$.
+
+    %Recall that $(y_j)_{j\in\ob\Jj}$ lies in some $L_{i'}$ requires that for all $g\colon j\to j'$, $D(i',g)(x_j)=x_{j'}$.
+    Since $([x_j])_{j\in\ob\Jj}\in\invlim_{\Jj}\dirlim_{\Ii} D$, we have $C_d([x_j])=[x_{j'}]$ for every $d\colon j\to j'$. Which means $D(i_j,d)(x_j)\sim_{j'}x_{j'}$ and thus $D(f_j,d)(x_j)\sim_{j'}D(f_{j'},j)(x_{j'})$. Which means there exists arrows $g_d,h_d\colon i\to i_d$ such that
+    \begin{equation*}
+      D(g_d\circ f_j,d)(x_j) = D(h_d\circ f_{j'},j)(x_{j'})
+    \end{equation*}
+
+    Consider the diagram constituted of all the morphisms $g_d,h_d$ in $\Ii$, we then find a single morphism $k\colon i\to i'$ such that
+    \begin{equation*}
+      D(k\circ f_j,d)(x_j) = D(k\circ f_{j'},j)(x_{j'})
+    \end{equation*}
+    for all arrows $d$. Therefore the family $(D(k\circ f_j,j)(x_j))_{j\in\ob\Jj}$ lies in $L_i$ and its equivalence class is still mapped by $\lambda$ to $([x_j])_{j\in\ob\Jj}$.
+  \end{proof}
+  \begin{rem}
+    This proof is due to \cite{borceux}. I recognize that it is very technical (but not difficult), but I don't have a soft one.
+  \end{rem}
+
+  The mixed interchange property in $\Set$ is the crucial property of filtered colimits.
+  \begin{prop}\label{prop:filtered category 2}
+    Let $\Ii$ be a small category. Then the following are equivalent:
+    \begin{enumerate}
+      \item $\Ii$ is filtered;
+      \item colimits under $\Ii$ commute with finite limits in $\Set$.
+      \item the diagonal functor $\Delta\colon\Ii\to[\Jj,\Ii]$ is cofinal for every finite category $\Jj$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    \emph{a)} $\then$ \emph{b)} is just Theorem \ref{thm:mixed interchange property}.
+    To show \emph{b)} $\then$ \emph{a)}, we check the conditions in Proposition \ref{prop:filtered category}.
+
+    Since the finite limit $\invlim\Pt$ is not always a singleton while a colimit of empty diagram in $\Set$ is always a singleton, $\Ii$ must be nonempty.
+
+    For any $1,2\in\ob\Ii$, consider the discrete diagram $\{\Hom(j,i)\}_{j=1,2;i\in\ob\Ii}$. Then we have
+    \begin{equation*}
+      \dirlim_{\Ii}(\Hom(1,i)\times\Hom(2,i)) \approx (\dirlim_{\Ii}\Hom(1,i))\times(\dirlim_{\Ii}\Hom(2,i))
+    \end{equation*}
+    The components of right hand are singletons, thus so is the left hand. Hence there exists some $i\in\ob\Ii$ such that $\Hom(1,i)\times\Hom(2,i)$ is nonempty.
+
+    For any arrows $f,g\colon1\to2$ in $\Ii$, consider the diagram consisting of objects $\{\Hom(j,i)\}_{j=1,2;i\in\ob\Ii}$ and functions $f_i,g_i\colon\Hom(2,i)\to\Hom(1,i)$ for every $i\in\ob\Ii$. Then we have
+    \begin{equation*}
+      \dirlim_{\Ii}\ker(f_i,g_i) \approx \ker(\dirlim_{\Ii}f_i,\dirlim_{\Ii}g_i)
+    \end{equation*}
+    The right hand is a singleton, thus there exist some $i$ such that $\ker(f_i,g_i)$ is nonempty.
+
+    \begin{displaymath}
+      \xymatrix@R=0.5cm{
+        &\Delta_i%\ar[dr]
+        &\\D
+        \save [u].[d].[dr].[ur]*[F--]\frm{}
+        \restore
+        \ar@{}[ur]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        \ar@{}[dr]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        &\ar@{}[r]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        &\Delta_{i''}
+        \\&\Delta_{i'}%*++=''b''%\ar[ur]
+        &
+        }
+    \end{displaymath}
+
+    \emph{c)} $\then$ \emph{a)} is obvious. For \emph{a)} $\then$ \emph{c)}, let $\Jj$ be a finite category, for any $D\in\ob[\Jj,\Ii]$, there exists a co-cone $D\then \Delta_i$, thus $(D\down\Delta)$ is nonempty.
+    To see it is connected, consider two co-cone $D\then \Delta_i$ and $D\then \Delta_{i'}$, then the commutative diagrams in them form a new diagram $D^{+}\colon\Jj^{+}\to\Ii$, thus there exists a co-cone $D^{+}\then \Delta_{i''}$. But there exists a inclusion $\Jj\to\Jj^{+}$, then we get a co-cone $D\then D^{+}\then \Delta_{i''}$, which connects $D\then \Delta_i$ and $D\then \Delta_{i'}$.
+  \end{proof}
+
+  \begin{exam}
+    In $\Set$, consider a set $X$ and the diagram $\Ii$ constituted of the finite subsets of $X$ and the canonical inclusions between them. This diagram is filtered and the filtered colimit of it is obviously $X$.
+  \end{exam}
+  \begin{exam}
+    A poset is a filtered category. Particularly, a series indexed by natural numbers is a filtered diagram, thus its colimit can be interchanged with finite limits.
+  \end{exam}
+  \begin{defn}
+    A category is said to be \termin[cofiltered]{cofiltered category} if its opposite is filtered.
+  \end{defn}
+
+
+\subsection{Sifted colimits commute with finite products}
+  \begin{defn}
+    A category $\Ii$ is called \termin[sifted]{sifted category} if colimits of diagrams of shape $\Ii$ (called \termin{sifted colimits}) commute with finite products in $\Set$.
+  \end{defn}
+  \begin{exam}
+    Every filtered category is sifted.
+  \end{exam}
+
+  Since any $n-$ary product ($n\geqslant2$) can be constructed from binary products, we have
+  \begin{prop}
+    A category $\Ii$ is sifted if and only if colimits of $\Ii-$diagrams commute with nullary products and binary products.
+  \end{prop}
+
+  Like filtered category, we have the following proposition.
+  \begin{prop}
+    A small category $\Ii$ is sifted if and only if it is nonempty and the diagonal functor $\Delta\colon\Ii\to\Ii\times\Ii$ is cofinal.
+  \end{prop}
+  \begin{proof}
+    For any two objects $i,i'$ in $\Ii$, the diagonal functor $\Delta\colon\Ii\to\Ii\times\Ii$ is cofinal implies that there exists a cospan $i\to i''\from i'$. Therefore the condition
+    \begin{quote}
+    ``$\Ii$ is nonempty and the diagonal functor $\Delta$ is cofinal''
+    \end{quote}
+    is equivalent to the condition
+    \begin{quote}
+    ``$\Ii$ is connected and the diagonal functor $\Delta$ is cofinal''.
+    \end{quote}
+
+    1, $\Ii$ is connected if and only if colimits of $\Ii-$diagrams commute with nullary products. Indeed, a nullary products is just the terminal object $\Pt$, thus the commutativity means $\dirlim_{\Ii}\Pt\approx\Pt$, which is equivalent to say that $\Ii$ is connected by Lemma \ref{lem:connected category}.
+
+    2, The diagonal functor $\Delta$ is cofinal if and only if colimits of $\Ii-$diagrams commute with binary products. Indeed, If $D,D'$ are two $\Ii-$diagrams, then we have the following commutative diagram
+    \begin{displaymath}
+      \xymatrix{
+        \dirlim (D_i\times D'_i) \ar[r]\ar@{=}[d]& (\dirlim D) \times (\dirlim D')\\
+        \dirlim (D\times D')\circ\Delta \ar[r]& \dirlim D\times D'\ar[u]_-{\approx}
+        }
+    \end{displaymath}
+
+    Then the upper morphism is an isomorphism if and only if so is the bottom, which is equivalent to say that the diagonal functor $\Delta$ is cofinal by Theorem \ref{thm:cofinal}.
+  \end{proof}
+  \begin{cor}
+    Every category having finite coproducts is sifted.
+  \end{cor}
+  \begin{proof}
+    Since a category having finite coproducts is nonempty (it has an initial object) and each category of cospans has an initial object (the coproduct) thus connected.
+  \end{proof}
+
+\subsection{Coproducts commute with connected limits}
+  \begin{prop}
+    Let $\Ii$ be a discrete small category, $\Jj$ a connected category and $D\colon\Ii\times\Jj\to\Set$ a functor. Then the canonical function
+    \begin{equation*}
+      \coprod_{\Ii}\invlim_{\Jj} D(i,j) \To \invlim_{\Jj} \coprod_{\Ii} D(i,j)
+    \end{equation*}
+    is bijective.
+  \end{prop}
+  \begin{proof}
+    We have
+    \begin{align*}
+      &\invlim_{\Jj} D(i,j) = \{(x_j)_{j\in\ob\Jj}\mid x_j\in D(i,j); D(i,f)(x_j)=x_{j'}, \forall f\colon j\to j'\} \\
+      &\invlim_{\Jj} \coprod_{\Ii} D(i,j) = \{(x_j)_{j\in\ob\Jj}\mid x_j\in \coprod_{\Ii}D(i,j);(\ast)\}
+    \end{align*}
+    where the condition $(\ast)$ is
+    \begin{quote}
+      for every $f\colon j\to j'$, we have $D(i,f)(x_j)=x_{j'}$ for some $i$.
+    \end{quote}
+
+    When $\Jj$ is connected, this condition require all the components of an element in $\invlim_{\Jj} \coprod_{\Ii} D(i,j)$ must be in the same $\invlim_{\Jj} D(i,j)$ for some $i$, which implies the canonical function is bijective.
+  \end{proof}
+
+\subsection{Universality of colimits}
+  Let $\Cc$ be a category having pullbacks and colimits of shape $\Ii$.
+
+  Let $B$ be a colimit object of some $\Ii-$diagram $D$, then foe any $\Cc-$morphism $f\colon A\to B$, consider the following pullback diagram
+    \begin{displaymath}
+      \xymatrix{
+        f^{\ast}D\ar@{}[r]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        \ar@{}[d]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        &D\ar@{}[d]^{}|-{\SelectTips{eu}{}\object@{=>}}
+        \\
+        A\ar[r]^{f}&B
+        }
+    \end{displaymath}
+  Since taking pullback along $f$ is a functor from $\Cc/B$ to $\Cc/A$, the left is then a co-cone under $f^{\ast}D$.
+
+  Use this notation, we define
+  \begin{defn}
+    A colimit is said to be \termin{universal} if it is preserved under pullback. That means the pullback of it along any morphism is again a colimit.
+  \end{defn}
+  \begin{rem}
+    We say that colimits of shape $\Ii$ are \termin{stable by base change} or \termin{stable under pullback} if for every $\Ii-$diagram $D$, its colimit is universal.
+  \end{rem}
+
+  \begin{thm}
+    In $\Set$, small colimits are universal.
+  \end{thm}
+  \begin{proof}
+    Since any small colimit can be constructed from coproducts and coequalizers, it suffices to prove the result separately for them.
+
+    Let $\{B_i\}_{i\in I}$ be a set of sets, their coproduct is just the disjoint union $B=\bigsqcup_I B_i$. Consider an arbitrary function $f\colon A\to B$ and the cartesian diagram
+    \begin{displaymath}
+      \xymatrix{
+        A_i\ar[d]\ar[r]&B_i\ar[d]
+        \\
+        A\ar[r]^{f}&B
+        }
+    \end{displaymath}
+    Then, by simple compute, we get
+    \begin{equation*}
+      A_i = \{(a,f(a))\mid a\in A, f(a)\in B_i\} \approx \{a\in A\mid f(a)\in B_i\}
+    \end{equation*}
+    And thus $A\approx\bigsqcup_I A_i$.
+
+    Let $f,g\colon S\to T$ be two parallel functions and $(Q,q)$ is their coequalizer. Consider an arbitrary function $h\colon P\to Q$ and the pullback diagram along $h$
+    \begin{displaymath}
+      \xymatrix{
+        S'\ar[r]^{h''}\ar@<-0.5ex>[d]_{f'}\ar@<0.5ex>[d]^{g'}
+        &S\ar@<-0.5ex>[d]_{f}\ar@<0.5ex>[d]^{g}
+        \\
+        T'\ar[d]_{p}\ar[r]^{h'}&T\ar[d]^{q}
+        \\
+        P\ar[r]^{h}&Q
+        }
+    \end{displaymath}
+    Then $p\circ f' = p\circ g'$ and $f',g'$ are pullbacks of $f,g$ along $h'$ respectively (by Proposition \ref{prop:assofpullback}).
+
+    Since $q$ is surjective, so is $p$, thus we can regard $P$ as a quotient set of $T'$ by the equivalence relation $R$:
+    \begin{equation*}
+      xR y \iff p(x)=p(y)
+    \end{equation*}
+    Then we need to show that $R$ is generated by $R_0=\{(f'(s'),g'(s'))\mid s'\in S'\}$.
+
+    Since $p\circ f' = p\circ g'$, $R$ contains $R_0$.
+    Conversely, consider two elements $x,y\in T'$ such that $p(x)=p(y)$. Then
+    \begin{equation*}
+      q\circ h' (x) = h\circ p (x) = h\circ p (y) = q\circ h'(y)
+    \end{equation*}
+
+    Since $(Q,q)=\coker(f,g)$, $(h' (x),h' (y))$ is contained in the equivalence relation generated by $\{(f(s),g(s))\mid s\in S\}$.
+    Thus $R$ is contained in the equivalence relation generated by its inverse image in along $h'$. Denote this inverse image by $R_1$, then we only need to show $R_1$ is contained in $R_0$.
+
+    Indeed, for any $(x,y)\in R_1$, there exists a $s\in S$ such that
+    \begin{equation*}
+      f(s)=h' (x),g(s)=h' (y)
+    \end{equation*}
+    But the upper two squares are cartesian, so there exists a $s'\in S'$ such that
+    \begin{equation*}
+      f'(s')=x,g'(s')=y,h''(s')=s
+    \end{equation*}
+    Thus $(x,y)\in R_0$.
+  \end{proof}
+  The universality of colimits is a very peculiar property which is much less common than to be filtered.
+
+\subsection{Exercises}
+  \begin{ex}
+    Prove the interchange property for colimits.
+  \end{ex}
+  \begin{ex}
+    Construct the colimit of a filtered diagram in $\Set$ explicitly.
+  \end{ex}
+
+
+\newpage\section{Limits and colimits in functor categories}
+  Limits in functor categories are computed pointwise.
+  \begin{prop}
+    Consider categories $\Ii^{\op},\Aa,\Bb$, with $\Ii^{\op}$ and $\Aa$ small. Let $D\colon\Ii^{\op}\to[\Aa,\Bb]$ be a functor. If for every $\Aa-$object $A$ the functor $D(-)(A)\colon\Ii^{\op}\to\Bb$ has a limit, then $D$ has a limit as well and this limit is computed pointwise.
+  \end{prop}
+  \begin{proof}
+    Recall that $[\Ii^{\op},[\Aa,\Bb]]\simeq[\Aa,[\Ii^{\op},\Bb]]$ (see \ref{prop:power law for functor}), this is the crucial fact we used in the proof.
+
+    For any $A\in\ob\Aa$, let $\mu_A\colon\Delta_{L_A}\then D(-)(A)$ be the limit of $D(-)(A)$. For any morphism $f\colon A\to A'$, since $D$ is a functor from $\Ii$ to $[\Aa,\Bb]$, it induces a natural transformation $\phi_f\colon D(-)(A)\then D(-)(A')$. It is easy to see that $\phi_f\circ\mu_A$ is also a cone over $D(-)(A')$, thus there exists a unique morphism $L_f\colon A\to A'$ making the following diagram commute
+    \begin{displaymath}
+      \xymatrix{
+        L_A\ar[d]_{L_f}\ar@{}[r]^-{\mu_A}|-{\SelectTips{eu}{}\object@{=>}}
+        &D(-)(A)\ar@{}[d]^{\phi_f}|-{\SelectTips{eu}{}\object@{=>}}\\
+        L_{A'}\ar@{}[r]^-{\mu_{A'}}|-{\SelectTips{eu}{}\object@{=>}}
+        &D(-)(A')
+        }
+    \end{displaymath}
+
+    Therefore the above data define a functor $L\colon\Aa\to\Bb$ mapping object $A$ to $L_A$ and morphism $f$ to $L_f$. This functor can also be view as a functor from $\Aa$ to $[\Ii^{\op},\Bb]$ mapping $A$ to $\Delta_{L_A}$. Then the above data define a natural transformation from such functor to $D$ viewed as a functor from $\Aa$ to $[\Ii^{\op},\Bb]$.
+    Then, by interchange variables, we get a cone $\mu\colon\Delta_L\then D$.
+
+    To show $\mu$ is a limit of $D$, we consider another cone $\tau\colon\Delta_T\then D$. By interchange variables, we get a natural transformation and apply to $f\colon A\to A'$, we get the following commutative diagram
+    \begin{displaymath}
+      \xymatrix{
+        T_A\ar[d]_{T_f}\ar@{}[r]^-{\tau_A}|-{\SelectTips{eu}{}\object@{=>}}
+        &D(-)(A)\ar@{}[d]^{\phi_f}|-{\SelectTips{eu}{}\object@{=>}}\\
+        T_{A'}\ar@{}[r]^-{\tau_{A'}}|-{\SelectTips{eu}{}\object@{=>}}
+        &D(-)(A')
+        }
+    \end{displaymath}
+
+    For each object $A$, $\tau_A$ is a cone over $D(-)(A)$, thus there exists a unique factorization $\alpha_A\colon T_A\to L_A$ of $\tau_A$ by $\mu_A$. Then it is not difficult to check the commutativity of the following diagram
+    \begin{displaymath}
+      \xymatrix{
+        T_A\ar[d]_{T_f}\ar[r]^{\alpha_A}
+        &L_A\ar[d]^{L_f}\\
+        T_{A'}\ar[r]^{\alpha_{A'}}
+        &L_{A'}
+        }
+    \end{displaymath}
+
+    Thus $\alpha$ is a natural transformation from $T$ to $L$ and then the unique factorization between $\Delta_T$ and $\Delta_L$ follows.
+  \end{proof}
+
+  As an immediate corollary we get
+  \begin{thm}\label{thm:limits in Fun}
+    If $\Aa$ is small and $\Bb$ is complete, then $[\Aa,\Bb]$ is complete and its limits are computed pointwise. Similarly, if $\Bb$ is cocomplete, then $[\Aa,\Bb]$ is cocomplete and its colimits are computed pointwise,
+  \end{thm}
+  \begin{cor}
+    Consider a small category $\Cc$. Then we have:
+    \begin{enumerate}
+      \item $\PSh(\Cc)$ is complete and cocomplete.
+      \item In $\PSh(\Cc)$, filtered colimits commute with finite limits.
+      \item In $\PSh(\Cc)$, sifted colimits commute with finite products
+      \item In $\PSh(\Cc)$, coproducts commute with connected limits
+      \item In $\PSh(\Cc)$, colimits are universal.
+    \end{enumerate}
+  \end{cor}
+  \begin{proof}
+    By Theorem \ref{thm:limits in Fun} and results in the previous section.
+  \end{proof}
+
+  \begin{cor}
+    If $\Cc$ is a small category. Then the Yoneda embedding $\Upsilon\colon\Cc\To\PSh(\Cc)$ preserves limits.
+  \end{cor}
+  \begin{rem}
+    The Yoneda embedding does not in general preserve colimits.
+  \end{rem}
+
+  \begin{thm}
+    Let $\Cc$ be a small category and $D\colon\Cc^{\op}\to\Set$ a presheaf. In $\PSh(\Cc)$, $D$ can be presented as the colimit of a diagram just constituted of representable functors and representable natural transformations.
+  \end{thm}
+  \begin{proof}
+    Consider the composite functor
+    \begin{equation*}
+      \Elts(D)^{\op}\markar{\phi_D}\Cc\markar{\Upsilon}\PSh(\Cc)
+    \end{equation*}
+    where $\Elts(D)$ is the category of elements of $D$ defined in Example \ref{exam:Elts} and $\phi_D$ is the opposite of the forgetful functor.
+    The its diagram is constituted of representable functors and representable natural transformations. We claim that $D$ is the colimit of it.
+
+    The crucial fact we used in the proof is that for any presheaf $F$, the natural transformation $\alpha\colon\Hom(-,X)\then F$ is uniquely determined by the object $F(X)$ and the element $\alpha_X(1_X)$.
+
+    Use this fact, it is easy to see that $D$ is a co-cone under $\Upsilon\circ\phi_D$. Moreover, Let $\Phi\colon\Upsilon\circ\phi_D \then \Delta_T$ be an arbitrary co-cone, $\Phi_{(D(X),x)}\colon\Hom(,X)\then T$ is uniquely determined by $T(X)$ and $\Phi_{(D(X),x)}(1_X)$. Then we get a natural transformation $\alpha\colon D\to T$ whose component is given by
+    \longmapdes{\alpha_X}{D(X)}{T(X)}{x}{\Phi_{(D(X),x)}(1_X)}
+
+    It is not difficult to check it is the required unique factorization.
+  \end{proof}
+
+  \begin{exam}
+    The category $[\Aa.\Bb]$ can be complete even when $\Bb$ is not. An obvious example is obtained by taking $\Aa$ and $\Bb$ to be empty: $\Bb$ is not complete or cocomplete, since it does not have a terminal or an initial object. But $[\Aa,\Bb]$ is the category with just one single object (the empty functor) and the identity on it; that category is obviously both complete and cocomplete. And since $\Aa$ doesn't have any object, limits in $[\Aa,\Bb]$ are still pointwise! %See exercise 2.17.10 for a non-pointwise limit.
+  \end{exam}
+
+\subsection{Exercises}
+  \begin{ex}
+    If $\Aa$ is small and $\Bb$ is complete, then a natural transformation $\alpha$ in $[\Aa,\Bb]$ is monic if and only if its every component is monic.
+  \end{ex}
+  \begin{ex}
+    Consider the category $\mathbf{2}$ with two objects $0,1$ and one single non-identity arrow $0\to1$. Find a category $\Cc$ and two functors from $\mathbf{2}$ to $\Cc$ such that their product exists but is not pointwise. [Hint: find a poset.]
+  \end{ex}
+
+
+\newpage\section{Limits and colimits in comma categories}
+\begin{prop}
+  Consider two complete categories $\Aa,\Bb$ and two continuous functors $F\colon\Aa\to\Cc,G\colon\Bb\to\Cc$, then the comma category $(F\down G)$ is complete and the domain functor $U\colon(F\down G)\to\Aa$ and codomain functor $V\colon(F\down G)\to\Bb$ are continuous.
+\end{prop}
+\begin{proof}
+  Let $D\colon\Ii^{\op}\to(F\down G)$ be a small diagram. We construct its limit by the limits of $U\circ D$ and $V\circ D$, thus the statement follows.
+
+  Assume $\mu\colon\Delta_A\to U\circ D$ and $\nu\colon\Delta_B\to V\circ D$ are limits of $U\circ D$ and $V\circ D$ respectively. Since $F,G$ are continuous, $F\ast\mu$ and $G\ast\nu$ are limits of $F\circ U\circ D$ and $G\circ V\circ D$ respectively. On the other hand, there is a natural transformation $\alpha\colon F\circ U\then G\circ V$, so we get the factorization $h\colon F(A)\to G(B)$ making the following diagram commute:
+    \begin{displaymath}
+      \xymatrix{
+        F(A)\ar[d]_{h}\ar@{}[r]^-{F\ast\mu}|-{\SelectTips{eu}{}\object@{=>}}
+        &F\circ U\circ D\ar@{}[d]^-{\alpha\ast D}|-{\SelectTips{eu}{}\object@{=>}}\\
+        G(B)\ar@{}[r]^-{G\ast\nu}|-{\SelectTips{eu}{}\object@{=>}}
+        &G\circ V\circ D
+        }
+    \end{displaymath}
+    By the universal property of comma category, the both vertical data form a functor from $\Ii^{\op}$ to $(F\down G)$ and the horizontal data form a natural transformation $\eta\colon\Delta_{(A,h,B)}\then D$. It is now straightforward to check that $\eta$ is the limit of $D$.
+\end{proof}
+
+\begin{cor}
+  Let $\Cc$ be a small category and $F\colon\Cc\to\Set$ a continuous functor, then $\Elts(F)$ is complete and the forgetful functor $\Elts(F)\to\Cc$ is continuous.
+\end{cor}
+
+  Let's consider slider categories. It should be noticed that the constant functor $\Delta_I$ does not, in general, preserve limits or colimits. Indeed in $\one$ one has $\ast\times\ast=\ast$ and $\ast\amalg\ast=\ast$, but generally $I \times I \neq I$ and $l \amalg I \neq I$. Nevertheless we have the following result.
+\begin{prop}
+  Consider a category $\Cc$ and a fixed object $I\in\Cc$.
+  \begin{enumerate}
+    \item If $\Cc$ is complete, $\Cc/I$ is complete.
+    \item If $\Cc$ is cocomplete, $\Cc/I$ is cocomplete.
+  \end{enumerate}
+\end{prop}
+The similar result hold for coslide categories.
+
+Notice that the identity functor $\Id_{\Cc}$ is continuous, these results are just special cases of the following one, which we leave as exercises.
+\subsection{Exercises}
+  \begin{ex}
+    Let $\Aa,\Bb$ be two complete (resp. cocomplete) categories, $F\colon\Aa\to\Cc$ a continuous (resp. cocontinuous)  functor and $G\colon\Bb\to\Cc$ an arbitrary functor. Show that the comma category $(F \down G)$ is complete (resp. cocomplete). [Hint: use Proposition \ref{prop:globalmonic} and \ref{prop:globalepi}]
+  \end{ex}
+  \begin{ex}
+    Show that the domain functor $\Cc/I\to\Cc$ and codomain functor $I/\Cc\to\Cc$ reflects limits and colimits. So the limits and colimits in slide and coslide categories are computed as limits in the original categories.
+  \end{ex}

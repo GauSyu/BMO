@@ -1,0 +1,176 @@
+\chapter{Set Theory}
+  In this chapter, we supplement some important facts in set theory.
+\minitoc
+\newpage
+\section{The fundamental axiom system}
+\subsection{What should a set be?}
+It is common to use foundations of mathematics in which ``set'' is an undefined term; this is set theory as a foundation. In a pure material set theory like ZFC, every object is a set. Even in a structural approach such as ETCS, it is common for every object to be a structured set in some way or another.
+
+Material set theory conflates two notions of sets, which were elegantly (but not first) described by Mathieu Dupont in a blog post as ``set$^1$'' and ``set$^2$'', which we will here call ``abstract set'' and ``concrete set''. In the latter case (set$^2$), we have some fixed universe of discourse (for example, collection of all real numbers), and a \textbf{concrete set} is a set of elements of this universe (in our example, a set of real numbers). In the former case (set$^1$), an \textbf{abstract set} is a purely abstract concept, an unstructured (except perhaps for the equality relation) collection of unlabelled elements. Arguably (this argument goes back at least to Lawvere), Cantor's original concept of cardinal number (Kardinalzahl) was the abstraction from a concrete set to its underlying abstract set.
+
+\subsection{ZFC}
+  The commonly accepted standard foundation of mathematics today is a material set theory, \termin{ZFC} or \emph{Zermelo-Fraenkel set theory with the axiom of choice}.
+  \begin{axiom}[Extensionality]
+    If two sets have the same members, then they are equal and themselves members of the same sets.
+  \end{axiom}
+  \begin{axiom}[Specification]
+    Given any set $X$ and any property $P$ of the elements of $X$, there is a set $\{x\in X\mid P(x)\}$ consisting precisely of those elements of $X$ for which $P$ holds.
+  \end{axiom}
+  \begin{axiom}[Empty set]
+    There is an \textbf{empty set}: a set $\varnothing$ with no elements.
+  \end{axiom}
+  \begin{axiom}[Union]
+    If $S$ is a set, then there is a set $\bigcup S$, \textbf{the union of $S$}, whose elements are precisely the elements of the elements of $S$.
+  \end{axiom}
+  \begin{axiom}[Paring]
+    If $A$ and $B$ are sets, then there is a set $\{A,B\}$, \textbf{the unordered pairing of $A$ and $B$}, whose elements are precisely $A$ and $B$.
+  \end{axiom}
+  \begin{axiom}[Power set]
+    If $X$ is a set, then there is a set $\Pp(X)$, \textbf{the power set of $X$}, whose elements are precisely \textbf{the subsets of $X$}, that is the sets whose elements are all elements of $X$.
+  \end{axiom}
+  \begin{defn}
+    The union of a set $X$ and its singleton $\{X\}$ is called the \termin{successor} of $X$. An inductive set $N$ is a set such that whenever any $x$ is a member of $N$, its successor is also a member of $N$.
+  \end{defn}
+  \begin{axiom}[Infinity]
+    Nonempty inductive set exists.
+  \end{axiom}
+  \begin{axiom}[Replacement]
+    Given a property $\psi[x,Y]$ with the chosen free variables shown, if $X$ is a set and if for every $x$ in $X$ there is a unique $Y$ (denoted by $\Psi(x)$) such that $\psi[x,Y]$ holds, then there is set $\{\Psi(x)\mid x\in X\}$, \textbf{the image of $X$ under $\psi$}.
+  \end{axiom}
+  \begin{axiom}[Choice]
+    If $X$ is a set, each of whose elements has an element, then there is a set with exactly one element from each element of $X$.
+  \end{axiom}
+  If we abandon the axiom of choice, then the rest axioms form a weaker system called \termin{ZF}, \emph{the Zermelo-Fraenkel set theory}.
+
+  For more detail, see \href{http://en.wikipedia.org/wiki/Zermelo-Fraenkel_set_theory}{\emph{Wikipedia}} or any textbook on set theory.
+
+\subsection{Universe}
+  \begin{defn}
+    A \termin{Grothendieck universe} $\Uu$ is a set $\Uu$ such that:
+    \begin{enumerate}
+      \item If $x$ is an element of $\Uu$ and if $y$ is an element of $x$, then $y$ is also an element of $\Uu$.
+%      \item If $x$ and $y$ are both elements of $\Uu$, then $\{x,y\}$ is an element of $\Uu$.
+      \item If $x$ is an element of $\Uu$, then $\Pp(x)$, the power set of $x$, is also an element of $\Uu$.
+      \item If $\{x_i\}_{i\in I}$ is a family of elements of $\Uu$, and if $I$ is an element of $\Uu$, then the union $\bigcup_{i\in I} x_i$ is an element of $\Uu$.
+      \item $\N\in\Uu$.
+    \end{enumerate}
+
+    Elements of a Grothendieck universe $\Uu$ are called \termin[$\Uu-$small sets]{$\Uu-$small set}, while a subset of $\Uu$ is called \termin[$\Uu-$moderate]{$\Uu-$moderate set}.  If the universe $\Uu$ is understood, we may simply say \termin[small]{small set} and \termin[moderate]{moderate set}.
+  \end{defn}
+  We now prove a useful lemma for a given Grothendieck universe $\Uu$.
+  \begin{lem}
+    If $x \in \Uu$ and $y \subseteq x$, then $y \in \Uu$.
+  \end{lem}
+  \begin{proof}
+    $y \in \Pp(x)$ because $y \subseteq x$. $\Pp(x) \in \Uu$ because $x \in \Uu$, so $y \in \Uu$.
+  \end{proof}
+  If $\Uu$ is a Grothendieck universe, then it is easy to show that $\Uu$ is itself a model of ZFC. Therefore, one cannot prove in ZFC the existence of a Grothendieck universe, and so we need extra set-theoretic axioms to ensure that uncountable universes exist. Grothendieck's original proposal was to add the following axiom of universes to the usual axioms of set theory:
+  \begin{axiom}[Universes]
+    Every set belongs to a universe.
+  \end{axiom}
+  Whenever any operation leads one outside of a given Grothendieck universe, there is guaranteed to be a bigger Grothendieck universe in which one lands. In other words, every set can be small if your universe is large enough!
+
+  Later, Mac Lane pointed out that often, it suffices to assume the existence of one uncountable universe. In particular, any discussion of ``small'' and ``large'' that can be stated in terms of sets and proper classes can also be stated in terms of a single universe $\Uu$.
+
+\subsection{Other axiom system}
+  There are other material set theories, such as NBG, \emph{the Von Neumann-Bernays-G\"{o}del set theory}, MK, \emph{the Morse-Kelley set theory} and so on.
+
+  Unlike \textbf{material} set theories, A \textbf{structural} set theory is a set theory which describes structural mathematics, and only structural mathematics. As conceived by the structuralist, mathematics is the study of structures whose form is independent of the particular attributes of the things that make them up.
+
+  For example, the structuralist says, essentially, that the number ``3'' should denote ``the third place in a natural numbers object'' rather than some particular set such as $\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\}$ as it does in any definition of ``the set of natural numbers'' in ZF.
+
+  Among category theorists, it's popular to state the axioms of a structural set theory by specifying elementary properties of the category of sets. For this reason structural set theory is often called \textbf{categorial} set theory.
+
+  The original, and most commonly cited, categorially presented structural set theory is Bill Lawvere's \href{http://ncatlab.org/nlab/show/ETCS}{\textbf{ETCS}}. It is weaker than ZFC and must be supplemented with an axiom of collection to handle some esoteric parts of modern mathematics, although it suffices for most everyday uses.
+
+  Another structural set theory, which is stronger than ETCS (since it includes the axiom of collection by default) and also less closely tied to category theory, is \href{http://ncatlab.org/nlab/show/SEAR}{\textbf{SEAR}}.
+\subsection{Exercises}
+\begin{ex}
+  Show that any Grothendieck universe $\Uu$ contains:
+  \begin{itemize}
+    \item All singletons of each of its elements,
+    \item All products of all families of elements of $\Uu$ indexed by an element of $\Uu$,
+    \item All disjoint unions of all families of elements of $\Uu$ indexed by an element of $\Uu$,
+    \item All intersections of all families of elements of $\Uu$ indexed by an element of $\Uu$,
+    \item All functions between any two elements of $\Uu$,
+    \item All subsets of $\Uu$ whose cardinal is an element of $\Uu$.
+  \end{itemize}
+\end{ex}
+
+
+\newpage\section{Axiom of choice}
+  In the viewpoint of category theory, the axiom of choice (\termin{AC}) is the following statement:
+  \begin{axiom}[AC]
+    Every surjection in the category $\Set$ splits.
+  \end{axiom}
+
+  In this section, we introduce some equivalence statements of AC under the assumption ZF. The most important among them are Zorn's lemma and the well-ordering theorem.
+
+  Here is a very short list from $n$Lab; much longer lists can be found elsewhere, such as at \emph{\href{http://en.wikipedia.org/wiki/Axiom_of_choice\#Equivalents}{Wikipedia}}. Some of the statements on this list, though, may be of interest to $n$Labbers but are not commonly mentioned as equivalents of choice.
+  \begin{itemize}
+    \item The well-ordering theorem.
+    \item Zorn's lemma,
+    \item That (L= monomorphisms, R= epimorphisms) is a weak factorization system on $\Set$.
+    \item That $\Set$ is equivalent to its own free exact completion.
+    \item That there exists a group structure on every inhabited set (see \emph{\href{http://mathoverflow.net/questions/12973/does-every-non-empty-set-admit-a-group-structure-in-zf/12988\#12988}{this MO answer}}).
+    \item That every fully faithful and essentially surjective functor between strict categories is a strong equivalence of categories.
+    \item That the nonabelian cohomology $H^1(X;G)$ is trivial for every discrete set $X$ and every group $G$ (see \emph{\href{http://golem.ph.utexas.edu/category/2013/07/cohomology_detects_failures_of.html}{this post}}).
+  \end{itemize}
+\subsection{Zorn's lemma}
+  \begin{thm}[Zorn's lemma]
+    Each proset $S$ has a maximal element if every chain in $S$ has an upper bound.
+  \end{thm}
+  A sketch of proof can be found in \emph{\href{http://ncatlab.org/nlab/show/Zorn's+lemma}{$n$Lab}}.
+\subsection{The well-ordering theorem}
+  \begin{defn}
+    A \termin{well-order} $\leqslant$ on a set $S$ is a total order that is \termin{well-founded}, that means, every nonempty subset of $S$ has a minimal element.
+    A set equipped with a well-order is called a \termin{well-ordered set}, or a \termin{woset}.
+  \end{defn}
+  This notion is sometimes very useful since it allows us to extent mathematical induction to any well-ordered sets.
+  \begin{prop}
+    Let $P(x)$ be a statement for elements of a woset $S$ whose strict order is denoted by $<$. Then, to show $P(x)$ holds for all elements $x$ of $S$, it suffices to show that $P(x_0)$ holds for the minimal element $x_0$ in $S$, and that
+    \begin{quote}
+      If $x$ is an element of $S$ and $P(y)$ is true for all $y$ such that $y<x$, then $P(x)$ must also be true.
+    \end{quote}
+  \end{prop}
+
+  \begin{thm}[The well-ordering theorem]
+    Given any set $S$, there exists a well-order $\leqslant$ on $S$.
+  \end{thm}
+  A sketch of proof can be found in \emph{\href{http://en.wikipedia.org/wiki/Well-ordering_theorem\#Statement_and_sketch_of_proof}{Wikipedia}} and \emph{\href{http://ncatlab.org/nlab/show/well-ordering+theorem\#statement_and_proof}{$n$Lab}}
+
+
+
+
+\newpage\section{Ordinals and cardinals}
+  Naively, a \termin{cardinal number} should be an isomorphism class of sets, and the \termin{cardinality} of a set $S$ would be its isomorphism class. That is:
+  \begin{enumerate}
+    \item every set has a unique cardinal number as its cardinality;
+    \item every cardinal number is the cardinality of some set;
+    \item two sets have the same cardinality if and only if they are isomorphic as sets.
+  \end{enumerate}
+  Then a \termin{finite cardinal} is the cardinality of a finite set, while an \termin{infinite cardinal} or \termin{transfinite cardinal} is the cardinality of an infinite set.
+
+  Formally, instead of define what is a cardinal number, we define the category of cardinal numbers $\Card$ as the skeleton of $\Set$.
+
+  Naively, a \termin{ordinal number} should be an isomorphism class of wosets, and the \termin{ordinal rank} of a woset $(S,\leqslant)$ would be its isomorphism class. That is:
+  \begin{enumerate}
+    \item every woset has a unique ordinal number as its ordinal rank;
+    \item every ordinal number is the ordinal rank of some woset;
+    \item two wosets have the same ordinal rank if and only if they are isomorphic as wosets.
+  \end{enumerate}
+  Then a \termin{finite ordinal} is the ordinal rank of a finite woset, while an \termin{infinite ordinal} or \termin{transfinite ordinal} is the ordinal rank of an infinite woset.
+
+  Formally, instead of define what is a ordinal number, we define the category of ordinal numbers $\Ord$ as the skeleton of $\Wos$, the category of wosets.
+
+\subsection{Cardinal arithmetic}
+  As a skeleton of $\Set$, the operations on $\Set$ define the natural arithmetic operations on $\Card$.
+
+  More explicitly, denote the cardinality of a set $S$ by $|S|$, we have
+  \begin{itemize}
+    \item $\sum_i|S_i|=|\bigsqcup_i S_i|$;
+    \item $\prod_i|S_i|=|\prod_i S_i|$;
+    \item $|Y|^{|X|}=|\Hom(X,Y)|$;
+  \end{itemize}
+
+\section{The category of sets}

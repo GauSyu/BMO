@@ -1,0 +1,1065 @@
+\chapter{范畴的语言}
+在本章，我们首先介绍一些基本概念，诸如\emph{范畴（category）、函子（functor）、自然变换（natural transformation）、单射（monomorphism）、满射（epimorphisms）、同构（isomorphism）}.接着，\emph{monomorphism}和\emph{epimorphism}、\emph{协变（covariant）}和\emph{反变（contravariant）}函子之间的相似性带领我们看到\emph{对偶原理（duality principle）}.
+\minitoc
+\newpage
+\section{范畴}
+\subsection{为什么研究范畴？}
+  在现代数学里，一些看起来完全不相干的领域往往涌现出许多相似的现象和具有类似性质的结构.为了精确地描述这些现象、同步的处理这些结构，范畴论的语言应运而生.
+
+  在过去一些年里，范畴论学者已经发展出了一套符号体系，使得我们可以通过图形快速地识别相当复杂的事实.
+
+  如今，范畴论已经是一套强大的语言.它提供了合适的工具，能将一个领域的数学问题转换到另一个领域里，从而变得更加易于解决.因此，范畴论的语言在现代数学乃至其他学科，如逻辑学、计算机科学、语言学、哲学等，大受好评.
+
+  更多的历史评论可参考任何一本范畴论教材.
+
+\subsection{什么是范畴？}
+  定义什么是范畴有好几种方式；在通常的数学基础里，这些定义都是等价的.这里我们提供一个常见的定义.
+
+  \begin{defn}
+  一个\emph{范畴}（\termin{category}）$\Cc$由以下数据构成：
+  \begin{itemize}
+    \item 诸\emph{对象}（\termin[objects]{object (category theory)}）之\emph{收集}$\ob\Cc$；
+    \item 诸\emph{态射}（\termin[morphisms]{morphism (category theory)}）或曰\emph{箭头}（\termin[arrows]{arrow (category theory)}）或曰\emph{映射} （\termin[maps]{map (category theory)}）之\emph{收集}$\hom\Cc$；
+
+          \begin{quote}
+             每一态射$f$具有唯一的出发对象（\termin[source]{source (category theory)} object）$A$以及到达对象（\termin[target]{target (category theory)} object）$B$，我们用$f\colon A\To B$来记这个态射，并说“$f$是从$A$到$B$的态射”，“$A$ 是$f$的\termin[domain]{domain (category theory)}” 以及“$B$是$f$的\termin[codomain]{codomain (category theory)}”.
+
+             我们用$\Hom(A, B)$ （或者在必须指明范畴时用$\Hom_{\Cc}(A, B)$）来标记从$A$到$B$的态射全体之收集.（有的作者用$\Mor(A, B)$ 或者$\Cc(A,B)$来标记.）\glsadd{hom}
+          \end{quote}
+    \item 对于每三个对象$A,B,C$，有一个二元运算
+             \begin{equation*}
+               \Hom(A, B) \times \Hom(B, C) \To \Hom(A, C)
+             \end{equation*}
+             称为\emph{态射的复合}（\termin{composition of morphisms}）.
+
+             \begin{quote}
+             态射$f\colon A \To B$ 和$g\colon B \To C$ 之复合写作$g\circ f$或者$gf$.（也有作者采用“图示顺序”，写作$f;g$或者$fg$.）
+             \end{quote}
+  \end{itemize}
+  并满足下述公理：
+  \begin{description}
+    \item[结合律（associativity）] 若$f\colon A \To B, g\colon B \To C, h\colon C \To D$，则
+                                 \begin{equation*}
+                                   h\circ(g\circ f) = (h\circ g)\circ f
+                                 \end{equation*}
+    \item[单位律（identity）] 每一对象$A$存在一态射$1_A\colon A \To A$（有时也写作$\id_A$）称为$A$的
+                                                  \emph{单位态射}（\termin[identity morphism]{identity morphism}），满足：对于每个态射$f\colon A \To B$，有$1_B \circ f = f = f \circ 1_A$.
+  \end{description}
+  由以上公理，不难验证每个对象有唯一的单位态射.一些作者采用一种轻量级的定义，在这种定义中，对象由其所对应的单位态射取代.
+  \end{defn}
+  \begin{rem}
+     为强调范畴$\Cc$，人们通常称一个$\Cc$中的对象（态射、箭头、映射）为$\Cc-$对象（$\Cc-$态射、$\Cc-$ 箭头、$\Cc-$映射）.
+  \end{rem}
+\begin{rem}
+  范畴论提供了一个框架用以描述“范畴性质”. 非正式地说，一个\emph{范畴性质}（\termin{categorical property}）是一个关于某个范畴中的对象和态射的语句. 更技术化的说法是：一个范畴提供了一个双类型的一阶语言，它以对象和态射为不同的类型，带有关系“（某对象）是（某态射）的domain（或codomain）”以及符号“态射的复合”. 因此一个范畴性质就是在这个一阶语言中的一条语句.
+\end{rem}
+
+  接下来我们定义范畴之间的同态，即\emph{函子}.
+  \begin{defn}
+    一个从范畴$\Aa$到范畴$\Bb$ 的\emph{函子}（\termin{functor}） $ F$由以下数据构成:
+    \begin{itemize}
+      \item 一个$\Aa$和$\Bb$的对象之间的对应
+                 \begin{equation*}
+                   \ob\Aa\To\ob\Bb
+                 \end{equation*}
+                 对象$A\in\ob\Aa$的像记作$ F(A)$或者$ F A$；
+      \item 对于$\Aa$中的每对对象$A, A'$，有一个对应
+                 \begin{equation*}
+                   \Hom_{\Aa}(A,A')\To\Hom_{\Bb}( F(A), F(A'))
+                 \end{equation*}
+                 态射$f\in\Hom_{\Aa}(A,A')$ 的像记作$ F(f)$或者$ F f$.
+    \end{itemize}
+    并满足下述公理：
+    \begin{itemize}
+      \item 对于每对态射$f\in\Hom_{\Aa}(A,A'), g\in\Hom_{\Aa}(A',A'')$，
+                 \begin{equation*}
+                    F(g\circ f) =  F(g)\circ F(f)
+                 \end{equation*}
+      \item 对于每个对象$A\in\ob\Aa$，
+                 \begin{equation*}
+                    F(1_A) = 1_{F(A)}
+                 \end{equation*}
+    \end{itemize}
+  \end{defn}
+
+  任给两个函子$ F\colon\Aa\to\Bb$和$ G\colon\Bb\to\Cc$，一个逐点的复合立刻产生了一个新的函子$ G\circ F\colon\Aa\to\Cc$. 进一步地，这种复合满足结合律.
+
+  另一方面，每个范畴$\Cc$具有一个单位函子——只要在上面定义中将每个对应取作单位即可.这个函子显然上再上述复合下的单位.
+
+  总之，范畴和函子之间的关系正如一个范畴中对象和态射的关系.于是，一不小心就会得出这样一个轻率的结论：所有范畴和函子构成一个新的范畴.
+
+\subsection{逻辑基础与大小问题}
+    你可能会注意到这里使用了一个未定义的词\emph{收集}，而不是术语\emph{集合}或者\emph{类}.术语的选择依赖于我们选定的逻辑基础：当采用带有universe的ZFC 时，我们采用术语\emph{集合}，并且我们所考虑的典型的数学对象，诸如\emph{集合}、\emph{群}等等都只考虑那些相对于universe\emph{小}的对象；当采用类论，例如NBG时，我们采用术语\emph{类}并且所考虑的典型的数学对象从大小上来讲都是集合. 更多的细节可参考\cite{borceux} 的开头或者\cite{awodey2010category}的第一章第8节.
+
+    然而，范畴论的基础是独立于集合论的.事实上，范畴论可以代替集合论作为数学的逻辑基础.这意味着我们可以将前面的公理用严格的形式逻辑写出来，因此这里采用一个未定义的词“收集”并不会出问题.更多的细节可参考\nlab 或者\cite{lane1998categories}.
+
+    不过，离开集合论，有关大小的讨论，例如“全体XXX” 之类的将失去意义.毕竟，罗素悖论带给人们的教训之一就是不加限制地使用量词是十分危险的.
+
+    在选定集合公理后，讨论大小问题是有意义的.在通常的类论，例如NBG中，一个类是\emph{小的}意味着它是一个集合；在带universe的ZFC 中，一个集合是\emph{小的}，意味着它同时也是universe中的元素.
+
+    一个范畴$\Cc$称为是\emph{小的}（\termin[small]{small category}），如果$\ob\Cc$ 和$\hom\Cc$都是小的，否则就称为\emph{真大的}（\termin[proper large]{proper large category}）.
+    一个范畴称为是\emph{局部小的}（\termin[locally small]{locally small category}），如果对于每对对象$A$ 和$B$，$\Hom(A, B)$ 是小的.许多数学中的重要的范畴（例如\emph{集合范畴}），尽管不是小的，但却是局部小的.
+    因此，人们往往倾向于用\emph{范畴}一词来称呼局部小的范畴.在本书中，我们也将遵循这一传统.这样做并不会带来歧义——必要时，我们会按照上面的定义来使用\emph{大范畴}（\termin{large category}）这个术语.
+
+    在上述设定下，我们才可以安全地宣布所有小范畴及其间函子构成一个范畴.这个范畴通常记作$\Cat$.
+    另一方面，全体（局部小）范畴及其间函子所组成的“范畴”甚至比任何大范畴还要大——这在通常的集合论中意味着这样的结构是不存在的.
+
+    当然，你完全可以选择一个允许多重大小而不是仅仅只区分“small”和“large”的集合论公理系统.在这种设定下，较小的范畴及其间函子全体构成一个较大的范畴. 例如，全体（局部小）范畴及其函子构成一个“非常大的”（比大范畴还大）范畴，记作$\CAT$：参考
+    \hrefacc 即\cite{acc}.
+
+    更多有关逻辑基础和大小问题的讨论可参考\nlab 以及相关出版物.
+
+\section{例子}
+  前面对于小范畴及其函子的讨论提供了在本书中的第一个范畴的例子，即$\Cat$.
+  我们在这一节里将介绍更多的例子.
+
+  事实上，传统数学已经通过不同途径提供了相当数量的例子.
+  \begin{exam}
+    很多传统的数学结构是通过给集合配上额外结构得到的.它们提供了一些明显的例子.
+    \begin{itemize}
+      \item 集合
+      \footnote{这里，\emph{集合}指的是集合论提供的那些小的对象，例如带universe 的ZFC里的\emph{小集合}.在这种情况下，为了避免歧义，我们用\emph{大集合}来称呼一般的集合.通常的类论里已经提供了区别于\emph{集合}的术语\emph{类}，因此初学者也可以认为我们选择了一个通常的类论来作为数学基础.}
+       以及函数：$\Set$.
+      \item 群及群同态：$\Grp$.
+      \item 环及环同态：$\Ring$.
+      \item 实线性空间及线性映射：$\Vect_{\RR}$.
+      \item 右$R$模及模同态：$\Mod_R$.
+      \item 拓扑空间及连续映射：$\Top$.
+      \item 一致空间及一直连续函数：$\Uni$.
+      \item 微分流形及光滑映射：$\Diff$.
+      \item 度量空间及度量映射（metric mappings）：$\Met$.
+      \item 实Banach空间及有界线性算子：$\Banb$.
+      \item 实Banach空间及线性收缩（linear contractions）：$\Ban$.
+    \end{itemize}
+    以上这些范畴都封装了“一种数学结构”.它们通常被称为“具体”范畴（``concrete'' categories）.我们将在以后给出\emph{具体范畴}的一个技术性的定义.
+  \end{exam}
+  \begin{exam}
+    一些数学构造本身也能看做范畴.
+    \begin{itemize}
+      \item 自然数集$\N$能以如下方式看做范畴：
+                 其对象为自然数，从$n$到$m$的一个态射是一个$n$行$m$列的矩阵；态射的复合就是通常的矩阵乘法.
+      \item 每个集合$S$也能被看做一个以$S$中元素作为对象且每个态射都是单位态射的范畴.
+
+                 一般地，像这种每个态射都是单位态射的范畴称为离散范畴（\termin{discrete category}）.
+      \item 一个偏序集$(S,<)$可看作以$S$中的元素为对象的一个范畴：其中态射集$\Hom(x,y)$当且仅当$x < y$时是单点集，其他情况为空集：定义出唯一的复合的原因是偏序的传递性；而单位态射的存在性则由自反性保证.
+      \item 一个幺半群$(M,\cdot)$可以被视为一个范畴$\Mm$，其中只有一个对象$\ast$并且$\Hom(\ast,\ast)=M$就是全部态射；复合就是幺半群的乘法.
+    \end{itemize}
+  \end{exam}
+
+  如果你发现上面有些例子不太熟悉，不要紧，后面我们会专门讨论的.此外，还有一些来自非数学领域的例子，可以参考
+  \cite{awodey2010category}及相关出版物.
+
+\subsection{用范畴构造新范畴的简单例子}
+给定一个范畴$\Cc$，我们有许多办法来得到一个新的范畴.这里是一些简单的例子.
+\begin{exam}
+  任何范畴$\Cc$都能通过如下方式看做一个新的范畴：对象仍然是原来的对象，但全体箭头都倒转了. 这个范畴称为是原来范畴的对偶范畴
+    （\termin{dual category}/\termin{opposite category}），记作$\Cc^{\op}$.\glsadd{opposite}
+\end{exam}
+显然，每个范畴的二次对偶都是其自身。
+对偶范畴的概念蕴含了一个重要的原理——对偶原理（\emph{duality principle}）. 在本章后面会讲到它.
+\begin{exam}[\termin{slice category}]
+  首先选定一个对象$I\in\Cc$，“在$I$上的箭头”的范畴$\Cc/I$定义如下.\glsadd{Slice}
+  \begin{itemize}
+    \item 对象：以$I$为codomain的$\Cc$中的箭头.
+    \item 态射：从对象$(f\colon A\to I)$到对象$(g\colon B\to I)$的态射是$\Cc$中的“$I$上的交换三角形”：
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    A\ar[rr]^{h}\ar[dr]_{f} && B\ar[dl]^{g} \\
+                    &I&                }
+               \end{displaymath}
+               换句话说就是满足$g\circ h = f$的$\Cc$ 中的态射$h\colon A\to B$.
+    \item 复合由$\Cc$中的复合给出.
+  \end{itemize}
+\end{exam}
+  \begin{rem}
+    注意到在范畴$\Set$中，一个函数$f\colon A\to I$又可以看成是一个以$I$为指标集的集族$\{f^{-1}(i)\}_{i\in I}$，因此前述范畴正是以$I$为指标集的集族及其函数族之全体.
+  \end{rem}
+
+\begin{exam}[\termin{coslice category}]
+  同样选定一个对象$I\in\Cc$，“在$I$下的箭头”的范畴$I/\Cc$定义如下.\glsadd{Coslice}
+  \begin{itemize}
+    \item 对象：以$I$为domain 的$\Cc$中的箭头.
+    \item 态射：从对象$(f\colon A\to I)$到对象$(g\colon B\to I)$的态射是$\Cc$中的“$I$下的交换三角形”：
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    &I\ar[dl]_{f}\ar[dr]^{g}& \\
+                    A\ar[rr]_{h} && B   }
+               \end{displaymath}
+               换句话说就是满足$h \circ f = g$的$\Cc$中的态射$h\colon A\to B$.
+    \item  复合由$\Cc$中的复合给出.
+  \end{itemize}
+\end{exam}
+
+\begin{exam}
+  现在我们来考虑$\Cc$中的全体态射，它们按如下方式构成范畴$\Cc^{\to}$.\glsadd{Arr}
+  \begin{itemize}
+    \item 对象：$\Cc$中的态射.
+    \item 一个从对象$(f\colon A \to B)$到对象$(g\colon C \to D)$的态射是一个$\Cc$ 中的“交换方形”：
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    A\ar[d]_{h}\ar[r]^{f} & B\ar[d]^{k} \\
+                    C\ar[r]_{g}&D                }
+               \end{displaymath}
+    \item 复合由$\Cc$中的复合给出.
+  \end{itemize}
+\end{exam}
+
+\subsection{最简单的例子}
+我们最后介绍一些受到公理启发得到的简单的例子：
+\begin{exam}
+  范畴$\mathbf{0}$：无对象、无态射.
+
+  范畴$\mathbf{1}$只有一个对象及其单位态射.它看起来像是这样：\glsadd{terminalCate}
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    \bullet              }
+               \end{displaymath}
+
+  范畴$\mathbf{2}$包含两个对象及其单位态射，以及它们之间唯一的态射.它看起来像是这样：
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    \bullet\ar[r] & \bullet             }
+               \end{displaymath}
+
+  范畴$\mathbf{3}$包含三个对象及其单位态射，以及唯一的从第一个对象到第二个、第二个到第三个及第一个到第三个的态射（于是第三个态射实际上上前两个的复合）.它看起来像是这样：
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    \bullet\ar[r]\ar[dr] & \bullet\ar[d] \\
+                    & \bullet            }
+               \end{displaymath}
+\end{exam}
+
+这些范畴看起来像是有向图（quivers）.事实上，一个范畴可以看做一个一般的quiver配备一些额外结构.更多细节可参考\nlab.
+
+记号$\mathbf{1},\mathbf{2},\mathbf{3}$ 来自这样一个事实：这些范畴正是对应的\emph{序数}（\emph{ordinals}）--- 每个序数都可以看做一个偏序集因此是一个范畴.我们将在下一部分讨论序数.
+
+\section{单射、满射和同构}
+关于函数的最基本的概念是单射、满射和双射。
+为了把它们推广到一般的范畴，我们必须对它们进行``外部的''刻画，即不提及\emph{元素}这个概念。早期的范畴论学者相信\emph{可消去}性质是对一般的单射、满射的正确刻画，于是他们定义了下述概念：
+  \begin{defn}
+    一个\emph{左消去}的态射$f$称作是\emph{单的}（\termin{monoic}），或者\emph{单态射}（\termin{monomorphism}）。左消去的意思是说对任意的态射
+    \begin{displaymath}
+    \xymatrix@1{\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot\ar[r]^{f} &\cdot}
+    \end{displaymath}
+    $f\alpha=f\beta$ 蕴含 $\alpha=\beta$.
+
+    对偶地，一个\emph{右消去}的态射$f$称作是\emph{满的}（\termin{epi}），或者\emph{满态射}（\termin{epimorphism}）。右消去的意思是说对任意的态射
+    \begin{displaymath}
+    \xymatrix@1{\cdot\ar[r]^{f} &\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot}
+    \end{displaymath}
+    $\alpha f=\beta f$ 蕴含 $\alpha=\beta$.
+  \end{defn}
+
+  下面是关于单态射和满态射的基本性质。
+  \begin{prop}
+    每个恒等既单又满。单态射的复合还是单态射，满态射的复合还是满态射。
+  \end{prop}
+  \begin{prop}[三角形引理]
+    如果复合$g\circ f$是单的，则$f$也是；如果复合是满的，则$g$也是.
+  \end{prop}
+
+  由定义，一个态射是单的意味着它可左消去，但这并不意味着存在一个左逆元。对于满态射，道理是一样的。
+  \begin{defn}
+    考虑两个态射$f\colon A \to B$和$g\colon B \to A$。 当$g \circ f = 1_A$时，称$f$为$g$的一个\termin[section]{section (category theory)}，$g$为$f$ 的一个\termin[retraction]{retraction (category theory)}，并称$A$为$B$的一个\termin[retract]{retract (category theory)}.
+  \end{defn}
+  \begin{prop}
+    在一个范畴中，每个section都是单的，每个retraction都是满的。
+  \end{prop}
+  \begin{defn}
+    一个拥有retraction的态射称为一个\termin{split monomorphism}.
+    对偶地，一个拥有section的态射称为一个\termin{split epimorphism}.
+    如果态射$f\colon A\to B$既split monoic又split epi，则称之为一个\emph{同构}（\termin{isomorphism}），
+    并称$A$\emph{同构于}（\termin{isomorphic}）$B$，记作$A\approx B$.  \glsadd{isomorphic}
+  \end{defn}
+  \begin{rem}
+    显然split monomorphism必须是单的，split epimorphism必须是满的，因此同构必然既单且满. 然而，反之不然。
+
+    一个既单且满的态射传统上称为一个\emph{双态射}（\termin{bimorphism}），尽管这不是一个好名字——当我们考虑高阶范畴时，它会导致一些混淆. 一个范畴要是能保证双态射都是同构就称为是\emph{平衡的}（\termin[balanced]{balanced category}）.
+  \end{rem}
+
+\subsection{例子}
+  \begin{exam}
+    在范畴$\Set$、$\Grp$、$\Mod_R$或$\Top$中，单态射（相应地，满态射）正是那些作为函数是单的（相应地，满的）态射.
+  \end{exam}
+  \begin{exam}
+    在范畴$\Ring$中，单态射正是那些作为函数是单的态射. 然而，满态射不必是满射. 例如，包含映射$\ZZ\hookrightarrow\QQ$就是一个作为函数不满的满态射.
+    为了看清楚这一点，请注意这个事实：任何在$\QQ$上的同态总是由其在$\ZZ$上的取值决定.
+    类似的论证表明，从任意交换环到其局部化的典范同态都是满态射。
+  \end{exam}
+  \begin{exam}
+    在\emph{可除交换群}（divisible abelian group）的范畴$\DivAb$中，存在不是单射的单态射。
+    例如，考虑典范映射$q\colon\QQ\to\QQ/\ZZ$，它显然不是单射，然而却是这个范畴中的单态射.
+    事实上，任取一个可除交换群$G$以及两个群同态$f,g\colon G \to\QQ$使得$q\circ f = q\circ g$. 令$h = f - g$，我们有$q\circ h = 0$，于是问题归结为证明$h=0$. 给定一个元素$x\in G$，因为$q \circ h = 0$，故$h(x)$是一个整数. 如果$h(x)\neq0$，则立刻会产生矛盾.
+  \end{exam}
+  \begin{exam}
+    在固定点的连通空间及其间固定点连续映射构成的范畴中，每个\emph{覆盖映射}都是单态射，然而它们往往不是单射.
+    这正是覆盖映射的\emph{唯一提升性}（unique lifting property of covering maps）.
+    可参考一本代数拓扑的教材，例如\cite{AllenHatcher}.
+  \end{exam}
+  \begin{exam}
+    在范畴$\Set$、$\Grp$或$\Mod_R$中，同构正是双射.
+    在范畴$\Top$中，同构正是同胚.
+    然而，一个连续映射即使是双射也不一定是同胚映射.
+    例如，从半开半闭区间$[0,1)$到单位圆$S^1$的把$x$映到$e^{2\pi x i}$的映射是连续的双射，但不是个同胚：它的逆映射在$1$这一点不连续.
+  \end{exam}
+
+  这些反例表明单态射和满态射的概念并没有满足一开始的要求，因此范畴论学者又开发出一些变种来解决这个问题.
+  进一步的参考资料是 \nlab 或 \hrefacc.
+
+\section{自然变换}
+  正如不研究同态的群论是不完整的，不研究函子的范畴论也是不完整的.然而，如果不研究函子之间的同态，则对函子的研究也是不完整的.
+
+  \begin{defn}
+    考虑从范畴$\Aa$到$\Bb$的两个函子$ F, G$.一个从$ F$ 到$ G$的\emph{自然变换}（\termin{natural transformation}）$\alpha\colon F\to G$是以$\Aa$中对象为指标的$\Bb$中的一族态射
+    \begin{equation*}
+    (\alpha_A\colon F(A)\To G(A))_{A\in\ob\Aa}
+    \end{equation*}
+    满足：对于$\Aa$中的任何态射$f\colon A \to A'$，下图交换
+    \begin{displaymath}
+      \xymatrix{
+          F(A)\ar[r]^{\alpha_A}\ar[d]_{F(f)}& G(A)\ar[d]^{G(f)}\\
+          F(A')\ar[r]^{\alpha_{A'}}& G(A')
+      }
+    \end{displaymath}
+    即，$\alpha_{A'}\circ F(f) =  G(f) \circ \alpha_{A}$.
+  \end{defn}
+
+  令$ F, G, H$是从范畴$\Aa$到$\Bb$的函子，$\alpha\colon F\to G, \beta\colon G\to H$是自然变换.则公式
+  \begin{equation*}
+    (\beta\circ\alpha)_A = \beta_A\circ\alpha_A
+  \end{equation*}
+  定义了一个新的自然变换$\beta\circ\alpha\colon F\to H$.
+
+  这个复合显然是结合的并且对于每个函子有一个单位元.因此，一不小心就会认为存在这样这个范畴：它的对象是从$\Aa$到$\Bb$的函子，态射是自然变换.这个范畴称为从$\Aa$到$\Bb$ 的\emph{函子范畴}（\termin{functor category}），通常记作$[\Aa,\Bb]$，或者$\Bb^{\Aa}$. \glsadd{Fun}
+  \begin{rem}
+    我们说这样的结论是轻率的，因为这里有一个大小问题：
+
+    如果$\Aa$和$\Bb$都是\emph{小的}，则$[\Aa,\Bb]$也是\emph{小的}.
+
+    如果$\Aa$是\emph{小的}而$\Bb$是\emph{局部小的}，则$[\Aa,\Bb]$也是\emph{局部小的}.
+
+    麻烦的是，即使$\Aa$和$\Bb$ 都是\emph{局部小的}，如果$\Aa$不是\emph{小的}，则$[\Aa,\Bb]$通常就不会是\emph{局部小的}.
+
+    反过来说，如果$\Aa$和$[\Aa,\Set]$都是\emph{局部小的}，则$\Aa$必须是\emph{本质小的}：参考
+    \href{http://tac.mta.ca/tac/volumes/1995/n9/1-09abs.html}{\emph{Freyd \& Street (1995)}}.
+  \end{rem}
+
+  在前述讨论中，我们用到了自然变换之间的第一种复合.事实上，还存在着第二种复合.
+
+  \begin{prop}
+    考虑如下情形：
+      \begin{displaymath}
+        \xymatrix{
+           \Aa\rtwocell^{F}_{G}{\alpha} &\Bb\rtwocell^{F'}_{G'}{\beta} & \Cc
+        }
+      \end{displaymath}
+    其中$\Aa,\Bb,\Cc$是范畴，$F,G,F',G'$是函子，$\alpha,\beta$是自然变换.
+
+    首先，我们有复合函子$ F' F$和$ G' G$，并且在每个对象$A\in\ob\Aa$上有一个交换图：
+     \begin{displaymath}
+        \xymatrix{
+            F' F(A)\ar[r]^{F'(\alpha_A)}\ar[d]_{\beta_{F(A)}} &  F' G(A)\ar[d]^{\beta_{G(A)}}\\
+            G' F(A)\ar[r]^{G'(\alpha_A)} &  G' G(A)
+        }
+    \end{displaymath}
+
+    现在，我们定义$(\beta\ast\alpha)_A$为上面这个方形的对角线，即
+    \begin{equation*}
+      (\beta\ast\alpha)_A = \beta_{G(A)}\circ F'(\alpha_A) =  G'(\alpha_A)\circ\beta_{F(A)}
+    \end{equation*}
+    于是$\beta\ast\alpha$也是一个自然变换，称为$\alpha$ 和$\beta$的\termin{Godement product}.\glsadd{Godpord}
+  \end{prop}
+
+  利用自然性和函子性，不难验证上述命题以及下面这个命题：
+
+  \begin{prop}[Interchange law]
+    考虑这样这样情形：
+      \begin{displaymath}
+        \xymatrix{
+          \Aa \ruppertwocell^{}_{}{\alpha} \rlowertwocell^{}_{}{\beta} \ar[r]
+          & \Bb\ruppertwocell^{}_{}{\alpha'} \rlowertwocell^{}_{}{\beta'} \ar[r]
+          & \Cc
+        }
+      \end{displaymath}
+    其中 $\Aa,\Bb,\Cc$ 是范畴， $\alpha,\beta, \alpha', \beta'$ 是自然变换.于是下面的等式成立：
+    \begin{equation*}
+      (\beta'\circ\alpha')\ast(\beta\circ\alpha) = (\beta'\ast\beta)\circ(\alpha'\ast\alpha)
+    \end{equation*}
+  \end{prop}
+
+  为简单起见，我们通常用$\beta\ast F$代替$\beta\ast1_{F}$，$G\ast\alpha$代替$1_{G}\ast\alpha$.
+
+\subsection{自然性}
+  也许你已经在不同背景的数学资料中见到过``自然''（\emph{natural}）这个词.
+  但是它究竟是什么意思呢？直观上讲，它意味着一个描述是不依赖于某些选择的.
+
+  范畴论提供的这个概念的一个形式的定义.
+
+  注意到``自然''通常出现在这样的场合：一种数学对象被``自然''地变换为另一种.
+  这时，``自然''意味着这一过程可以被实现为一个自然变换.
+
+  例如，术语``自然地同构于''（\emph{naturally isomorphic}）就可以被定义如下.
+  \begin{defn}
+    令$\alpha$为从$\Aa$到$\Bb$的函子$F$和$G$之间的自然变换.
+    如果，对任意的$\Aa$中的对象$A$，态射$\alpha_A$是$\Bb$中的一个同构，则称$\alpha$为一个\emph{自然同构}（\termin{natural isomorphism}），并称$F$和$G$是\emph{自然同构的}（\termin{naturally isomorphic}），记作$F\cong G$.
+  \end{defn}
+
+  \begin{exam}[反群]
+    诸如
+    \begin{quote}
+      ``每个群自然同构于其反群''
+    \end{quote}
+    这样的话在现代数学中大量出现.
+
+    上面这句话的真实含义是：
+    \begin{quote}
+      ``恒等函子$\Id \colon \Grp \To \Grp$与反群函子$\op \colon \Grp \To \Grp$是自然同构的.''
+    \end{quote}
+
+    这样一个翻译也自动给出了这句话的证明.
+  \end{exam}
+
+  \begin{exam}[二次对偶]
+    每个线性空间都有一个\emph{自然的}到其二次对偶的线性单射.
+    这些映射之所以称作是``自然的''是因为二次对偶实际上是一个函子，而这些映射其实就组成了从恒等函子到二次对偶函子的自然变换.
+  \end{exam}
+
+  然而，``不自然的'' 同构也不少.
+  \begin{exam}[有限维线性空间之对偶]
+  来自
+  \href{http://en.wikipedia.org/wiki/Natural_transformation#Example:_dual_of_a_finite-dimensional_vector_space}{\emph{Wikipedia}}
+  ，按照
+  \href{http://mathoverflow.net/a/139398/43771}{\emph{MathOverflow}}
+  的讨论进行了修正.
+
+   每个有限维线性空间都同构于其对偶，然而这个同构不是自然的.
+
+   \emph{Wikipedia} 给出的解释是这个同构依赖于一些任意的选取.
+   然而，这与自然性其实没什么关系：线性对偶是一个反变函子，而恒等函子是协变的，因此本来就不可能同过一个自然变换去比较它们.
+
+   一个更靠谱的理由来自于 \emph{MathOverflow}.
+   Dan Petersen指出，如果我们考虑的是有限维线性空间及其间的线性同构组成的范畴，姑且记作$\Cc$， 那么我们就有两个显然的从$\Cc$到$\Cc^{\op}$的函子：一个是线性对偶，另一个则将每个线性同构映到其逆映射.
+   这两个函子是真的\emph{不自然同构的}（\textbf{unnaturally isomorphic}）.
+
+   然而，正如 \emph{Wikipedia} 所指出的，如果我们选择的范畴中的对象是给定非退化双线性型的有限维线性空间，态射是保持双线性型的线性映射，则在这个范畴里线性对偶和恒等函子是自然同构的.
+  \end{exam}
+
+  为了形式化``一个同构不是自然的''这个想法，我们可以引入\emph{准自然变换}（\termin{infranatural transformation}）这一概念，它指的是一族以出发范畴对象的指标的态射.
+  因此，一个\emph{不自然同构}（\termin{unnatural isomorphism}）就是一个不自然的准自然同构（infranatural isomorphism）.
+
+  \begin{exam}
+    摘自 \href{http://mathoverflow.net/a/139392/43771}{\emph{MathOverflow}}
+
+    令$\Cc$为只有一个对象和两个态射的范畴. 则恒等函子\emph{不自然地同构于}（\textbf{unnaturally isomorphic}）将所有态射都映到恒等态射的函子.
+  \end{exam}
+
+  在实际使用中，一个具体对象之间的特定映射称为是\emph{自然同构}（\textbf{natural isomorphism}），隐含的意思是它其实是定义在这个范畴上的，并且给出一个函子间的自然同构. 否则，就称为\emph{不自然同构}（\textbf{unnatural isomorphism}）.
+  \begin{rem}
+    一些作者为了区别这些概念，就用$\cong$来表示自然同构，用$\approx$来表示一般的同构，同时还用$=$表示相等.
+  \end{rem}
+
+  \emph{Wikipedia} 中还有一些例子，但未必合适：许多时候他们比较的函子事实上具有不同的定义域.
+   一些真正的反例能在
+   \href{http://mathoverflow.net/questions/139388/example-of-an-unnatural-isomorphism}{\emph{MathOverflow}}
+   的帖子里找到.
+
+\section{反变函子}
+  有时，我们会考虑范畴之间的反转箭头指向的对应. 例如，集合在函数下的逆像. 尽管人们往往简单地将这类对应看做是原来范畴上的，但它们本质上是原来范畴的对偶上的函子.
+  处于这样的考虑，范畴论学者引入了``反变函子''这个概念.
+  \begin{defn}
+    令$\Aa, \Bb$为两范畴，一个从$\Aa^{\op}$到$\Bb$的函子称为从$\Aa$到$\Bb$的\emph{反变函子}（\termin{contravariant functor}）.
+  \end{defn}
+  为了以示区别，往往将原来的函子称为\emph{协变函子}（\termin{covariant functor}）.
+  \begin{exam}
+   一个从$\Cc$到$\Set$的反变函子传统上叫做一个$\Cc$上的\termin{presheaf}. $\Cc$上的全体presheaf之范畴记作$\PSh(\Cc)$. 更一般地，通常把从$\Cc$到$\Dd$的一个反变函子称作一个$\Cc$上的$\Dd-$valued presheaf.
+  \end{exam}
+  反变函子间的自然变换之定义与协变的情况类似.
+  \begin{defn}
+    考虑从$\Aa$到$\Bb$的两个反变函子$F,G$. 一个从$F$到$G$的\emph{自然变换}（\termin{natural transformation}）$\alpha\colon F\to G$是一族以$\ob\Aa$为指标的$\Bb$中的态射
+    \begin{equation*}
+    (\alpha_A\colon F(A)\To G(A))_{A\in\ob\Aa}
+    \end{equation*}
+    并满足：对任意的$\Aa$中的态射$f\colon A \to A'$，下图交换
+    \begin{displaymath}
+      \xymatrix{
+         F(A)\ar[r]^{\alpha_A}&G(A)\\
+         F(A')\ar[r]^{\alpha_{A'}}\ar[u]^{F(f)}&G(A')\ar[u]_{G(f)}
+      }
+    \end{displaymath}
+    即，$\alpha_{A}\circ F(f) = G(f) \circ \alpha_{A'}$.
+  \end{defn}
+
+  有关函子的结果都能搬到反变函子上来. 既可以简单验证，也可以用对偶原理来办到这一点.
+
+  类似的想法，考虑从对偶范畴到对偶范畴的函子，则有下面的概念.
+  \begin{defn}
+    每个函子$F\colon\Aa\To\Bb$诱导出一个\emph{反函子}（\termin{opposite functor}）$F^{\op}\colon \Aa^{\op} \To \Bb^{\op}$ 它在对象和态射上作用的效果如同$F$.  \glsadd{oppositeF}
+  \end{defn}
+  尽管$F^{\op}$和$F$作用相同，但它们还是不同的函子：因为$\Aa^{\op}$和$\Aa$是不同的范畴，对于$\Bb^{\op}$同理. 引入反函子的动机大概与反环之类的类似：毕竟，它颠倒了复合的次序.
+
+\subsection{关于函子的例子}
+  这里有一些关于函子和反变函子的简单例子.
+  \begin{exam}
+    每个范畴$\Cc$都有一个恒等函子（identity functor）$\Id_{\Cc}$，这是它在函子的复合下对应的单位元. \glsadd{identityF}
+  \end{exam}
+  \begin{exam}
+    对每个``具体的''范畴，例如$\Grp$，有一个从它到$\Set$的函子，称为\emph{遗忘函子}（\termin{forgetful functor}）：它将每个群$G$ 映到集合$G$，群同态$f$映到函数$f$. 我们将在之后引入关于\emph{具体范畴}（concrete category）和\emph{遗忘函子}（forgetful functor）的技术性定义.
+  \end{exam}
+  \begin{exam} \glsadd{powerF} \glsadd{copowerF}
+    \emph{幂集函子} $\Pp\colon\Set\to\Set$把每个集合$S$映到其幂集$\Pp(S)$，每个函数$f\colon A\to B$映到从$\Pp(A)$到$\Pp(B)$的``顺像映射''.
+    \mapdes{\Pp(A)}{\Pp(B)}{U}{f(U)}
+
+    其对偶，\emph{反变幂集函子} $\Qq$ 把每个集合$S$映到其幂集$\Pp(S)$，每个函数$f\colon A\to B$映到其``逆像映射'':
+    \mapdes{\Pp(B)}{\Pp(A)}{V}{f^{-1}(V)}
+  \end{exam}
+  \begin{exam}\glsadd{constantF}
+    函子$\Delta_B\colon\Aa \To \Bb$将$\Aa$中对象映到$\Bb$中一给定对象$B$，将$\Aa$中态射映到$B$的单位态射. 这个函子称为到$B$ 的\emph{常值函子}（\termin{constant functor}）或者\emph{选择函子}（\termin{selection functor}）.
+  \end{exam}
+  \begin{exam}\glsadd{diagonalF}
+    \emph{对角函子}（\termin{diagonal functor}）$\Delta$是从$\Bb$到函子范畴$[\Aa,\Bb]$的一个函子，它将每个对象$B$映到到$B$的常值函子.
+  \end{exam}
+  \begin{exam}
+    $\Hom(-,-)$自己就能被视作两个函子：
+
+    固定$\Cc$中一对象$A$，则$X\mapsto\Hom(A,X)$定义了一个从$\Cc$到$\Set$的函子，它把态射$f\colon X\to Y$映到
+    \longmapdes{f_{\ast}}{\Hom(A,X)}{\Hom(A,Y)}{\phi}{f\circ\phi}
+    \glsadd{pushforward}
+
+    固定$\Cc$中一对象$B$，则$X\mapsto\Hom(X,B)$定义了一个从$\Cc$到$\Set$的反变函子，它把态射$f\colon X\to Y$映到
+    \longmapdes{f^{\ast}}{\Hom(Y,B)}{\Hom(X,B)}{\phi}{\phi\circ f}
+    \glsadd{pullback}
+
+    进一步地，不难证明对$\Cc$中的任何态射$A\to B$和$C\to D$，下图交换：
+    \begin{displaymath}
+      \xymatrix{
+         \Hom(A,C)\ar[r]&\Hom(A,D)\\
+         \Hom(B,C)\ar[r]\ar[u]&\Hom(B,D)\ar[u]
+      }
+    \end{displaymath}
+  \end{exam}
+
+\section{满函子和忠实函子}
+  你也许会发现，一个``具体的''范畴看起来像能通过遗忘函子嵌入到$\Set$中去. 但是这种``嵌入''并不和通常意义上的嵌入一致，因为它往往不是单射. 例如，一般来说在一个给定集合上有很多种群结构. 事实上，这样的``嵌入''是一个忠实函子.
+  \begin{defn}
+  一个函子$F\colon \Aa\to\Bb$被称为
+  \begin{enumerate}[a)]
+%    \setlength{\itemindent}{2ex}
+    \item \emph{忠实的}（\termin[faithful]{faithful functor}）/
+    \emph{满的}（\termin[full]{full functor}）/
+    \emph{满忠实的}（\termin[fully faithful]{fully faithful functor}），如果对任何$X,Y\in\ob\Aa$，映射$\Hom_{\Aa}(X,Y)\to\Hom_{\Bb}(F(X),F(Y))$是单射 / 满射 / 双射.
+    \item \emph{本质满的}（\termin[essentially surjective]{essentially surjective functor}），如果每个$B\in\ob\Bb$同构于某个$A\in\ob\Aa$的像$F(A)$.
+  \end{enumerate}
+  \end{defn}
+  \begin{rem}
+   一个忠实函子不必是对象之收集或者态射之收集上的单射. 也就是说，两个不同的对象$X$和$X'$可能被映到$\Bb$中的同一个对象（从而一个满忠实的函子的值域不必等价于$\Aa$），两个有着不同定义域和值域的态射$f \colon X\To Y$和$f' \colon X'\To Y'$也可能被映到$\Bb$中的同一个态射.
+
+  同样，一个满函子也不必是对象或者上的满射. 在$\Bb$中完全可能有对象不是$\Aa$中对象的像. 这样的对象之间的态射当然不会是$\Aa$中态射的像.
+  \end{rem}
+
+  然而，我们有
+  \begin{prop}
+    一个函子在态射上是单射，当且仅当它不但是忠实的还在对象上是单射.
+    这样的函子称为一个嵌入（\termin[embedding]{embedding (category theory)}）.
+  \end{prop}
+
+  关于上述概念的最基本的命题是：
+  \begin{prop}\label{prop:tri-(full,faithful)}
+    考虑函子$F\colon\Aa\to\Bb$和$G\colon\Bb\to\Cc$.
+    \begin{enumerate}[a)]
+      \item 如果$F$和$G$都是isomorphisms / embeddings / faithful functors / full functors，则$G\circ F$也是.
+      \item 如果$G\circ F$是embedding / faithful functor，则$F$也是.
+      \item 如果$F$是essentially surjective functor，并且$G\circ F$是full functor，则$G$也是full functor.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    a)是显然的. 将三角形引理运用到态射集，我们得到b).
+
+    在c)的条件下，每个$\Bb$中的对象$B$都同构于某个$F(A)$. 因此$\Cc$中的态射$h\colon G(B)\to G(B')$就同构于$h'\colon GF(A)\approx G(B)\to G(B')\approx GF(A')$. 由于$G\circ F$是full functor，存在$\Aa$中的态射$f\colon A\to A'$使得$h'=GF(f)$.
+    这样我们就得到的一个态射$g\colon B\to B'$使得$G(g)=h$.
+  \end{proof}
+
+  满函子和忠实函子具有很好的性质.
+  \begin{prop}
+    令$F\colon\Aa\to\Bb$为一个忠实函子，则
+    \begin{enumerate}[a)]
+      \item 它\emph{反射单态射}（\termin[reflects monomorphisms]{reflect (category theory)}）. 也就是说，对于每个$\Aa$中的态射$f$，$F(f)$是单的蕴含$f$是单的.
+      \item 它\emph{反射满态射}（\textbf{reflects epimorphism}）. 也就是说，对于每个$\Aa$中的态射$f$，$F(f)$是满的蕴含$f$也是.
+      \item 如果它还是满的，则它\emph{反射同构}（\textbf{reflects isomorphisms}）.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    设$F(f)$是单的，则对每对满足$f\circ g=f\circ h$的态射$g,h$，我们有$F(f)\circ F(g) = F(f)\circ F(h)$，从而$F(g)=F(h)$. 由于$F$是忠实的，故$g=h$. b)的证明是类似的.
+
+    设$F(f)$是一个同构，其逆为$g$. 因为$F$是满的，存在某个$\Aa$中的态射$h$使得$g=F(h)$. 于是由$F$是忠实的可知$h$是$f$的逆.
+  \end{proof}
+
+  \begin{cor}
+    一个满忠实的函子$F\colon\Aa\to\Bb$必须在同构意义下是对象之收集上的单射. 也就是说，每对$\Aa$中的对象，如果它们在$\Bb$中的像同构，则它们必须同构.
+  \end{cor}
+
+  不难验证每个函子$F\colon\Aa\to\Bb$都必须\emph{保持同构}（\termin[preserve isomorphisms]{preserve (category)}），也就是说，如果$f$ 是$\Aa$中的同构，则$F(f)$也是同构.
+  然而，保持单态射和满态射的条件要强得多. 事实上，即使是满忠实的函子也不能保证这一点.
+  然而如果我们假设$F$既fully faithful又essentially surjective，则可以验证它的确保持单态射和满态射.
+  \begin{defn}
+    一个既fully faithful又essentially surjective的函子称为一个\emph{弱等价}（\termin{weak equivalence}）.
+  \end{defn}
+
+  事实上，弱等价的性质远不止上面提到的这些，如果选取适当的数学基础，则它能保持和反射所有有意思的范畴性质，因此在现代数学中地位非凡.
+
+\subsection{范畴之等价}
+  为了刻画两个范畴享有相似的性质这一想法，最自然的是考虑在$\Cat$（或者更一般的，$\CAT$）中的同构. 因此，我们定义
+  \begin{defn}
+    两个范畴$\Aa$和$\Bb$称作是\emph{同构的}（\termin[isomorphic]{isomorphic categories}），如果存在函子$F\colon\Aa\to\Bb$和$G\colon\Bb\to\Aa$互为对方之逆.
+  \end{defn}
+  不难验证一个同构$F$的逆是唯一的，因此往往记作$F^{-1}$.
+
+  \begin{prop}
+    一个函子是同构，当且仅当它满忠实的并且在对象上是双射.
+  \end{prop}
+
+  \begin{exam}
+    有限群表示论中最基本的事实就是一个有限群的表示范畴同构于其群代数上的左模范畴.
+  \end{exam}
+
+  然而，同构的条件太强了，在实际使用中像上面这样的例子是罕见的.
+  更务实的概念是考虑范畴的``等价''.
+  \begin{defn}
+    两个范畴$\Aa$和$\Bb$称作是\emph{等价的}（\termin{equivalent}），如果存在函子$F\colon\Aa\to\Bb$和$G\colon\Bb\to\Aa$以及自然同构$F\circ G\cong \Id_{\Bb}$和$\Id_{\Aa}\cong G\circ F$. 在这种情况下，我们称$F$是一个从$\Aa$到$\Bb$的\emph{等价}（
+    \termin{equivalence}）而$G$是其\emph{弱逆}（\termin{weak inverse}）.
+  \end{defn}
+  \begin{rem}
+    一个等价所提供的信息不足以构造出其弱逆及相应的自然同构：它们还依赖于其他选择.（参考下面的例子）
+  \end{rem}
+  \begin{rem}
+    范畴的等价并没有一个标准记号，$\Aa\equiv\Bb$和$\Aa\simeq\Bb$\glsadd{equivalent}都合理且很常见.
+  \end{rem}
+
+  等价和弱等价之间的最明显关系是
+  \begin{prop}
+    一个等价同时也是一个弱等价.
+  \end{prop}
+  \begin{proof}
+    令$F\colon\Aa\to\Bb$为一个等价，带有弱逆$G$和自然同构$\Id_{\Aa}\iso{\alpha} G\circ F$、$F\circ G \iso{\beta} \Id_{\Bb}$.
+    则essential surjectivity来自$\beta$，full faithfulness则来自$\alpha$.
+  \end{proof}
+
+  在继续之前，我们先证明一个关于弱等价的命题.
+  \begin{prop}
+    如果$F\colon\Aa\to\Bb$和$G\colon\Bb\to\Cc$都是弱等价，则$G\circ F$也是.
+  \end{prop}
+  \begin{proof}
+    满和忠实来自命题\ref{leprop:tri-(full,faithful)}，而essential surjectivity很容易验证.
+  \end{proof}
+
+  在选择公理成立的前提下，我们有
+  \begin{prop}
+    函子$F\colon\Aa\to\Bb$是等价当且仅当它是弱等价.
+  \end{prop}
+  \begin{proof}
+    令$F\colon\Aa\to\Bb$是一个弱等价，则我们构造一个弱逆$G\colon\Bb\to\Aa$如下：
+
+    对每个$\Bb$中对象$B$，\emph{选择}一个$\Aa$中的对象$A$使得$F(A)\approx B$，令$G(B)=A$.
+    对每个$\Bb$中的态射$f\colon B\to\B'$，令$G(f)$为如下复合在$\Aa$中的逆像：
+    \begin{equation*}
+      FG(B)\approx B\markar{f} B'\approx FG(B')
+    \end{equation*}
+    这样一个逆像的存在性和唯一性来自于$F$是满忠实的.
+
+    自然同构$F\circ G\cong \Id_{\Bb}$来自于上面的构造. 为说明存在自然同构$\Id_{\Aa}\cong G\circ F$，只需注意到$F$反射同构.
+  \end{proof}
+
+  然而，如果不假定选择公理，我们就只能得到一个比等价弱的关系：
+  \begin{defn}
+    两个范畴$\Aa$和$\Bb$称作是\emph{弱等价的}（\termin{weak equivalent}），如果存在范畴$\Cc$以及弱等价$F\colon\Cc\to\Aa$和$G\colon\Cc\to\Bb$.
+  \end{defn}
+
+\subsection{例子}
+\begin{exam}
+  初等线性代数中的基本事实就是矩阵范畴$\Mat$等价于有限维线性空间范畴$\FinVect$. 然而，它们并不同构.
+\end{exam}
+\begin{exam}
+  令$\Cc$为这样一个范畴，它有两个对象$A,B$和四个态射：两个单位态射$1_A, 1_B$和两个同构$f\colon A\to B, g\colon B\to A$.
+  则$\Cc$等价于$\one$，等价函子将$\Cc$中每个对象映到$\bullet$，每个态射映到单位.
+  然而，这里出现了两个弱逆：一个将$\bullet$映到$A$，另一个映到$B$.
+\end{exam}
+\begin{exam}
+  考虑范畴$\Cc$，它具有一个对象$X$和两个态射$1_X, f\colon X\to X$，这里$f \circ f = 1_X$.
+  当然，$\Cc$等价于它自己，而恒等函子就是一个等价. 然而，这里的自然同构有两种选择：一个来自$1_X$而另一个来自$f$. 这个例子说明即使弱逆是唯一的，自然同构的选取也不一定唯一.
+\end{exam}
+
+\section{子范畴}
+  就像子集、子群这样的概念一样，对于范畴也有类似的概念.
+  \begin{defn}
+    范畴$\Cc$的一个\emph{子范畴}（\termin{subcategory}）是这样一个范畴：它们对象和态射都在$\Cc$里.
+  \end{defn}
+    子范畴的定义里隐含了一个函子，它在对象和态射上的作用正如同包含映射，故名\emph{包含函子}（\termin{inclusion functor}）.
+
+  我们有两种不同的概念来刻画一个足够大到能揭示整个范畴的子范畴.
+  \begin{defn}
+    若包含函子是满的，则称该子范畴是\emph{满的}（\termin[full]{full subcategory}）.
+    若包含函子在对象上是满射，则称该子范畴是\emph{宽的}（\termin[wide]{wide subcategory}，\termin[lluf]{lluf category}）.
+  \end{defn}
+
+  显然包含函子必须是一个嵌入.
+  反之，
+  正如一个集合$S$的子集能被视为到$S$的单射之等价类，一个范畴$\Cc$的子范畴也能看作是到$\Cc$的``单的''函子之等价类.
+  不难验证，一个函子是``单的''（作为$\Cat$或者$\CAT$里的态射），当且仅当它是个嵌入.
+
+  总之，包含函子在同构意义下（up to isomorphism）就是嵌入.
+  \begin{prop}
+    一个函子$F\colon \Aa \to \Bb$是（满）嵌入当且仅当它通过同构$G\colon \Aa \to \Cc$和包含函子$E\colon \Cc \to \Bb$来factors through一个$\Bb$的（满）子范畴$\Cc$. 也就是说$F=E\circ G$.
+  \end{prop}
+  \begin{proof}
+    令$\Cc$为$\Aa$在$\Bb$中的像.
+  \end{proof}
+  进一步地，包含函子在等价意义下（up to (weak) equivalence）就是忠实函子.
+  \begin{prop}
+    一个函子$F\colon \Aa \to \Bb$是忠实的，当且仅当它factors through一个嵌入$E_1\colon\Aa\to\Cc$、一个弱等价$G\colon\Cc\to\Dd$ 和一个包含$E_2\colon\Dd\to\Bb$. 也就是说$F=E_2\circ G\circ E_1$.
+  \end{prop}
+  \begin{proof}
+    令 $\Dd$ 为$\Bb$的一个满子范畴，其中的对象正是$\Aa$在$\Bb$里的像.
+    令 $\Cc$ 为这样一个范畴，其对象与$\Aa$相同，但是态射与$\Dd$相同.
+  \end{proof}
+
+  范畴能按（弱）等价关系分成不同的等价类，作为刻画这种等价类的工具，我们有
+  \begin{defn}
+    一个范畴称作是\emph{骨骼的}（\termin[skeletal]{skeletal category}），如果在这个范畴里同构和相等是一回事.
+    传统上，一个范畴$\Cc$的\emph{骨架}（\termin[skeleton]{skeleton (category theory)}）定义为$\Cc$的一个骨骼的子范畴，它的包含函子是一个到$\Cc$的等价.
+  \end{defn}
+  \begin{rem}
+    然而，离开选择公理，更适当的定义是把$\Cc$的骨架定义为与之若等价的骨骼范畴.
+  \end{rem}
+  \begin{prop}
+    同一范畴的两个骨架同构. 反之，两范畴等价，当且仅当它们的骨架同构.
+  \end{prop}
+  \begin{rem}
+    在缺乏选择公理时，``等价''应该被代之以``弱等价''.
+  \end{rem}
+
+\subsection{术语注解}
+    在数学的许多分支中，具有``泛性质''的对象往往不是唯一的，但却是\emph{在唯一的同构意义下唯一的}（\emph{unique up to unique isomorphism}）. 一个很诱人的想法是考虑骨骼的范畴，因为骨骼范畴中同构的对象必相同，于是上面的对象就在事实上唯一了.
+    然而， 在严格的``唯一''意义下，因为自同构的存在，这种通常想法是\textbf{错的}.
+
+    举个例子，考虑\emph{笛卡尔积}（\emph{cartesian product}，定义在2.x.x），尽管我们在口头上总是说``$A\times B$是$A$和$B$的积''，但严格来讲笛卡尔积是一个三元组，它包括一个对象$A\times B$以及两个投影态射$A\times B\to A$和$A\times B\to B$满足所要求的泛性质. 因此，即便范畴是骨骼的，于是只可能有唯一的对象$A\times B$成为$A$和$B$的积，但一般来讲它能以不同的方式（也就是说具有不同的投影态射）成为$A$和$B$的积：这些不同的积之间通过自同构而关联.
+
+    最后，骨骼范畴能保证唯一性这样的想法在极少见的情况下可以是对的. 比如一个终对象（\emph{terminal object}，定义在2.x.x）不含非平凡自同构，于是在一个骨骼范畴里，终对象必须是唯一的.
+
+\section{Comma范畴}
+  我们现在来介绍一种非常一般性的从给定范畴出发构造新范畴的途径. 像这样的的构造在本书中会很常见.
+
+  \begin{defn}
+    考虑三个范畴$\Aa$、$\Bb$、$\Cc$和两个函子$S$、$T$（分别代表source和target）
+          \begin{displaymath}
+            \xymatrix{
+               \Aa\ar[r]^{S} & \Cc & \Bb\ar[l]_{T}                }
+          \end{displaymath}
+    构造\termin{comma category} $(S\down T)$\glsadd{commma} 如下：
+    \begin{itemize}
+      \item 对象：三元组$(A,f,B)$，其中$A$、$B$分别是$\Aa$和$\Bb$中的对象，而$f\colon S(A)\To T(B)$是$\Cc$里的一个态射.
+      \item 从$(A,f,B)$到$(A',f',B')$的态射：对$(g,h)$，
+                 其中$g\colon A\To A'$和$h\colon B\To B'$分别是$\Aa$和$\Bb$中的态射，并且满足下面的交换图：
+                 \begin{displaymath}
+                   \xymatrix{
+                       S(A)\ar[d]_{S(g)}\ar[r]^{f} & T(B)\ar[d]^{T(h)}  \\
+                       S(A')\ar[r]^{f'} & T(B')           }
+                 \end{displaymath}
+      \item 态射之复合$(g,h)\circ(g',h')$定义为$(g\circ g',h\circ h')$.
+      \item 对象$(A,f,B)$的单位态射是$(1_{A},1_{B})$.
+    \end{itemize}
+  \end{defn}
+  \begin{rem}
+    相比$(S\down T)$这个记号，有些学者更偏向于用$(S/T)$.
+  \end{rem}
+
+  下面这个命题给出了comma范畴的``泛性质''.
+  \begin{prop}\label{prop:comma-uni}
+    每个comma category都带有两个函子.
+    \begin{itemize}
+      \item \termin{domain functor} $U\colon(S\down T)\To\Aa$，其作用为：
+      \begin{itemize}
+        \item 对象：$(A,f,B)\mapsto A$；
+        \item 态射：$(g,h)\mapsto g$；
+      \end{itemize}
+      \item \termin{codomain functor} $V\colon(S\down T)\To\Bb$，其作用为：
+      \begin{itemize}
+        \item 对象：$(A,f,B)\mapsto B$；
+        \item 态射：$(g,h)\mapsto h$；
+      \end{itemize}
+    \end{itemize}
+    同时，还有自然变换$\alpha\colon S\circ U \to T\circ V$.
+                 \begin{displaymath}
+                   \xymatrix{
+                       (S\down T)\ar[r]^-{V}\ar[d]_-{U}
+                       &\Bb\ar[d]^{T}\\
+                       \Aa\ar[r]_{S} \ar@{}[ur]^{\alpha}|-{\SelectTips{eu}{}\object@{=>}}
+                       &\Cc %\ultwocell\omit
+                               }
+                 \end{displaymath}
+
+    进一步地，comma category在上述性质下是\emph{万有的}（universal）.
+    也就是说，如果存在另一个范畴$\Dd$以及两个函子$U'\colon\Dd\to\Aa$和$V'\colon\Dd\to\Bb$使得自然变换$\alpha'\colon S\circ U' \to T\circ V'$存在.
+                 \begin{displaymath}
+                   \xymatrix{
+                       \Dd\ar[r]^-{V'}\ar[d]_-{U'}
+                       &\Bb\ar[d]^{T}\\
+                       \Aa\ar[r]_{S} \ar@{}[ur]^{\alpha'}|-{\SelectTips{eu}{}\object@{=>}}
+                       &\Cc %\ultwocell\omit
+                               }
+                 \end{displaymath}
+    则存在唯一的函子$W\colon\Dd\to(S\down T)$使得
+    \begin{equation*}
+      U\circ W = U'\qquad V\circ W = V'\qquad \alpha\ast W = \alpha'.
+    \end{equation*}
+  \end{prop}
+  \begin{proof}
+    前面的性质直接来自于comma范畴的定义，其中的自然变换$\alpha$定义为
+    \begin{equation*}
+      \alpha_{(A,f,B)}=f
+    \end{equation*}
+
+    如果还存在另一四元组$(\Dd,U',V',\alpha')$满足性质，则我们可以定义出函子$W\colon\Dd\to (S\down T)$：
+    \begin{align*}
+      W(D) &= (U'(D),\alpha'_D ,V'(D)) \\
+      W(f) &= (U'(f), V'(f))
+    \end{align*}
+    不难验证
+    \begin{equation*}
+      U\circ W = U'\qquad V\circ W = V'\qquad \alpha\ast W = \alpha'.
+    \end{equation*}
+
+    反之，上面的等式就迫使这样一个函子必须是$W$.
+  \end{proof}
+
+\subsection{例子}
+  \begin{exam}%[Slice category]
+    $(\Id_{\Cc} \down \Delta_I)$，也记作$(\Cc \down I)$称为$I$上的\termin{slice category} 或者 \emph{$I$上对象之范畴}.
+  \end{exam}
+
+  \begin{exam}%[Coslice category]
+    $(\Delta_I \down \Id_{\Cc})$，也记作$(I \down \Cc)$称为$I$下的\termin{coslice category} 或者 \emph{$I$下对象之范畴}.
+  \end{exam}
+
+  \begin{exam}%[Arrow category]
+    $(\Id_{\Cc}\down\Id_{\Cc})$正是\emph{箭头范畴}（\termin{arrow category}）$\Cc^{\to}$.
+  \end{exam}
+
+  \begin{exam}\glsadd{T-arrow}\glsadd{S-arrow}
+    在构造slice或者coslice范畴时，用其他函子$F$来替代恒等函子，这样就得到了一系列在研究伴随函子时很有用的范畴.
+    例如，令$s,t$为$\Cc$中给定对象.
+    范畴$(s\down F)$中的对象称为 \emph{从$s$到$F$的态射} 或者以$s$为domain的 \termin{$T-$structured arrow}.
+    范畴$(F\down t)$中的对象称为 \emph{从$F$到$t$的态射} 或者以$t$为codomain的 \termin{$S-$costructured arrow}.
+  \end{exam}
+
+  \begin{exam}
+    令$F\colon\Cc\to\Set$为一个函子，$1\colon\one\to\Set$是把$\one$中对象映成一个单点集的函子. 这个comma范畴$(1\down F)$被称为 \emph{$F$的元素之范畴}（\termin{category of elements of $F$}），记作$\Elts(F)$. 它也能用如下方式明确描述出来.
+  \begin{itemize}
+    \item 对象：对$(X,x)$，其中$X\in\ob\Cc$，$x\in F(X)$.
+    \item 态射$f\colon(A,a)\To(B,b)$：
+               $\Cc$中的满足$F(f)(a)=b$的态射$f\colon A\to B$.
+    \item 态射复合由$\Cc$所诱导.
+  \end{itemize}
+  \end{exam}
+
+  \begin{exam}
+     令$\Delta_{\Aa}$为从$\Aa$到$\one$的\emph{常值函子}（\termin{constant functor}\glsadd{ConstantF}），$\Delta_{\Bb}$类似.
+     则comma范畴$(\Delta_{\Aa}\down\Delta_{\Bb})$正是$\Aa$和$\Bb$的\emph{积}（\termin[product]{product of categories}）$\Aa\times\Bb$，它可以被描述为：
+  \begin{itemize}
+    \item 对象：
+               对$(A, B)$，其中$A$和$B$分别是$\Aa$和$\Bb$中的对象；
+    \item 态射$f\colon(A,B)\To(A',B')$：
+               箭头的对$(a,b)$，其中$a\colon A\to A'$和$b\colon B\to B'$分别是$\Aa$和$\Bb$中的态射；
+    \item 态射之复合：
+                                    \begin{equation*}
+                                      (a', b') \circ (a, b) = (a' \circ a, b' \circ b);
+                                    \end{equation*}
+  \end{itemize}
+  \end{exam}
+  积$\Aa\times\Bb$携带有两个``投影''（projection）函子
+  \begin{equation*}
+    p_{\Aa}\colon\Aa\times\Bb\To\Aa\qquad p_{\Bb}\colon\Aa\times\Bb\To\Bb
+  \end{equation*}
+  它们可以显式地定义为
+  \begin{align*}
+    p_{\Aa}(A,B)=A,&\quad p_{\Bb}(A,B) = B,\\
+    p_{\Aa}(a,b) =a,&\quad p_{\Bb}(a,b) = b.
+  \end{align*}
+
+  这些东西满足如下的``泛性质''.
+  \begin{prop}
+    考虑两范畴$\Aa$、$\Bb$. 对于每个范畴$\Cc$及每对函子$F\colon\Dd\to\Aa$、$G\colon\Dd\to\Bb$，都存在唯一的函子$H\colon\Dd\to\Aa\times\Bb$使得$p_{\Aa}\circ H=F, p_{\Bb}\circ H=G$.
+  \end{prop}
+  \begin{proof}
+    这直接就是命题\ref{prop:comma-uni}的推论.
+  \end{proof}
+  一点术语：一个定义在两范畴之积上的函子称为\emph{双函子}（\termin{bifunctor}，前缀表这个函子有两个``变元''）.
+  实际使用中，某物被称为在$X_1,X_2,\cdots$上是\emph{自然的}（\emph{natural}）或者\emph{函子的}（\emph{functoral}）意味着它可以看成以$X_1,X_2,\cdots$为变元的函子.
+  \begin{exam}
+    $\Hom_{\Cc}(-,-)$是从$\Cc^{\op}\times\Cc$到$\Set$的双函子.
+  \end{exam}
+
+\section{对偶原理}
+  你也许已经注意到，每个关于函子的结果都有其对应的反变函子版本，每个关于单态射的结果都有其对应的满态射版本.
+  这些事实是一个非常一般性的原理的特例.
+
+  在定义\ref{def:category}下面的注中，我们表示一个范畴提供了一个双类型的一阶语言，而一个范畴性质就是在这个一阶语言中的一条语句.
+
+  于是每当我们有一个范畴性质$\sigma$，则其对偶$\sigma^{\op}$就能通过反转箭头来得到. 也就是说
+  \begin{enumerate}
+    \item   将$\sigma$中出现的``source''和``target''互换.
+    \item   将态射的复合顺序颠倒.
+  \end{enumerate}
+
+  然而就不难发现$\Cc$中的一句$\sigma$在逻辑上等价于它在$\Cc^{\op}$中的对偶$\sigma^{\op}$.
+
+  总结上述，我们有
+  \begin{thm}[范畴的对偶原理]
+  $ $
+  \begin{center}
+    如果性质$\Pp$对所有范畴成立的，
+
+    那么性质$\Pp^{\op}$也如此.
+  \end{center}
+  \end{thm}
+
+  \begin{exam}
+    一个态射是单的当且仅当它在对偶范畴里对应的态射是满的.
+  \end{exam}
+
+\section{Yoneda引理及可表达函子}
+  在这一节里，我们将证明一个重要的定理. 在此之前，我们先定义一些有用的概念.
+
+  可表达性是范畴论中最基本的概念之一，与伴随函子和Yoneda引理密切相关. 它也是泛性质这一思想背后的核心概念，弥漫于代数几何和代数拓扑之中.
+  \begin{defn}
+    函子$F\colon\Cc^{\op}\to\Set$（亦称为$\Cc$上的一个\emph{presheaf}）的一个\emph{表示}（\termin{representation}）是一个特定的自然同构
+    \begin{equation*}
+      \Phi\colon\Hom_{\Cc}(-,X)\To F
+    \end{equation*}
+    其中的$\Cc-$对象$X$称为$F$的一个\emph{表示对象}（\termin{representing object}），或\emph{泛对象} （\termin{universal object}）.
+
+    如果这样一个表示存在，则称函子$F$是\emph{可表达的}（\termin[representable]{representable functor}）并\emph{被$X$表达}
+    （\textbf{represented} by $X$）.
+
+    类似的，函子$F\colon\Cc\to\Set$被称为是\emph{余可表达的}（\termin[corepresentable]{corepresentable functor}），如果它看成$\Cc^{\op}$上的presheaf是可表达的.
+  \end{defn}
+
+  给定范畴$\Cc$，存在函子：
+  \begin{equation*}\glsadd{Yoneda}
+    \Upsilon\colon\Cc\To\PSh(\Cc)
+  \end{equation*}
+  将每个对象$X\in\ob\Cc$映到presheaf $\Hom_{\Cc}(-,X)$.
+
+  Yoneda引理表明从被$X$表达的presheaf到另一个presheaf $F$之间的自然变换之集与集合$F(X)$有自然的一一对应.
+
+  正式的说：
+  \begin{thm}[Yoneda引理]
+    存在典范同构
+    \begin{equation*}
+      \Hom_{\PSh(\Cc)}(\Upsilon(X),F)\cong F(X)
+    \end{equation*}
+    它在$X$和$F$上自然.
+  \end{thm}
+  \begin{rem}
+    在有些著作中，被$X$表达的presheaf习惯上记作$h_X$. 此时上面的式子也写成
+    \begin{equation*}\glsadd{Nat}
+      \Nat(h_X,F)\cong F(X)
+    \end{equation*}
+    来强调presheaf之间的态射是自然变换.
+  \end{rem}
+
+  \begin{proof}
+    关键的一点在于自然变换
+    \begin{equation*}
+      \alpha\colon\Hom_{\Cc}(−,X)\to F
+    \end{equation*}
+    由其分量
+    \begin{equation*}
+    \alpha_X\colon\Hom(X,X)\to F(X)
+    \end{equation*}
+    在$1_X$处的取值$\alpha_X(1_X)\in F(X)$唯一确定. 同时每个这样的取值都能扩展为一个自然变换$\alpha$.
+
+    为此，我们固定一个取值$\alpha_X(1_X)\in F(X)$并考虑$\Cc$中任意一个对象$A$. 如果$\Hom(A,X)$是空集，则分量$\alpha_A$只能是从空集出发的平凡映射. 如果存在态射$f\colon A\to X$，则由自然性条件，下面的交换方形已经被唯一确定.
+          \begin{displaymath}
+            \xymatrix{
+               \Hom(X,X)\ar[r]^-{\alpha_X}\ar[d]_{f^{\ast}}& F(X)\ar[d]^{F(f)} \\
+               \Hom(A,X)\ar[r]^-{\alpha_A}& F(A)               }
+          \end{displaymath}
+    于是，自然变换$\alpha$的每个分量都被唯一确定了.
+
+    反之，给定值$a=\alpha_X(1_X)\in F(X)$，我们可以定义一个自然变换$\alpha$如下：
+    \begin{equation*}
+      \alpha_A(f):=F(f)(a)\quad\forall A\in\ob\Cc,\forall f\in\Hom(A,X)
+    \end{equation*}
+
+    该同构在$X$和$F$上的自然性不外是一些显然成立的交换方形.
+  \end{proof}
+
+\subsection{推论}
+  Yoneda引理有以下一些直接推论. 和Yoneda引理一样，它们的条件很容易满足，而用处非常大.
+  \begin{cor}
+    函子$\Upsilon$是个满嵌入（full embedding）.
+  \end{cor}
+  函子$\Upsilon$习惯上称为\termin{Yoneda embedding}
+  \begin{proof}
+    对任意的$A,B\in\ob\Cc$，由Yoneda引理，我们有
+    \begin{equation*}
+      \Hom_{\PSh(\Cc)}(\Upsilon(A),\Upsilon(B))\cong (\Upsilon(B))(A) = \Hom_{\Cc}(A,B)
+    \end{equation*}
+    因此$\Upsilon$是满忠实的（fully faithful）. 它在对象上的单射性是显然的.
+  \end{proof}
+
+  \begin{cor}
+    对任意的$A,B\in\ob\Cc$，我们有
+    \begin{equation*}
+      \Upsilon(A)\cong\Upsilon(B)\iff A\cong B
+    \end{equation*}
+  \end{cor}
+  \begin{proof}
+    因为$\Upsilon$是满忠实的，故其反射同构（reflects isomorphisms）.
+  \end{proof}
+
+  \begin{cor}
+    设$F$是$\Cc$上的presheaf，则$F$的表示由泛对象$X$及元素$u\in F(X)$唯一确定. 对$(X,u)$还满足下面的泛性质：
+    \begin{quote}
+      对于任何由$A\in\ob\Cc$和$a\in F(A)$组成的对$(A,a)$，存在唯一的态射$f\colon A\to X$使得$F(f)(u)=a$.
+    \end{quote}
+  \end{cor}
+  \begin{proof}
+    注意到$F$的一个表示$\Phi$就是集合$\Hom_{\PSh(\Cc)}(\Upsilon(X),F)$里的一个元素，因此，由Yoneda引理，它通过$\Upsilon$对应于$F(X)$里的一个元素，比如$u\in F(X)$. 于是$\Phi$就由$X$和$u$唯一确定了.
+
+    另一方面，对于$\Cc$中的每个对象$A$，$\Phi_{A}$给出了$\Hom_{\Cc}(A,X)$和$F(A)$之间的一一对应，由此不难得出前述泛性质.
+  \end{proof}
+  \begin{rem}
+    允许有人会怀疑泛性质中提到的态射的存在性. 的确，有可能根本没有从$A$到$X$的态射. 但在这种情况下，Yoneda引理表明集合$F(A)$是空集，于是对$(A,a)$一开始就不可能存在.
+  \end{rem}
+  \begin{rem}
+     \nlab 提供了本推论的另一种描述：$F$之表示是comma范畴$(\Upsilon\down\Delta_{F})$里的\emph{终对象}（\emph{terminal object}）.
+  \end{rem}
+
+\section{习题}
+\begin{ex}
+  考虑两函子$S,T\colon\Aa\to\Bb$. 证明从$S$到$T$的自然变换之集合一一对应于domain functor和codomain functor的共同section之集合.
+\end{ex}
+\begin{ex}
+  对任意范畴$\Aa,\Bb,\Cc$,
+  \begin{enumerate}[a)]
+    \item $[\Aa,\Bb]^{\op}\simeq[\Aa^{\op},\Bb^{\op}]$
+    \item $(\Aa\times\Bb)^{\Cc}\simeq\Aa^{\Cc}\times\Bb^{\Cc}$
+    \item $\Cc^{\Aa\times\Bb}\simeq(\Cc^{\Aa})^{\Bb}\simeq(\Cc^{\Bb})^{\Aa}$
+  \end{enumerate}
+\end{ex}
+\begin{rec}
+  $\Bb^{\Aa}$是$[\Aa,\Bb]$的另一种记号.
+\end{rec}
+\begin{ex}
+  证明函子范畴$[\Aa,\Bb]$在$\Aa$和$\Bb$上自然.
+\end{ex}
+\begin{ex}
+  利用对偶原理写出余可表达函子的明确定义.
+\end{ex}
+\begin{ex}
+  证明协变的余可表达函子保持单态射，而反变的可表达函子则将单态射映成满态射.
+\end{ex}
+\begin{ex}
+  考虑小范畴$\Cc$上的presheaf范畴$\PSh(\Cc)$，证明$\PSh(\Cc)$里的单态射就是每个分量都是单态射的自然变换.
+  然而，如果考虑一般的函子范畴$[\Cc,\Dd]$，则前述性质就不成立了，请举出反例.
+\end{ex}

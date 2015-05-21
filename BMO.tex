@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                        A Tex File Made by Gau Syu
+%                              GauSyu@Gmail.com
+%
+%###########################################
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                     Include The Common Settings
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{zh_Common}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                Letters and Notations
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{Letters_and_Notations}
+\loadglsentries{Glossaries/TableOfCats}
+\loadglsentries{Glossaries/TableOfSymbols}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                 PDF File Information
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{
+             pdftitle={Seminar notes on Algebra},
+             pdfauthor={Gau Syu},
+             pdfsubject={algebra},
+             pdfkeywords={seminar, notes},
+             pdfproducer={XeLaTeX},
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                           Title
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{{\giant Seminar notes on}\\ \Giant\textsc{Algebra}}
+\author{Gau Syu}
+\date{
+  \begin{gather*}
+    \xymatrix@=5em{
+    & Y' \ar@{-->}[dr]^g \ar[ddl]^(0.65){[1]} & \\
+    Z' \ar@{-->}[ur]^f \ar[d]_{[1]} & &
+        X' \ar[ll]_{j[1] \circ i}^{[1]}|(0.25)\hole|(0.75)\hole
+           \ar[ddl]_(0.4)i^(0.4){[1]}|(0.25)\hole|(0.5)\hole \\
+    X \ar[rr]^{v \circ u} \ar[dr]_u & &
+        Z \ar[u] \ar[uul]\\
+   & Y \ar[ur]_v \ar[uul]_(0.6)j|(0.5)\hole|(0.75)\hole &
+    }\\
+    \\
+    \\
+  \end{gather*}
+\emph{\small Last Update: \today}}
+
+\begin{document}
+\frontmatter
+\maketitle
+\dominitoc
+\include{zh_Preface}
+\tableofcontents
+\mainmatter
+\pagestyle{plain}
+\setcounter{minitocdepth}{2}
+\part{Mathematical Structures}
+  “数学结构”的观点出现于N.Bourbaki的《Elements of Mathematics》第一卷《Theory of Sets》第4章“Structures”。借助于公理化集合论，N.Bourbaki给出了一个比较一般性的“数学结构”以及“同构”的概念，尽管这套理论在N.Bourbaki自己的书中都没使用多少。
+
+  “范畴论”在某种意义上是叙述“数学结构”的更自然的语言，对如今的数学领域乃至其他科学领域影响深远。故此在越来越多的现代代数教材中出现了介绍“范畴论”的章节。
+
+  本部分收录一些基本的范畴论知识，它们中大部分可见于各类讲授范畴论的书籍。这方面标准的参考书是MacLane《Categories for the Working Mathematician》\cite{lane1998categories}。 此外，F.W.Lawvere\&S.H.Schanuel《Conceptual Mathematics》\cite{lawvere1997conceptual} 和S.Awodey《Category Theory》\cite{awodey2010category}都是简单易懂的教材，F.Borceux《Handbook of categorical algebra》\cite{borceux} 则是本资料丰富的大全。
+
+  虽然原则上并不必要，但在阅读本部分之前掌握一些基本的代数学常识是有好处的，可参考
+  R.戈德门特《代数学教程》\cite{godement1963cours}、N.Jacobson《Basic Algebra》\cite{jacobson1980basic}、M.Artin《Algebra》\cite{artin2011algebra} 或者任何一本大学程度的代数教材。
+
+  \include{MathStructure/Category}
+  \include{MathStructure/zh_Category}
+
+\part{Elementary Structures}
+\chapter{Set Theory}
+\chapter{Order Theory}
+
+\part{Group Theory}
+\chapter{Groups}
+
+\chapter{Rings}
+
+\chapter{Modules}
+
+\chapter{Polynomials}
+%\include{Chapter2}%Rings
+%\include{Chapter3}%Modules
+%\include{Chapter4}%Polynomials
+%Historic comment
+\chapter{Categories}
+
+
+\part{Commutative Objects}
+\chapter{Abelian Groups}
+\chapter{Abelian Category}
+\chapter{Commutative Algebra}
+\chapter{Algebraic Number Theory}
+\chapter{Algebraic Geometry}
+\chapter{Arithmetic Geometry}
+
+\part{Associative Objects}
+\chapter{Groups in Category}
+
+\chapter{Associative Algebra}
+
+\chapter{Field Extension}
+
+
+\part{Galois Objects}
+\chapter{Galois Theory}
+
+\part{Lie Objects}
+
+\part{Homology Objects}
+
+%\part{Weird Objects}
+
+%\part{Galois Theory}
+%\include{Chapter5}%Algebraic Extensions
+%\include{Chapter6}%Galois Theory
+%infinite Galois Theory
+
+\part{Dedekind Domain}
+\section{23}
+
+
+\begin{appendices}
+%\renewcommand{\thepart}{}%\Alph{part}.}
+\CTEXsetup[name={,},number={}]{part}
+\part{Appendix}
+%\renewcommand{\thechapter}{}
+%\include{CategoryTheory}
+%\chapter{Category}
+\end{appendices}
+
+$\Cat$
+
+\newpage
+\backmatter
+
+%Chapter=Table of Categories
+\printglossaries
+
+\newpage
+%Chapter=Index
+\phantomsection
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\newpage
+%Chapter=Bibliography
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{alpha}
+\bibliography{bib}
+
+\end{document}

@@ -1,0 +1,1088 @@
+\chapter{The Language of Categories}
+  In this chapter, we start with the basic vocabulary of categories, functors, natural transformations, monomorphisms, epimorphisms, isomorphisms. The analogies between monomorphisms and epimorphisms, covariant and contravariant functors, lead to the famous duality principle which is, with the Yoneda lemma, one of the key results of the first chapter.
+\minitoc
+\newpage
+\section{Introduction}
+\subsection{Why category?}
+  Many similar phenomena and constructions with similar properties occur in completely different mathematical fields.
+  To describe precisely such phenomena and investigate such constructions simultaneously, the language of categories emerges.
+
+  For past years, categorists have developed a symbolism that allows one quickly to visualize quite complicated facts by means of diagrams.
+
+  Nowadays, category theory become a powerful language provides suitable vehicles that allow one to transport problems from one area of mathematics to another area, where solutions are sometimes easier. Therefore, the language of categories become more and more popular in modern mathematics and other fields like logic, computer science, linguistics and philosophy.
+
+  More history comment can be found in many textbooks about category theory.
+%Category Theory is a way of treating metaphor rigorously - in great complex nests, perhaps, but still rigorously.  And of having rigor without losing all meaning.
+
+%These are the points on usefulness of category theory that Graham Hutton once mentioned in a course on category theory:
+%Building bridges—exploring relationships between various mathematical objects, e.g., Products and Function
+%Unifying ideas - abstracting from unnecessary details to give general definitions and results, e.g., Functors
+%High level language - focusing on how things behave rather than what their implementation details are e.g. specification vs implementation
+%Type safety - using types to ensure that things are combined only in sensible ways e.g. (f: A -> B  g: B -> C) => (g o f: A -> C)
+%Equational proofs—performing proofs in a purely equational style of reasoning
+\subsection{What is a category?}
+  There are several ways to define what is a category; in the usual foundations of mathematics, these two definitions are equivalent. We now provide a popular one.
+  \begin{defn}\label{def:category}
+  A \termin{category} $\Cc$ consists of the following data:
+  \begin{itemize}
+    \item a collection $\ob\Cc$ of \termin[objects]{object (category theory)}.
+    \item a collection $\hom\Cc$ of \termin[morphisms]{morphism (category theory)} (or \termin[arrows]{arrow (category theory)}, \termin[maps]{map (category theory)}) between objects.
+
+             Each morphism $f$ has a unique \termin[source]{source (category theory)} object $A$ and \termin[target]{target (category theory)} object $B$.
+
+             We write $f\colon A\To B$, and say ``$f$ is a morphism from $A$ to $B$'', ``$A$ is the \termin[domain]{domain (category theory)} of $f$'' and ``$B$ is the \termin[codomain]{codomain (category theory)} of $f$''.
+
+             We write $\Hom(A, B)$\glsadd{hom} (or $\Hom_{\Cc}(A, B)$ when there may be confusion about to which category $\Hom(A, B)$ refers) to denote the collection of all morphisms from $A$ to $B$. (Some authors write $\Mor(A, B)$ or simply $\Cc(A,B)$ instead.)
+    \item for every three objects $A,B$ and $C$, a binary operation
+             \begin{equation*}
+               \Hom(A, B) \times \Hom(B, C) \To \Hom(A, C)
+             \end{equation*}
+             called \termin{composition of morphisms}.
+
+             The composition of $f\colon A \To B$ and $g\colon B \To C$ is written as $g\circ f$ or simply $gf$. (Some authors use ``diagrammatic order'', writing $f;g$ or $fg$.)
+  \end{itemize}
+  subject to the following axioms:
+  \begin{description}
+    \item[associativity] if $f\colon A \To B, g\colon B \To C$ and $h\colon C \To D$ then
+                                 \begin{equation*}
+                                   h\circ(g\circ f) = (h\circ g)\circ f
+                                 \end{equation*}
+    \item[identity] for every object $A$, there exists a morphism $1_A\colon A \To A$ (some times write $\id_A$) called the \termin[identity morphism]{identity morphism} for $A$, such that for every morphism $f\colon A \To B$, we have $1_B \circ f = f = f \circ 1_A$.\glsadd{identityM}
+  \end{description}
+  From these axioms, one can prove that there is exactly one identity morphism for every object. Some authors use a slight variation of the definition in which each object is identified with the corresponding identity morphism.
+  \end{defn}
+  \begin{rem}
+     To emphasize the category $\Cc$, one often say an object (resp. morphism, arrow, map) in $\Cc$ or a $\Cc-$objects (resp. $\Cc-$morphism, $\Cc-$arrow, $\Cc-$map).
+  \end{rem}
+\begin{rem}
+  Category theory provide a framework to discuss so-called ``categorical properties''. Informally, a \termin{categorical property} is a statement about objects and arrows in a category. More technically, a category provide a two-typed first order language with objects and morphisms as distinct types, together with the relations of an object being the source or target of a morphism and a symbol for composing two morphisms, thus a category property is a statement in such a language.
+\end{rem}
+
+  Let us now define a "homomorphism of categories".
+  \begin{defn}
+    A \termin{functor} $F$ from a category $\Aa$ to a category $\Bb$ consists of the following data:
+    \begin{itemize}
+      \item a mapping
+                 \begin{equation*}
+                   \ob\Aa\To\ob\Bb
+                 \end{equation*}
+                 between the collections of objects of $\Aa$ and $\Bb$; the image of $A\in\ob\Aa$ is written $F(A)$ or just $F A$;
+      \item for every pair of objects $A, A'$ of $\Aa$, a mapping
+                 \begin{equation*}
+                   \Hom_{\Aa}(A,A')\To\Hom_{\Bb}(F(A),F(A'))
+                 \end{equation*}
+                 the image of $f\in\Hom_{\Aa}(A,A')$ is written $F(f)$ or just $F f$.
+    \end{itemize}
+    subject to the following axioms:
+    \begin{itemize}
+      \item for every pair of morphisms $f\in\Hom_{\Aa}(A,A'), g\in\Hom_{\Aa}(A',A'')$,
+                 \begin{equation*}
+                   F(g\circ f) = F(g)\circ F(f)
+                 \end{equation*}
+      \item for every object $A\in\ob\Aa$,
+                 \begin{equation*}
+                   F(1_A) = 1_{F(A)}
+                 \end{equation*}
+    \end{itemize}
+  \end{defn}
+
+  Given two functors $F\colon\Aa\to\Bb$ and $G\colon\Bb\to\Cc$, a pointwise composition immediately produces a new functor $G\circ F\colon\Aa\to\Cc$. This composition law is obviously associative.
+
+  On the other hand, every category $\Cc$ has an identity functor, which can be simply obtained by choosing every mapping in the above definition to be the identity. It is an identity for the previous composition law.
+
+  To summarize, the relationship between categories and functors is just like the one between objects and morphisms in a category. Thus a careless argument could lead to the conclusion that categories and functors constitute a new category, which is doubtful.
+
+\subsection{Foundations and size issues}
+    You may find that we use the undefined word ``collection'' instead of ``set'' or ``class''. The chosen of the word depends on the logical foundations we chose: when we use ZFC with one universe, then we choose the word ``set'' and all classical mathematical objects we considered such as sets, groups etc is small respect to the universe; when we use class theory like NBG, then we choose the word ``class'' and all classical mathematical objects are sets. More details can be found in the beginning of \cite{borceux} or section 1.8 of \cite{awodey2010category}.
+
+    However, the foundation of category theory is independent of the axioms of set theory. In fact, category theory can be used to provide the foundations for mathematics as an alternative to set theory. Therefore we can rewrite the sentences of our axioms about what is a category in fully formal logic, which allow us to use the undefined word ``collection''. More details can be found in \nlab or \cite{lane1998categories}.
+
+    Nevertheless, without set theory, the size-discussions such as ``a collection of all XXX'' do not make sense. Indeed, one of the lessons from the Russell's paradox is that the unrestricted usage of quantifiers is very dangerous.
+
+    After choose an axiom system of set theory, the size issues make sense. In usual class theory such as NBG, a class is \emph{small} means it is a set, while in ZFC with one universe, a set is \emph{small} means it is an element of the universe.
+
+    A category $\Cc$ is called \termin[small]{small category} if both $\ob\Cc$ and $\hom\Cc$ are small,
+    and \termin[proper large]{proper large category} otherwise.
+    A category is called \termin[locally small]{locally small category} if for each pair of objects $A$ and $B$, $\Hom(A, B)$ is small. Many important categories in mathematics (such as the category of sets), although not small, are at least locally small.
+    For this reason, people tend to use the word ``category'' instead of ``locally small category''.
+    Following this convention, we will simply put a locally small category called ``category''.
+    This does not cause ambiguity, since we will still use the word ``\termin{large category}'' if needed.
+
+    Under the above agreements, one can safely claim that all small categories and functors constitute a category, which is usually denoted by $\Cat$.
+    On the other hand, the size of the ``category'' of all (locally small) categories and functors are larger than every large category, thus it does not exist under the usual set-theoretic axioms.
+
+    Of course, one can also choose an axiom system of set theory which promise numerous sizes rather than just two: ``small'' and ``large''. In this case, all smaller categories and functors constitute a larger category. For instance, all locally small categories and functors form a ``very large'' (namely, larger than proper large categories) category, called $\CAT$: see \hrefacc i.e.\cite{acc}.
+
+    More details about the foundations and size issues can be found in \nlab and related publications.
+
+\newpage\section{Examples}
+  The discussion of small categories and functors provide the first example of category in this book, i.e. $\Cat$. We should introduce some other examples in this section.
+
+  In fact, traditional mathematics has provided a number of examples by different ways.
+  \begin{exam}
+    Many traditional mathematical structures are obtained by attaching some structures on sets. They provided a lot of obvious examples of categories.
+    \begin{itemize}
+      \item Sets
+      \footnote{By this word we mean the small ones the set theory provided, e.g. small sets if we use ZFC with one universe. In such case, to avoid ambiguity, we use ``large set'' to call the general sets, which may be not small. A usual class theory already provides a word ``class'', thus one can also simply assume we have chose a usual class theory as our foundational set theory.}
+       and functions: $\Set$.
+      \item Groups and group homomorphisms: $\Grp$.
+      \item Rings and ring homomorphisms: $\Ring$.
+      \item Real vector spaces and linear mappings: $\Vect_{\RR}$.
+      \item Right $R-$modules and module homomorphisms: $\Mod_R$.
+      \item Topological spaces and continuous mappings: $\Top$.
+      \item Uniform spaces and uniformly continuous functions: $\Uni$.
+      \item Differentiable manifolds and smooth mappings: $\Diff$.
+      \item Metric spaces and metric mappings: $\Met$.
+      \item Real Banach spaces and bounded linear mappings: $\Banb$.
+      \item Real Banach spaces and linear contractions: $\Ban$.
+    \end{itemize}
+    All of these categories encapsulate one ``kind of mathematical structure''. These are often called ``concrete'' categories (we will introduce a technical definition that these examples all satisfy later).
+  \end{exam}
+  \begin{exam}\label{exam:category2}
+    Some mathematical devices can also be viewed as categories.
+    \begin{itemize}
+      \item $\Mat$: The set of natural numbers $\N$ can be viewed as a category as following: choose as objects the natural numbers and as arrows from $n$ to $m$ the matrices with $n$ rows and $m$ columns; the composition is the usual product of matrices.
+      \item Every set $S$ can be viewed as a category whose objects are the elements of $S$ and the only morphisms are identities.
+
+                 In general, a category whose only morphisms are the identities is called a \termin{discrete category}.
+      \item A poset $(S,<)$ can be viewed as a category whose objects are the elements of $S$ and the set $\Hom(x,y)$ of morphisms is a singleton when $x < y$ and is empty otherwise.
+                The possibility of defining a (unique) composition law is just the transitivity axiom of the partial order; the existence of identities is just the reflexivity axiom.
+      \item A monoid $(M,\cdot)$ can be seen as a category $\Mm$ with a single object $\ast$ and $\Hom(\ast,\ast)=M$ as a set of morphisms; the composition law is just the multiplication of the monoid.
+    \end{itemize}
+  \end{exam}
+
+  Do not worry if some of these examples are unfamiliar to you. Later on, we will take a closer look at some of them. In addition, there are also many examples emerge from outside of mathematics, such as logic, computer science, linguistics and philosophy. Those examples can be found in \cite{awodey2010category} and related publications.
+
+\subsection{Basic examples via a given category}
+From a given category $\Cc$, there are various ways to construct new categories. Here are some basic constructions.
+\begin{exam}
+  Any category $\Cc$ can itself be considered as a new category in a different way: the objects are the same as those in the original category but the arrows are those of the original category reversed. This is called the \termin[dual]{dual category} or \termin{opposite category} and is denoted by $\Cc^{\op}$.\glsadd{opposite}
+\end{exam}
+Obviously, the double dual category of a category is itself. The concept of dual category implies an important principle, the \emph{duality principle}. We will see soon it in this chapter.
+\begin{exam}[\termin{slice category}]
+  Let us fix an object $I\in\ob\Cc$. The category $\Cc/I$ of ``arrows over $I$'' is defined by the following.\glsadd{Slice}
+  \begin{itemize}
+    \item Objects: the arrows of $\Cc$ with codomain $I$.
+    \item Morphisms from an object $(f\colon A\to I)$ to another $(g\colon B\to I)$:
+               the morphisms $h\colon A\to B$ in $\Cc$ satisfying the ``commutative triangles over $I$''
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    A\ar[rr]^{h}\ar[dr]_{f} && B\ar[dl]^{g} \\
+                    &I&                }
+               \end{displaymath}
+               i.e.  $g\circ h = f$.
+    \item   The composition law is that induced by the composition of $\Cc$.
+  \end{itemize}
+\end{exam}
+  \begin{rem}
+    Notice that in the case of $\Set$, a function $f\colon A\to I$ can be identified with the $I-$indexed family of sets $\{f^{-1}(i)\}_{i\in I}$ so that the previous category is just that of $I-$indexed families of sets and $I-$indexed families of functions.
+  \end{rem}
+
+\begin{exam}[\termin{coslice category}]
+  Again fixing an object $I\in\ob\Cc$, the category $I/\Cc$ of ``arrows under $I$'' is defined by the following.\glsadd{Coslice}
+  \begin{itemize}
+    \item Objects: the arrows of $\Cc$ with domain $I$.
+    \item Morphisms from an object $(f\colon I\to A)$ to another $(g\colon I\to B)$:
+               the morphisms $h\colon A\to B$ in $\Cc$ satisfying the ``commutative triangles under $I$''
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    &I\ar[dl]_{f}\ar[dr]^{g}& \\
+                    A\ar[rr]_{h} && B   }
+               \end{displaymath}
+               i.e.  $h \circ f = g$.
+    \item   The composition law is that induced by the composition of $\Cc$.
+  \end{itemize}
+\end{exam}
+
+\begin{exam}
+  Now we consider all the arrows of $\Cc$. The category $\Cc^{\to}$  of all arrows is defined by the following. \glsadd{Arr}
+  \begin{itemize}
+    \item Objects: the arrows of $\Cc$.
+    \item A morphism from an object $(f\colon A \to B)$ to another $(g\colon C \to D)$ is a pair $(h\colon A\to C, k\colon B\to D)$ of morphisms of $\Cc$ satisfying a ``commutative square''
+               \begin{displaymath}
+                 \xymatrix{
+                    A\ar[d]_{h}\ar[r]^{f} & B\ar[d]^{k} \\
+                    C\ar[r]_{g}&D                }
+               \end{displaymath}
+    \item   The composition law is induced pointwise by the composition in $\Cc$.
+  \end{itemize}
+\end{exam}
+
+\subsection{The simplest examples}
+We now introduce some simple examples which can be inspired by the axioms of categories immediately.
+\begin{exam}
+  The category $\mathbf{0}$ has no objects or arrows.
+
+  The category $\one$ has one object and its identity arrow. It looks like
+               \begin{displaymath}\glsadd{terminalCate}
+                 \xymatrix@R=0.5cm{
+                    \bullet              }
+               \end{displaymath}
+
+  The category $\mathbf{2}$ has two objects, their required identity arrows, and exactly one arrow between the objects. It looks like
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    \bullet\ar[r] & \bullet             }
+               \end{displaymath}
+
+  The category $\mathbf{3}$ has three objects, their required identity arrows, exactly one arrow from the first to the second object, exactly one arrow from the second to the third object, and exactly one arrow from the first to the third object (which is therefore the composite of the other two). It looks like
+               \begin{displaymath}
+                 \xymatrix@R=0.5cm{
+                    \bullet\ar[r]\ar[dr] & \bullet\ar[d] \\
+                    & \bullet            }
+               \end{displaymath}
+\end{exam}
+
+One can see these categories look like quivers. Indeed, a category can be viewed a quiver with extra structure. More details can be found in \nlab.
+
+The notation $\one,\mathbf{2},\mathbf{3}$ comes from the fact that these categories are in fact the ordinals regarded as posets and thus categories. We will discuss this in the later part.
+
+\newpage\section{Monic-, epi- and isomorphisms}
+The basic notions about functions are injectivity, surjectivity and bijectivity. To generalize them to the context of category theory, one need characterize them without using elements. Early category theorists believed that the cancellation properties provide the correct generalization, thus they define the following notions.
+  \begin{defn}
+    A morphism $f$ is called \termin{monic}, or a \termin{monomorphism}, if it is left cancellable, that means
+    for any morphisms
+    \begin{displaymath}
+    \xymatrix@1{\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot\ar[r]^{f} &\cdot}
+    \end{displaymath}
+    $f\alpha=f\beta$ implies $\alpha=\beta$.
+
+    Dually, $f$ is called \termin{epi}, or an \termin{epimorphism}, if it is right cancellable, that means for any morphisms
+    \begin{displaymath}
+    \xymatrix@1{\cdot\ar[r]^{f} &\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot}
+    \end{displaymath}
+    $\alpha f=\beta f$ implies $\alpha=\beta$.
+  \end{defn}
+
+  The followings are the basic propositions about monomorphisms and epimorphisms.
+  \begin{prop}
+    every identity morphism is both monic and epi. The composite of two monomorphisms (resp. epimorphisms) is also a monomorphism (resp. epimorphism).
+  \end{prop}
+  \begin{prop}[Triangle lemma]\label{prop:triangle lemma}
+    If the composite $g\circ f$ of two morphisms is monic, then so is $f$; if the composite is epi, then so is $g$.
+  \end{prop}
+
+  By the definition, a morphism is monic means it is left cancellable, but this does not implies the existence of its left inverse. For epimorphisms, the argument is similar.
+  \begin{defn}
+    Consider two morphisms $f\colon A \to B$ and $g\colon B \to A$ in a category. When $g \circ f = 1_A$, $f$ is called a \termin[section]{section (category theory)} of $g$, $g$ is called a \termin[retraction]{retraction (category theory)} of $f$ and $A$ is called a \termin[retract]{retract (category theory)} of $B$.
+  \end{defn}
+  \begin{prop}
+    In a category, every section is a monomorphism and every retraction is an epimorphism.
+  \end{prop}
+  \begin{defn}
+    A morphism $f\colon A\to B$ is called a \termin{split monomorphism}, if it has a retraction.
+    Dually, $f$  is called a \termin{split epimorphism}, if it has a section.
+    If $f$ is both split monic and split epi, then we say it is an \termin{isomorphism} and $A$ is \termin{isomorphic} to $B$, denoted by $A\approx B$.  \glsadd{isomorphic}
+  \end{defn}
+  \begin{rem}
+    It is clear that any split monomorphism must be monic and any split epimorphism is epi, hence any isomorphism is both monic and epi. However, the converses are not true in general case.
+
+    A morphism which is both monic and epi is traditionally called a \termin{bimorphism}, although this is a bad name cause confusions when we go to higher category theory. A category in which every bimorphism is an isomorphism is called \termin[balanced]{balanced category}.
+  \end{rem}
+
+\subsection{Examples}
+  \begin{exam}
+    In $\Set$, $\Grp$, $\Mod_R$ or $\Top$, monomorphisms (resp. epimorphisms) are precisely those morphisms that have injective (resp. surjective) underlying functions. The verifications will be given in corresponding chapters.
+  \end{exam}
+  \begin{exam}\label{exam:nonsurjective epi}
+    In $\Ring$, monomorphisms are precisely those morphisms that have injective underlying functions. However, epimorphisms are not necessarily surjective. For instance, the inclusion map $\ZZ\hookrightarrow\QQ$ is a non-surjective epimorphism.
+    To see this, note that any ring homomorphism on $\QQ$ is determined entirely by its action on $\ZZ$. A similar argument shows that the canonical ring homomorphism from any commutative ring $R$ to any one of its localizations is an epimorphism.
+  \end{exam}
+  \begin{exam}\label{exam:noninjective mono}
+    In the category $\DivAb$ of divisible abelian groups and group homomorphisms between them, there are monomorphisms that are not injective:
+    consider, for example, the quotient map $q\colon\QQ\to\QQ/\ZZ$ from additive group of rational numbers. This is obviously not an injective map. Nevertheless, it is a monomorphism in this category.
+    Indeed, choose $G$ a divisible abelian group and $f,g\colon G \to\QQ$ two group homomorphisms such that $q\circ f = q\circ g$ Putting $h = f - g$ we have $q\circ h = 0$ and the thesis becomes $h=0$. Given an element $x\in G$, $h(x)$ is an integer since $q \circ h = 0$. If $h(x)\neq0$, then one can easily find a contradiction.
+  \end{exam}
+  \begin{exam}
+    In the category of connected pointed topological spaces and pointed continue maps, every coverings map are monomorphisms although they are usually not injective. This is just the unique lifting property of covering maps, one can find it in a textbook about algebraic topology, for example, \cite{AllenHatcher}.
+  \end{exam}
+  \begin{exam}
+    In $\Set$, $\Grp$, $\Mod_R$, isomorphisms are precisely those morphisms that have bijective underlying functions.
+    In $\Top$, isomorphisms are exactly the homeomorphisms. Unfortunately, a continuous bijection is in general not a homeomorphism. For instance, the map from the half-open interval $[0,1)$ to the unit circle $S^1$ (thought as a subspace of the complex plane) which sends $x$ to $e^{2\pi x i}$ is continuous and bijective but not a homeomorphism since the inverse map is not continuous at $1$.
+  \end{exam}
+
+  The counter-examples above shows that the notions of monomorphism and epimorphism do not meet the original requirements, thus category theorists develop some variations to fix this. One can find them in \nlab or \hrefacc.
+
+\newpage\section{Natural transformations}
+  Just as the study of groups is not complete without a study of homomorphisms, so the study of categories is not complete without the study of functors.
+  However, the study of functors is itself not complete without the study of the morphisms between them: the natural transformations.
+
+  \begin{defn}
+    Consider two functors $F,G$ from a category $\Aa$ to $\Bb$. A \termin{natural transformation} $\alpha\colon F\then G$ from $F$ to $G$ is a famliy of morphisms\glsadd{naturalTrans}
+    \begin{equation*}
+    (\alpha_A\colon F(A)\To G(A))_{A\in\ob\Aa}
+    \end{equation*}
+    of $\Bb$ indexed by the objects in $\Aa$ satisfying the following commutative diagrams for every morphism $f\colon A \to A'$ in $\Aa$
+    \begin{displaymath}
+      \xymatrix{
+         F(A)\ar[r]^{\alpha_A}\ar[d]_{F(f)}&G(A)\ar[d]^{G(f)}\\
+         F(A')\ar[r]^{\alpha_{A'}}&G(A')
+      }
+    \end{displaymath}
+    i.e. $\alpha_{A'}\circ F(f) = G(f) \circ \alpha_{A}$.
+  \end{defn}
+
+  Let $F,G,H$ be functors from $\Aa$ to $\Bb$ and $\alpha\colon F\then G, \beta\colon G\then H$ be natural transformations. Then the formula
+  \begin{equation*}
+    (\beta\circ\alpha)_A = \beta_A\circ\alpha_A
+  \end{equation*}
+  defines a new natural transformation $\beta\circ\alpha\colon F\then H$.
+
+  This composition law is clearly associate and possesses identity for each functor.
+  Thus, a careless argument would deduce the existence of a category whose objects are the functors from $\Aa$ to $\Bb$ and whose morphisms are the natural transformations between them. Such a category is called the \termin{functor category} from $\Aa$ to $\Bb$ and usually denoted by $[\Aa,\Bb]$ or $\Bb^{\Aa}$. \glsadd{Fun}
+  \begin{rem}
+    We say this argument is careless since there is a size issue:
+
+    If $\Aa$ and $\Bb$ are \emph{small}, then $[\Aa,\Bb]$ is also \emph{small}.
+
+    If $\Aa$ is \emph{small} and $\Bb$ is \emph{locally small}, then $[\Aa,\Bb]$ is still \emph{locally small}.
+
+    Even if $\Aa$ and $\Bb$ are \emph{locally small}, if $\Aa$ is not \emph{small}, then $[\Aa,\Bb]$ will usually not be \emph{locally small}.
+
+    As a partial converse to the above, if $\Aa$ and $[\Aa,\Set]$ are \emph{locally small}, then $\Aa$ must be \emph{essentially small}: see \href{http://tac.mta.ca/tac/volumes/1995/n9/1-09abs.html}{\emph{Freyd \& Street (1995)}}.
+  \end{rem}
+
+  In the above discussion, we have used a first composition law for natural transformations.
+  In fact, there exists another possible type of composition for natural transformations.
+
+  \begin{prop}
+    Consider the following situation:
+      \begin{displaymath}
+        \xymatrix{
+           \Aa\rtwocell^{F}_{G}{\alpha} &\Bb\rtwocell^{F'}_{G'}{\beta} & \Cc
+        }
+      \end{displaymath}
+    Where $\Aa,\Bb,\Cc$ are categories, $F,G,F',G'$ are functors and $\alpha,\beta$ are natural transformations.
+
+    First, we have the composite functors $F'F$ and $G'G$ and a commutative square for every object $A\in\ob\Aa$:
+     \begin{displaymath}
+        \xymatrix{
+           F'F(A)\ar[r]^{F'(\alpha_A)}\ar[d]_{\beta_{F(A)}} & F'G(A)\ar[d]^{\beta_{G(A)}}\\
+           G'F(A)\ar[r]^{G'(\alpha_A)} & G'G(A)
+        }
+    \end{displaymath}
+
+    Now define $(\beta\ast\alpha)_A$ to be the diagonal of this square, i.e.
+    \begin{equation*}
+      (\beta\ast\alpha)_A = \beta_{G(A)}\circ F'(\alpha_A) = G'(\alpha_A)\circ\beta_{F(A)}
+    \end{equation*}
+    Then $\beta\ast\alpha$ is also a natural transformation, called the \termin{Godement product} of $\alpha$ and $\beta$. \glsadd{Godpord}
+  \end{prop}
+
+  Use the naturalities and functorialities, one can easily check this proposition and also the following.
+
+  \begin{prop}[Interchange law]
+  Consider this situation
+      \begin{displaymath}
+        \xymatrix{
+          \Aa \ruppertwocell^{}_{}{\alpha} \rlowertwocell^{}_{}{\beta} \ar[r]
+          & \Bb\ruppertwocell^{}_{}{\alpha'} \rlowertwocell^{}_{}{\beta'} \ar[r]
+          & \Cc
+        }
+      \end{displaymath}
+    Where $\Aa,\Bb,\Cc$ are categories and $\alpha,\beta, \alpha', \beta'$ are natural transformations. Then the following equality holds:
+    \begin{equation*}
+      (\beta'\circ\alpha')\ast(\beta\circ\alpha) = (\beta'\ast\beta)\circ(\alpha'\ast\alpha)
+    \end{equation*}
+  \end{prop}
+
+  For the sake of brevity and with the notations of the previous propositions, we shall often write $\beta\ast F$ instead of $\beta\ast1_{F}$ or $G\ast\alpha$ instead of $1_{G}\ast\alpha$.
+
+\subsection{Remarks on naturality}
+  You may have seen the word ``\emph{natural}'' on different occasions. But what does this word mean? Intuitively, it makes reference to a description which is independent of any choices.
+
+  Category theory offer a formal definition.
+
+  Recall such a word usually occurs in a satiation where something be transformed into another. To say this process is \emph{natural}, in the sense of category theory, means it can be realized by a \emph{natural transformation}.
+
+  For instance, the term ``naturally isomorphic'' can be formalized by
+  \begin{defn}
+    Let $\alpha$ be a natural transformation between two functors $F$ and $G$ from the category $\Aa$ to $\Bb$.
+    If, for every object $A$ in $\Aa$, the morphism $\alpha_A$ is an isomorphism in $\Bb$, then $\alpha$ is said to be a
+    \termin{natural isomorphism}, and $F$ and $G$ are said to be \termin{naturally isomorphic}, denoted by $F\cong G$.
+  \end{defn}
+
+  \begin{exam}[Opposite group]
+    Statements such as
+    \begin{quote}
+      ``Every group is \emph{naturally isomorphic} to its opposite group''
+    \end{quote}
+    abound in modern mathematics.
+
+    What the above statement really means is:
+    \begin{quote}
+      ``The identity functor $\Id \colon \Grp \To \Grp$ is \emph{naturally isomorphic} to the opposite functor $\op \colon \Grp \To \Grp$.''
+    \end{quote}
+
+    Such a translation also automatically provide a proof to the original statement.
+  \end{exam}
+
+  \begin{exam}[Double dual]
+    Let $k$ be a field, then for every vector space $V$ over $k$ we have a ``natural'' injective linear map $V \To V^{\ast\ast}$ from $V$ into its double dual. These maps are ``natural'' in the following sense: the double dual operation is a functor, and the maps are the components of a natural transformation from the identity functor to the double dual functor.
+  \end{exam}
+
+  However, ``unnatural'' isomorphisms also abound in traditional mathematics.
+  \begin{exam}[Dual of finite-dimensional vector spaces]
+  Origin:
+  \href{http://en.wikipedia.org/wiki/Natural_transformation#Example:_dual_of_a_finite-dimensional_vector_space}{\emph{Wikipedia}}
+  Revised by:
+  \href{http://mathoverflow.net/a/139398/43771}{\emph{MathOverflow}}
+
+   Every finite-dimensional vector space is isomorphic to its dual space, but this isomorphism is not natural.
+
+   One reason, which is given by \emph{Wikipedia}, is that this isomorphism relies on an arbitrary choice of isomorphism. However, this is a completely different matter and has nothing to do with naturality: the linear dual is a contravariant functor while the identity functor on $\FinVect_{k}$ is covariant, thus there is no possibility to compare them via a natural transformation.
+
+   A more acceptable reason comes from a poset in \emph{MathOverflow}. Dan Petersen pointed that if we just consider the category of finite-dimensional vector spaces and linear isomorphisms, temporarily denote it by $\Cc$. Then there are two obvious functors $\Cc\to\Cc^{\op}$: the linear dual, and the natural isomorphism $\Cc\to\Cc^{\op}$ maps each linear isomorphism to its inverse. These functors are \textbf{unnaturally isomorphic}.
+
+   However, take as objects finite-dimensional vector spaces with a nondegenerate bilinear form and maps linear transforms that respect the bilinear form. Then the resulting category has a natural isomorphism from the linear dual to the identity.
+  \end{exam}
+
+  To formalize the ideal that some isomorphisms are not natural, one can introduce the notion of \termin{infranatural transformation}, which is just a family of morphisms indexed by the objects in the source category. Thus an \termin{unnatural isomorphism} is just an infranatural isomorphism which is not natural.
+
+  \begin{exam}
+    Quote from \href{http://mathoverflow.net/a/139392/43771}{\emph{MathOverflow}}
+
+    Take $\Cc$ to be the category with one object and two morphisms. Then the identity functor is \textbf{unnaturally isomorphic} to the functor that sends both morphisms to the identity map.
+  \end{exam}
+
+  In practice, a particular map between individual objects is said to be a \textbf{natural isomorphism}, meaning implicitly that it is actually defined on the entire category, and defines a natural transformation of functors, otherwise, an \textbf{unnatural isomorphism}.
+  \begin{rem}
+    Some authors distinguish notations, using $\cong$ for natural isomorphisms and $\approx$ for isomorphisms may not be natural, reserving $=$ for equalities.
+  \end{rem}
+
+  The examples in \emph{Wikipedia} may not fit, since what they compared are in fact functors with different domains.
+   Some right counterexamples can be found in this poset in \href{http://mathoverflow.net/questions/139388/example-of-an-unnatural-isomorphism}{\emph{MathOverflow}}.
+
+\newpage\section{Contravariant functors}
+  Sometimes, we will consider a mapping between categories which reverse the arrows, for instance, the inverse image mapping of functions. Such kind of mappings are essentially functors from the dual of the ordinary category, while people used to image them as ``functors'' from the ordinary one for brevity.
+  For this reason, categorists introduce the concept of contravariant functors.
+  \begin{defn}
+    Let $\Aa, \Bb$ be two categories, a \termin{contravariant functor} from $\Aa$ to $\Bb$ is a functor from $\Aa^{\op}$ to $\Bb$.
+  \end{defn}
+  Ordinary functors are also called \termin{covariant functor} in order to distinguish them from \emph{contravariant} ones.
+  \begin{exam}
+    A contravariant functor from a category $\Cc$ to $\Set$ is traditionally called a \termin{presheaf} on $\Cc$. The category of presheaves on $\Cc$ is denoted by $\PSh(\Cc)$. More generally, it is frequently to call a contravariant functor from $\Cc$ to $\Dd$ a $\Dd-$valued presheaf on $\Cc$.
+  \end{exam}
+  \begin{rem}
+    For the reason of size issue, people often require the domain of a presheaf to be small.
+  \end{rem}
+  One define the natural transformations between contravariant functors similarly as the covariant case.
+  \begin{defn}
+    Consider two contravariant functors $F,G$ from a category $\Aa$ to a category $\Bb$. A \termin{natural transformation} $\alpha\colon F\then G$ from $F$ to $G$ is a famliy of morphisms
+    \begin{equation*}
+    (\alpha_A\colon F(A)\To G(A))_{A\in\ob\Aa}
+    \end{equation*}
+    of $\Bb$ indexed by the objects in $\Aa$ satisfying the following commutative diagrams for every morphism $f\colon A \to A'$ in $\Aa$
+    \begin{displaymath}
+      \xymatrix{
+         F(A)\ar[r]^{\alpha_A}&G(A)\\
+         F(A')\ar[r]^{\alpha_{A'}}\ar[u]^{F(f)}&G(A')\ar[u]_{G(f)}
+      }
+    \end{displaymath}
+    i.e. $\alpha_{A}\circ F(f) = G(f) \circ \alpha_{A'}$.
+  \end{defn}
+
+  All results about functors can be transported to the contravariant case. One can easily check that, or just apply the duality principle to obtain this transposition.
+
+  The similar idea that take both the dual of source and target categories provides the following notion.
+  \begin{defn}
+    Every functor $F\colon\Aa\To\Bb$ induces the \termin{opposite functor} $F^{\op}\colon \Aa^{\op} \To \Bb^{\op}$ maps objects and morphisms identically to $F$.  \glsadd{oppositeF}
+  \end{defn}
+  Although $F^{\op}$ works as $F$, it can be distinguished from $F$ since $\Aa^{\op}$ does not coincide as $\Aa$ as categories and similarly for $\Bb^{\op}$. The motivation to define opposite functor is similar as opposite ring, it inverse the order of composition law.
+
+\subsection{Examples of functors}
+  Here is some simple examples of functors and contravariant functors.
+  \begin{exam}
+    Every category $\Cc$ has an identity functor $\Id_{\Cc}$ as its identity under the composition of functors. \glsadd{identityF}
+  \end{exam}
+  \begin{exam}
+    For any ``concrete'' category, for instance $\Grp$, there is a functor from it to $\Set$, called the \termin{forgetful functor}: it maps a group $G$ to the underlying set $G$ and a homomorphism $f$ to the corresponding function $f$. We will introduce the technical definition of concrete category and the forgetful functor later.
+  \end{exam}
+  \begin{exam} \glsadd{powerF} \glsadd{copowerF}
+    The \emph{power-set functor} $\Pp\colon\Set\to\Set$ from the category of sets to itself is obtained by mapping a set $S$ to its power set $\Pp(S)$ and a function $f\colon A\to B$ to the ``direct image mapping'' from $\Pp(A)$ to $\Pp(B)$.
+
+    Its duality, the \emph{contravariant power-set functor} $\Qq$ maps a set $S$ to its power set $\Pp(S)$ and a function $f\colon A\to B$ to the ``inverse image mapping'':
+    \mapdes{\Pp(B)}{\Pp(A)}{U}{f^{-1}(U)}
+  \end{exam}
+  \begin{exam}\glsadd{constantF}
+    The functor $\Delta_B\colon\Aa \To \Bb$ which maps every object of $\Aa$ to a fixed object $B$ in $\Bb$ and every morphism in $\Aa$ to the identity morphism on $B$ is called a \termin{constant functor} or \termin{selection functor} to $B$.
+  \end{exam}
+  \begin{exam}\glsadd{diagonalF}
+    The \termin{diagonal functor} $\Delta$ is defined as the functor from $\Bb$ to the functor category $[\Aa,\Bb]$ which sends each object $B$ in $\Bb$ to the constant functor to $B$.
+  \end{exam}
+  \begin{exam}\label{exam:hom bifunctor}
+    $\Hom(-,-)$ can itself be viewed as two functors:
+
+    Fix an object $A$ in $\Cc$, then $X\mapsto\Hom(A,X)$ defined a functor from $\Cc$ to $\Set$ which maps a morphism $f\colon X\to Y$ to the the mapping
+    \longmapdes{f_{\ast}}{\Hom(A,X)}{\Hom(A,Y)}{\phi}{f\circ\phi}
+    \glsadd{pushforward}
+
+    Fix an object $B$ in $\Cc$, then $X\mapsto\Hom(X,B)$ defined a contravariant functor from $\Cc$ to $\Set$ which maps a morphism $f\colon X\to Y$ to the the mapping
+    \longmapdes{f^{\ast}}{\Hom(Y,B)}{\Hom(X,B)}{\phi}{\phi\circ f}
+    \glsadd{pullback}
+
+    Moreover, one can prove that, for every morphisms $A\to B$ and $C\to D$ in $\Cc$, the following diagram is commutative:
+    \begin{displaymath}
+      \xymatrix{
+         \Hom(A,C)\ar[r]&\Hom(A,D)\\
+         \Hom(B,C)\ar[r]\ar[u]&\Hom(B,D)\ar[u]
+      }
+    \end{displaymath}
+  \end{exam}
+
+\newpage\section{Full and faithful functors}
+  One may find that a ``concrete'' category seems can be included in $\Set$ via the forgetful functor. But such a ``inclusion'' is not like coincide those in usual sense because it is not usually injective. For instance, there are in general many different group structures on a same set. In fact, such a functor is what we call ``faithful functor''.
+  \begin{defn}
+  A Functor $F\colon \Aa\to\Bb$ is said to be
+  \begin{enumerate}
+%    \setlength{\itemindent}{2ex}
+    \item \termin[faithful]{faithful functor} (resp. \termin[full]{full functor}, resp. \termin[fully faithful]{fully faithful functor}) if for any $X,Y\in\ob\Aa$, the map $\Hom_{\Aa}(X,Y)\to\Hom_{\Bb}(F(X),F(Y))$ is injective (resp. surjective, resp. bijective).
+    \item \termin[essentially surjective]{essentially surjective functor} if for each $B\in\ob\Bb$, there exists $A\in\ob\Aa$ and an isomorphism $F(A)\approx B$.
+  \end{enumerate}
+  \end{defn}
+  \begin{rem}
+  A faithful functor need not to be injective on objects or morphisms. That is, two objects $X$ and $X'$ may map to the same object in $\Bb$ (which is why the range of a fully faithful functor is not necessarily equivalent to $\Aa$),
+  and two morphisms $f \colon X\To Y$ and $f' \colon X'\To Y'$ (with different domains and codomains) may map to the same morphism in $\Bb$.
+
+  Likewise, a full functor need not be surjective on objects or morphisms. There may be objects in $\Bb$ not of the form $F(A)$ for some $A$ in $\Aa$. Morphisms between such objects clearly cannot come from morphisms in $\Aa$.
+  \end{rem}
+
+  However, we have
+  \begin{prop}
+    A functor is injective on morphisms if and only if it is faithful and injective on objects.
+    Such a functor is called an \termin[embedding]{embedding (category theory)}.
+  \end{prop}
+
+  The basic facts about the above notions are the following
+  \begin{prop}\label{prop:tri-(full,faithful)}
+    Let $F\colon\Aa\to\Bb$ and $G\colon\Bb\to\Cc$ be functors.
+    \begin{enumerate}
+      \item If $F$ and $G$ are both isomorphisms (resp. embeddings, faithful, or full), then so is $G\circ F$.
+      \item If $G\circ F$ is an embedding (resp. faithful), then so is $F$.
+      \item If $F$ is essentially surjective and $G\circ F$ is full, then $G$ is full.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    \emph{1} is obvious. Apply the triangle lemma to hom-sets, we get \emph{2}.
+
+    Under the condition of \emph{3}, each object $B$ in $\Bb$ is isomorphic to some $F(A)$ for $A\in\ob\Aa$. Thus a morphism $h\colon G(B)\to G(B')$ in $\Cc$ is isomorphic to a morphism $h'\colon GF(A)\approx G(B)\to G(B')\approx GF(A')$. By the fullness of $G\circ F$, $h'=GF(f)$ for some morphism $f\colon A\to A'$ in $\Aa$, thus we get a morphism $g\colon B\to B'$ such that $G(g)=h$.
+  \end{proof}
+
+  Full functors and faithful functors have good properties.
+  \begin{prop}
+    Let $F\colon\Aa\to\Bb$ be a faithful functor, then
+    \begin{enumerate}
+      \item it \termin[reflects monomorphisms]{reflect (category theory)}. That is, for every morphism $f$ in $\Aa$, $F(f)$ is monic implies $f$ is monic.
+      \item it \textbf{reflects epimorphism}. That is, for every morphism $f$ in $\Aa$, $F(f)$ is epi implies $f$ is epi.
+      \item if it is also full, then it \textbf{reflects isomorphisms}.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    Let $F(f)$ be monic, then for every morphisms $g,h$ such that $f\circ g=f\circ h$, we have $F(f)\circ F(g) = F(f)\circ F(h)$, thus $F(g)=F(h)$. Since $F$ is faithful, $g=h$. The proof of \emph{2} is similar.
+
+    Let $F(f)$ be an isomorphism with inverse $g$. Since $F$ is full, $g=F(h)$ for some $\Aa-$morphism $h$. Then $h$ is the inverse of $f$ since $F$ is faithful.
+  \end{proof}
+
+  \begin{cor}
+    A fully faithful functor $F\colon\Aa\to\Bb$ is necessarily injective on objects up to isomorphism. That is, every objects $A,A'$ in $\Aa$ which are mapped to isomorphic objects in $\Bb$ must be isomorphic.
+  \end{cor}
+
+  One can easily check that every functor $F\colon\Aa\to\Bb$ must \termin[preserve isomorphisms]{preserve (category)}, that is, for every isomorphism $f$ in $\Aa$, $F(f)$ is an isomorphism.
+  However, the conditions to preserve monomorphisms and epimorphisms are much stronger. In fact, even fully faithful functors can not promise this.
+  But if we assume $F$ to be both fully faithful and essentially surjective, one can verify it do preserve monomorphisms and epimorphisms.
+  \begin{defn}
+    A functor is said to be a \termin{weak equivalence}, if it is fully faithful and essentially surjective.
+  \end{defn}
+
+  In fact, weak equivalence preserves and reflects more than just those properties mentioned above, by suitable assumptions on foundations, it keeps every interesting categorical properties, thus plays an important role in modern mathematics.
+
+\subsection{Equivalence of categories}
+  To characterize the concept that two categories share the same properties, the most natural way is consider the isomorphisms in $\Cat$ (or $\CAT$, more generally). Thus, we define
+  \begin{defn}
+    Two categories $\Aa$ and $\Bb$ are said to be \termin[isomorphic]{isomorphic categories}, if there exists two functors $F\colon\Aa\to\Bb$ and $G\colon\Bb\to\Aa$ which are mutually inverse to each other.
+  \end{defn}
+  One can easily check that the inverse of an isomorphism $F$ must be unique, thus usually denoted by $F^{-1}$.
+
+  \begin{prop}
+    A functor is an isomorphism if and only if it is full, faithful, and bijective on objects.
+  \end{prop}
+
+  \begin{exam}
+  The basic fact in the representation theory of finite groups is that the category of linear representations of a finite group is isomorphic to the category of left modules over the corresponding group algebra.
+  \end{exam}
+
+  However, such example is rare since the condition to be isomorphic is too strong to be satisfied in practice.
+  A more pragmatic notion is the equivalence of categories.
+  \begin{defn}
+    Two categories $\Aa$ and $\Bb$ are said to be \termin{equivalent}, if there exists a pair of functors $F\colon\Aa\to\Bb$ and $G\colon\Bb\to\Aa$ such that there are natural isomorphisms $F\circ G\cong \Id_{\Bb}$ and $\Id_{\Aa}\cong G\circ F$. In this case, we say $F$ is an \termin{equivalence} from $\Aa$ to $\Bb$ with a \termin{weak inverse} $G$.
+  \end{defn}
+  \begin{rem}
+    Knowledge of an equivalence is usually not enough to reconstruct its weak inverse and the natural isomorphisms: there may be many choices. (see examples below)
+  \end{rem}
+  \begin{rem}
+    There is no standard notation of equivalentness, $\Aa\equiv\Bb$ and $\Aa\simeq\Bb$\glsadd{equivalent} are frequently used.
+  \end{rem}
+
+  The most obvious relationship between equivalence and weak equivalence is the following.
+  \begin{prop}
+    An equivalence must be a weak equivalence.
+  \end{prop}
+  \begin{proof}
+    Let $F\colon\Aa\to\Bb$ be an equivalence with a weak inverse $G$ and two natural isomorphism $\Id_{\Aa}\iso{\alpha} G\circ F, F\circ G \iso{\beta} \Id_{\Bb}$.
+    The essential surjectivity follows from $\beta$, full faithfulness follows from $\alpha$.
+  \end{proof}
+
+  Before going forward, we prove some basic properties of weak equivalences.
+  \begin{prop}
+    If $F\colon\Aa\to\Bb$ and $G\colon\Bb\to\Cc$ are weak equivalences, then so is $G\circ F$.
+  \end{prop}
+  \begin{proof}
+    The fullness and faithfulness follows from Proposition \ref{prop:tri-(full,faithful)}. The essential surjectivity is easy to check.
+  \end{proof}
+
+  Assuming the axiom of choice true, we have
+  \begin{prop}
+    $F\colon\Aa\to\Bb$ is an equivalence if and only if it is a weak equivalence.
+  \end{prop}
+  \begin{proof}
+    Let $F\colon\Aa\to\Bb$ be a weak equivalence, then we constitute a weak inverse $G\colon\Bb\to\Aa$ as following.
+
+    For each $\Bb-$object $B$, CHOICE an $\Aa-$object $A$ such that $F(A)\approx B$, set $G(B)=A$.
+    For each $\Bb-$morphism $f\colon B\to B'$, set $G(f)$ to be the inverse image of following composition
+    \begin{equation*}
+      FG(B)\approx B\markar{f} B'\approx FG(B')
+    \end{equation*}
+    in $\Aa$, the existence and uniqueness of such an inverse image comes from the fact that $F$ is fully faithful.
+
+    $F\circ G\cong \Id_{\Bb}$ comes from the constitution above. To see $\Id_{\Aa}\cong G\circ F$, just notice that $F$ reflects isomorphisms.
+  \end{proof}
+
+  However, if we do not assume the axiom of choice, then there is a related concept weaker than equivalence.
+  \begin{defn}
+    Two categories $\Aa$ and $\Bb$ are said to be \termin{weak equivalent}, if there exist a category $\Cc$ and two weak equivalence $F\colon\Cc\to\Aa$ and $G\colon\Cc\to\Bb$.
+  \end{defn}
+
+\subsection{Examples}
+\begin{exam}
+  The basic fact in the linear algebra is that $\Mat$ is equivalent to the category $\FinVect$ of finite-dimensional vector spaces and linear mappings. However, they are not isomorphic.
+\end{exam}
+\begin{exam}
+  Let $\Cc$ a category with two object $A,B$, and four morphisms: two are the identities $1_A, 1_B$, two are isomorphisms $f\colon A\to B$, $g\colon B\to A$.
+  Then $\Cc$ is equivalent to $\one$ through the functor which maps every objects in $\Cc$ to $\bullet$, and every morphisms in $\Cc$ to the identity.
+  However, there are two weak inverse: one maps $\bullet$ to $A$ and the other to $B$.
+\end{exam}
+\begin{exam}
+  Consider a category $\Cc$ with one object $X$, and two morphisms $1_X, f\colon X\to X$, where $f \circ f = 1_X$.
+  Of course, $\Cc$ is equivalent to itself and $1_{\Cc}$ is an equivalence. However, there are two natural isomorphisms: one induced from $1_X$ and the other from $f$. This example shows that even the weak inverse is unique, the choices of natural isomorphisms may not.
+\end{exam}
+
+\newpage\section{Subcategories}
+  Like subsets, subgroups and so on, we now introduce the notion of subcategories in the similar way.
+  \begin{defn}
+    A \termin{subcategory} of $\Cc$ is a category whose objects and morphisms form subcollections of $\Cc$'s respectively.
+  \end{defn}
+    The definition of subcategory implicit a functor which works as an inclusion on the collections of objects and morphisms, named the \termin{inclusion functor}.
+
+  There are two different notions formalize the idea that a subcategory which is big enough to reveal the entire category.
+  \begin{defn}
+    If the inclusion functor is full, then we say the subcategory is \termin[full]{full subcategory}.
+    If the inclusion functor is surjective on objects, then we say the subcategory is \termin[wide]{wide subcategory} (or \termin[lluf]{lluf category}).
+  \end{defn}
+
+  It is obvious that the inclusion functor is necessarily an embedding.
+  Conversely,
+  just as subsets of a set $S$ can be identified with isomorphism classes of injective functions into $S$, subcategories of a category $\Cc$ can be identified with isomorphism classes of monic functors into $\Cc$.
+  A functor is easily verified to be monic (in $\Cat$, or $\CAT$ more generally) if and only if it is an embedding.
+
+  Consequently, inclusions are (up to isomorphism) precisely the embeddings.
+  \begin{prop}
+    A functor $F\colon \Aa \to \Bb$ is a (full) embedding if and only if it factors through a (full) subcategory $\Cc$ of $\Bb$ by an isomorphism $G\colon \Aa \to \Cc$ and an inclusion $E\colon \Cc \to \Bb$. That is $F=E\circ G$.
+  \end{prop}
+  \begin{proof}
+    Set $\Cc$ to be the image of $\Aa$ in $\Bb$.
+  \end{proof}
+  Moreover, inclusions are (up to (weak) equivalence) precisely the faithful functors.
+  \begin{prop}
+    A functor $F\colon \Aa \to \Bb$ is faithful if and only if it factors through an inclusion $E_1\colon\Aa\to\Cc$, a weak equivalence $G\colon\Cc\to\Dd$, and an inclusion $E_2\colon\Dd\to\Bb$. That is $F=E_2\circ G\circ E_1$.
+  \end{prop}
+  \begin{proof}
+    Set $\Dd$ to be the full subcategory of $\Bb$ whose objects are same as the image of $\Aa$.
+    Set $\Cc$ to be the category whose objects are same as $\Aa$, while morphisms as $\Dd$.
+  \end{proof}
+
+  Categories can be classified into different equivalence classes, to characterize this, we have
+  \begin{defn}
+    A category is said to be \termin[skeletal]{skeletal category} if its objects that are isomorphic are necessarily equal.
+    Traditionally, a \termin[skeleton]{skeleton (category theory)} of a category $\Cc$ is defined to be a skeletal subcategory of $\Cc$ whose inclusion functor exhibits it as equivalent to $\Cc$.
+  \end{defn}
+  \begin{rem}
+    However, in the absence of the axiom of choice, it is more appropriate to define a skeleton of $\Cc$ to be any skeletal category which is weakly equivalent to $\Cc$.
+  \end{rem}
+  \begin{defn}
+    A category is said to be \termin[essentially small]{essentially small category} if it is equivalent to a small category. Assuming the axiom of choice, this is the same as saying that it has a small skeleton.
+  \end{defn}
+  \begin{prop}
+    Any two skeletons of a category are isomorphic. Conversely, two categories are equivalent if and only if they have isomorphic skeletons.
+  \end{prop}
+  \begin{rem}
+    In the absence of the axiom of choice, the term ``equivalent'' must be replaced by ``weak equivalent''.
+  \end{rem}
+
+\subsection{Terminological remark}
+    In many fields of mathematics, objects satisfying some ``universal property'' are not unique on the nose, but only \emph{unique up to unique isomorphism}. It can be tempting to suppose that in a skeletal category, where any two isomorphic objects are equal, such objects will in fact be unique on the nose. However, under the most appropriate definition of ``unique'' this is \textbf{not} true (in general), because of the presence of automorphisms.
+
+    More explicitly, consider the notion \emph{cartesian product} (see Definition \ref{def:product}) in a category as an example. Although we colloquially speak of  ``a product'' of objects $A$ and $B$ as being the object $A\times B$, strictly speaking a product is a triple which consists of the object $A\times B$ together with the projections $A\times B\to A$ and $A\times B\to B$ which exhibit its universal property.
+    Thus, even if the category in question is skeletal, so that there can be only one object $A\times B$ that is a product of $A$ and $B$, in general this object can still ``be the product of $A$ and $B$'' in many different ways (in the sense that the projection maps are different): those different ways are then related by an automorphism of the object.
+
+    Finally, it is true in a few cases, though, that skeletality implies uniqueness on the nose. For instance, a \emph{terminal object} (see Definition \ref{def:universal-object}) can have no nonidentity automorphisms, so in a skeletal category, a terminal object (if one exists) really is unique on the nose.
+
+\newpage\section{Comma categories}
+  We indicate now a quite general process for constructing new categories from given ones. This type of construction will be used very often in this book.
+
+  \begin{defn}
+    Suppose that $\Aa$, $\Bb$, and $\Cc$ are categories, and $S$ and $T$ (for source and target) are functors
+          \begin{displaymath}
+            \xymatrix{
+               \Aa\ar[r]^{S} & \Cc & \Bb\ar[l]_{T}                }
+          \end{displaymath}
+    We can form the \termin{comma category} $(S\down T)$ as follows:  \glsadd{commma}
+    \begin{itemize}
+      \item The objects are all triples $(A,f,B)$ with $A$ an object in $\Aa$, $B$ an object in $\Bb$, and $f\colon S(A)\To T(B)$ a morphism in $\Cc$.
+      \item The morphisms from $(A,f,B)$ to $(A',f',B')$ are all pairs $(g,h)$
+                 where $g\colon A\To A'$ and $h\colon B\To B'$ are morphisms in $\Aa$ and $\Bb$ respectively, such that the following diagram commutes:
+                 \begin{displaymath}
+                   \xymatrix{
+                       S(A)\ar[d]_{S(g)}\ar[r]^{f} & T(B)\ar[d]^{T(h)}  \\
+                       S(A')\ar[r]^{f'} & T(B')           }
+                 \end{displaymath}
+      \item Morphisms are composed by taking $(g,h)\circ(g',h')$ to be $(g\circ g',h\circ h')$, whenever the latter expression is defined.
+      \item The identity morphism on an object $(A,f,B)$ is $(1_{A},1_{B})$.
+    \end{itemize}
+  \end{defn}
+  \begin{rem}
+    Some people prefer the notation $(S/T)$ rather than $(S\down T)$.
+  \end{rem}
+
+  The following proposition provide the ``universal property'' of the comma category.
+  \begin{prop}\label{prop:comma-uni}
+    For each comma category there are two canonical \termin[forgetful functors]{forgetful functor} from it.
+    \begin{itemize}
+      \item \termin{domain functor}, $U\colon(S\down T)\To\Aa$, which maps:
+      \begin{itemize}
+        \item objects: $(A,f,B)\mapsto A$;
+        \item morphisms: $(g,h)\mapsto g$;
+      \end{itemize}
+      \item \termin{codomain functor}, $V\colon(S\down T)\To\Bb$, which maps:
+      \begin{itemize}
+        \item objects: $(A,f,B)\mapsto B$;
+        \item morphisms: $(g,h)\mapsto h$;
+      \end{itemize}
+    \end{itemize}
+    Meanwhile, there exists a natural transformation $\alpha\colon S\circ U \then T\circ V$.
+                 \begin{displaymath}
+                   \xymatrix{
+                       (S\down T)\ar[r]^-{V}\ar[d]_-{U}
+                       &\Bb\ar[d]^{T}\\
+                       \Aa\ar[r]_{S} \ar@{}[ur]^{\alpha}|-{\SelectTips{eu}{}\object@{=>}}
+                       &\Cc %\ultwocell\omit
+                               }
+                 \end{displaymath}
+
+    Moreover, comma category is the universal one respect to the above property.
+    That is, if there exist another category $\Dd$ together with two functor $U'\colon\Dd\to\Aa$ and $V'\colon\Dd\to\Bb$ such that there exists a natural transformation $\alpha'\colon S\circ U' \then T\circ V'$.
+                 \begin{displaymath}
+                   \xymatrix{
+                       \Dd\ar[r]^-{V'}\ar[d]_-{U'}
+                       &\Bb\ar[d]^{T}\\
+                       \Aa\ar[r]_{S} \ar@{}[ur]^{\alpha'}|-{\SelectTips{eu}{}\object@{=>}}
+                       &\Cc %\ultwocell\omit
+                               }
+                 \end{displaymath}
+    Then there exist a unique functor $W\colon\Dd\to(S\down T)$ such that
+    \begin{equation*}
+      U\circ W = U'\qquad V\circ W = V'\qquad \alpha\ast W = \alpha'.
+    \end{equation*}
+  \end{prop}
+  \begin{proof}
+    The property follows just from the definition of the comma category, where the natural transformation $\alpha$ is defined componentwise by
+    \begin{equation*}
+      \alpha_{(A,f,B)}=f
+    \end{equation*}
+
+    If there exist another quadruple $(\Dd,U',V',\alpha')$ satisfies the property, then we can define a functor $W\colon\Dd\to (S\down T)$ by
+    \begin{align*}
+      W(D) &= (U'(D),\alpha'_D ,V'(D)) \\
+      W(f) &= (U'(f), V'(f))
+    \end{align*}
+    It is easy to check that
+    \begin{equation*}
+      U\circ W = U'\qquad V\circ W = V'\qquad \alpha\ast W = \alpha'.
+    \end{equation*}
+
+    Conversely, the above equations enforce any functor satisfies them must be equal to $W$.
+  \end{proof}
+
+\subsection{Examples}
+  \begin{exam}%[Slice category]
+    $(\Id_{\Cc} \down \Delta_I)$, also denoted by $(\Cc \down I)$ is called the \termin{slice category} over $I$ or \emph{the category of objects over $I$}.
+  \end{exam}
+
+  \begin{exam}%[Coslice category]
+    $(\Delta_I \down \Id_{\Cc})$, also denoted by $(I \down \Cc)$ is called the \termin{coslice category} under $I$ or \emph{the category of objects under $I$}.
+  \end{exam}
+
+  \begin{exam}%[Arrow category]
+    $(\Id_{\Cc}\down\Id_{\Cc})$ is the \termin{arrow category} $\Cc^{\to}$.
+  \end{exam}
+
+  \begin{exam}\glsadd{T-arrow}\glsadd{S-arrow}
+    In the case of the slice or coslice category, the identity functor may be replaced with some other functor $F$; this yields a family of categories particularly useful in the study of adjoint functors. Let $s,t$ be given object in $\Cc$.
+    An object of $(s\down F)$ is called a \emph{morphism from $s$ to $F$} or a \termin{$F-$structured arrow} with domain $s$ in.
+    An object of $(F\down t)$ is called a \emph{morphism from $F$ to $t$} or a \termin{$F-$costructured arrow} with codomain $t$ in.
+  \end{exam}
+
+  \begin{exam}\label{exam:Elts}
+    Let $F\colon\Cc\to\Set$ be a functor, $1\colon\one\to\Set$ be the functor maps the object of $\one$ to a singleton. The the comma category $(1\down F)$ is called the \termin{category of elements of $F$}, denoted by $\Elts(F)$. It can be explicitly described in the following way.
+  \begin{itemize}
+    \item Objects: the pairs $(X,x)$, where $X\in\ob\Cc$ and $x\in F(X)$.
+    \item Morphisms $f\colon(A,a)\To(B,b)$:
+               the morphisms $f\colon A\to B$ in $\Cc$ such that $F(f)(a)=b$.
+    \item The composition law is that induced by the composition of $\Cc$.
+  \end{itemize}
+  The codomain functor of $\Elts(F)$ is also called the \termin{forgetful functor}.
+  \end{exam}
+
+  \begin{exam}
+    Let $\Delta_{\Aa}$ denote the \termin{constant functor}\glsadd{ConstantF} from $\Aa$ to $\one$ and $\Delta_{\Bb}$ likewise. Then the comma category $(\Delta_{\Aa}\down\Delta_{\Bb})$ is just the \termin[product]{product of categories} $\Aa\times\Bb$ of $\Aa$ and $\Bb$, which can be described as below.
+  \begin{itemize}
+    \item Objects:
+               the pairs of objects $(A, B)$, where $A$ is an object of $\Aa$ and $B$ of $\Bb$;
+    \item Morphisms $f\colon(A,B)\To(A',B')$:
+               the pairs of arrows $(a,b)$, where $a\colon A\to A'$ is an arrow of $\Aa$ and $b\colon B\to B'$ is an arrow of $\Bb$;
+    \item The composition law is the component-wise composition from the contributing categories:
+                                    \begin{equation*}
+                                      (a', b') \circ (a, b) = (a' \circ a, b' \circ b);
+                                    \end{equation*}
+  \end{itemize}
+  \end{exam}
+  The product $\Aa\times\Bb$ comes with two ``\termin[projection]{projection (functor)}'' functors
+  \begin{equation*}
+    p_{\Aa}\colon\Aa\times\Bb\To\Aa\qquad p_{\Bb}\colon\Aa\times\Bb\To\Bb
+  \end{equation*}
+  which are defined by the formulas
+  \begin{align*}
+    p_{\Aa}(A,B)=A,&\quad p_{\Bb}(A,B) = B,\\
+    p_{\Aa}(a,b) =a,&\quad p_{\Bb}(a,b) = b.
+  \end{align*}
+
+  These data satisfy the following ``universal property''.
+  \begin{prop}
+    Consider two categories $\Aa$ and $\Bb$. For every category $\Cc$ and every pair of functors $F\colon\Dd\to\Aa, G\colon\Dd\to\Bb$, there exists a unique functor $H\colon\Dd\to\Aa\times\Bb$ such that $p_{\Aa}\circ H=F, p_{\Bb}\circ H=G$.
+  \end{prop}
+  \begin{proof}
+    This follows straightly from Proposition \ref{prop:comma-uni}.
+  \end{proof}
+  A point of terminology: a functor defined on the product of two categories is generally called a \termin{bifunctor} (a functor of two ``variables''). In practice, something is said to be \textbf{natural} or \textbf{functorial} in $X_1,X_2,\cdots$ implicits it is actually a functor of variables $X_1,X_2,\cdots$.
+  \begin{exam}
+    $\Hom_{\Cc}(-,-)$ is a bifunctor from $\Cc^{\op}\times\Cc$ to $\Set$.
+  \end{exam}
+
+
+\newpage\section{The duality principle}
+  One may have noticed that every result proved for covariant functors has its counterpart for contravariant functors and every result proved for monomorphisms has its counterpart for epimorphisms.
+  These facts are just special instances of a very general principle.
+
+  In the remark under Definition \ref{def:category}, we have shown that a category provides a two-sorted first order language and categorical properties are statements in this language.
+
+  Once we have a categorical property $\sigma$, then the dual $\sigma^{\op}$ can be obtained by reversing arrows and compositions. That is
+  \begin{enumerate}
+    \item   Interchange each occurrence of ``source'' in $\sigma$ with ``target''.
+    \item   Interchange the order of composing morphisms.
+  \end{enumerate}
+
+  Then one can easily find that a property $\sigma$ in $\Cc$ is logical equivalent to the property $\sigma^{\op}$ in $\Cc^{\op}$.
+
+  Consequently, we have
+  \begin{thm}[The duality principle for categories]
+  $ $
+  \begin{center}
+    Whenever a property $\Pp$ holds for all categories,
+
+    then the property $\Pp^{\op}$ holds for all categories.
+  \end{center}
+  \end{thm}
+
+  \begin{exam}
+    A morphism is monic if and only if the reverse morphism in the opposite category is epi.
+  \end{exam}
+
+\newpage\section{Yoneda lemma and representable functors}
+  In this section, we will prove an important theorem. Before doing this, we give the useful concept of representable functors.
+
+  Representability is one of the most fundamental concepts of category theory, with close ties to the notion of adjoint functor and to the Yoneda lemma. It is the crucial concept underlying the idea of universal property. The concept permeates much of algebraic geometry and algebraic topology.
+  \begin{defn}
+    For a functor $F\colon\Cc^{\op}\to\Set$ (also called a \emph{presheaf} on $\Cc$ ), a \termin{representative} of $F$ is a specified natural isomorphism
+    \begin{equation*}
+      \Phi\colon\Hom_{\Cc}(-,X)\To F
+    \end{equation*}
+    where the object $X$ in $\Cc$ is called a \termin{representing object} (or \termin{universal object}) of $F$.
+
+    If such a representative exists, then we say the functor $F$ is \termin[representable]{representable functor} and is \textbf{represented} by $X$.
+
+    Similarly, a covariant functor $F\colon\Cc\to\Set$ is said to be \textbf{representable}, if it is representable when view it as a presheaf on $\Cc^{\op}$.
+  \end{defn}
+
+  Given a category $\Cc$, there exists a functor:
+  \begin{equation*}\glsadd{Yoneda}
+    \Upsilon\colon\Cc\To\PSh(\Cc)
+  \end{equation*}
+  sends any object $X\in\ob\Cc$ to the presheaf $\Hom_{\Cc}(-,X)$.
+
+  The Yoneda lemma asserts that the set of morphisms from the presheaf represented by $X$ into any other presheaf $F$ is in natural bijection with the set $F(X)$ that this presheaf assigns to $X$.
+
+  Formally:
+  \begin{thm}[Yoneda lemma]
+    There is a canonical isomorphism
+    \begin{equation*}
+      \Hom_{\PSh(\Cc)}(\Upsilon(X),F)\cong F(X)
+    \end{equation*}
+    natural in both $X$ and $F$.
+  \end{thm}
+  \begin{rem}
+    In some literature it is customary to denote the presheaf represented by $X$ as $h_X$. In that case the above is often written
+    \begin{equation*}\glsadd{Nat}
+      \Nat(h_X,F)\cong F(X)
+    \end{equation*}
+    to emphasize that the morphisms of presheaves are natural transformations of the corresponding functors.
+  \end{rem}
+
+  \begin{proof}
+    The crucial point is that any natural transformation
+    \begin{equation*}
+      \alpha\colon\Hom_{\Cc}(−,X)\then F
+    \end{equation*}
+    is entirely fixed by the value $\alpha_X(1_X)\in F(X)$ of its component
+    \begin{equation*}
+    \alpha_X\colon\Hom(X,X)\to F(X)
+    \end{equation*}
+    on the identity morphism $1_X$. And every such value extends to a natural transformation $\alpha$.
+
+    To see this, we fix a value $\alpha_X(1_X)\in F(X)$ and consider an arbitrary object $A$ in $\Cc$. If $\Hom(A,X)=\varnothing$, then the component $\alpha_A$ must be the trivial function from empty set. If there exists a morphism $f\colon A\to X$, then by the naturality condition, the following commutative square has already been determined.
+          \begin{displaymath}
+            \xymatrix{
+               \Hom(X,X)\ar[r]^-{\alpha_X}\ar[d]_{f^{\ast}}& F(X)\ar[d]^{F(f)} \\
+               \Hom(A,X)\ar[r]^-{\alpha_A}& F(A)               }
+          \end{displaymath}
+    Consequently, all components of $\alpha$ have been determined.
+
+    Conversely, given a value $a=\alpha_X(1_X)\in F(X)$, define $\alpha$ by components as following:
+    \begin{equation*}
+      \alpha_A(f):=F(f)(a)\quad\forall A\in\ob\Cc,\forall f\in\Hom(A,X)
+    \end{equation*}
+    It is easy to check this is a natural transformation.
+
+    The naturalities on $X$ and $F$ is easy to check.
+  \end{proof}
+
+\subsection{Corollaries}
+  The Yoneda lemma has the following direct consequences. Like the Yoneda lemma, they are as easily established as they are useful and important.
+  \begin{cor}
+    The functor $\Upsilon$ is a full embedding.
+  \end{cor}
+  This $\Upsilon$ is customary called the \termin{Yoneda embedding}
+  \begin{proof}
+    For any $A,B\in\ob\Cc$, by the Yoneda lemma, we have
+    \begin{equation*}
+      \Hom_{\PSh(\Cc)}(\Upsilon(A),\Upsilon(B))\cong (\Upsilon(B))(A) = \Hom_{\Cc}(A,B)
+    \end{equation*}
+    Thus $\Upsilon$ is fully faithful. The injectivity on objects is obvious.
+  \end{proof}
+
+  \begin{cor}\label{coro:Yoneda2}
+    For any $A,B\in\ob\Cc$, we have
+    \begin{equation*}
+      \Upsilon(A)\cong\Upsilon(B)\iff A\cong B
+    \end{equation*}
+  \end{cor}
+  \begin{proof}
+    Since $\Upsilon$ is fully faithful, thus reflects isomorphisms.
+  \end{proof}
+
+  \begin{cor}
+    Let $F$ be a presheaf on $\Cc$, then a presentation of $F$ is uniquely determined by the universal object $X$ together with an element $u\in F(X)$. Such a pair $(X,u)$ satisfies the following universal property:
+    \begin{quote}
+      For every pair $(A,a)$, where $A\in\ob\Cc$ and $a\in F(A)$, there is a unique morphism $f\colon A\to X$ such that $F(f)(u)=a$.
+    \end{quote}
+  \end{cor}
+  \begin{proof}
+    Notice that, a presentation $\Phi$ of $F$ is nothing but an element in the set $\Hom_{\PSh(\Cc)}(\Upsilon(X),F)$, thus by Yoneda lemma it can be corresponded to an element of $F(X)$ via $\Upsilon$, say $u\in F(X)$. Then $\Phi$ is uniquely determined by $X$ and $u$.
+
+    On the other hand, for each object $A$ in $\Cc$, $\Phi_{A}$ gives a 1-1 corresponding between $\Hom_{\Cc}(A,X)$ and $F(A)$, thus the universal property follows.
+  \end{proof}
+  \begin{rem}
+    Someone may doubt the existence of the morphism in this universal property. It is possible that there is not morphisms from $A$ to $X$. But in this case, Yoneda lemma ensure that $F(A)$ is empty, thus there is no pair $(A,a)$ at all.
+  \end{rem}
+  \begin{rem}
+    The \nlab gives another description of this corollary: the presentation of $F$ is the \emph{terminal object} in the comma category $(\Upsilon\down\Delta_{F})$.
+  \end{rem}
+
+\newpage\section{Exercises}
+\begin{ex}
+  Let $f\colon X\to Y$ be a morphism in $\Cc$. Show that
+  \begin{enumerate}
+    \item $f$ is monic if and only if the induced function
+               \begin{equation*}
+                 f_{\ast}\colon\Hom(C,X)\to\Hom(C,Y)
+               \end{equation*}
+               is injective for every object $C$.
+    \item $f$ is epi if and only if the induced function
+               \begin{equation*}
+                 f^{\ast}\colon\Hom(Y,C)\to\Hom(X,C)
+               \end{equation*}
+               is injective for every object $C$.
+    \item $f$ is split epi if and only if the induced function
+               \begin{equation*}
+                 f_{\ast}\colon\Hom(C,X)\to\Hom(C,Y)
+               \end{equation*}
+               is surjective for every object $C$.
+    \item $f$ is split monic if and only if the induced function
+               \begin{equation*}
+                 f^{\ast}\colon\Hom(Y,C)\to\Hom(X,C)
+               \end{equation*}
+               is surjective for every object $C$.
+  \end{enumerate}
+\end{ex}
+\begin{ex}
+  Let $S,T\colon\Aa\to\Bb$ be two functors. Shows that there exists a 1-1 corresponding between the set of natural transformations from $S$ to $T$ and the set of sections of both domain functor and codomain functor.
+\end{ex}
+\begin{ex}\label{prop:power law for functor}
+  For any categories $\Aa,\Bb,\Cc$,
+  \begin{enumerate}
+    \item $[\Aa,\Bb]^{\op}\simeq[\Aa^{\op},\Bb^{\op}]$
+    \item $(\Aa\times\Bb)^{\Cc}\simeq\Aa^{\Cc}\times\Bb^{\Cc}$
+    \item $\Cc^{\Aa\times\Bb}\simeq(\Cc^{\Aa})^{\Bb}\simeq(\Cc^{\Bb})^{\Aa}$
+  \end{enumerate}
+\end{ex}
+\begin{rec}
+  $\Bb^{\Aa}$ is just another notation of $[\Aa,\Bb]$.
+\end{rec}
+\begin{ex}
+  Show that the functor category $[\Aa,\Bb]$ is functorial in both $\Aa$ and $\Bb$. That means, $[-,-]\colon\Cat^{\op}\times\Cat\to\Cat$ is a bifunctor.
+\end{ex}
+\begin{ex}
+  Use the duality principle to define the notion of covariant representable functor explicitly.
+\end{ex}
+\begin{ex}
+  Show that a covariant representable functor preserves monomorphisms. On the other hand, a contravariant representable functor maps an epimorphism to a monomorphism.
+\end{ex}
+\begin{ex}
+  Prove the covariant Yoneda lemma: There is a canonical isomorphism
+    \begin{equation*}
+      \Nat(\Hom(X,-),F)\cong F(X)
+    \end{equation*}
+    natural in both $X$ and $F$.
+\end{ex}
+\begin{ex}
+  Consider the category $\PSh(\Cc)$ of presheaves on a small category $\Cc$, show that a morphism in $\PSh(\Cc)$ is monic if and only if its every component is monic.
+  However, if we replace $\PSh(\Cc)$ by an arbitrary functor category $[\Cc,\Dd]$, then the previous statement is no longer valid. Show this by a counterexample.
+\end{ex}

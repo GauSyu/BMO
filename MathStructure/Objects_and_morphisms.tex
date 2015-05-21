@@ -1,0 +1,130 @@
+\chapter{Special Objects and Morphisms}
+
+\minitoc
+\newpage
+\section{Subobjects and quotient objects}
+%subobject and quotient, well-power cat, intersection and union
+Let $\Cc$ be a category. Naively, a \termin{subobject} of an object $X$ should be the isomorphism class of monomorphisms to $X$.
+
+To formalize this ideal, first notice that monomorphisms to $X$ actually form a full subcategory $\Cc_X$ of the slice category $\Cc/X$. Given any two objects  $(A,f), (B,g)$ in $\Cc_X$, since $g$ is monic, there can not be more than one $\Cc-$morphisms making the following diagram commutes:
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+          A\ar[dr]_f\ar[rr]&&B\ar[dl]^g\\
+          &X&
+         }
+      \end{displaymath}
+Thus $\Cc_X$ is thin. Moreover, by the triangle lemma \ref{prop:triangle lemma}, the morphisms in $\Cc_X$ must be monic when viewed as $\Cc-$morphisms.
+
+Now, we already have the category $\Cc_X$ of monomorphisms to $X$. So, instead of define what are subobjects, we can just define the category of subobjects of $X$, denoted by $\Sub_{\Cc}(X)$, as the skeleton of $\Cc_X$. When the category $\Cc$ is understood, we can omit $\Cc$ from the symbol.
+
+Dually, a \termin{quotient object} of an object $X$ is just a subobject of $X$ in the opposite category $\Cc^{\op}$.
+
+\begin{rem}
+  Notice that the notation of subobject and quotient object may not be suitable abstract of  sub- and quotient in usual sense.
+\end{rem}
+\begin{exam}
+  In $\Ring$, $\QQ$ is a quotient of $\ZZ$ because the natural inclusion map $\ZZ\hookrightarrow\QQ$ is epi (see Example \ref{exam:nonsurjective epi}). Similarly, In the category of monoids, $\ZZ$ is a quotient of $\NN$.
+\end{exam}
+\begin{exam}
+  In $\Top$, the subobjects of an object are not just the subspaces. Indeed, if $B$ has a finer topology than $A$, then $B$ is also a subobject of $A$. The same story happened in quotient objects. In fact, for every topological space, the identity map from itself to the trivial topological space on the same underlying set is an epimorphism.
+\end{exam}
+
+The problem is that the notions of monomorphism and epimorphism are a bit too general to capture the properties we want. So we should begin by defining some ``stronger'' notions.
+
+\subsection{Intersections and unions}
+\begin{defn}
+  If for any object $x$ of $\Cc$, $\Sub(X)$ is small, the we say $\Cc$ is \termin[well-powered]{well-powered category}.
+\end{defn}
+Since in a well-powered category, $\Sub(X)$ is actually a poset, we can consider the usual order operations on it. But as we will show in later chapter, the theory of orders is just a special case of category theory, and the usual order operations can be defined in a general thin category.
+\begin{defn}
+  Consider an object $X$ of $\Cc$. The \termin[intersection]{intersection of subobjects} of a family of subobjects is their infimum in $\Sub(X)$, the \termin[union]{union of subobjects} of a family of subobjects is their supremum.
+\end{defn}
+\begin{prop}\label{prop:compute intersection and union}
+  Consider an object $X$ of a category $\Cc$ and suppose $\Sub(X)$ is a set. The following conditions are equivalent:
+\begin{enumerate}
+  \item  the intersection of every family of subobjects of $X$ exists;
+  \item  the union of every family of subobjects of $X$ exists.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+  In a proset, we have
+  \begin{align*}
+    \sup_{i\in I}s_i &= \inf\{s\mid\forall i\in I, s_i \leqslant s\}\\
+    \inf_{i\in I}s_i &= \sup\{s\mid\forall i\in I, s \leqslant s_i\}
+  \end{align*}
+  And the results follow.
+\end{proof}
+\begin{rem}
+  There is a size issue. If we do not assume that $\Sub(X)$ is a set, then $\{S\mid\forall i\in I, S_i \leqslant S\}$ or $\{S\mid\forall i\in I, S \leqslant S_i\}$ may not form a set even if $I$ is a set.
+\end{rem}
+
+\begin{prop}\label{prop:intersection=pullback}
+  The intersection of two subobjects of the same objects is given by their pullback. (see the remark of Example \ref{exam:intersection=pullback})
+\end{prop}
+\begin{prop}
+  In a complete category, the intersection of a family of subobjects of a fixed object always exists.
+\end{prop}
+\begin{proof}
+  For a non-empty family $(s_i\colon S_i\mono X)_{i\in I}$ of subobjects of a fixed object $X$, their generalized fibre product that is the limit of the diagram form by those morphisms $s_i$ is the intersection. For an empty intersection i.e. the terminal object, it is the identity $1_X$.
+\end{proof}
+\begin{cor}\label{prop:complete well-powered}
+  In a complete and well-powered category, the intersection and the union of every family of subobjects of a fixed object always exist.
+\end{cor}
+\begin{rem}
+  At this stage one should avoid a classical mistake. Computing the union of two subobjects is by no means a problem dual to that of computing their intersection. Dualizing Proposition \ref{prop:intersection=pullback} tells us something about the poset of quotients of $X$, not about unions in $\Sub(X)$. 
+  
+  In the same way let us observe that in \ref{prop:complete well-powered} the existence of unions is by no means related to any assumption on colimits: it relies on the formal formulas used in \ref{prop:compute intersection and union}. In particular a finite version of \ref{prop:complete well-powered} does not hold: a finitely complete and well-powered category certainly admits finite intersections of subobjects (see \ref{prop:intersection=pullback}), but not in general finite unions of subobjects. Finite unions have been constructed in \ref{prop:complete well-powered} using possibly infinite intersections. For a counterexample, just consider a semilattice which is not a lattice.
+\end{rem}
+
+\begin{prop}
+  In a category with (finite) coproducts and strong-epi-mono factorizations, the union of a (finite) family of subobjects always exists.
+\end{prop}
+
+\section{Factorization system}
+
+\newpage\section{Strong monomorphisms and epimorphisms}
+%regular, extremal, strong
+A monomorphism is \emph{regular} if it behaves like an embedding.
+A \emph{regular} epimorphism is a morphism $A\to B$ in a category which behaves in the way that a covering is expected to behave, in the sense that ``$B$ is the union of the parts of $A$, identified with each other in some specified way''.
+\begin{defn}
+  A \termin{regular monomorphism} is an morphism which is an equaliser of some pair of parallel morphisms. A \termin{regular epimorphism} is a coequaliser of some pair of parallel morphisms.
+\end{defn}
+\begin{exam}
+  The kernel of a group/ring/module/etc. homomorphism is a regular monomorphism: indeed, $\ker f$ is the equaliser of $f$ and the zero morphism.
+\end{exam}
+\begin{exam}
+  In the category of topological spaces, the inclusion of a subspace $B\hookrightarrow A$ is a regular monomorphism: it is the equaliser of its characteristic map $A\to 2$ (where $2$ is given the indiscrete topology) and a constant map. Conversely, every regular monomorphism is (isomorphic to) the inclusion of a subspace.
+\end{exam}
+
+\begin{defn}
+  An \termin{effective monomorphism} is a morphism which is the equalizer of its own cokernel pair. An \termin{effective epimorphism} is a morphism which is the coequalizer of its own kernel pair. (ref. \ref{prop:effective1}, \ref{prop:effective2})
+\end{defn}
+
+\begin{prop}
+  In a finitely complete and cocomplete category, every regular monomorphism/epimorphoism is effective.
+\end{prop}
+\begin{proof}
+  See Proposition \ref{prop:effective1}.
+\end{proof}
+
+\begin{defn}
+  An \termin{extremal monomorphism} is a monomorphism $f\colon A\to B$  that cannot be factored through a nontrivial quotient object of $A$. In other word, if $f=g\circ e$ with $e$ an epimorphism, then $e$ is an isomorphism.
+  An \termin{extremal epimorphism} is an epimorphism $f\colon A\to B$ that cannot be factored through a nontrivial subobject of $B$.  In other word, if $f=m\circ g$ with $m$ a monomorphism, then $m$ is an isomorphism.
+\end{defn}
+\begin{rem}
+  Notice that whenever we have a factorization $f=g\circ e$ of a monomorphism $f$, then $e$ must be also monic. Thus if $e$ is epi, then it is already both monic and epi. Thus the notions of extremal monomorphism and extremal epimorphism do not make sense in a balanced category.
+\end{rem}
+
+\begin{prop}
+  In a category,
+  \begin{enumerate}
+    \item every regular epimorphism is extremal,
+    \item if a composite $f\circ g$ is an extremal epimorphism, $f$ itself is an extremal epimorphism,
+    \item a morphism which is both a monomorphism and an extremal epimorphism is an isomorphism.
+  \end{enumerate}
+\end{prop}
+
+
+\section{Generators}
+
+\section{Projective and injective objects}

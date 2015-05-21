@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%               A Common Setting File Made by Gau Syu
+%                              GauSyu@Gmail.com
+%
+%###########################################
+% @ Basic Document Packages
+%     @@ Typeface
+%     @@ Latex Graphics
+%     @@ Index and Nomenclatures
+%     @@ Define Colors
+%     @@ Terminology Format
+% @ Theorems and References
+%     @@ Change the Indentation
+%     @@ Define Theorem Environments
+%     @@ Define Cross Reference Names
+% @ Chapters and Sections
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                          Basic Document Packages
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,a4paper,oneside,nocap,fancyhdr,hyperref]{ctexbook}
+%nocap means English
+\usepackage{appendix} % Allowed Special Appendix Chapters
+\usepackage{enumerate} % This package gives the enumerate environment an optional argument which determines the style in which the counter is printed.
+%
+%                                         Typefaces
+%
+    \newfontinstance{\Edward}{Edwardian Script ITC}
+    \newfontinstance{\Frak}{Euclid Fraktur}
+    \newcommand{\Giant}{\fontsize{72pt}{\baselineskip}\selectfont}
+    \newcommand{\giant}{\fontsize{27pt}{\baselineskip}\selectfont}
+%
+%                                     Latex Graphics
+%
+\usepackage{graphicx}% Able to Insert Pictures
+\usepackage{epic} % Extending Latex Graphics
+\usepackage[all]{xy} % Able to Draw Diagrams
+\xyoption{2cell}
+\UseAllTwocells
+\usepackage{tikz} % Able to Draw Pictures
+%
+%                           Index and Nomenclatures
+%
+\usepackage{makeidx}
+  \makeindex
+\usepackage[
+  symbols,                %list of symbols
+%  nonumberlist,       %do not show page numbers
+  seeautonumberlist,
+  hyperfirst=false,
+  toc,                         %show listings as entries in table of contents
+  section=chapter, %use section level for toc entries
+  counter=section] %countered by section
+{glossaries}
+
+  \altnewglossary{categories}{cat}{Categories}
+  \glsenablehyper
+  \makeglossaries
+
+%%  Usage of glossaryentry
+%\newglossaryentry{<\label>}  {name=<\what occurs in the glossary>, description=<\>,  text=<\what occurs in the context>, sort=<\How this term by sorted>, type=<\>}
+%%
+%\usepackage[refpage,intoc]{nomencl}
+%  \def\nomname{Notations}
+%  \setlength{\nomlabelwidth}{.20\hsize}
+%  \setlength{\nomitemsep}{-\parsep}
+%    \makenomenclature
+
+\usepackage{xifthen}% provides \isempty test
+\newcommand{\termin}[2][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\textbf{{#2}}\index{#2}}% if #1 is empty
+    {\textbf{{#1}}\index{#2}}% if #1 is not empty
+}
+%
+%                                    Define Colors
+%
+\usepackage{color}
+  \newcommand{\red}{\color{red}}
+  \newcommand{\blue}{\color{blue}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                        Define Theorem Environments
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amsthm} % the Standard AMS Package
+\usepackage{mathtools} %Many tools
+
+%\renewcommand{\proofname}{\textbf{Solution}}
+
+\newtheoremstyle{question}{1.5ex plus 1ex minus .2ex}{1.5ex plus 1ex minus .2ex}{\large\itshape}{}{\bfseries}{}{1em}{}
+\theoremstyle{question}
+\newtheorem{qst}{Question}[section]
+\renewcommand{\theqst}{\arabic{qst}}
+\newtheorem{subqst}{Question}[qst]
+\newtheorem*{qst*}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{thm}{定理}[section]
+\newtheorem{lem}[thm]{引理}
+\newtheorem{prop}[thm]{命题}
+\newtheorem{cor}[thm]{推论}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{定义}
+\newtheorem{exam}[thm]{例子}
+\newtheorem{ex}{}[chapter]
+\theoremstyle{remark}
+\newtheorem*{rem}{注}
+\newtheorem*{rec}{回顾}
+
+\renewcommand{\proofname}{证明}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                              Chapters and Sections
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\CTEXsetup[name={{$\S$},}]{section}
+\CTEXsetup[name={{\Frak Cap}.,},aftername={\quad},format={\centering}]{chapter}
+\CTEXoptions[contentsname={\textbf{Contents}}]
+%\CTEXsetup[name={$\mathscr{P}$,}]{part}
+\setcounter{secnumdepth}{2}% Depth of Sections
+\setcounter{tocdepth}{1}% Depth of Contents
+\usepackage{minitoc}

@@ -5,3 +5,5 @@ The original reason to start this project is to produce a standard support for m
 
 Gau Syu
 2015.5
+
+P.S. Note-Algebra is the newest version.

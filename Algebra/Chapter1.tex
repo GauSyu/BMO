@@ -1,0 +1,740 @@
+\chapter{Groups}
+\section{Some Definitions}
+\begin{ex}[Goursat's Lemma]
+  Let $G,G'$ be groups, and let $H$ be a subgroups of $G\times G'$ such that the two projections $p_1\colon H\to G$ and $p_2\colon H\to G'$ are surjective. Let $N=\ker p_2, N'=\ker p_1$.
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item One can identify $N$ as a normal subgroup of $G$, and $N'$ as a normal subgroup of $G'$.
+    \item Show that the image of $H$ in $G/N\times G'/N'$ is the graph of an isomorphism
+    \begin{equation*}
+      G/N\cong G'/N'
+    \end{equation*}
+  \end{enumerate}
+\end{ex}
+\begin{proof}
+  We have the following diagram at first
+\begin{displaymath}
+   \xymatrix{
+   &N\ar[d]^{k_1}&\\
+   N'\ar[r]^{k_2}&H\ar[r]^{p_1}\ar[d]^{p_2}&G\\
+   &G'&
+   }
+\end{displaymath}
+Notice that $N\cap N'={e}$, we have
+\begin{align*}
+  NN'/N'\trianglelefteq&H/N' \\
+  H/N' \cong& G\\
+  NN'/N'\cong& N/(N\cap N')\cong N
+\end{align*}
+thus $N\trianglelefteq G$ and $p_1k_1$ is the inclusion from $N$ to $G$, similarly, $N'\trianglelefteq G'$ with inclusion $p_2k_2$.
+
+Then
+\begin{align*}
+  (H/N')/N \cong& (H/N')/(N/(N\cap N')) \\
+  \cong& (N/N')/(NN'/N') \cong H/NN'
+\end{align*}
+and so does $(H/N)/N'$. Hence we have the following diagram
+\begin{displaymath}
+   \xymatrix{
+   &N\ar[d]_{k_1}\ar[dr]^{p_1k_1}&&\\
+   N'\ar[r]^{k_2}\ar[dr]_{p_2k_2}&H\ar[r]^{p_1}\ar[d]_{p_2}\ar[ddrr]&G\ar[dr]^{\pi_1}&\\
+   &G'\ar[dr]_{\pi_2}&&G/N\ar[d]^{f_1}\\
+   &&G'/N'\ar[r]_{f_2}&H/NN'
+   }
+\end{displaymath}
+The third isomorphism theorem tell us that it is commutative.
+
+The image of $H$ in $G/N\times G'/N'$ is $\{(f_1\pi_1p_1(h),f_2\pi_2p_2(h))\mid h\in H\}$, and by the commutativity of the diagram, equal to the graph of the isomorphism $G/N\cong G'/N'$.
+\end{proof}
+\begin{rem}
+  The third isomorphism theorem tell us more than $(G/K)/(N/K)\cong G/N$, but also their short exact sequences are \emph{\red  commutative}, i.e. the following diagram is commutative
+\begin{displaymath}
+   \xymatrix{
+     {1} \ar[r]  &
+      {N} \ar[r]^{} \ar[d] &
+       {G} \ar[r]^{} \ar[d] &
+        {G/N} \ar[r] \ar@{-->}[d] &
+         {1} \\
+     {1} \ar[r]  &
+      {N/K} \ar[r] &
+       {G/K} \ar[r] &
+        {(G/K)/(N/K)} \ar[r] &
+         {1}
+   }
+\end{displaymath}
+\end{rem}
+\begin{rem}
+  In general, If we have the following diagram
+\begin{displaymath}
+   \xymatrix{
+     {1} \ar[r]  &
+      {H} \ar[r]^{} \ar[d] &
+       {G} \ar[r]^{} \ar[d]^{f} &
+        {G/H} \ar[r] \ar@{-->}[d]^{\overline{f}} &
+         {1} \\
+     {1} \ar[r]  &
+      {H'} \ar[r] &
+       {G'} \ar[r]^-{\pi} &
+        {G'/H'} \ar[r] &
+         {1}
+   }
+\end{displaymath}
+where $H$ is kernel of $\pi f$, then there exist a natural injective $\overline{f}$ such that the diagram is commutative. Moreover, $f$ is surjective implies $\overline{f}$ is isomorphism.
+\end{rem}
+\subsection{Kernel and Cokernel}
+  Essentially, we have a summary\index{kernel}:
+\begin{thm}\label{1}
+  Let $f\colon G\to H$ be a homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item There exist precisely one(by the meaning of isomorphic\footnote{Moreover, the isomorphism is unique.}) group $K$ and homomorphism $k\colon K\to G$ such that
+      \begin{enumerate}[1)]
+       \setlength{\itemindent}{2ex}
+       \item $fk=\mathbf{0}$(the zero means trivial homomorphism)
+       \item For any group $F$ and homomorphism $g\colon F\to G$ such that $fg=\mathbf{0}$, there is a unique homomorphism $\mu$ such that $k\mu=g$.
+      \end{enumerate}
+    \item $k$ is injective.
+    \item $f$ factor through the canonical map $\pi\colon G\to G/K$, which means the following diagram is commutative
+\begin{displaymath}
+   \xymatrix{
+   G\ar[r]^{f}\ar@{->>}[d]_{\pi}&H\\
+   G/K\ar@{>->}[ur]_{\overline{f}}&
+   }
+\end{displaymath}
+    \item $f$ is surjective implies $\overline{f}$ is isomorphism.
+  \end{enumerate}
+\end{thm}
+To prove it we need a lemma
+\begin{lem}\label{2}
+  Let $f\colon G\to H$ be a homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $f$ is injective if and only if for any homomorphisms $\xymatrix@1{X\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &G\ar[r]^{f} &H}$, $f\alpha=f\beta$ implies $\alpha=\beta$.
+    \item $f$ is surjective if and only if for any homomorphisms $\xymatrix@1{G\ar[r]^{f} &H\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &X}$, $\alpha f=\beta f$ implies $\alpha=\beta$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  $f$ is injective $\Rightarrow$ $G\cong f(G)$, whence the statement is true. On the contrary, let $X$ be $\ker f$, $\alpha$ the inclusion and $\beta=\mathbf{0}$,
+  then $f\alpha=\mathbf{0}=f\beta$ implies that $\ker f=1$. The second property is very trick see \cite{jacobson1980basic}.
+\end{proof}
+We finish the proof of theorem \ref{1} now.
+\begin{proof}
+  First of all, we verify the kernel of $f$, written $K$, and inclusion $k\colon K\to G$ fit the properties in a).
+  For any group $F$ and homomorphism $g\colon F\to G$ such that $fg=\mathbf{0}$, it is clear the image of $g$ is in $K$ and therefore $g|_K$ is the required homomorphism, moreover, it is unique since $k$ is injective.
+  We only need to verify the uniqueness. If there is another group $K'$ and homomorphism $k'\colon K'\to G$ fit these properties, then there must be a unique homomorphism $\mu$ such that the following diagram is commutative
+\begin{displaymath}
+   \xymatrix{
+   K\ar[r]^{k}\ar@<1ex>[d]^{\mu}&G\ar[r]^{f}&H\\
+   K'\ar[ur]_{k'}\ar@<1ex>[u]^{k'|_K}&&
+   }
+\end{displaymath}
+Notice that $k'$ is injective since the uniqueness in 2), we have
+\begin{align*}
+  k\circ k'|_K\circ\mu = k'\circ\mu=k &\Rightarrow k'|_K\circ\mu=1_K\\
+  k'\circ\mu\circ k'|_K = k\circ k'|_K=k' &\Rightarrow \mu\circ k'|_K=1_{K'}
+\end{align*}
+Hence $(\mu,k'|_K)$ is the unique isomorphism between $K$ and $K'$.
+
+c) and d) are just the first isomorphism theorem since $K$ is just the kernel of $f$.
+\end{proof}
+\begin{rem}
+  The first statement in lemma \ref{2} does not means that $f$ has a left inverse, if it has, $f$ is called a \termin[split monomorphism]{split!monomorphism}, and the left inverse is called \termin{retraction}. Dually, a homomorphism $f$ has a right inverse, names \termin{section}, is called a \termin[split epimorphism]{split!epimorphism}. It is clear that any split monomorphism must be injective and any split epimorphism is surjective.
+\end{rem}
+In any category with zero morphism, the unique morphism mentioned in the first property(if it exists) is called the \termin{kernel} of $f$, written $\ker f$.
+One can think the kernel as the pair $(k,K)$ instead of one of them.
+One can also consider the dual of theorem \ref{1}, and the unique morphism $c$ mentioned in the first property(if it exists) is called the \termin{cokernel} of $f$, written $\coker f$.
+Similarly, one can think the cokernel as a pair $(c,C)$ instead of one of them.
+The kernel of the cokernel of $f$ is called the \termin{image} of $f$, written $\im f$,
+and the cokernel of the kernel of $f$ is called the \termin{coimage} of $f$, written $\coim f$.
+
+The dual of theorem \ref{1} is true
+\begin{thm}
+  Let $f\colon G\to H$ be a homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item There exist precisely one(by the meaning of isomorphic) group $C$ and homomorphism $c\colon H\to C$ such that
+      \begin{enumerate}[1)]
+       \setlength{\itemindent}{2ex}
+       \item $cf=\mathbf{0}$(the zero means trivial homomorphism)
+       \item For any group $F$ and homomorphism $g\colon H\to F$ such that $gf=\mathbf{0}$, there is a unique homomorphism $\mu$ such that $\mu c=g$.
+      \end{enumerate}
+    \item $c$ is surjective.
+    \item $f$ factor through the inclusion map $\imath\colon f(G)\to H$,\footnote{Also factor through $\im f$, but may not an epi-mono factorization.} which means the following diagram is commutative
+\begin{displaymath}
+   \xymatrix{
+   G\ar[r]^{f}\ar@{->>}[dr]_{\widetilde{f}}&H\\
+   &f(G)\ar@{ (->}[u]_{\imath}
+   }
+\end{displaymath}
+    \item $f$ is injective implies $\widetilde{f}$ is isomorphism.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  First of all, let $N$ be the normal subgroup in $H$ which is generated by $f(G)$, we verify $H/N$, written $C$, and canonical map $\pi\colon H\to C$ fit the properties in a).
+  For any group $F$ and homomorphism $g\colon H\to F$ such that $gf=\mathbf{0}$, it is clear that $f(G)$ is in $\ker g$. We define a map
+  \longmapdes{\overline{g}}{C}{F}{xN}{g(x)}
+  it is well-define homomorphism since if $xN=yN$, then $xy^{-1}\in N\subset\ker g$, therefore
+  \begin{equation*}
+  xy^{-1}=h_1k_1h_1^{-1}\cdots h_nk_nh_n^{-1}, h_i\in H,k_i\in f(G)
+  \end{equation*}
+  hence
+  \begin{align*}
+    g(xy^{-1}) =& g(h_1k_1h_1^{-1}\cdots h_nk_nh_n^{-1}) \\
+    =& g(h_1)g(k_1)g(h_1^{-1})\cdots g(h_n)g(k_n)g(h_n^{-1})\\
+    =& g(h_1)1g(h_1^{-1})\cdots g(h_n)1g(h_n^{-1})=1
+  \end{align*}
+  Therefore $\overline{g}$ is the required homomorphism, moreover, it is unique since $\pi$ is surjective.
+  We only need to verify the uniqueness. If there is another group $C'$ and homomorphism $c\colon H\to C'$ fit these properties, then there must be a unique homomorphism $\mu$ such that the following diagram is commutative
+\begin{displaymath}
+   \xymatrix{
+   G\ar[r]^{f}&H\ar[r]^{\pi}\ar[dr]_{c}&C\ar@<1ex>[d]^{\overline{c}}\\
+   &&C'\ar@<1ex>[u]^{\mu}
+   }
+\end{displaymath}
+Notice that $c$ is surjective since the uniqueness in 2), we have
+\begin{align*}
+  \overline{c}\circ\mu\circ c = \overline{c}\circ\pi=c &\Rightarrow \overline{c}\circ\mu=1_{C'}\\
+  \mu\circ \overline{c}\circ\pi = \mu\circ c=\pi &\Rightarrow \mu\circ \overline{c}=1_C
+\end{align*}
+Hence $(\mu,\overline{c})$ is the unique isomorphism between $C'$ and $C$.
+
+c) and d) are trivial.
+\end{proof}
+
+\begin{cor}
+  Let $f\colon G\to H$ be a homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $\coim f=G/\ker f$.
+    \item $\im f$ is the normal subgroup generated by $f(G)$.
+    \item $f(G) \cong \coim f$.
+    \item there exists a natural homomorphism $\alpha\colon\coim f\to\im f$ such that the following diagram is commutative
+   \begin{displaymath}
+    \xymatrix{
+     \ker f\ar[r]&G\ar[r]^{f}\ar[d]&H\ar[r]&\coker f\\
+     &\coim f\ar@{-->}[r]^-{\alpha}&\im f\ar[u]&
+    }
+   \end{displaymath}
+  \end{enumerate}
+\end{cor}
+\begin{rem}
+  If $f(G)$ is normal in $H$, then it is clear to see that $\im f=f(G)$ and therefore $\alpha$ is isomorphism, but unfortunately, it may not be always true unless $H$ is abelian. In fact, every morphism has kernel and cokernel, and its coimage isomorphic to its image are the axioms which make an additive category to be \termin[abelian]{abelian!category}. Therefore the category of groups (which is usually denoted by $\Grp$) must not be abelian. But the category of abelian groups (which is usually denoted by $\Ab$) is abelian.
+\end{rem}
+\subsection{Equalizer and Coequalizer}
+The kernel of a morphism is a special case of equalizer, we give a theorem as a example in group theory case.
+\begin{thm}\label{5}
+  Let $\xymatrix@1{G\ar@<0.5ex>[r]^{f}\ar@<-0.5ex>[r]_{g} &H}$ be two homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item There exist precisely one(by the meaning of isomorphic) group $E$ and homomorphism $e\colon E\to G$ such that
+      \begin{enumerate}[1)]
+       \setlength{\itemindent}{2ex}
+       \item $fe=ge$
+       \item For any group $F$ and homomorphism $h\colon F\to G$ such that $fh=gh$, there is a unique homomorphism $\mu$ such that $e\mu=h$.
+      \end{enumerate}
+    \item $e$ is injective.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+One can verify that $\ker d(f,g)$ is the required pair of group and homomorphism, where $d(x)\defeq f(x)(g(x))^{-1}$ is called the \termin[difference]{difference of maps} of $f,g$.
+\end{proof}
+In arbitrary category, a pair $(E,e)$ of object and morphism fit the properties in above theorem is called the \termin{equalizer} of $f,g$. Equalizer must be injective, but the converse may not holds. If it holds, the monomorphism is called \emph{\red  regular}. Moreover, if every monomorphism is regular, the category is called \termin[regular]{regular category}. For example the category of sets, the category of groups and all abelian categories are regular, the category of topological spaces $\mathbf{Top}$ is not regular.
+
+The following proposition is true in any category and is easy to prove.
+\begin{prop}\label{equalizer}
+  Let $e\colon E\to A$ be the equalizer of $f,g\colon A\to B$, then the following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $f=g$.
+    \item $e$ is surjective.
+    \item $e$ is an isomorphism.
+    \item $\id_A$ is the equalizer of $f,g$.
+  \end{enumerate}
+\end{prop}
+The dual of equalizer is \termin{coequalizer}, which is the generalization of cokernel, we also give a theorem as a example in group theory case, it is the dual of theorem \ref{5}.
+\begin{thm}
+  Let $\xymatrix@1{G\ar@<0.5ex>[r]^{f}\ar@<-0.5ex>[r]_{g} &H}$ be two homomorphism of groups, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item There exist precisely one(by the meaning of isomorphic) group $Q$ and homomorphism $q\colon H\to Q$ such that
+      \begin{enumerate}[1)]
+       \setlength{\itemindent}{2ex}
+       \item $qf=qg$
+       \item For any group $F$ and homomorphism $h\colon H\to F$ such that $hf=hg$, there is a unique homomorphism $\mu$ such that $\mu q=h$.
+      \end{enumerate}
+    \item $q$ is surjective.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+One can verify that $\coker d(f,g)$ is the required pair of group and homomorphism.
+\end{proof}
+The dual proposition of \ref{equalizer} is
+\begin{prop}
+  Let $c\colon B\to C$ be the equalizer of $f,g\colon A\to B$, then the following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $f=g$.
+    \item $c$ is injective.
+    \item $c$ is an isomorphism.
+    \item $\id_B$ is the equalizer of $f,g$.
+  \end{enumerate}
+\end{prop}
+In a regular category, the regular epimorphisms\footnote{Notice that not every epimorphism is regular.} and the monomorphisms form a \termin[factorization system]{factorization!system}:
+every morphism $f\colon X\to Y$ can be factorized by the following commutative diagram, where $e$ is regular epimorphism and $m$ is monomorphism
+\begin{displaymath}
+      \xymatrix{
+        X \ar[rr]^{f}\ar[dr]_{e}& &  Y \\
+        & {E} \ar[ur]_{m}&
+      }
+\end{displaymath}
+The factorization is unique in the sense that if $\markar{e'} E'\markar{m'}$ is another factorization, then there exists an isomorphism $h\colon E\to E'$ such that $he=e' $ and $m'h=m$.
+The monomorphism $m$ is called the \termin{image} of $f$.
+
+\newpage\section{Semidirect Product}
+\begin{ex}\label{1.2}
+  Let $G$ be a finite group and let $N$ be a normal subgroup such that $N$ and $G/N$ have relatively prime orders.
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item Let $H$ be a subgroup of $G$ having the same order as $G/N$. Prove that $G=HN$.
+    \item Let $g$ be an automorphism of $G$. Prove that $g(N)=N$.
+  \end{enumerate}
+\end{ex}
+\begin{proof}
+  a), It is clear that the only element in $N\cap H$ is $1$ since its order must divide a pair of relatively prime $|H|$ and $|N|$. Therefore
+  \begin{equation*}
+    |HN|=\frac{|H||N|}{|H\cap N|}=|G/N||N|=|G|
+  \end{equation*}
+  and $HN\subset G$, thus $G=HN$.
+
+  b), Let $k=|N|$. For any $\varphi\in\Aut G$ and $x\in N$, we assume $\varphi(x)=ng$, where $g\in G\setminus N$. Then $\varphi(x)^k=\varphi(x^k)=1$, follow by
+  \begin{align*}
+    (ng)^k=1 \Rightarrow& g(ng)^{k-1}=n^{-1}\in N \\
+    \Rightarrow& (ng)^{k-1}g=g^{-1}(g(ng)^{k-1})g\in N \\
+    \Rightarrow& (ng)^{k-2}g^2\in N \\
+    \cdots&\cdots \\
+    \Rightarrow& g^k\in N
+  \end{align*}
+  hence $(gN)^k=N$, which conflict with $|G/N|$ relatively prime with $|N|$. Whence $\varphi(x)\in N$ as desired.
+\end{proof}
+a) tells us that $G$ is the semidirect product of $N$ and $H$. We also give a theorem to explain this concept.
+\begin{thm}
+  Let $G$ be a group, and $N\trianglelefteq G, H\leqslant G$. The following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $G=NH$ and $N\cap H=1$.
+    \item $G=HN$ and $N\cap H=1$.
+    \item Every element of $G$ can be written as a unique product of an element of $N$ and an element of $H$.
+    \item Every element of $G$ can be written as a unique product of an element of $H$ and an element of $N$.
+    \item The composition of natural embedding $H\to G$ and natural projection $G\to G/N$ is an isomorphism.
+    \item There exists an retraction of the natural embedding and whose kernel is $N$.
+  \end{enumerate}
+\end{thm}
+In case one of these statements hold, we say $G$ is a \termin{semidirect product} of $N$ and $H$, written $N\rtimes H$.
+\begin{proof}
+  The equivalence of a) and b) is clear by $(nh)^{-1}=h^{-1}n^{-1}$.
+  In case a) holds, and $nh=n'h'$ where $n,n'\in N, h,h'\in H$, then $nn'^{-1}=h'h^{-1}$, since the left is in $N$ and the right is in $H$, therefore $n=n', h=h'$. Thus a)$\Rightarrow$c).
+  Similarly, b)$\Rightarrow$d). c)$\Leftrightarrow$d) is clear.
+  If d) holds, any $g\in G$ can be write as $hn, h\in H, n\in N$ uniquely, thus $hn\mapsto h$ is a well-defined epimorphism from $G$ to $H$ and whose kernel is $N$.
+  Moreover, it is the retraction of the natural embedding, whence its induced map is the inverse of the composition in e).
+  If f) holds, let $\varphi$ be the retraction, then for any $g\in G$, $\varphi(g^{-1})g\in N$, thus $g=\varphi(g)\varphi(g^{-1})g$ is a decomposition of $g$, therefore $G=HN$.
+  If $x\in H\cap N$, then $\varphi(x)=x$ since $x\in H$, but $\varphi(x)=1$ since $x\in N$, thus $H\cap N=1$.
+\end{proof}
+\subsection{Characteristic Subgroup}
+The second statement in \ref{1.2} tell us that $N$ is \emph{\red  characteristic}\index{characteristic subgroup}, means $g(N)=N, \forall g\in\Aut(G)$.
+Characteristic is a strong property since it obviously implies normal. and moreover we have
+\begin{prop}
+Let $N\trianglelefteq G$, and $H$ be a characteristic subgroup of $N$, then $H\trianglelefteq G$. Moreover, if $N$ is characteristic in $G$, so is $H$.
+\end{prop}
+\begin{proof}
+  For any $g\in G$, $c_g(N)=N$ since $N\trianglelefteq G$, thus $c_g\in\Aut(N)$. Since $H$ is characteristic in $N$, $c_g(H)=H$, thus $H\trianglelefteq G$.
+  Moreover, if $N$ is characteristic in $G$, then $\Aut(G)\subset\Aut(N)\subset\Aut(H)$, thus $H$ is characteristic in $G$.
+\end{proof}
+\newpage\section{Some Operations}
+\begin{ex}\label{16}
+  Let $H$ be a proper subgroup of a finite group $G$. Show that $G$ is not the union of all the conjugations of $H$.
+\end{ex}
+\begin{proof}
+  Conversely assume $G=\cup H^x$, and notice that the orbit containing $H$ under the conjugate operation is its conjugation class and its stabilizer is the normalizer. Then
+  \begin{align*}
+    |G|=&1+|\bigcup_{x\in G}H^x\{e\}|  \\
+    \leqslant&1+(G:H_G(H))(|H|-1)\\
+    \leqslant&1+|G|-(G:N_G(H))
+  \end{align*}
+  Hence $G=N_G(H)$, $H\trianglelefteq G$. Thus $\cup H^x=H\lneqq G$ which is a contradiction.
+\end{proof}
+\begin{warn}
+  This may not be true for infinite group, see Chapter 13.
+\end{warn}
+\begin{ex}
+  Let $G$ be a finite group operation on a finite set $S$ with $|S|\geqslant2$. Assume that there is only one orbit. Prove that there exist an element $x\in G$ which has no fixed point.
+\end{ex}
+\begin{proof}
+  It's easy to prove this by using Burnside's lemma. But we can also use the conclusion given by the previous exercise instead of Burnside's lemma. Indeed, Let $S=\{s_1,\cdots,s_n\}$ and assume that every element of $G$ has fixed point, then $G=\bigsqcup G_{s_i}$, where $G_{s_i}=\{g\in G\mid gs_i=s_i\}$. Since $G_{gs_i}=\{x\in G\mid xgs_i=gs_i\}$, $G_{gs_i}$ is conjugated with $G_{s_i}$. But there is only one orbit and hence these $G_{s_i}$ are all conjugated which contradict to \ref{16}.
+\end{proof}
+\begin{ex}[Burnside's Lemma]
+  Let $G$ be a finite group operation on a finite set $S$, then
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item For each $s\in S$,
+    \begin{equation*}
+      \sum_{t\in\mathcal{O}_s}\frac{1}{|\mathcal{O}_t|}=1
+    \end{equation*}
+    \item Let $N$ denote the number of orbits, then
+    \begin{equation*}
+      N=\frac{1}{|G|}\sum_{x\in G}|\Fix(x)|
+    \end{equation*}
+  \end{enumerate}
+\end{ex}
+\begin{proof}
+  the right equal to
+  \begin{equation*}
+    \sum_{\substack{s\in\Fix(x)\\x\in G}}\frac{1}{|\mathcal{O}_s||G_s|}
+  \end{equation*}
+  Notice that the summation contain every $s$ for $|G_s|$ times. Hence the above summation obviously equal to
+  \begin{equation*}
+    \sum_{s\in S}|G_s|\frac{1}{|\mathcal{O}_s||G_s|}=\sum_{s\in S}\frac{1}{|\mathcal{O}_s|}=N
+  \end{equation*}
+\end{proof}
+
+The following exercise is a useful property, here $p$ is a prime number.
+\begin{ex}
+  Let $P$ be a $p-$group. Let $A$ be a normal subgroup of order $p$. Prove that $A$ is contained in the center of $P$.
+\end{ex}
+\begin{proof}
+  Let the $p-$group act on $A$, then the number of fixed points of $P$ is $\equiv|A|\mod p$.(a lemma in the text) But $|A|>0$ since $e$ must be fixed, hence the number of fixed point is $p$, which means every element of $A$ commute with $P$, i.e. is contained in the center of $P$.
+\end{proof}
+\subsection{Orbits, Stabilizers etc.}
+\begin{defn}
+Here is some easily confused concepts about group action, assuming that $G$ act on $S$
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item The \termin{orbit} of a point $s$ in $S$
+    \begin{equation*}
+       Gs= \left\{ gs \mid g \in G \right\}.
+    \end{equation*}
+    \item The \termin{stabilizer} of a point $s$ in $S$
+    \begin{equation*}
+       G_s= \left\{ g \in G \mid gs=s \right\}.
+    \end{equation*}
+    \item The set of \termin[fixed points]{fixed!point} of $g\in G$ is denoted
+    \begin{equation*}
+       S^g= \left\{ s \in S \mid gs=s \right\}.
+    \end{equation*}
+    \item A \termin{$G-$invariant element} of $S$ is $s\in S$ such that $gs=s$ for all $g\in G$. The set of all such $s$ is denoted
+    \begin{equation*}
+       S^G= \left\{ s \in S \mid gs=s, \forall g\in G \right\}.
+    \end{equation*}
+     and called the \termin{$G-$invariants} of $S$.
+     \item The set of all orbits of $S$ under the action of $G$ is written as $S/G$ (or, less frequently: $G\backslash S$), and is called the \emph{\red  quotient} of the action.
+     In geometric situations it may be called the \termin{orbit space}, while in algebraic situations it may be called the space of \termin[coinvariants]{coinvariant}, and written $S_G$.
+  \end{enumerate}
+\end{defn}
+
+For orbits and stabilizers of a point $s$ in $S$, we have
+\begin{thm}[Orbit-stabilizer Theorem]
+  The image and coimage of map $g\mapsto gs$ is $Gs$ and $G/G_s$.
+\end{thm}
+If $T$ is a subset of $S$, we write $GT$ for the set $\left\{ gt \mid t \in T , g \in G\right\}$.
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $T$ is called \termin[invariant]{invariant!subset} under $G$ if $GT=T$ (or equivalently, $GT\subset T$).
+    \item $T$ is called \termin[fixed]{fixed!subset} under $G$ if $gt=t$ for all $g\in G, t\in T$.
+  \end{enumerate}
+\begin{rem}
+The coinvariants are a quotient while the invariants are a subset. These terminologies and notations are used particularly in group cohomology and group homology, which use the same superscript/subscript convention.
+\end{rem}
+\newpage\section{Explicit Determination of Groups}
+\begin{ex}
+  Let $G$ be a group of order $p^3$, where $p$ is prime, and $G$ is not abelian. Show that $|Z(G)|=p$.
+\end{ex}
+The key to prove this is the following lemma:
+\begin{lem}
+  $G$ is abelian if and only if $G/Z(G)$ is cyclic.
+\end{lem}
+\begin{proof}
+  Assume $G/Z(G)$ is not trivial, and its generator is $a$, then, for any $g\in G$, $g$ can be write as $a^kz$ for some $k\in N, z\in Z(G)$, hence $ag=a^{k+1}z=a^{k}za=ga$, thus $a\in Z(G)$ which is a contradiction.
+\end{proof}
+\begin{ex}\label{7.8}
+  Show that every group of order $<60$ is solvable.
+\end{ex}
+  Since any tower has a simple refinement, we only need to show that every simple group of order $<60$ is abelian. The following proof comes from \cite{rotman2002advanced}. We introduce a lemma first.
+\begin{lem}
+  There is no non-abelian simple group of order $p^nm$, where, $p$ is prime and $p\nmid m, p^n\nmid (m-1)!$
+\end{lem}
+\begin{proof}
+  We claim that every $p-$group $G$ of order$>p$ is not simple. Since $Z(G)$ is non-trivial, either $Z(G)$ is proper subgroup and $G$ is not simple or $Z(G)-G$ and $G$ is abelian.
+
+Suppose that such a simple group $G$ exists. By Sylow's theorem, $G$ contains a subgroup $P$ of order $p^n$, hence of index $m$. We may assume that $m>1$, for non-abelian $p-$groups are
+never simple. By the theorem of representation on cosets, there exists a homomorphism $\phi\colon G\to S_m$ with $\ker \phi\leqslant P$. Since $G$ is simple, however, it has no proper normal subgroups; hence $\ker\phi =1$ and $\phi$ is an injection; that is, $G\cong\phi(G)\leqslant S_m$. By Lagrange's theorem, $p^nm\mid m!$, and so $p^n\mid (m-1)!$, contrary to the hypothesis.
+\end{proof}
+Where the theorem of representation on cosets is
+\begin{thm}[Representation on Cosets]
+  Let $G$ be a group, and let $H$ be a subgroup of $G$ having finite index $n$. Then there exists a homomorphism $\phi\colon G\to S_n$ with $\ker\phi\leqslant H$.
+\end{thm}
+The rest proof of \ref{7.8} consider three cases in which the order of $G$ not satisfy the lemma. The are $|G|=30, 40$ and $56$. We only show the proof in case $|G|=30$, the others are similar.
+\begin{proof}
+  Let $P$ be a Sylow $5-$subgroup of $G$, so that $|P|=5$. The number $r_5$ of conjugates of $P$ is a divisor of $30$ and $r_5\equiv1 \mod 5$.
+  Now $r_5\neq1$ lest $P\triangleleft G$, so that $r_5=6$. By Lagrange's theorem, the intersection of any two of these is trivial.
+  There are four nonidentity elements in each of these subgroups, and so there are $6\times4=24$ nonidentity elements in their union.
+  Similarly, the number $r_3$ of Sylow $3-$subgroups of $G$ is $10$ (for $r_3\neq1$, $r_3$ is a divisor of $30$, and $r_3\equiv1 \mod 3$).
+  There are two nonidentity elements in each of these subgroups, and so the union of these subgroups has $20$ nonidentity elements.
+  We have exceeded the number of elements in $G$, and so $G$ cannot be simple.
+\end{proof}
+\newpage\section{Abelian Groups}
+\begin{ex}
+Let $f\colon A\to A'$ be a homomorphism of abelian groups. Let $B$ be a subgroup of $A$. Denote by $A^f$ and $A_f$ the image and kernel of $f$ in $A$ respectively, and similarly for $B^f$ and $B_f$. Show that $(A:B)=(A^f:B^f)(A_f:B_f)$, in the sense that if two of these three indices are finite, so is the third, and the stated equality holds.
+\end{ex}
+\begin{proof}
+Consider the following commutative diagram
+\begin{displaymath}
+      \xymatrix{
+        & 0\ar[d] &0\ar[d] &0\ar@{-->}[d] & \\
+        0\ar[r] & B_f\ar[r]\ar[d] & A_f\ar[r]\ar[d] & {A_f/B_f}\ar[r]\ar@{-->}[d] & 0 \\
+        0\ar[r] & B\ar[r]\ar[d] & A\ar[r]\ar[d] & {A/B}\ar[r]\ar@{-->}[d] & 0 \\
+        0\ar[r] & B^f\ar[r]\ar[d] & A^f\ar[r]\ar[d] & {A^f/B^f}\ar[r]\ar@{-->}[d] & 0 \\
+        & 0 & 0 & 0 &
+      }
+\end{displaymath}
+By the $9-$lemma, the third column is exact, $A^f/B^f\cong (A/B)/(A_f/B_f)$. Hence $(A:B)=(A^f:B^f)(A_f:B_f)$ as desired.
+\end{proof}
+\subsection{Abelian Category}
+A general concept of abelian group is abelian category, which is a special case of preadditive category
+\begin{defn}
+  A category $\mathcal{C}$ is called \termin[preadditive]{preadditive category}, if every morphism set $\Hom(A,B)$ is an abelian group, and for every $A,B,C\in \ob\mathcal{C}$,
+  \mapdes{\Hom(A,B)\times\Hom(B,C)}{\Hom(A,C)}{(f,g)}{g\circ f}
+  is a homomorphism.
+\end{defn}
+
+In any preadditive category, we can consider the kernel and cokernel of a morphism (even not every one has).
+\begin{defn}
+   Let $f$ be a morphism with kernel and cokernel, we call the kernel of $\coker f$ (if exists) the \termin{image} of $f$, denoted by $\im f$, while the cokernel of $\ker f$ the \termin{coimage} of $f$ with notation $\coim f$. In such situation, there exist a \termin[natural morphism]{natural!morphism} $\Psi$ such that the following diagram commutative:
+     \begin{displaymath}
+    \xymatrix{
+     \cdot\ar[r]^{\ker f} & \cdot\ar[r]^{f}\ar[d]_{\coim f} &\cdot\ar[r]^{\coker f}  & \cdot\\
+                                  & \cdot\ar@{-->}[r]^-{\Psi}        &\cdot\ar[u]_{\im f}       &
+    }
+   \end{displaymath}
+   The factorization $f=\im f \circ \Psi \circ \coim f$ is called \termin[standard]{standard!factorization of morphism}.
+\end{defn}
+
+\begin{defn}
+  Two adjacent morphisms
+  \begin{equation*}
+    A\markar{f}B\markar{g}C
+  \end{equation*}
+  are called \termin[exact]{exact!sequence} or \emph{\red  exact at $B$}, if $\im f\cong\ker g$.
+\end{defn}
+It is natural to consider the initial object and the terminal object.
+\begin{prop}
+  Let $\mathcal{C}$ be a preadditive category, and $A\in\ob\mathcal{C}$. Then the following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $A$ is the initial object.
+    \item $A$ is the terminal object.
+    \item $1_A=0$.
+    \item $\Hom(A,A)$ is trivial.
+  \end{enumerate}
+\end{prop}
+Such an object is called the \termin[zero object]{zero!object} (and usually denoted by $0$). By the universal property of initial object and terminal object, any preadditive category has at most one zero object, and the morphism set between zero object and others must be trivial. Moreover, any zero morphism $0\colon A\to B$ can be factor through two zero morphisms
+\begin{equation*}
+  A\longrightarrow 0 \longrightarrow B
+\end{equation*}
+
+We can also consider the product and coproduct in such category. Although may not every finite objects have product or coproduct, we still have some special properties in a preadditive category.
+\begin{prop}
+  Let $\mathcal{C}$ be a preadditive category, and $A,B,C\in\ob\mathcal{C}$. Then the following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $C$ is the product of $A$ and $B$.
+    \item $C$ is the coproduct of $A$ and $B$.
+    \item There exist morphisms $p_1\colon C\to A,P_2\colon C\to B,k_1\colon A\to C,k_2\colon B\to C$ such that
+    \begin{align*}
+      p_1k_1&=\id_A\\
+      p_2k_2&=\id_B\\
+      k_1p_1+k_2p_2&=\id_C
+    \end{align*}
+  \end{enumerate}
+\end{prop}
+This property shows that the finite product and coproduct in a preadditive category is the same thing, which is called a \termin{biproduct}. The third statement can be thought as the definition of the biproduct of two objects $A$ and $B$. We take $A\oplus B$ as the notation of it.
+\begin{warn}
+  Notice that, although infinite direct sums make sense in some categories, like $\mathbf{Ab}$, infinite biproducts do not make sense.
+\end{warn}
+By adding some properties to preadditive category, we have a list kind of categories.
+\begin{defn}
+  An \termin[additive category]{additive!category} is a preadditive category with all finite biproducts. A \emph{\red  pre-abelian category}\index{pre-abelian category} is an additive category with all kernels and cokernels. An \emph{\red  abelian category} is a pre-abelian category such that all natural morphism $\Psi$ are isomorphisms.
+\end{defn}
+During consider preadditive categories, a kind of functors between preadditive categories are very important.
+\begin{defn}
+  A functor $\mathcal{F}$ between two preadditive categories $\mathcal{C}$ and $\mathcal{D}$ is called \termin[additive]{additive! functor}, if for any given objects $A$ and $B$ in $\mathcal{C}$, the correspondence from $\Hom(A,B)$ to $\Hom(\mathcal{F}(A),\mathcal{F}(B))$ is a homomorphism.
+\end{defn}
+\begin{prop}
+  An additive functor maps zero object to zero object.
+\end{prop}
+\subsection{Herbrand Quotient}
+\cite{serre1980local}
+\begin{ex}
+  Let $G$ be a finite cyclic group of order $n$, generated by an element $\sigma$. Assume that $f,g\colon A\to A$ be the endomorphisms of $A$ given by
+  \begin{align*}
+    f(x)=&\ \sigma x-x,\\
+    g(x)=&\ x+\sigma x+\cdots +\sigma^{n-1}x.
+  \end{align*}
+  Define the \termin[Herbrand quotient]{Herbrand!quotient} by the expression $q(A) = (A_f:A^g)/(A_g:A^f)$, provided both indices are finite. Assume now that $B$ is a subgroup of $A$ such that $GB\subset B$,
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item Define in a natural way an operation of $G$ on $A/B$.
+    \item Prove that
+    \begin{equation*}
+      q(A)=q(B)q(A/B)
+    \end{equation*}
+    in the sense that if two of these quotients are finite, so is the third, and the stated equality holds.
+    \item If $A$ is finite, show that $q(A)=1$.
+  \end{enumerate}
+\end{ex}
+We rewrite the statement of this problem to be
+\begin{prop}\label{hq}
+  The Herbrand quotient is \termin{multiplicative} on short exact sequences. In other words, if
+\begin{equation*}
+0\longrightarrow A\longrightarrow B\longrightarrow C\longrightarrow 0
+\end{equation*}
+is exact, and any two of the quotients are defined, then so is the third and
+\begin{equation*}
+q(B)=q(A)q(C)
+\end{equation*}
+Moreover, if $A$ is finite then $q(A)=1$.
+\end{prop}
+
+To proof the property, we need some lammas.
+\begin{lem}\label{exactsq}
+  Consider the sequence with $f$ injective and $g$ surjective:
+    \begin{equation*}
+      0\longrightarrow A\markar{f} B\markar{g} C\longrightarrow 0
+    \end{equation*}
+  The following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item This sequence is exact.
+    \item $A$ is the kernel of $g$.
+    \item $C$ is the cokernel of $f$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  Notice that,  the sequence is \termin[exact]{exact!sequence} means $\coim f\cong\ker g$ in abelian category. $f$ is injective implies $\coim f\cong A$, $g$ is surjective implies $\im g\cong C$.
+\end{proof}
+
+We also need some diagram lemmas, see \cite{lane1998categories} or later section.
+
+
+Consider the following \termin{cochain complex} (which means the composition of any adjacent two morphisms is zero.):
+\begin{equation*}
+  \cdots\longleftarrow K^{2n+1}(A)\markal{f}K^{2n}(A)\markal{g}K^{2n-1}(A)\longleftarrow\cdots
+\end{equation*}
+where every $K^i(A)=A$.
+
+One can verify that $K(-)$ is a well-defined functor from the category of abelian groups to the category of cochain complexes. Moreover $K(-)$ is an additive functor.
+
+
+
+The quotient may be defined for a pair of endomorphisms of an Abelian group, $f$ and $g$, which satisfy the condition $fg=gf=0$. Their \emph{\red  Herbrand quotient} $q(f,g)$ is defined as
+\begin{equation*}
+  q(f,g)=(\ker f:\im g)/(\ker g:\im f)
+\end{equation*}
+
+In mathematics, the \emph{\red  Herbrand quotient} is a quotient of orders of cohomology groups of a cyclic group. It was invented by Jacques Herbrand. As a special case of the general theory of Euler characteristics, it has an important application in class field theory.
+
+If $G$ is a finite cyclic group acting on a $G-$module $A$, then the cohomology groups $H^n(G,A)$ have period $2$ for $n\geqslant1$; in other words
+\begin{equation*}
+H^n(G,A) = H^{n+2}(G,A)
+\end{equation*}
+an isomorphism induced by cup product with a generator of $H^2(G,Z)$. (If instead we use the \emph{\red  Tate cohomology groups} then the periodicity extends down to $n=0$.)
+
+A \termin[Herbrand module]{Herbrand!module} is an $A$ for which the cohomology groups are finite. In this case, the \emph{\red  Herbrand quotient} $h(G,A)$ is defined to be the quotient of the order of the even and odd cohomology groups, like
+\begin{equation*}
+h(G,A)=\frac{|H^2(G,A)|}{|H^1(G,A)|}
+\end{equation*}
+
+The proof of \ref{hq} in fact is a proof to
+\begin{prop}
+The Herbrand quotient is \termin{multiplicative} on short exact sequences. In other words, if
+\begin{equation*}
+0\longrightarrow A\longrightarrow B\longrightarrow C\longrightarrow 0
+\end{equation*}
+is exact, and any two of the quotients are defined, then so is the third and
+\begin{equation*}
+h(G,B)=h(G,A)h(G,C)
+\end{equation*}
+Moreover, if $A$ is finite then $h(G,A)=1$.
+\end{prop}
+\begin{cor}
+  If there is a $G-$homomorphism $f\colon A\to B$ with finite kernel and cokernel. Then $A$ and $B$ have the same Herbrand quotient.
+\end{cor}
+
+\subsection{Grothendieck Group}
+
+  \begin{prop}
+    Let $M$ be an abelian monoid, written additively. There exists an abelian group $K(M)$ with a monoid-homomorphism
+    \begin{equation*}
+      \gamma\colon M\To K(M)
+    \end{equation*}
+    having the following universal property:
+    \begin{quote}
+      If $f\colon M\To A$ is a homomorphism into an abelian group $A$, then there exists a unique homomorphism $f'\colon K(M)\To A$ making the following diagram commutative:
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+                &         K(M) \ar[dd]^{f'}     \\
+              M \ar[ur]^{\gamma} \ar[dr]_{f}                 \\
+                &         A                 }
+      \end{displaymath}
+    \end{quote}
+  \end{prop}
+  \begin{proof}
+    Let $F_{\ab}(M)$ be the free abelian group generated by $M$. We denote the generator of $F_{\ab}(M)$ corresponding to $x\in M$ by $[x]$. Let $B$ be the subgroup generated by all elements of type
+    \begin{equation*}
+      [x+y]-[x]-[y]
+    \end{equation*}
+    where $x,y\in M$. Let $K(M)=F_{\ab}(M)/B$, and let $\gamma$ be the composition $M\injection F_{\ab}(M)\epi F_{\ab}(M)/B$. Then it is easy to check that $(K(M),\gamma)$ satisfying the universal property.
+  \end{proof}
+  The group $K(M)$ is called the \termin{Grothendieck group} of $M$.
+
+  \begin{prop}
+    For any $x\in F_{\ab}(M)$, let $\overline{x}$ denote its image in $K(M)$. Then $\overline{[x]}=\overline{[y]}$ if and only if there exists a $t\in M$ such that $x+t=y+t$.
+  \end{prop}
+  \begin{proof}
+    Consider $M\times M/\sim$, where $(x,y)\sim(x',y')$ if there exists a $t\in M$ such that $x+y'+t=x'+y+t$. It is easy to check that $\sim$ is a equivalent relation and $M\times M/\sim$ is a group (the inverse of $(x,y)$ is $(y,x)$). Define $\varphi\colon M\To M\times M/\sim$ to be $\varphi(x)=(x,0)$, then $(M\times M/\sim,\varphi)$ satisfying the universal property:
+
+    For any monoid-homomorphism $f\colon M\To G$, define $f'\colon M\times M/\sim\To G$ to be $f'((x,y))=f(x)-f(y)$. It is easy to check that $f'$ is the unique homomorphism make the diagram commutative.
+  \end{proof}
+
+\newpage\section{Inverse Limit and Completion}
+  \begin{defn}
+    Let $A$ be an additive abelian group\footnote{or, in other words, a $\ZZ-$module}.
+    Let $p_A\colon A\To A$ denote multiplication by $p$.
+    We say that $A$ is \termin{$p-$divisible} if $p_A$ is surjective.
+    By taking $A_n=A$ and $\phi^n_{n-1}=p_A$ for all $n$, $(A,p_A)$ can be view as an inverse system. The inverse limit is denoted by $V_p(A)$.
+    Let $T_p(A)$ be the subset of $V_p(A)$ consisting of whose corresponding sequences start with $0$.
+    Let $A[p^n]$ be the kernel of $p_A^n$. Then
+    \begin{equation*}
+      T_p(A) = \invlim A[p^{n+1}]
+    \end{equation*}
+    The group $T_p(A)$ is called the \termin{Tate group} associated with the $p-$divisible group $A$.
+  \end{defn}
+
+  \begin{defn}
+    An inverse limit of an inverse system of finite groups is called a \termin{profinite group}.
+  \end{defn}
+
+\newpage\section{Appendix}
+\subsection{Proof of Lemma \ref{2}}
+\cite{jacobson1980basic}.
+
+If $f$ is surjective, it's clear that the statement is true. On the contrary, we consider two cases.
+
+For case $f(G)\trianglelefteq H$, Let $X=H/f(G)$, and $\alpha$ be the canonical map, $\beta$ be the trivial homomorphism, then $\alpha f=\beta f$, the statement assert $\alpha=\beta$, hence $f(G)=H$, i.e. $f$ is surjective.
+
+For case $f(G)\ntrianglelefteq H$, it implies that $[H:f(G)]>2$. In this case, we will show that there exists two distinct homomorphisms $\alpha$ and $\beta$ from $H$ to $S_H$ such that $\alpha f=\beta f$, which is a contradiction.
+
+Let $\alpha$ be $h\mapsto l_h$, where $l_h$ denote the left translation.
+We shall take $\beta$ as form $h\mapsto pl_hp^{-1}$, and it does not equal to $h\mapsto l_h$, i.e. $p$ does not commute with every $l_h$.
+Since the permutation commuting with all left translation must be right translation, and every translation $\neq1$ has no fixed point, our condition will be satisfied if $p$ is a permutation $\neq1$ with a fixed point.
+
+On the another hand, $\alpha f=\beta f$ requires that $p$ commutes with every $g\in f(G)$. To construct a permutation satisfying all of our condition, we choose a permutation $\pi$ of $f(G)\backslash H$ such that $\pi\neq1$ and has a fixed point. This can be done since $|f(G)\backslash H|>2$.
+Let $I$ be the set of representatives of right cosets, Then, every element of $H$ can be written in one and only one way as $gh, g\in f(G),h\in I$, and our map $p$ is defined by $p(gh)=gh'$, where $\pi (f(G)h)=f(G)h'$. Then it is clear that $p$ satisfies all of our condition and hence $\alpha f=\beta f$ but $\alpha\neq\beta$ as desired.

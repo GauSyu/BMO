@@ -1,0 +1,50 @@
+\nomenclatureentry{a$\Grp$@[{$\Grp$}]\begingroup the category of groups\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Ab$@[{$\Ab$}]\begingroup the category of abelian groups\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Top$@[{$\Top$}]\begingroup the category of topological spaces\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{0}$@[{$\mathbf{0}$}]\begingroup the zero object, zero morphism or empty category, which depends on context\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$d(f,g)$@[{$d(f,g)$}]\begingroup the difference of $f,g$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$N\rtimes H$@[{$N\rtimes H$}]\begingroup the semidirect product of $N$ and $H$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$Gs$@[{$Gs$}]\begingroup the orbit of a point $s$ in $S$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$G_s$@[{$G_s$}]\begingroup the stabilizer of a point $s$ in $S$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$S^g$@[{$S^g$}]\begingroup the set of fixed points of $g\in G$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$S^G$@[{$S^G$}]\begingroup the set of all $G-$invariant element\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$S/G$@[{$S/G$}]\begingroup the orbit space of $S$ under the action of $G$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$S_G$@[{$S_G$}]\begingroup the space of $G-$coinvariants\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$Z(G)$@[{$Z(G)$}]\begingroup the center of $G$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$A\oplus B$@[{$A\oplus B$}]\begingroup the biproduct of $A$ and $B$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Sub_{\mathcal{C}}(B)$@[{$\Sub_{\mathcal{C}}(B)$}]\begingroup the category of subobjects of $B$ in $\mathcal{C}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Quot_{\mathcal{C}}(B)$@[{$\Quot_{\mathcal{C}}(B)$}]\begingroup the category of quotient objects of $B$ in $\mathcal{C}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Hom_{\mathcal{C}}(A,B)$@[{$\Hom_{\mathcal{C}}(A,B)$}]\begingroup the set of morphisms from $A$ to $B$ in $\mathcal{C}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$[\Cc,\Dd], \Dd^{\Cc}$@[{$[\Cc,\Dd], \Dd^{\Cc}$}]\begingroup the category of functors from $\mathcal{C}$ to $\mathcal{D}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathcal{C}\simeq\mathcal{D}$@[{$\mathcal{C}\simeq\mathcal{D}$}]\begingroup $\mathcal{C}$ and $\mathcal{D}$ are equivalent\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Set$@[{$\Set$}]\begingroup the category of sets\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathcal{M}^{*}, \mathcal{M}_{*}$@[{$\mathcal{M}^{*}, \mathcal{M}_{*}$}]\begingroup the Yoneda embedding\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{Cone}(D)$@[{$\mathbf{Cone}(D)$}]\begingroup the category of cones to $D$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{Cocone}(D)$@[{$\mathbf{Cocone}(D)$}]\begingroup the category of co-cones to $D$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathop{\underleftarrow{\lim}}D_j$@[{$\mathop{\underleftarrow{\lim}}D_j$}]\begingroup the limit for $D$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathop{\underrightarrow{\lim}}D_j$@[{$\mathop{\underrightarrow{\lim}}D_j$}]\begingroup the colimit for $D$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$A\times_CB$@[{$A\times_CB$}]\begingroup the fibre product of $A$ and $B$ over $C$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$A\amalg_CB$@[{$A\amalg_CB$}]\begingroup the fibre coproduct of $A$ and $B$ over $C$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$f^{*}$@[{$f^{*}$}]\begingroup the pullback functor induced by $f$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$f_{*}$@[{$f_{*}$}]\begingroup the pushout functor induced by $f$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$S^1$@[{$S^1$}]\begingroup the unit circle\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{Ring}$@[{$\mathbf{Ring}$}]\begingroup the category of rings\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\prod A_i$@[{$\prod A_i$}]\begingroup the product of $\{A_i\}_{i\in I}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\coprod A_i$@[{$\coprod A_i$}]\begingroup the coproduct of $\{A_i\}_{i\in I}$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{hTop}$@[{$\mathbf{hTop}$}]\begingroup the category of topological spaces and homotopy classes\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\mathbf{Ban}_1$@[{$\mathbf{Ban}_1$}]\begingroup the category of Banach spaces and linear contractions\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\dual{A}$@[{$\dual{A}$}]\begingroup the dual group of $A$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\codual{A}$@[{$\codual{A}$}]\begingroup the codual group of $A$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Mod_A$@[{$\Mod_A$}]\begingroup the category of $A-$modules\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$M_{\tor}$@[{$M_{\tor}$}]\begingroup the set of torsion elements in $M$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$K(A), K_0(A)$@[{$K(A), K_0(A)$}]\begingroup the Grothedieck group of $A$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\dual{E}$@[{$\dual{E}$}]\begingroup the Pontrjagin dual of $E$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\codual{E}$@[{$\codual{E}$}]\begingroup the dual module of $E$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Abtf$@[{$\Abtf$}]\begingroup the category of torsion-free abelian groups\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$1_A, \id_A$@[{$1_A, \id_A$}]\begingroup the identity over $A$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Cat$@[{$\Cat$}]\begingroup the category of all (small) categories\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\one$@[{$\one$}]\begingroup the category with one object $\ast$ and one morphism\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$(S\down T)$@[{$(S\down T)$}]\begingroup the comma category from $S$ to $T$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$(\Cc\down A)$@[{$(\Cc\down A)$}]\begingroup the slice category over $A$ \nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$(A\down\Cc)$@[{$(A\down\Cc)$}]\begingroup the coslice category with respect to $A$\nomeqref {6.0}|nompageref}{132}
+\nomenclatureentry{a$\Cc^{\to}$@[{$\Cc^{\to}$}]\begingroup the arrow category of $\Cc$\nomeqref {6.0}|nompageref}{132}

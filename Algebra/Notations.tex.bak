@@ -1,0 +1,50 @@
+\nomenclature{$\Grp$}{the category of groups}
+\nomenclature{$\Ab$}{the category of abelian groups}
+\nomenclature{$\mathbf{Top}$}{the category of topological spaces}
+\nomenclature{$\mathbf{0}$}{the zero object, zero morphism or empty category, which depends on context}
+\nomenclature{$d(f,g)$}{the difference of $f,g$}
+\nomenclature{$N\rtimes H$}{the semidirect product of $N$ and $H$}
+\nomenclature{$Gs$}{the orbit of a point $s$ in $S$}
+\nomenclature{$G_s$}{the stabilizer of a point $s$ in $S$}
+\nomenclature{$S^g$}{the set of fixed points of $g\in G$}
+\nomenclature{$S^G$}{the set of all $G-$invariant element}
+\nomenclature{$S/G$}{the orbit space of $S$ under the action of $G$}
+\nomenclature{$S_G$}{the space of $G-$coinvariants}
+\nomenclature{$Z(G)$}{the center of $G$}
+\nomenclature{$A\oplus B$}{the biproduct of $A$ and $B$}
+\nomenclature{$\Sub_{\mathcal{C}}(B)$}{the category of subobjects of $B$ in $\mathcal{C}$}
+\nomenclature{$\Quot_{\mathcal{C}}(B)$}{the category of quotient objects of $B$ in $\mathcal{C}$}
+\nomenclature{$\Hom_{\mathcal{C}}(A,B)$}{the set of morphisms from $A$ to $B$ in $\mathcal{C}$}
+\nomenclature{$[\Cc,\Dd], \Dd^{\Cc}$}{the category of functors from $\mathcal{C}$ to $\mathcal{D}$}
+\nomenclature{$\mathcal{C}\simeq\mathcal{D}$}{$\mathcal{C}$ and $\mathcal{D}$ are equivalent}
+\nomenclature{$\Set$}{the category of sets}
+\nomenclature{$\mathcal{M}^{*}, \mathcal{M}_{*}$}{the Yoneda embedding}
+\nomenclature{$\mathbf{Cone}(D)$}{the category of cones to $D$}
+\nomenclature{$\mathbf{Cocone}(D)$}{the category of co-cones to $D$}
+\nomenclature{$\mathop{\underleftarrow{\lim}}D_j$}{the limit for $D$}
+\nomenclature{$\mathop{\underrightarrow{\lim}}D_j$}{the colimit for $D$}
+\nomenclature{$A\times_CB$}{the fibre product of $A$ and $B$ over $C$}
+\nomenclature{$A\amalg_CB$}{the fibre coproduct of $A$ and $B$ over $C$}
+\nomenclature{$f^{*}$}{the pullback functor induced by $f$}
+\nomenclature{$f_{*}$}{the pushout functor induced by $f$}
+\nomenclature{$S^1$}{the unit circle}
+\nomenclature{$\mathbf{Ring}$}{the category of rings}
+\nomenclature{$\prod A_i$}{the product of $\{A_i\}_{i\in I}$}
+\nomenclature{$\coprod A_i$}{the coproduct of $\{A_i\}_{i\in I}$}
+\nomenclature{$\mathbf{hTop}$}{the category of topological spaces and homotopy classes}
+\nomenclature{$\mathbf{Ban}_1$}{the category of Banach spaces and linear contractions}
+\nomenclature{$\dual{A}$}{the dual group of $A$}
+\nomenclature{$\codual{A}$}{the codual group of $A$}
+
+%Chapter3 Module
+\nomenclature{$\Mod_A$}{the category of $A-$modules}
+\nomenclature{$M_{\tor}$}{the set of torsion elements in $M$}
+\nomenclature{$K(A), K_0(A)$}{the Grothedieck group of $A$}
+\nomenclature{$\dual{E}$}{the Pontrjagin dual of $E$}
+\nomenclature{$\codual{E}$}{the dual module of $E$}
+
+%Appendix
+\nomenclature{$\Abtf$}{the category of torsion-free abelian groups}
+\nomenclature{$1_A, \id_A$}{the identity over $A$}
+\nomenclature{$\Cat$}{the category of all (small) categories}
+\nomenclature{$\one$}{the category with one object $\ast$ and one morphism}

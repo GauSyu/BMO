@@ -1,0 +1,2007 @@
+\chapter{Category Theory}
+\section{Categories}
+  \begin{defn}
+  A \termin{category} $\Cc$ consists of
+  \begin{itemize}
+    \item a class $\ob\Cc$ of \termin[objects]{object}.
+    \item a class $\hom\Cc$ of \termin[morphisms]{morphism (category theory)}, or \termin[arrows]{arrow (category theory)}, or \termin[maps]{map (category theory)}, between the objects.
+
+             Each morphism $f$ has a unique source object $A$ and target object $B$ where $A$ and $B$ are in $\ob\Cc$.
+
+             We write $f\colon A\To B$, and we say ``$f$ is a morphism from $A$ to $B$''.
+
+             We write $\Hom(A, B)$ (or $\Hom_{\Cc}(A, B)$ when there may be confusion about to which category $\Hom(A, B)$ refers) to denote the hom-class of all morphisms from $A$ to $B$. (Some authors write $\Mor(A, B)$ or simply $\Cc(A,B)$ instead.)
+    \item for every three objects $A,B$ and $C$, a binary operation
+             \begin{equation*}
+               \Hom(A, B) \times \Hom(B, C) \To \Hom(A, C)
+             \end{equation*}
+             called \termin{composition of morphisms}.
+
+             The composition of $f\colon A \To B$ and $g\colon B \To C$ is written as $g\circ f$ or simply $gf$. (Some authors use ``diagrammatic order'', writing $f;g$ or $fg$.)
+  \end{itemize}
+  such that the following axioms hold:
+  \begin{description}
+    \item[associativity] if $f\colon A \To B, g\colon B \To C$ and $h\colon C \To D$ then
+                                 \begin{equation*}
+                                   h\circ(g\circ f) = (h\circ g)\circ f
+                                 \end{equation*}
+    \item[identity] for every object $A$, there exists a morphism $1_A\colon A \To A$ (some times write $\id_A$) called the \termin[identity morphism]{identity (morphism)} for $A$, such that for every morphism $f\colon A \To B$, we have $1_B \circ f = f = f \circ 1_A$.
+  \end{description}
+  From these axioms, one can prove that there is exactly one identity morphism for every object. Some authors use a slight variation of the definition in which each object is identified with the corresponding identity morphism.
+  \end{defn}
+
+  \begin{defn}
+    A category $\Cc$ is called \termin[small]{small category} if both $\ob\Cc$ and $\hom\Cc$ are actually sets,
+    and \termin[large]{large category} otherwise.
+    A \termin[locally small category]{locally!small} is a category such that for all objects $A$ and $B$, the hom-class $\Hom(A, B)$ is a set,
+    called a hom-set. Many important categories in mathematics (such as the category of sets), although not small, are at least locally small.
+  \end{defn}
+
+  \begin{defn}
+    Any category $\Cc$ can itself be considered as a new category in a different way: the objects are the same as those in the original category but the arrows are those of the original category reversed. This is called the \termin[dual]{dual!category} or \termin[opposite category]{opposite!category} and is denoted $\Cc^{\op}$.
+  \end{defn}
+
+  \begin{defn}
+    The \termin{product category} $\Cc\times\Dd$ consists of:
+    \begin{itemize}
+      \item \emph{objects:}
+               pairs of objects $(A, B)$, where $A$ is an object of $\Cc$ and $B$ of $\Dd$;
+      \item \emph{arrows from $(A_, B_1)$ to $(A_2, B_2)$:}
+               pairs of arrows $(f, g)$, where $f\colon A_1 \To A_2$ is an arrow of $\Cc$ and $g\colon B_1 \To B_2$ is an arrow of $\Dd$;
+      \item \emph{compositions:}
+               component-wise composition from the contributing categories:
+                                    \begin{equation*}
+                                      (f_2, g_2) \circ (f_1, g_1) = (f_2 \circ f_1, g_2 \circ g_1);
+                                    \end{equation*}
+      \item \emph{identities:}
+               pairs of identities from the contributing categories:
+                               \begin{equation*}
+                                 1_{(A, B)} = (1_A, 1_B).
+                               \end{equation*}
+    \end{itemize}
+  \end{defn}
+
+\subsection{Subcategories}
+  \begin{defn}
+    Let $\Cc$ be a category. A \termin{subcategory} $\Ss$ of $\Cc$ is given by
+    \begin{itemize}
+      \item a subcollection of objects of $\Cc$, denoted $\ob\Ss$,
+      \item a subcollection of morphisms of $\Cc$, denoted $\hom\Ss$.
+    \end{itemize}
+    such that
+    \begin{enumerate}
+      \item for every $X$ in $\ob\Ss$, the identity morphism $\id_X$ is in $\hom\Ss$,
+      \item for every morphism $f\colon X\To Y$ in $\hom\Ss$, both the source $X$ and the target $Y$ are in $\ob\Ss$,
+      \item for every pair of morphisms $f$ and $g$ in $\hom\Ss$ the composite $f\circ g$ is in $\hom\Ss$ whenever it is defined.
+    \end{enumerate}
+  \end{defn}
+  \begin{rem}
+    These conditions ensure that $\Ss$ is a category in its own right: the collection of objects is $\ob\Ss$, the collection of morphisms is $\hom\Ss$, and the identities and composition are as in $\Cc$. There is an obvious faithful functor $I\colon \Ss\To\Cc$, called the \termin{inclusion functor} which takes objects and morphisms to themselves.
+  \end{rem}
+
+  \begin{defn}
+    Let $\Ss$ be a subcategory of a category $\Cc$. We say that $\Ss$ is a \termin[full subcategory]{full!subcategory} of $\Cc$ if the inclusion functor is fully faithful.
+  \end{defn}
+
+  \begin{defn}
+    A subcategory $\Ss$ of $\Cc$ is said to be \termin{isomorphism-closed} or \termin{replete} if every isomorphism $k\colon X\To Y$ in $\Cc$ such that $Y$ is in $\Ss$ also belongs to $\Ss$. A isomorphism-closed full subcategory is said to be \termin[strictly full]{strictly full!subcategory}.
+  \end{defn}
+
+  \begin{defn}
+    A subcategory of $\Cc$ is said to be \termin{wide} or \termin{lluf} if it contains all the objects of $\Cc$.
+  \end{defn}
+
+\subsection{Reflective Subcategory}
+
+\subsection{Comma Categories}
+  \begin{defn}
+    Suppose that $\Aa$, $\Bb$, and $\Cc$ are categories, and $S$ and $T$ (for source and target) are functors
+          \begin{displaymath}
+            \xymatrix{
+               \Aa\ar[r]^{S} & \Cc & \Bb\ar[l]_{T}                }
+          \end{displaymath}
+    We can form the \termin{comma category} $(S\down T)$ as follows:
+    \begin{itemize}
+      \item The objects are all triples $(\alpha,\beta,f)$ with $\alpha$ an object in $\Aa$, $\beta$ an object in $\Bb$, and $f\colon S(\alpha)\To T(\beta)$ a morphism in $\Cc$.
+      \item The morphisms from $(\alpha,\beta,f)$ to $(\alpha',\beta',f')$ are all pairs $(g,h)$
+                 where $g\colon \alpha\To\alpha'$ and $h\colon \beta\To\beta'$ are morphisms in $\Aa$ and $\Bb$ respectively, such that the following diagram commutes:
+                 \begin{displaymath}
+                   \xymatrix{
+                       S(\alpha)\ar[r]^{S(g)}\ar[d]_{f} & S(\alpha')\ar[d]^{f'}  \\
+                       T(\beta)\ar[r]_{T(h)} & T(\beta')           }
+                 \end{displaymath}
+      \item Morphisms are composed by taking $(g,h)\circ(g',h')$ to be $(g\circ g',h\circ h')$, whenever the latter expression is defined.
+      \item The identity morphism on an object $(\alpha,\beta,f)$ is $(\id_{\alpha},\id_{\beta})$.
+    \end{itemize}
+  \end{defn}
+
+  \begin{exam}
+    \textbf{Slice category}.
+
+    When $\Aa=\Cc$, $S$ is the identity functor, and $\Bb=\one$ (the category with one object $\ast$ and one morphism).
+    Then $T(\ast)=A$ for some object $A$ in $\Cc$. In this case, the comma category is written $(\Cc\down A)$, and is often called the \termin{slice category} over $A$ or the category of \emph{\red objects over $A$}.
+    The objects $(\alpha,\ast,f)$ can be simplified to pairs $(\alpha,f)$, where $f\colon \alpha\To A$.
+    Sometimes, $f$ is denoted $\pi_{\alpha}$.
+    A morphism from $(B,\pi_B)$ to $(B',\pi_{B'})$ in the slice category is then an arrow $g\colon B\To B'$ making the following diagram commute:
+          \begin{displaymath}
+            \xymatrix@R=0.5cm{
+               B\ar[rr]^{g}\ar[dr]_{\pi_B} && B'\ar[dl]^{\pi_{B'}} \\
+               &A&                }
+          \end{displaymath}
+  \end{exam}
+
+  \begin{exam}
+    \textbf{Coslice category}.
+
+    The dual concept to a slice category is a coslice category. Here, $S$ has domain $\one$ and $T$ is an identity functor. In this case, the comma category is often written $(A\down\Cc)$, where $A$ is the object of $\Cc$ selected by $S$. It is called the \termin{coslice category} with respect to $A$, or the category of \emph{\red objects under $A$}.
+    The objects are pairs $(B,i_B)$ with $i_B\colon A\To B$. Given $(B,i_B)$ and $(B',i_{B'})$, a morphism in the coslice category is a map $h\colon B\To B'$ making the following diagram commute:
+          \begin{displaymath}
+            \xymatrix@R=0.5cm{
+               &A\ar[dl]_{i_B}\ar[dr]^{i_{B'}}&  \\
+               B\ar[rr]_{h} && B'                }
+          \end{displaymath}
+  \end{exam}
+
+  \begin{exam}
+    \textbf{Arrow category}.
+
+    $S$ and $T$ are identity functors on $\Cc$ (so $\Aa=\Bb=\Cc$).
+    In this case, the comma category is the \termin{arrow category} $\Cc^{\to}$. Its objects are the morphisms of $\Cc$, and its morphisms are commuting squares in $\Cc$.
+  \end{exam}
+
+  \begin{exam}
+    In the case of the slice or coslice category, the identity functor may be replaced with some other functor; this yields a family of categories particularly useful in the study of adjoint functors. Let $s,t$ be given object in $\Cc$.
+    An object of $(s\down T)$ is called a \emph{morphism from $s$ to $T$} or a \termin{$T-$structured arrow} with domain $s$ in.
+    An object of $(S\down t)$ is called a \emph{morphism from $S$ to $t$} or a \termin{$S-$costructured arrow} with codomain $s$ in.
+  \end{exam}
+
+  \begin{prop}
+    For each comma category there are forgetful functors from it.
+    \begin{itemize}
+      \item \termin{domain functor}, $(S\down T)\To\Aa$, which maps:
+      \begin{itemize}
+        \item objects: $(\alpha,\beta,f)\mapsto\alpha$;
+        \item morphisms: $(g,h)\mapsto g$;
+      \end{itemize}
+      \item \termin{codomain functor}, $(S\down T)\To\Bb$, which maps:
+      \begin{itemize}
+        \item objects: $(\alpha,\beta,f)\mapsto\beta$;
+        \item morphisms: $(g,h)\mapsto h$;
+      \end{itemize}
+    \end{itemize}
+  \end{prop}
+
+  \begin{exam}
+    The category of \textbf{pointed sets} is a comma category $(\bullet\down\Set)$, with $\bullet$ being (a functor selecting) any singleton set, and $\Set$ (the identity functor of) the category of sets.
+    Each object of this category is a set, together with a function selecting some element of the set: the ``\textbf{basepoint}''. Morphisms are functions on sets which map basepoints to basepoints. In a similar fashion one can form the category of \textbf{pointed spaces} $(\bullet\down\Top)$.
+  \end{exam}
+
+  \begin{exam}
+    The category of \textbf{graphs} is $(\Set\down D)$, with $D\colon\Set\To\Set$ the functor taking a set $s$ to $s\times s$.
+    The objects $(a,b,f)$ then consist of two sets and a function; $a$ is an \textbf{indexing set}, $b$ is a set of \textbf{nodes}, and $f\colon a\To (b\times b)$ chooses pairs of elements of $b$ for each input from $a$. That is, $f$ picks out certain edges from the set $b\times b$ of possible edges.
+    A morphism in this category is made up of two functions, one on the indexing set and one on the node set. They must ``agree'' according to the general definition above, meaning that $(g,h)\colon(a,b,f)\To(a',b',f')$ must satisfy $f'\circ g=D(h)\circ f$. In other words, the edge corresponding to a certain element of the indexing set, when translated, must be the same as the edge for the translated index.
+  \end{exam}
+
+  \begin{exam}
+    Colimits in comma categories may be ``inherited''. If $\Aa$ and $\Bb$ are cocomplete, $S\colon\Aa\To\Cc$ is a cocontinuous functor, and $T\colon\Bb\To\Cc$ another functor (not necessarily cocontinuous), then the comma category $(S\down T)$ produced will also be cocomplete.
+
+    If $\Aa$ and $\Bb$ are complete, and both $S\colon\Aa\To\Cc$ and $T\colon\Bb\To\Cc$ are continuous functors, then the comma category $(S\down T)$ is also complete, and the projection functors $(S\down T)\To\Aa$ and $(S\down T)\To\Bb$ are limit preserving.
+  \end{exam}
+
+  \begin{exam}
+    \textbf{Adjunctions}.
+
+    Lawvere showed that the functors $F\colon\Cc\To\Dd$ and $G\colon\Dd\To\Cc$ are adjoint if and only if the comma categories $(F\down \id_{\Dd})$ and $(\id_{\Cc}\down G)$, with $\id_{\Dd}$ and $\id_{\Cc}$ the identity functors on $\Dd$ and $\Cc$ respectively, are isomorphic, and equivalent elements in the comma category can be projected onto the same element of $\Cc\times\Dd$. This allows adjunctions to be described without involving sets, and was in fact the original motivation for introducing comma categories.
+  \end{exam}
+
+  \begin{exam}
+    \textbf{Natural transformations}.
+
+    A natural transformation $\eta\colon S\To T$, with $S,T\colon\Aa\To\Cc$, corresponds to a functor $\Aa\To(S\down T)$ which maps each object $\alpha$ to $(\alpha,\alpha,\eta_{\alpha})$ and maps each morphism $g$ to $(g,g)$.
+    This is a bijective correspondence between natural transformations $S\To T$ and functors $\Aa\To(S\down T)$ which are sections of both forgetful functors from $(S\down T)$.
+  \end{exam}
+
+\newpage\section{Morphisms}
+\subsection{Monomorphisms, Epimorphisms and Zero Morphisms}
+  \begin{defn}
+    A morphism $f$ is called a \termin{monomorphism}, or \termin{monoic}, if for any morphisms
+    $\xymatrix@1{\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot\ar[r]^{f} &\cdot}$, $f\alpha=f\beta$ implies $\alpha=\beta$.
+    Dually, $f$ is called an \termin{epimorphism}, or \termin{epi}, if for any morphisms
+    $\xymatrix@1{\cdot\ar[r]^{f} &\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot}$, $\alpha f=\beta f$ implies $\alpha=\beta$.
+    If $f$ is both a monomorphism and an epimorphism, then we say it is a \termin{bimorphism}.
+  \end{defn}
+  \begin{defn}
+    A morphism $f$ is called a \termin[split monomorphism]{split!monomorphism}, if it has a left inverse, names \termin{retraction}.
+    Dually, a morphism $f$  is called a \termin[split epimorphism]{split!epimorphism}, if it has a right inverse, names \termin{section}.
+    If $f$ is both a split monomorphism and a split epimorphism, then we say it is an \termin{isomorphism}.
+  \end{defn}
+  \begin{rem}
+    It is clear that any split monomorphism must be monoic and any split epimorphism is epi, hence any isomorphism is a bimorphism. However, the converse is not true in general case.
+  \end{rem}
+
+  A bijective morphism may fail to be an isomorphism:
+  \begin{exam}
+    In $\mathbf{Top}$, the map from the half-open interval $[0,1)$ to the unit circle $S^1$ (thought of as a subspace of the complex plane) which sends $x$ to $e^{2¦Ðix}$ is continuous and bijective but not a \emph{\red  homeomorphism}\index{homeomorphism} since the inverse map is not continuous at $1$.
+  \end{exam}
+  \begin{rem}
+    This counterexample also shows why the concept of \emph{subobject} does not correspond subspace in $\mathbf{Top}$.
+  \end{rem}
+
+  An epimorphism may fail to be surjective:
+
+  \begin{exam}
+    In the category of rings, $\mathbf{Ring}$, the inclusion map $\ZZ\hookrightarrow\QQ$ is a non-surjective epimorphism; to see this, note that any ring homomorphism on $\QQ$ is determined entirely by its action on $\ZZ$. A similar argument shows that the natural ring homomorphism from any commutative ring $R$ to any one of its localizations is an epimorphism.
+  \end{exam}
+  \begin{rem}
+    This is also a counterexample shows that a quotient object may not be a quotient.
+  \end{rem}
+
+  \begin{defn}
+    A morphism $f$ is called a \termin[constant morphism]{constant!morphism} (or sometimes \termin[left zero morphism]{left!zero morphism}) if for any morphisms
+    $\xymatrix@1{\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot\ar[r]^{f} &\cdot}$, $f\alpha=f\beta$.
+    Dually, $f$ is called a \termin{coconstant morphism} (or sometimes \termin[right zero morphism]{right!zero morphism}) if for any morphisms
+    $\xymatrix@1{\cdot\ar[r]^{f} &\cdot\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &\cdot}$, $\alpha f=\beta f$.
+     A \termin[zero morphism]{zero!morphism} is one that is both a constant morphism and a coconstant morphism.
+  \end{defn}
+  \begin{defn}
+    A \termin[category with zero morphisms]{category!with zero morphisms} is one where, for every two objects $A$ and $B$ in $\Cc$, there is a fixed morphism $0_{AB} \colon A \To¡ú B$ such that for all objects $X, Y, Z$ in C and all morphisms $f \colon X \To Y, g \colon Y \To Z$, the following diagram commutes:
+      \begin{displaymath}
+        \xymatrix{
+             X\ar[r]^{0_{XY}}\ar[d]_{f}\ar[dr]|{0_{XZ}} & Y\ar[d]^{g} \\
+             Y\ar[r]_{0_{YZ}} & Z                    }
+      \end{displaymath}
+  \end{defn}
+  \begin{rem}
+    The morphisms $0_{XY}$ necessarily are zero morphisms and form a \emph{compatible system} of zero morphisms. If $\Cc$ is a category with zero morphisms, then the collection of $0_{XY}$ is unique.
+  \end{rem}
+  \begin{rem}
+    If a category has zero morphisms, then one can define the notions of \emph{kernel} and \emph{cokernel} for any morphism in that category.
+  \end{rem}
+
+\subsection{Factorization}
+\cite{freyd1972categories}
+  \begin{defn}
+    If a morphism $f\colon X\To Y$ can be written as a composition $f=g\circ h$ with $g\colon Z\To Y$ and $h\colon X\To Z$,
+    then $f$ is said to \termin{factor through} any (and all) of $Z$, $g$, and $h$. We also say $f$ is \emph{\red factorized} as $h$ followed by $g$.
+  \end{defn}
+
+  \begin{defn}
+    A \termin[factorization system]{factorization!system} $(E, M)$ for a category $\Cc$ consists of two classes of morphisms $E$ and $M$ of $\Cc$ such that:
+    \begin{enumerate}
+      \item $E$ and $M$ both contain all isomorphisms of $\Cc$ and are closed under composition.
+      \item Every morphism $f$ of $\Cc$ can be factored as $f=m\circ e$ for some morphisms $e\in E$ and $m\in M$.
+      \item The factorization is \emph{functorial}: if $u$ and $v$ are two morphisms such that $vme=m'e'u$ for some morphisms $e,e'\in E$ and $m,m'\in M$, then there exists a unique morphism $w$ making the following diagram commute:
+          \begin{displaymath}
+            \xymatrix{
+               \ar[r]^{e}\ar[d]_{u} & \ar[r]^{m}\ar@{-->}[d]_{w} & \ar[d]^{v} \\
+               \ar[r]_{e'} & \ar[r]_{m'} &                    }
+          \end{displaymath}
+    \end{enumerate}
+  \end{defn}
+
+  \begin{defn}
+    Two morphisms $e$ and $m$ are said to be \termin[orthogonal]{orthogonal!morphism}, if for every pair of morphisms $u$ and $v$ such that $ve=mu$ there is a unique morphism $w$ such that the diagram
+          \begin{displaymath}
+            \xymatrix{
+               \ar[r]^{e}\ar[d]_{u} & \ar@{-->}[dl]^-{w}\ar[d]^{v} \\
+               \ar[r]_{m} &                     }
+          \end{displaymath}
+    commutes. If so, denote by $e\down m$,
+
+    This notion can be extended to define the orthogonals of sets of morphisms by
+     \begin{equation*}
+       H^{\uparrow}\defeq\left\{ e \mid \forall h\in H, e\down h \right\}
+     \end{equation*}
+     and
+     \begin{equation*}
+       H^{\down}\defeq\left\{ m \mid \forall h\in H, h\down m \right\}
+     \end{equation*}
+    Since in a factorization system $E\cap M$ contains all the isomorphisms, the condition 3. of the definition is equivalent to 3':
+    \begin{equation*}
+      E\subset M^{\uparrow} \qquad M\subset E^{\down}
+    \end{equation*}
+  \end{defn}
+
+  \begin{prop}
+    The pair $(E,M)$ of classes of morphisms of $\Cc$ is a factorization system if and only if it satisfies the following conditions:
+    \begin{enumerate}
+      \item Every morphism $f$ of $\Cc$ can be factored as $f=m\circ e$ for some morphisms $e\in E$ and $m\in M$.
+      \item $E\subset M^{\uparrow}$ and $M\subset E^{\down}$.
+    \end{enumerate}
+  \end{prop}
+
+\subsection{Endomorphisms}
+\cite{balmer2001idempotent}
+  \begin{defn}
+    An \termin{endomorphism} is a morphism whose domain and co-domain coincide. An \termin{automorphism} is a morphism that is both an endomorphism and an isomorphism.
+  \end{defn}
+  \begin{defn}
+    An \termin{idempotent} $e$ is an endomorphism such that $e\circ e=e$.
+    An endomorphism $e$ is said to \termin[split]{split!endomorphism} if it is idempotent, and if there are two morphisms $f,g$ such that $e = g f$ and $\id = f g$.
+  \end{defn}
+  \begin{defn}
+    A category is called \termin[idempotent complete]{idempotent!complete}, if every idempotent splits.
+  \end{defn}
+  \begin{defn}
+    Let $\Cc$ be a category, the \termin{Karoubi envelope} of $\Cc$, sometimes written $\Split(\Cc)$, is the category whose objects are pairs of the form $(A, e)$ where $A$ is an object of $\Cc$ and $e\colon A\To A$ is an idempotent of $\Cc$, and whose morphisms are triples of the form
+    \begin{equation*}
+      (e,f,e')\colon (A,e) \To (A',e')
+    \end{equation*}
+    where $f\colon A\To A'$ is a morphism of $\Cc$ satisfying $e'\circ f=f=f\circ e$ (or equivalently $f=e'\circ f\circ e$).
+
+    Composition in $\Split(\Cc)$ is as in $\Cc$, but the identity morphism on $(A,e)$ in $\Split(\Cc)$ is $(e,e,e)$, rather than the identity on $A$.
+  \end{defn}
+
+  \begin{prop}
+    The Karoubi envelope $\Split(\Cc)$ of $\Cc$ is the \termin[idempotent completion]{idempotent!completion} of $\Cc$, which means that
+    $\Cc$ can be fully faithfully embedded into $\Split(\Cc)$, and the embedding $\imath\colon\Cc\To\Split(\Cc)$ satisfying the following universal property:
+    \begin{quote}
+      For any functor $F\colon\Cc\To\Dd$ with $\Dd$ is idempotent complete, there is a unique functor $F'\colon \Split(\Cc) \To \Dd$ such that the following diagram commutes:
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+                &         \Split(\Cc) \ar[dd]^{F'}     \\
+              \Cc \ar[ur]^-{\imath} \ar[dr]_{F}                 \\
+                &         \Dd                 }
+      \end{displaymath}
+    \end{quote}
+  \end{prop}
+
+\subsection{Initial and Terminal Morphisms}
+  \begin{defn}
+    Suppose that $U\colon\Dd \To \Cc$ is a functor from a category $\Dd$ to a category $\Cc$, and let $X$ be an object of $\Cc$.
+    An \termin[initial morphism]{initial!morphism} from $X$ to $U$
+    is an initial object in the category $(X\down U)$ of morphisms from $X$ to $U$.
+    A \termin[terminal morphism]{terminal!morphism} from $U$ to $X$
+    is a terminal object in the comma category $(U\down X)$ of morphisms from $U$ to $X$.
+  \end{defn}
+  \begin{rem}
+  The term \termin[universal morphism]{universal!morphism} refers either to an initial morphism or a terminal morphism.
+  \end{rem}
+
+  \begin{prop}
+    Given a functor $U$ and an object $X$ as above, there may or may not exist an initial morphism from $X$ to $U$.
+    However, if an initial morphism does exist then it is unique up to a unique isomorphism.
+  \end{prop}
+
+  \begin{prop}
+    Let $U$ be a functor from $\Dd$ to $\Cc$, and let $X$ be an object of $\Cc$.
+    Then the following statements are equivalent:
+    \begin{enumerate}[a.]
+      \item $(A, \phi)$ is an initial morphism from $X$ to $U$;
+      \item $(A, \phi)$ is an initial object of the comma category $(X \down U)$;
+      \item $(A, \phi)$ is a representation of $\Hom_{\Cc}(X, U(-))$.
+    \end{enumerate}
+
+    The dual statements are also equivalent:
+    \begin{enumerate}[a'.]
+      \item $(A, \phi)$ is a terminal morphism from $U$ to $X$;
+      \item $(A, \phi)$ is a terminal object of the comma category $(U \down X)$;
+      \item $(A, \phi)$ is a representation of $\Hom_{\Cc}(U(-), X)$.
+    \end{enumerate}
+  \end{prop}
+
+  Suppose $(A_1, \phi_1)$ is an initial morphism from $X_1$ to $U$ and $(A_2, \phi_2)$ is an initial morphism from $X_2$ to $U$.
+  By the initial property, given any morphism $h\colon X_1 \To X_2$ there exists a unique morphism $g\colon A_1 \To A_2$ such that the following diagram commutes:
+      \begin{displaymath}
+        \xymatrix{
+                X_1\ar[r]^{\phi_1}\ar[d]_{h} & U(A_1)\ar@{-->}[d]^{U(g)} & A_1\ar@{-->}[d]^{g} \\
+                X_2\ar[r]_{\phi_2} & U(A_2) & A_2                 }
+      \end{displaymath}
+
+  If every object $X_i$ of $\Cc$ admits an initial morphism to $U$, then the assignment $X_i\mapsto A_i$ and $h\mapsto g$ defines a functor $V$ from $\Cc$ to $\Dd$. The maps $\phi_i$ then define a natural transformation from $\id_{\Cc}$ to $UV$. The functors $(V, U)$ are then a pair of adjoint functors, with $V$ left-adjoint to $U$ and $U$ right-adjoint to $V$.
+
+  Similar statements apply to the dual situation of terminal morphisms from $U$. If such morphisms exist for every $X$ in $\Cc$ one obtains a functor $V\colon \Cc \To \Dd$ which is right-adjoint to $U$ (so $U$ is left-adjoint to $V$).
+
+  Indeed, all pairs of adjoint functors arise from \emph{universal constructions} in this manner. Let $F$ and $G$ be a pair of adjoint functors with unit $\eta$ and co-unit $\varepsilon$.
+  Then we have a universal morphism for each object in $\Cc$ and $\Dd$:
+  \begin{itemize}
+    \item For each object $X$ in $\Cc$, $(F(X), \eta_X)$ is an initial morphism from $X$ to $G$.
+               That is, for all $f\colon X \To G(Y)$ there exists a unique $g\colon F(X) \To Y$ for which the following diagrams commute.
+    \item For each object $Y$ in $\Dd$, $(G(Y), \varepsilon_Y)$ is a terminal morphism from $F$ to $Y$.
+               That is, for all $g\colon F(X) \To Y$ there exists a unique $f\colon X \To G(Y)$ for which the following diagrams commute.
+  \end{itemize}
+      \begin{displaymath}
+        \xymatrix{
+                X\ar[r]^-{\eta_X}\ar[dr]_{f} & GF(X)\ar@{-->}[d]^{G(g)} & F(X)\ar@{-->}[d]_{F(f)}\ar[dr]^{g} & \\
+                & G(Y) & FG(Y)\ar[r]_-{\varepsilon_Y} & Y               }
+      \end{displaymath}
+
+  \emph{Universal constructions} are more general than adjoint functor pairs: a universal construction is like an optimization problem; it gives rise to an adjoint pair if and only if this problem has a solution for every object of $\Cc$ (equivalently, every object of $\Dd$).
+
+\newpage\section{Functors}
+  \begin{defn}
+    Let $\Cc, \Dd$ be two categories, a \termin{functor} $F\colon\Cc\To\Dd$ is a corresponding from $\ob\Cc$ into $\ob\Dd$ and $\hom\Cc$ into $\hom\Dd$ such that
+    \begin{enumerate}[(i)]
+      \item $F(1_X)=1_{F(X)}$ for every object $X$;
+      \item $F(g\circ f)=F(g)\circ F(f)$ for all morphisms $f\colon A\To B, g\colon B\To C$.
+    \end{enumerate}
+  \end{defn}
+
+  \begin{defn}
+    Let $\Cc, \Dd$ be two categories, a \termin{contravariant functor} is a functor from $\Cc^{\op}$ to $\Dd$.
+  \end{defn}
+  Ordinary functors are also called \termin[covariant functor]{covariant functors} in order to distinguish them from \emph{contravariant} ones.
+
+  \begin{defn}
+    Every functor $F\colon\Cc\To\Dd$ induces the \termin[opposite functor]{opposite!functor} $F^{\op}\colon \Cc^{\op} \To \Dd^{\op}$ maps objects and morphisms identically to $F$.
+  \end{defn}
+
+  \begin{defn}
+    A \termin{bifunctor} is a functor whose domain is a product category.
+  \end{defn}
+
+  \begin{exam}
+    Consider $S_2\To S_3\To S_2$ in $\Grp$, it is not difficult to show that there is no functor $\Grp\To\Ab$ sending each group to its center.
+  \end{exam}
+
+  \begin{exam}
+    The functor $\Cc \To \Dd$ which maps every object of $\Cc$ to a fixed object $X$ in $\Dd$ and every morphism in $\Cc$ to the identity morphism on $X$. Such a functor is called a \termin[constant]{constant!functor} or \termin{selection functor}.
+  \end{exam}
+
+  \begin{exam}
+    The \termin[diagonal functor]{diagonal!functor} is defined as the functor from $\Dd$ to the functor category $[\Cc,\Dd]$ which sends each object in $\Dd$ to the constant functor at that object.
+  \end{exam}
+
+\begin{defn}
+  A Functor $F\colon \mathcal{C}\to\mathcal{D}$ is said to be
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item \termin[faithful]{faithful!functor} (resp. \termin[full]{full!functor}, resp. \termin{ fully faithful}) if for any $X,Y\in\ob\mathcal{C}$, the map $\Hom_{\mathcal{C}}(X,Y)\to\Hom_{\mathcal{D}}(F(X),F(Y))$ is injective (resp. surjective, resp. bijective).
+    \item \termin{essentially surjective} if for each $Y\in\ob\mathcal{D}$, there exists $X\in\ob\mathcal{C}$ and an isomorphism $F(X)\cong Y$.
+    \item \termin{conservative} if any morphism $f\colon X\to Y$ in $\mathcal{C}$ is an isomorphism as soon as $F(f)$ is an isomorphism.
+  \end{enumerate}
+\end{defn}
+\begin{warn}
+  A faithful functor need not be injective on objects or morphisms. That is, two objects $X$ and $X'$ may map to the same object in $\Dd$ (which is why the range of a fully faithful functor is not necessarily equivalent to $\Cc$),
+  and two morphisms $f \colon X\To Y$ and $f' \colon X'\To Y'$ (with different domains/codomains) may map to the same morphism in $\Dd$.
+
+  Likewise, a full functor need not be surjective on objects or morphisms. There may be objects in $\Dd$ not of the form $F(X)$ for some $X$ in $\Cc$. Morphisms between such objects clearly cannot come from morphisms in $\Cc$.
+\end{warn}
+\begin{prop}
+  \begin{enumerate}[1)]
+    \setlength{\itemindent}{2ex}
+    \item Let $F\colon \mathcal{C}\to \mathcal{D}$ be a faithful functor and let $f$ be a morphism in $\mathcal{C}$. Then if $F(f)$ is a monomorphism (resp. an epimorphism), then $f$ is a monomorphism (resp. an epimorphism).
+    \item Moreover, assume that $F$ is fully faithful. Then if $F(f)$ is an isomorphism, then $f$ is an isomorphism. In other words, fully faithful functors are conservative.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+For any $\xymatrix@1{T\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &X\ar[r]^{f} &T}$ in $\mathcal{C}$ such that $f\alpha=f\beta$, then $F(f)F(\alpha)=F(f)F(\beta)$. Since $F(f)$ is injective, $F(\alpha)=F(\beta)$. Since $F$ is faithful, $\alpha=\beta$. Hence $f$ is also a monomorphism. The epimorphism case is similar.
+
+Let $\varphi$ be the inverse morphism of $F(f)\colon F(X)\to F(Y)$, since $F$ is fully faithful, there exist a $g\in\Hom_{\mathcal{C}}(Y,X)$ such that $F(g)=\varphi$, moreover, it is the inverse morphism of $f$.
+\end{proof}
+\begin{cor}
+  A fully faithful functor is necessarily injective on objects up to isomorphism.
+\end{cor}
+
+\subsection{Natural Transformations and Functor categories}
+\begin{defn}
+  Let $F,G$ be two functors from $\Cc$ to $\Dd$. A morphism (or \termin[natural transformation]{natural!transformation}) of functors $\pi\colon F\to G$ is the data for all $X\in\ob\Cc$ of a morphism $\pi(X)\colon F(X)\to G(X)$ such that for all $f\colon X\to Y$ in $\Cc$ , the following diagram commutes:
+ \begin{displaymath}
+      \xymatrix{
+         F(X)\ar[r]^{\pi_X}\ar[d]_{F(f)}&G(X)\ar[d]^{G(f)}\\
+         F(Y)\ar[r]^{\pi_Y}&G(Y)
+      }
+\end{displaymath}
+
+Hence, by considering the family of functors from $\Cc$ to $\Dd$ and the morphisms of such functors, we get a new category, denoted by $\Fct(\Cc,\Dd)$ or simply $[\Cc,\Dd]$, or $\Dd^{\Cc}$.
+\end{defn}
+  \begin{rem}
+    If $\Cc$ and $\Dd$ are both \emph{preadditive} categories, then we can consider the category of all additive functors from $\Cc$ to $\Dd$, denoted by $\Add(\Cc,\Dd)$.
+  \end{rem}
+  \begin{exam}
+    Any ring $R$ can be considered as a one-object preadditive category; the category of left modules over $R$ is the same as the additive functor category $\Add(R,\Ab)$, and the category of right $R-$modules is $\Add(R^{\op},\Ab)$. Because of this example, for any preadditive category $\Cc$, the category $\Add(\Cc,\Ab)$ is sometimes called the ``category of \termin[left modules]{module!over a preadditive category} over $\Cc$'' and $\Add(\Cc^{\op},\Ab)$ is the category of \emph{\red right modules} over $\Cc$.
+  \end{exam}
+
+  Most constructions that can be carried out in $\Dd$ can also be carried out in $[\Cc,\Dd]$ by performing them ``componentwise'', separately for each object in $\Cc$.
+
+  For instance, if any two objects $X$ and $Y$ in $\Dd$ have a product $X\times Y$, then any two functors $F$ and $G$ in $[\Cc,\Dd]$ have a product $F\times G$, defined by $(F\times G)(c) = F(c)\times G(c)$ for every object $c$ in $\Cc$.
+
+  Similarly, if $\eta_c\colon F(c)\To G(c)$ is a natural transformation and each $\eta_c$ has a kernel $K_c$ in the category $\Dd$, then the kernel of $\eta$ in the functor category $[\Cc,\Dd]$ is the functor $K$ with $K(c) = K_c$ for every object $c$ in $\Cc$.
+
+  As a consequence we have the general rule of thumb that the functor category $[\Cc,\Dd]$ shares most of the ``nice'' properties of $\Dd$:
+  \begin{itemize}
+    \item if $\Dd$ is complete (or cocomplete), then so is $[\Cc,\Dd]$;
+    \item if $\Dd$ is an abelian category, then so is $[\Cc,\Dd]$;
+    \item if $\Cc$ is any small category, then the category $[\Cc,\Set]$ of presheaves is a \emph{topos}.
+  \end{itemize}
+  \begin{prop}
+    the categories of directed graphs, $G-$sets and presheaves on a topological space $X$ are all complete and cocomplete topoi, and that the categories of representations of $G$, modules over the ring $R$, and presheaves of abelian groups on a topological space $X$ are all abelian, complete and cocomplete.
+  \end{prop}
+
+\begin{prop}
+  Every natural transformation $\pi\colon F\To G$ defines a function which sends each arrow $f\colon A\To B$ of $\Cc$ to an arrow $\pi_f\colon F(A)\To G(B)$ of $\Dd$ in such a way that
+  \begin{equation*}
+    G(g)\circ\pi_f =\pi_{gf} = \pi_g\circ F(f)
+  \end{equation*}
+  for each composable pair $g,f$.
+  Conversely, every such function $\pi$ comes from a unique natural transformation with $\pi_X=\pi_{1_X}$.
+\end{prop}
+\begin{rem}
+  This gives an arrows only description of a natural transformation.
+\end{rem}
+
+  \begin{defn}
+    An \termin{infranatural transformation} $\eta$ from $F$ to $G$ is simply a family of morphisms $\eta_X\colon F(X) \To G(X)$.
+    Thus a natural transformation is an infranatural transformation for which $\eta_Y \circ F(f) = G(f) \circ \eta_X$ for every morphism $f\colon X\To Y$. The \termin{naturalizer} of $\eta$, $\nat(\eta)$, is the largest subcategory of $\Cc$ containing all the objects of $\Cc$ on which $\eta$ restricts to a natural transformation.
+  \end{defn}
+
+  \begin{defn}
+    If, for every object $X$ in $\Cc$, the morphism $\eta_X$ is an isomorphism in $\Dd$, then $\eta$ is said to be a
+    \termin[natural isomorphism]{natural!isomorphism}.
+    Two functors $F$ and $G$ are said to be \termin{naturally isomorphic} if there exists a natural isomorphism from $F$ to $G$.
+  \end{defn}
+
+  \begin{exam}
+    Statements such as
+    \begin{quote}
+      ``Every group is \emph{naturally isomorphic} to its opposite group''
+    \end{quote}
+    abound in modern mathematics.
+
+    The content of the above statement is:
+    \begin{quote}
+      ``The identity functor $\Id \colon \Grp \To \Grp$ is \emph{naturally isomorphic} to the opposite functor $\op \colon \Grp \To \Grp$.''
+    \end{quote}
+  \end{exam}
+
+  \begin{exam}
+    If $K$ is a field, then for every vector space $V$ over $K$ we have a ``natural'' injective linear map $V \To V^{\ast\ast}$ from the vector space into its double dual. These maps are ``natural'' in the following sense: the double dual operation is a functor, and the maps are the components of a natural transformation from the identity functor to the double dual functor.
+  \end{exam}
+
+  \begin{defn}
+    A particular map between particular objects may be called an \termin{unnatural isomorphism} (or ``this isomorphism is not natural'') if the map cannot be extended to a natural transformation on the entire category.
+  \end{defn}
+  \begin{rem}
+    Some authors distinguish notationally, using $\cong$ for a natural isomorphism and $\approx$ for an unnatural isomorphism, reserving $=$ for equality (usually equality of maps).
+  \end{rem}
+  \begin{exam}
+    In group theory or module theory, a given decomposition of an object into a direct sum is ``not natural'', or rather ``not unique'', as automorphisms exist that do not preserve the direct sum decomposition
+  \end{exam}
+
+    \begin{exam}
+    \textbf{fundamental group of torus}
+
+    As an example of the distinction between the \emph{\red functorial statement} and \emph{\red individual objects}, consider homotopy groups of a product space, specifically the fundamental group of the torus.
+    \begin{quote}
+      The homotopy groups of a product space are \emph{naturally} the product of the homotopy groups of the components,
+      \begin{equation*}
+        \pi_n((X,x_0)\times(Y,y_0))\cong\pi_n(X,x_0)\times\pi_n(Y,y_0)
+      \end{equation*}
+      with the isomorphism given by projection onto the two factors, fundamentally because maps into a product space are exactly products of maps into the components.
+
+      \emph{This is a \red functorial statement.}
+    \end{quote}
+
+    However, given the torus, which is abstractly a product of two circles, and thus has fundamental group isomorphic to $\ZZ^2$,
+    but the splitting $\pi_1(T,t_0)\approx\ZZ\times\ZZ$ is not natural. Note the use of $\approx$, $\cong$, and $=$:
+    \begin{equation*}
+      \pi_1(T,t_0)\approx\pi_1(S^1,x_0)\times\pi_1(S^1,y_0)\cong\ZZ\times\ZZ=\ZZ^2
+    \end{equation*}
+
+    This abstract isomorphism with a product \emph{is \red not natural}, as some isomorphisms of $T$ do not preserve the product:
+    the self-homeomorphism of $T$ (thought of as the quotient space $\RR^2/\ZZ^2$) given by
+    $\begin{pmatrix}
+      \begin{smallmatrix}
+      1 & 1 \\
+      0 & 1 \\
+      \end{smallmatrix}
+    \end{pmatrix}$
+     (geometrically a \emph{Dehn twist} about one of the generating curves) acts as this matrix on $\ZZ^2$ (it's in the general linear group $\GL(\ZZ, 2)$ of invertible integer matrices), which does not preserve the decomposition as a product because it is not diagonal.
+
+     However, if one is given the torus as a product --- equivalently, given a decomposition of the space --- then the splitting of the group follows from the general statement earlier.
+
+     In categorical terms, the relevant category (preserving the structure of a product space) is ``maps of product spaces, namely a pair of maps between the respective components''.
+
+     \emph{\red Naturality is a categorical notion}, and requires being very precise about exactly what data is given --- the torus as a space that happens to be a product (in the category of spaces and continuous maps) is different from the torus presented as a product (in the category of products of two spaces and continuous maps between the respective components).
+    \end{exam}
+
+    \begin{exam}
+    \textbf{dual of a finite-dimensional vector space}
+
+    Every finite-dimensional vector space is isomorphic to its dual space, but this isomorphism relies on an arbitrary choice of isomorphism (for example, via choosing a basis and then taking the isomorphism sending this basis to the corresponding dual basis).
+    There is in general no natural isomorphism between a finite-dimensional vector space and its dual space.
+
+    However, related categories (with additional structure and restrictions on the maps) do have a natural isomorphism.
+
+    In this category (finite-dimensional vector spaces with a \emph{nondegenerate bilinear form}, maps linear transforms that respect the bilinear form), the dual of a map between vector spaces can be identified as a transpose.
+
+    Often for reasons of geometric interest this is specialized to a subcategory, by requiring that the nondegenerate bilinear forms have additional properties, such as being \emph{symmetric} (\emph{orthogonal matrices}), \emph{symmetric} and \emph{positive definite} (\emph{inner product space}), \emph{symmetric sesquilinear} (\emph{Hermitian spaces}), \emph{skew-symmetric} and \emph{totally isotropic} (\emph{symplectic vector space}), etc. --- in all these categories a vector space is naturally identified with its dual, by the nondegenerate bilinear form.
+    \end{exam}
+
+\begin{defn}
+  A functor $F\colon\mathcal{C}\to\mathcal{D}$ is an \termin[equivalence]{equivalence (functor)} of categories if there exists $G\colon\mathcal{D}\to\mathcal{C}$ such that:
+  \begin{align*}
+    G\circ F&\cong\id_{\mathcal{C}}\\
+    F\circ G&\cong\id_{\mathcal{D}}
+  \end{align*}
+  If such a functor exist, say $\mathcal{C}$ and $\mathcal{D}$ are \termin[equivalent]{equivalent!category}, denoted by $\mathcal{C}\simeq\mathcal{D}$.
+\end{defn}
+\begin{rem}
+  If two categories are equivalent, all results and concepts in one of them have their counterparts in the other one. This is why this notion of equivalence of categories plays an important role in Mathematics.
+\end{rem}
+
+The following properties are easy to check
+\begin{thm}
+  The functor $F\colon\mathcal{C}\to\mathcal{D}$ is an equivalence of categories if and only if $F$ is fully faithful and essentially surjective.
+\end{thm}
+
+\begin{prop}
+For any categories $\mathcal{C},\mathcal{D},\mathcal{E}$,
+  \begin{enumerate}[1)]
+    \setlength{\itemindent}{2ex}
+    \item $[\Cc,\Dd]^{\op}\simeq[\Cc^{\op},\Dd^{\op}]$
+    \item $[\Cc\times\Dd,\Ee]\simeq[\Dd,[\Cc,\Ee]]\simeq[\Cc,[\Dd,\Ee]]$
+  \end{enumerate}
+\end{prop}
+
+\subsection{Category of All Categories}
+
+    Given functors and natural transformations:
+      \begin{displaymath}
+        \xymatrix{
+           \Cc \ar@<1.5ex>[r]^{F}="1" \ar@<-1.5ex>[r]_{G}="2" & \Bb \ar@<1.5ex>[r]^{F'}="3" \ar@<-1.5ex>[r]_{G'}="4" & \Aa
+           \ar"1";"2"^{\pi} \ar"3";"4"^{\tau}
+        }
+      \end{displaymath}
+    we first have the composite functors $F'F$ and $G'G$ and a commutative square
+     \begin{displaymath}
+        \xymatrix{
+           F'F(X)\ar[r]^{F'(\pi_X)}\ar[d]_{\tau_{F(X)}} & F'G(X)\ar[d]^{\tau_{G(X)}}\\
+           G'F(X)\ar[r]^{G'(\pi_X)} & G'G(X)
+        }
+    \end{displaymath}
+
+    Now define $(\tau\circ\pi)_X$ to be the diagonal of this square. Then $\tau\circ\pi$ is also a natural transformation. (Which will not be confused with the original composition of natural transformations: first, they are compositions in different categories; second, we will always use different nations. Indeed, we will use $\tau\pi$ to denote the original one.)
+
+    It is easy to check that all functors\footnote{Of course, we need a restriction. For instance, the functors between small categories.} form a category $\Cat$ under this composition (the horizontal composition). Moreover, for any functor $F\colon\Cc\To\Dd$, the identity at $F$ in $\Cat$ coincide with in $[\Cc,\Dd]$.
+
+    Apart from this, For any functors and natural transformations:
+      \begin{displaymath}
+        \xymatrix{
+           \Cc \ar@<4ex>[r]^{}="1" \ar[r]^{}="3"_{}="2" \ar@<-4ex>[r]_{}="4"
+           & \Bb \ar@<4ex>[r]^{}="5" \ar[r]^{}="7"_{}="6" \ar@<-4ex>[r]_{}="8" & \Aa
+           \ar"1";"2"^{\pi} \ar"3";"4"^{\tau} \ar"5";"6"^{\pi'} \ar"7";"8"^{\tau'}
+        }
+      \end{displaymath}
+    there is a identity (\termin{interchange law}):
+    \begin{equation*}
+      (\tau'\pi')\circ(\tau\pi) = (\tau'\circ\tau)(\pi'\circ\pi)
+    \end{equation*}
+
+    Conclusively, we have
+    \begin{thm}
+      $\Cat$ has two compositions satisfying the interchange law and share the same identities.
+    \end{thm}
+
+    \begin{cor}
+      The horizontal composition $\circ$ is a functor
+      \begin{equation*}
+        \circ\colon \Aa^{\Bb}\times\Bb^{\Cc}\To\Aa^{\Cc}
+      \end{equation*}
+    \end{cor}
+
+    More general,  we define \termin{double category} to be a category with two compositions satisfying interchange law. Further, a \termin{$2-$category} is a double category which the two compositions share the same identities.
+
+    \begin{exam}
+      Let $G$  be a topological group with identity element $e$, while $\sigma,\sigma',\tau,\tau'$ are continuous loops in $G$ at $e$.
+      Define $\tau\circ\sigma$ to be the path $\sigma$ followed by the path $\tau$.
+      Define $\tau\sigma$ to be the pointwise product of $\tau$ and $\sigma$.
+      Then they form a $2-$category.
+    \end{exam}
+
+    \begin{thm}[Hilton-Eckmann]
+      Let $S$ be a set with two binary operations
+      \begin{equation*}
+        \cdot\colon S\times S\To S \qquad   \circ\colon S\times S\To S
+      \end{equation*}
+      which both have the same unit element $e$ and satisfying the interchange law. Then $\cdot$ and $\circ$ are equal, and each is commutative.
+    \end{thm}
+    \begin{cor}
+      The fundamental group of a topological group is abelian.
+    \end{cor}
+
+    \begin{prop}
+      The functor category $\Dd^{\Cc}=[\Cc,\Dd]$ is itself a bijective $\Cat^{\op}\times\Cat\To\Cat$. The arrow function sends a pair of functors $F\colon\Dd\To\Dd'$ and $G\colon\Cc'\To\Cc$ to the functor
+      \begin{equation*}
+        F^G\colon \Dd^{\Cc} \To \Dd'^{\Cc'}
+      \end{equation*}
+      which defined on objects $S\in\Dd^{\Cc}$ as $F^G(S)=F\circ S\circ G$ and on arrows $\tau\colon S\To T$ in $\Dd^{\Cc}$ as $F^G(\tau)=F\circ\tau\circ G$.
+      \begin{displaymath}
+        \xymatrix{
+           \Cc' \ar[r]^{G} & \Cc \ar@<1.5ex>[r]^{S}="3" \ar@<-1.5ex>[r]_{T}="4"
+           & \Dd \ar[r]^{F} & \Dd'
+           \ar"3";"4"^{\tau}
+        }
+      \end{displaymath}
+    \end{prop}
+
+    \begin{prop}\label{product and power}
+      For categories $\Aa,\Bb,\Cc$ establish natural isomorphisms:
+      \begin{equation*}
+        (\Aa\times\Bb)^{\Cc}\simeq\Aa^{\Cc}\times\Bb^{\Cc}  \qquad  \Cc^{\Aa\times\Bb}\simeq(\Cc^{\Bb})^{\Aa}\simeq(\Cc^{\Aa})^{\Bb}
+      \end{equation*}
+    \end{prop}
+
+\subsection{Yoneda Lemma}
+\begin{defn}
+  For a category $\mathcal{C}$, one can define two categories:
+  \begin{align*}
+    \dual{\Cc} & \defeq [\Cc^{\op},\mathbf{Set}] \\
+    \codual{\Cc} & \defeq [\Cc,\mathbf{Set}]^{\op}
+  \end{align*}
+  and two functors:
+  \begin{center}
+  \parbox{0.40\linewidth}{\longmapdes{\mathcal{M}^{*}}{\mathcal{C}}{\dual{\mathcal{C}}}{X}{\mathcal{M}^{X}}}  \parbox{0.40\linewidth}{\longmapdes{\mathcal{M}_{*}}{\mathcal{C}}{\codual{\mathcal{C}}}{X}{\mathcal{M}_{X}}}
+  \end{center}
+  where $\mathbf{Set}$ denoted the category of sets, $\mathcal{M}^X$ denoted the functor from $\mathcal{C}$ to $\mathbf{Set}$ which maps $Y\in\ob\mathcal{C}$ to the set $\Hom(Y,X)$, and $\mathcal{M}_X$ is similar.
+\end{defn}
+\begin{thm}[Yoneda Lemma]\index{Yoneda!Lemma}
+  For $F\in\ob\dual{\mathcal{C}}$ and $X\in\ob\mathcal{C}$, there is an isomorphism
+  \begin{equation*}
+    \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)\cong F(X)
+  \end{equation*}
+  which, moreover, is natural in both $F$ and $X$.
+\end{thm}
+\begin{proof}
+  For any $\alpha\in\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)$, let $\Phi(\alpha)$ be $\alpha_X(\id_X)$. Which defined a map to $F(X)$. Conversely, for any $a\in F(X)$, let $\Psi(a)$ be a natural transformation such that for any $Y\in\ob\mathcal{C}$ and morphism $f\colon Y\to X$, $\Psi(a)_Y(f)=F(f)(a)$.
+
+  To show that $\Psi(a)$ is natural, consider the following diagram for each $f\colon Y\to X$
+ \begin{displaymath}
+      \xymatrix{
+         \mathcal{M}^X(X)\ar[r]^-{\Psi(a)_X}\ar[d]_{\mathcal{M}^X(f)}&F(X)\ar[d]^{F(f)}\\
+         \mathcal{M}^X(Y)\ar[r]^-{\Psi(a)_Y}&F(Y)
+      }
+\end{displaymath}
+  Let$g\in\mathcal{M}^X(X)$, then
+  \begin{align*}
+    F(f)\Psi(a)_X(g) &=F(f)F(g)(a) \\
+    &=F(gf)(a) \\
+    &=\Psi(a)_Y(gf) \\
+    &=\Psi(a)_Y(\mathcal{M}^X(f)(g))
+  \end{align*}
+  Hence the diagram commutes and $\Psi(a)$ is natural.
+
+  For each $\alpha\in\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)$, consider the commutative diagram below
+ \begin{displaymath}
+      \xymatrix{
+         \mathcal{M}^X(X)\ar[r]^-{\alpha_X}\ar[d]_{\mathcal{M}^X(f)}&F(X)\ar[d]^{F(f)}\\
+         \mathcal{M}^X(Y)\ar[r]^-{\alpha_Y}&F(Y)
+      }
+\end{displaymath}
+  It tells us that
+  \begin{align*}
+    \Psi(\Phi(\alpha))_Y(f) &=F(f)(\Phi(\alpha)) \\
+    &=F(f)(\alpha_X(\id_X)) \\
+    &=\alpha_Y(\mathcal{M}^X(f)(\id_X)) \\
+    &=\alpha_Y(f)
+  \end{align*}
+  Thus $\Psi(\Phi(\alpha))=\alpha$. Hence $\Psi\circ\Phi=\id_{\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)}$.
+  \begin{align*}
+    \Phi(\Psi(a))&=\Psi(a)_X(\id_X) \\
+    &=F(\id_X)(a) \\
+    &=\id_{F(X)}(a)=a
+  \end{align*}
+  Hence $\Phi\circ\Psi=\id_{F(X)}$. Then, $\Phi$ is isomorphism.
+
+  To show this isomorphism is natural in $F$, consider the diagram below for any natural transformation $\pi\colon F\to G$
+   \begin{displaymath}
+      \xymatrix{
+         \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)\ar[r]^-{\Phi}\ar[d]_{\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},\pi)}&F(X)\ar[d]^{\pi_X}\\
+         \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},G)\ar[r]^-{\Phi}&G(X)
+      }
+  \end{displaymath}
+  For any $\alpha\in\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)$, we have
+  \begin{align*}
+    \pi_X\Phi(\alpha)&=\pi_X\alpha_X(\id_X) \\
+    &=(\pi\alpha)_X(\id_X) \\
+    &=\Phi(\pi\alpha) \\
+    &=\Phi\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},\pi)(\alpha)
+  \end{align*}
+  Thus the diagram commutes and $\Phi$ is natural in $F$.
+
+  Similar, for each $f\colon Y\to X$, consider the diagram below
+  \begin{displaymath}
+      \xymatrix{
+         \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)\ar[r]^-{\Phi}\ar[d]_{\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{f},F)}&F(X)\ar[d]^{F(f)}\\
+         \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{Y},F)\ar[r]^-{\Phi}&F(Y)
+      }
+  \end{displaymath}
+  For any $\alpha\in\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},F)$, we have
+  \begin{align*}
+    F(f)\Phi(\alpha)&=F(f)\alpha_X(\id_X) \\
+    &=\alpha_Y\mathcal{M}^{X}(f)(\id_X) \\
+    &=\alpha_Y(\id_Xf) \\
+    &=\alpha_Y(f)
+  \end{align*}
+  On the other hand
+  \begin{align*}
+    \Phi\Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{f},F)(\alpha)&=\Phi(\alpha\mathcal{M}^{f}) \\
+    &=(\alpha\mathcal{M}^{f})_Y(\id_Y) \\
+    &=\alpha_Y\mathcal{M}^{f}_Y(\id_Y) \\
+    &=\alpha_Y(f\id_Y) \\
+    &=\alpha_Y(f)
+  \end{align*}
+  Thus the diagram commutes and $\Phi$ is natural in $X$.
+\end{proof}
+\begin{cor}
+  The functor $\mathcal{M}^{*}$ is fully faithful.
+\end{cor}
+\begin{proof}
+  For any $X,Y\in\ob\mathcal{C}$, we have
+ \begin{align*}
+   \Hom_{\dual{\mathcal{C}}}(\mathcal{M}^{X},\mathcal{M}^{Y})&\cong \mathcal{M}^{Y}(X)\\
+   &= \Hom_{\mathcal{C}}(X,Y)
+ \end{align*}
+\end{proof}
+\begin{rem}
+One calls $\mathcal{M}^{*}$ the \termin[Yoneda embedding]{Yoneda!embedding}, sometimes denoted by $Y_{\Cc}$. Hence, one may consider $\mathcal{C}$ as a full subcategory of $\dual{\mathcal{C}}$. In particular, for $X\in\ob\mathcal{C}$, $\mathcal{M}^{X}$ determines $X$ up to unique isomorphism, that is, an isomorphism $\mathcal{M}^{X}\cong\mathcal{M}^{Y}$ determines a unique isomorphism $X\cong Y$.
+\end{rem}
+  \begin{rem}
+     Some authors define an \termin{embedding} to be a fully faithful functor. Such a functor is necessarily injective on objects up-to-isomorphism. For instance, the Yoneda embedding is an embedding in this sense.
+  \end{rem}
+\begin{exam}
+  If $\mathcal{C}$ has products and coproducts, then there is a canonical isomorphism
+  \begin{equation*}
+    (A\times B)+(A\times C)\cong A\times(B+C).
+  \end{equation*}
+  To prove this, by the remark above, it is enough to prove
+  \begin{equation*}
+    \Hom(X,(A\times B)+(A\times C))\cong\Hom(X,A\times(B+C))
+  \end{equation*}
+  for each $X\in\ob\mathcal{C}$ and this isomorphism is natural in $X$. Which is easy to check.
+\end{exam}
+\begin{cor}
+  Let $\mathcal{C}$ be a category and let $f\colon X\to Y$ be a morphism in $\mathcal{C}$.
+  \begin{enumerate}[1)]
+    \setlength{\itemindent}{2ex}
+    \item Assume that for any $Z\in\mathcal{C}$, the map $\Hom_{\mathcal{C}}(Z,X)\markar{f\circ}\Hom_{\mathcal{C}}(Z,Y)$ is bijective. Then $f$ is an isomorphism.
+    \item Assume that for any $Z\in\mathcal{C}$, the map $\Hom_{\mathcal{C}}(X,Z)\markar{\circ f}\Hom_{\mathcal{C}}(Y,Z)$ is bijective. Then $f$ is an isomorphism.
+  \end{enumerate}
+\end{cor}
+
+  \begin{rem}
+    If $\Cc$ is a preadditive category, then the Yoneda's lemma yields a full embedding of $\Cc$ into the functor category $\Add(\Cc^{\op},\Ab)$.
+    So $\Cc$ naturally sits inside an abelian category.
+  \end{rem}
+
+\subsection{Representable Functors}
+\begin{defn}
+  One says that a functor $F\colon\op{\mathcal{C}}\to\mathbf{Set}$ is \emph{\red  representable}\index{representable functor} if there exists $X\in\ob\mathcal{C}$ such that $F(Y)\cong\Hom_{\mathcal{C}}(Y,X)$ functorially in $Y\in\mathcal{C}$. In other words, $F\cong\mathcal{M}^X$ in $\dual{\mathcal{C}}$. Such an object $X$ is called a \emph{\red  representative}\index{representative} of $F$. Similarly, a functor $G\colon \mathcal{C}\to\mathbf{Set}$ is \emph{\red  representable} if there exists $X\in\ob\mathcal{C}$ such that $G(Y)\cong\Hom_{\mathcal{C}}(X,Y)$ functorially in $Y\in\mathcal{C}$.
+\end{defn}
+\begin{rem}
+  It is important to notice that the isomorphisms above determine $X$ up to unique isomorphism. More precisely, given two isomorphisms $F\markar{\cong}\mathcal{M}^X$ and $F\markar{\cong}\mathcal{M}^{X'}$ there exists a unique isomorphism $\theta:X\markar{\cong}X'$ making the following diagram commutative:
+ \begin{displaymath}
+      \xymatrix{
+         &F\ar[ld]_{\cong}\ar[rd]^{\cong}&\\
+         \mathcal{M}^X\ar[rr]^{\mathcal{M}^{*}(\theta)}_{\cong}&&\mathcal{M}^{X'}
+      }
+\end{displaymath}
+\end{rem}
+
+  \begin{defn}
+    Let $\Vv$ be a category. A $\Vv-$valued presheaf $\Fff$ on a category $\Cc$ is a functor $\Fff\colon\Cc^{\op}\To\Vv$.
+     Often presheaf is defined to be a $\Set-$valued presheaf.
+    A morphism of presheaves is defined to be a natural transformation of functors.
+    This makes the collection of all presheaves into a category, often written $\widehat{\Cc}$.
+    A functor into $\widehat{\Cc}$ is sometimes called a \termin{profunctor}.
+  \end{defn}
+  \begin{prop}
+    A locally small category $\Cc$ embeds fully and faithfully into the category $\widehat{\Cc}$ of $\Set-$valued presheaves via the Yoneda embedding $Y_{\Cc}$ which to every object $A$ of $\Cc$ associates the hom-set $\Hom_{\Cc}(-,A)$.
+  \end{prop}
+  \begin{prop}
+    The presheaf category $\widehat{\Cc}$ is (up to equivalence of categories) the free colimit completion of the category $\Cc$.
+  \end{prop}
+
+\newpage\section{Objects}
+\subsection{Initial and Terminal Objects}
+\begin{defn}
+  Let $\Cc$ be a category. An \termin[initial object]{initial!object} of $\Cc$ is an object $I$ in $\Cc$ such that for every object $X$ in $\Cc$, there exists precisely one morphism $I\to X$. Dually, an object $T$ is \termin[terminal object]{terminal!object} if for every object $X$ in $\Cc$, there exists a single morphism $X\to T$. If an object is both initial and terminal, it is called a \termin[zero object]{zero!object} or \termin{null object}.
+\end{defn}
+\begin{rem}
+  It is easy to see that the initial object and terminal object are unique up to isomorphism. Such universal properties will be detail in the limit theory later.
+\end{rem}
+  \begin{rem}
+    If $\Cc$ has a zero object $0$, then given two objects $X$ and $Y$ in $\Cc$, there are canonical morphisms $f \colon 0 \To X$ and $g \colon Y \To 0$.
+    Then, $f\circ g$ is a zero morphism in $\Hom_{\Cc}(Y, X)$. Thus, every category with a zero object is also a category with zero morphisms given by the composition $0_{XY} \colon X \To 0 \To Y$.
+  \end{rem}
+
+  Not every category has terminal objects, for example:
+  \begin{exam}
+    The category of infinite groups do not have a terminal object: given any infinite group $G$ there are infinitely many morphisms $\ZZ\to G$, so $G$ cannot be terminal.
+  \end{exam}
+
+\subsection{Subobjects and Quotient Objects}
+\begin{defn}
+  Let $A,B\in$ be objects in $\mathcal{C}$. If there exist a monomorphism $f\colon A\to B$, then we call $(A,f)$ a \emph{\red  subobject}\index{subobject} of $B$. If there exist an epimorphism $f\colon B\to A$, then we call $(A,f)$ a \emph{\red  quotient object}\index{quotient object} of $B$.
+\end{defn}
+\begin{warn}
+  Notice that the notation of subobject and quotient object may not be suitable abstract of  sub- and quotient in usual sense. For example, Consider $\mathbf{Top}$, the subobjects of an object are not just the subspaces, this concept mixes others. The same story happened in quotient objects.
+\end{warn}
+
+\begin{exam}
+  In $\mathbf{Top}$, every epimorphism is surjective. However, a quotient object may still not be a quotient space. In fact, for every topological space, the identity map from itself to the trivial topological space on the same underlying set is epimorphism.
+\end{exam}
+
+\begin{defn}
+  An \emph{\red  extremal monomorphism}\index{extremal monomorphism} is a monomorphism that cannot be nontrivially factored through an epimorphism. In another word, if $m=g\circ e$ with $e$ an epimorphism, then $e$ is an isomorphism. A subobject composed by an object with an extremal monomorphism is called an \emph{\red  extremal subobject}.
+\end{defn}
+\begin{exam}
+  The extremal subobject in $\mathbf{Top}$ is just the subspace with its inclusion map.
+\end{exam}
+\begin{rem}
+  Notice that, in category theory, when we use the word ``is'', is actually under the meaning of ``up to isomorphism''. However, a bijective morphism may not be isomorphism. Which makes lots trouble, especially in epi- case: the concept of quotient object in the category of rings and topological spaces totally lose shape. Even consider special type of quotient objects like extremal ones may not work. The epimorphisms may be very mysterious.
+\end{rem}
+\begin{rem}
+  Given two subobjects $(A,f),(A',f')$ of $B$, the morphism $g$ from $(A,f)$ to $(A',f')$ is the morphism $g$ (in fact, it is unique) in $\mathcal{C}$ such that the following diagram commutes:
+  \begin{displaymath}
+      \xymatrix{
+         A\ar[rd]_{f}\ar[rr]^{g}&&A'\ar[ld]^{f'}\\
+         &B&
+      }
+  \end{displaymath}
+  Thus we get a category $\Sub_{\mathcal{C}}(B)$. Similar, we get $\Quot_{\mathcal{C}}(B)$.
+\end{rem}
+\subsection{Free Objects and Generators}
+\begin{defn}
+  A \termin{concrete category} $(\mathcal{C},U)$ is a category $\mathcal{C}$ together with a faithful functor $U\colon\mathcal{C}\to\mathbf{Set}$, named
+  \termin{forgetful functor}.
+  A category $\mathcal{C}$ is called \termin{concretizable} if there exists such a forgetful functor.
+\end{defn}
+Unlike the literal meaning, a concrete category may be very abstract. In fact, we have
+\begin{exam}
+ Let $\mathcal{C}$ be any small category, then there exists a faithful functor
+ \mapdes{P\colon\dual{\mathcal{C}}}{\mathbf{Set}}{X}{\coprod_{c \in \mathrm{ob}C} X(c)}
+ By composing this with the Yoneda embedding $\mathcal{M}^{*}\colon\mathcal{C}\to\dual{\mathcal{C}}$, one obtains a faithful functor $\mathcal{C}\to\mathbf{Set}$.
+\end{exam}
+Not every category, whose objects are based on sets, are concretizable. For example
+\begin{exam}
+ The homotopy category of topological spaces $\mathbf{hTop}$, which has same objects as $\mathbf{Top}$ but its morphisms are homotopy classes of continuous functions, is an example of a category that is not concretizable. The fact that there does not exist any faithful functor from $\mathbf{hTop}$ to $\mathbf{Set}$ was first proven by Peter Freyd, see \cite{Freyd70homotopyis}. In the same article, Freyd cites an earlier result that the category of ``small categories and natural equivalence-classes of functors'' also fails to be concretizable.
+\end{exam}
+A category $\mathcal{C}$ may admit several faithful functors into $\mathbf{Set}$. Hence there may be several concrete categories $(\mathcal{C},U)$ all corresponding to the same category $\mathcal{C}$.
+\begin{exam}
+  For technical reasons, the category $\mathbf{Ban}_1$ of Banach spaces and linear contractions is often equipped not with the ``obvious'' forgetful functor but the functor $U_1\colon \mathbf{Ban}_1\to\mathbf{Set}$ which maps a Banach space to its (closed) unit ball.
+\end{exam}
+Notice that, the forgetful functor may map different objects to the same set and, if this occurs, it will also map different morphisms to the same function, which is not contradictory to faithful.
+\begin{exam}
+  A set $X$ can be equipped different topologies, hence become different objects in $\mathbf{Top}$, and their identity maps are different morphisms. However, the usual forgetful functor maps them to the same set $X$ and their identity maps to one $\id_X$.
+\end{exam}
+\begin{defn}
+  A left adjoint functor $F$ of a forgetful functor $U$ is called the \termin[free functor]{free!functor}. Let $S$ be a set, then $F(S)$ is called the \termin[free object]{free!object} generated by $S$.
+\end{defn}
+\begin{rem}
+  Since $F$ is the adjoint functor of $U$, there must be a natural transformation $\eta\colon\id_{\mathbf{Set}}\to U\circ F$. More explicitly, $F$ is, up to isomorphisms in $\mathcal{C}$, characterized by the following universal property:
+\begin{quote}
+Whenever $T\in\ob\mathcal{C}$, and $f\colon S\to U(T)$ is a function, then there is a unique $\mathcal{C}-$morphism $g\colon F(S)\to T$ such that $U(g)\circ\eta(S)=f$.
+\end{quote}
+\end{rem}
+Since the last section of Chapter I of Lang's textbook has discussed the free functor of $\mathbf{Grp}$ in detail, we will not repeat them here.
+
+A related but different concept is the generator
+\begin{defn}
+  A \termin[generator]{generator!of category} (or \termin{separator}) of a category $\mathcal{C}$ is an object $G$, such that for any two different morphisms $f,g\colon X\to Y$, there exist one morphism $h\colon G\to H$ such that $f\circ h\neq g\circ h$.
+\end{defn}
+\begin{exam}
+  $\ZZ$ is a generator in $\mathbf{Ab}$. Similarly, the one-point set is a generator for $\mathbf{Set}$.
+\end{exam}
+\newpage\section{Limit Theory}
+\subsection{Cones and Limits}
+\begin{defn}
+  Let $\Jj$ and $\Cc$ be categories. A \termin{diagram of type $\Jj$} or a \termin{$\Jj-$diagram} in $\Cc$ is a functor $D\colon \Jj\to \Cc$.
+  The category $\Jj$ is called the \termin{index category} or the \termin{scheme} of the diagram $D$.
+  For $j$ in the index category, we will write $D(j)$ in the form $D_j$.
+
+  A \termin{cone} to a diagram $D$ consists of an object $C$ in $\Cc$ and a family of arrows in $\Cc$,
+  \begin{equation*}
+    c_j\colon C\longrightarrow D_j, \forall j\in\ob\mathcal{J}
+  \end{equation*}
+  such that for each arrow $\alpha\colon i\to j$ in $\Jj$, the following triangle commutes.
+  \begin{displaymath}
+      \xymatrix{
+         &C\ar[ld]_{c_i}\ar[rd]^{c_j}&\\
+         D_i\ar[rr]^{D_{\alpha}}&&D_j
+      }
+  \end{displaymath}
+
+  A morphism of cones
+  \begin{equation*}
+    \vartheta\colon (C,c_j)\longrightarrow (C',c'_j)
+  \end{equation*}
+  is an arrow $\vartheta$ in $\Cc$, making each triangle
+  \begin{displaymath}
+      \xymatrix{
+         C\ar[rd]_{c_j}\ar[rr]^{\vartheta}&&C'\ar[ld]^{c'_j}\\
+         &D_j&
+      }
+  \end{displaymath}
+  commute.
+
+  Finally, cones to $D$ with morphisms between them form a category $\mathbf{Cone}(D)$ (or denote $\Delta\downarrow D$).
+\end{defn}
+\begin{defn}
+  A \termin{limit} for a diagram $D\colon \mathcal{J}\to \mathcal{C}$ is a terminal object in $\mathbf{Cone}(D)$. In particular, a finite limit is a limit for a diagram on a finite index category $\mathcal{J}$.
+\end{defn}
+\begin{rem}
+One often denote a limit in the form
+\begin{equation*}
+  p_i\colon\mathop{\underleftarrow{\lim}}\limits_{j}D_j \longrightarrow D_i
+\end{equation*}
+When $\{p_i\}$ are obvious, one may simply call the object as the limit.
+\end{rem}
+\begin{exam}
+  Let $\mathbf{0}$ be the empty category, then in any category $\mathcal{C}$, there is only one diagram of type $\mathbf{0}$: the empty one. A cone to the empty diagram is essentially just an object of
+   $\mathcal{C}$. The limit of the empty diagram is just the \emph{\red terminal} object in $\mathcal{C}$.
+\end{exam}
+\begin{exam}
+  Let $\mathcal{C}$ be a small category, $\id_{\mathcal{C}}\colon\mathcal{C}\to\mathcal{C}$ is the identity functor. If $\mathcal{C}$ has initial object $I$, then $I$ is the limit of $\id_{\mathcal{C}}$. Conversely, if $\{p_B\colon A\to B\mid B\in\ob\mathcal{C}\}$ is the limit of $\id_{\mathcal{C}}$, then its easy to see that it is the \emph{\red initial} object in $\mathcal{C}$.
+\end{exam}
+\begin{exam}
+  Take $\mathcal{J}=\{1,2\}$ the discrete category with two objects and no nonidentity arrows. A diagram $D\colon\mathcal{J}\to\mathcal{C}$ hence is a pair of objects $D_1, D_2\in\mathcal{C}$. A cone to $D$ is an object $C$ equipped with arrows
+  \begin{displaymath}
+      \xymatrix{
+         D_1&C\ar[l]_-{c_1}\ar[r]^-{c_2}&D_2
+      }
+  \end{displaymath}
+  The limit of $D$ is just the \emph{\red  product} of $D_1$ and $D_2$ in $\mathcal{C}$.
+\end{exam}
+\begin{exam}\label{limit.2}
+  Take $\mathcal{J}$ to be the following category:
+  \begin{displaymath}
+      \xymatrix{
+         1\ar@<0.5ex>[r]^{\alpha}\ar@<-0.5ex>[r]_{\beta} &2
+      }
+  \end{displaymath}
+  Hence a diagram $D$ of type $\mathcal{J}$ looks like
+  \begin{displaymath}
+      \xymatrix{
+         D_1\ar@<0.5ex>[r]^{D_{\alpha}}\ar@<-0.5ex>[r]_{D_{\beta}} &D_2
+      }
+  \end{displaymath}
+  The limit of $D$ is the \emph{\red  equalizer} of $D_{\alpha},D_{\beta}$.
+\end{exam}
+\begin{exam}
+  Let $(I,\leqslant)$ be a \termin{filtered partially ordered set} (FPOS), which means that for each two elements $i,j$, there exist an element $k\in I$ such that $k\leqslant i,k\leqslant j$. Treat $I$ as a category, in any category $\mathcal{C}$, a diagram $D\colon I\to\mathcal{C}$ satisfy that for any $i\leqslant j\leqslant k$ in $I$, $D_{j\leqslant k}D_{i\leqslant j}=D_{i\leqslant k}$ is called an \termin[inverse system]{inverse!system} and its limit is called an \termin[inverse limit]{inverse!limit}, or \termin[projective limit]{projective!limit}.
+\end{exam}
+The limit of a diagram sometimes works like monomorphism, although each arrow in the cone may not be injective.
+\begin{prop}\label{collective inj}
+  Let $\{p_j\colon A\to D_j\mid j\in\ob\mathcal{J}\}$ be the limit of diagram $D\colon\mathcal{J}\to\mathcal{C}$. For any $f,g\colon B\to A$, if $p_jf=p_jg, \forall j\in\ob\mathcal{J}$, then $f=g$.
+\end{prop}
+\begin{exam}
+  Let $\{(A_i,f_i)\mid i\in I\}$ be a family of subobject of $A$ in $\mathcal{C}$. Treat $\{f_i\colon A_i\to A\mid i\in I\}$ as a subcategory of $\mathcal{C}$. hence its inclusion functor is a diagram in $\mathcal{C}$. If such a diagram has limit $C$, then then arrow from $C$ to $A$ can be determined by each arrow $\alpha_i$ from $C$ to $A_i$. Use the proposition above, it is easy to check that $f_i\alpha_i\colon C\to A$ is injective, hence $(C,f_i\alpha_i)$ is also a subobject of $A$, called the \termin[intersection]{intersection!of subobjects} of $\{(A_i,f_i)\mid i\in I\}$.
+\end{exam}
+\subsection{Co-cones and Colimits}
+Dually, we have corresponding concepts
+\begin{defn}
+  A \termin{co-cone} to a diagram $D$ consists of an object $C$ in $\mathcal{C}$ and a family of arrows in $\mathcal{C}$,
+  \begin{equation*}
+    c_j\colon D_j\longrightarrow C, \forall j\in\ob\mathcal{J}
+  \end{equation*}
+  such that for each arrow $\alpha\colon i\to j$ in $\mathcal{J}$, the following triangle commutes.
+  \begin{displaymath}
+      \xymatrix{
+         D_i\ar[rr]^{D_{\alpha}}\ar[rd]_{c_i}&&D_j\ar[ld]^{c_j} \\
+         &C&
+      }
+  \end{displaymath}
+
+  A morphism of co-cones
+  \begin{equation*}
+    \vartheta\colon (C,c_j)\longrightarrow (C',c'_j)
+  \end{equation*}
+  is an arrow $\vartheta$ in $\mathcal{C}$, making each triangle
+  \begin{displaymath}
+      \xymatrix{
+         &D_j\ar[ld]_{c_j}\ar[rd]^{c'_j}& \\
+         C\ar[rr]^{\vartheta}&&C'
+      }
+  \end{displaymath}
+  commute.
+
+  Finally, co-cones to $D$ with morphisms between them form a category $\mathbf{Cocone}(D)$ (or denote $D\downarrow\Delta$).
+\end{defn}
+\begin{defn}
+  A \termin{colimit} for a diagram $D\colon \mathcal{J}\to \mathcal{C}$ is a initial object in $\mathbf{Cocone}(D)$. In particular, a finite colimit is a colimit for a diagram on a finite index category $\mathcal{J}$.
+\end{defn}
+\begin{rem}
+One often denote a colimit in the form
+\begin{equation*}
+  k_i\colon\mathop{\underrightarrow{\lim}}\limits_{j}D_j \longleftarrow D_i
+\end{equation*}
+When $\{k_i\}$ are obvious, one may simply call the object as the colimit.
+\end{rem}
+\begin{exam}
+  Let $\mathcal{C}$ be a small category, the colimit of the identity functor is just the \emph{\red terminal} object in $\mathcal{C}$.
+\end{exam}
+\begin{exam}
+  Take $\mathcal{J}=\{1,2\}$ the discrete category with two objects and no nonidentity arrows. A diagram $D\colon\mathcal{J}\to\mathcal{C}$ hence is a pair of objects $D_1, D_2\in\mathcal{C}$. A co-cone to $D$ is an object $C$ equipped with arrows
+  \begin{displaymath}
+      \xymatrix{
+         D_1\ar[r]^-{c_1}&C&D_2\ar[l]_-{c_2}
+      }
+  \end{displaymath}
+  The colimit of $D$ is just the \emph{\red  coproduct} of $D_1$ and $D_2$ in $\mathcal{C}$.
+\end{exam}
+\begin{exam}
+  Take noations as in \ref{limit.2}, the colimit of $D$ is the \emph{\red  coequalizer} of $D_{\alpha},D_{\beta}$.
+\end{exam}
+\begin{exam}
+  Let $(I,\leqslant)$ be a \termin{directed partially ordered set} (DPOS), which means that for each two elements $i,j$, there exist an element $k\in I$ such that $i\leqslant k,j\leqslant k$. Treat $I$ as a category, in any category $\mathcal{C}$, a diagram $D\colon I\to\mathcal{C}$ satisfy that for any $i\leqslant j\leqslant k$ in $I$, $D_{j\leqslant k}D_{i\leqslant j}=D_{i\leqslant k}$ is called an \termin[direct system]{direct!system} and its colimit is called an \termin[direct limit]{direct!limit}, or \termin{inductive limit}.
+\end{exam}
+
+The colimit of a diagram sometimes works like epimorphism, although each arrow in the cone may not be surjective.
+\begin{prop}\label{collective surj}
+  Let $\{k_j\colon D_j\to A\mid j\in\ob\mathcal{J}\}$ be the limit of diagram $D\colon\mathcal{J}\to\mathcal{C}$. For any $f,g\colon A\to B$, if $fk_j=gk_j, \forall j\in\ob\mathcal{J}$, then $f=g$.
+\end{prop}
+\begin{exam}
+  Let $\{(A_i,f_i)\mid i\in I\}$ be a family of quotient object of $A$ in $\mathcal{C}$. Treat $\{f_i\colon A\to A_i\mid i\in I\}$ as a subcategory of $\mathcal{C}$. hence its inclusion functor is a diagram in $\mathcal{C}$. If such a diagram has colimit $C$, then then arrow from $A$ to $C$ can be determined by each arrow $\alpha_i$ from $A_i$ to $C$. Use the proposition above, it is easy to check that $\alpha_if_i\colon A\to C$ is surjective, hence $(C,f_i\alpha_i)$ is also a quotient object of $A$, called the \termin{cointersection} of $\{(A_i,f_i)\mid i\in I\}$.
+\end{exam}
+
+\begin{prop}\label{Hom-dir.lim}
+  Colimits are linked to limits via
+  \begin{equation*}
+    \Hom(\dirlim_{\Jj} X_i, Y) = \invlim_{\Jj^{\op}} \Hom(X_i,Y)
+  \end{equation*}
+\end{prop}
+  \begin{proof}
+    For any connection morphism $\phi^i_j\colon X_i\To X_j$ in $(X_i)$, the corresponding connection map in $(\Hom(X_i,Y))$ is
+    \mapdes{\Hom(X_j,Y)}{\Hom(X_i,Y)}{f}{f\circ\phi^i_j}
+    Use this corresponding, the statement is easy to verify.
+  \end{proof}
+
+  A similar proposition is
+  \begin{prop}\label{Hom-inv.lim}
+    \begin{equation*}
+      \Hom(X,\invlim_{\Jj} Y_i) = \invlim_{\Jj} \Hom(X,Y_i)
+    \end{equation*}
+  \end{prop}
+  \begin{proof}
+    For any connection morphism $\phi^i_j\colon Y_i\To Y_j$ in $(Y_i)$, the corresponding connection map in $(\Hom(X,Y_i))$ is
+    \mapdes{\Hom(X,Y_i)}{\Hom(X,Y_j)}{f}{\phi^i_j\circ f}
+    Use this corresponding, the statement is easy to verify.
+  \end{proof}
+
+\subsection{Kernels and Cokernels}
+  \begin{defn}
+    Let $\{f_i\}$ be a family of parallel morphisms, which can be view as a diagram. the \termin{equalizer} is the limit of the diagram.
+    Dually, the \termin{coequalizer} is the colimit.
+  \end{defn}
+  \begin{rem}
+    The correct diagram for the degenerate case with \emph{no morphisms} is slightly subtle:
+    one might initially draw the diagram as consisting of the two objects $X,Y$ and no morphisms.
+    This is incorrect, however, since the limit of such a diagram is the product of these two objects, rather than the equalizer.
+    (And indeed products and equalizers are different concepts: the set-theoretic definition of them are different.)
+
+    Instead, the appropriate insight is that every equalizer diagram is fundamentally concerned with the $X$, including $Y$ only because $Y$ is the codomain of morphisms which appear in the diagram.
+
+    With this view, we see that if there are no morphisms involved, $Y$ does not make an appearance and the equalizer diagram consists of $X$ alone. The limit of this diagram is then any isomorphism to $X$.
+
+    Similarly, the correct coequalizer diagram of \emph{no morphisms} consists of the codomain alone.
+  \end{rem}
+
+  \begin{defn}
+    An equalizer of exactly two morphisms is sometimes called the \termin[difference kernel]{difference!kernel} of them.
+  \end{defn}
+
+  \begin{prop}
+    Any equalizer is a monomorphism. Dually, any coequalizer is an epimorphism.
+  \end{prop}
+  \begin{rem}
+    A monomorphism is said to be \termin[regular]{regular!monomorphism} if it is an equalizer of some set of morphisms.
+    Dually, an epimorphism is said to be \termin[regular]{regular!epimorphism} if it is a coequalizer of some set of morphisms.
+  \end{rem}
+
+  \begin{defn}
+    The \termin{kernel} of a morphism $f$ is the equaliser of $f$ and the parallel zero morphism. Dually, The \termin{cokernel} is the coequalizer of $f$ and the parallel zero morphism.
+  \end{defn}
+
+  \begin{defn}
+    A monomorphism is called \termin[norm]{norm!monomorphism}, if it is a kernel of some morphism. Dually, an epimorphism is called \termin[norm]{norm!epimorphism}, if it is a cokernel of some morphism.
+  \end{defn}
+
+  \begin{exam}
+    Coequalisers can be large: There are exactly two functors from the category $\mathbf{1}$ having one object and one identity arrow, to the category $\mathbf{2}$ with two objects and exactly one non-identity arrow going between them. The coequaliser of these two functors is the monoid of natural numbers under addition, considered as a one-object category. In particular, this shows that while every coequalising arrow is epic, it is not necessarily surjective.
+  \end{exam}
+
+  \begin{prop}
+    The kernel of the limit is also the limit of the kernels. Dually, the cokernel of the colimit is also the colimit of the cokernels.
+  \end{prop}
+  \begin{proof}
+     We start with a commutative diagram:
+         \begin{displaymath}
+            \xymatrix{
+               \cdot\ar@{-->}[rd]|{u}\ar@/^/[rrd]^{t}\ar@{-->}@/_/[rdd]_{u_n}&&&\\
+                & \cdot\ar[r]^{\ker}\ar[d]_p & \cdot\ar[r]^{f}\ar[d]_p & \cdot\ar[d]_p \\
+                & \cdot\ar[r]^{\ker f_n} & \cdot\ar[r]^{f_n} & \cdot             }
+          \end{displaymath}
+    Here, $f$ is the limit of $f_n$, and $\ker$ is the limit of the kernels, we want to show that it is also the kernel of $f$.
+
+    First, by the collective injectivity of limit (ref. \ref{collective inj}), the composition of $f$ and $\ker$ is equal to $0$.
+
+    Then, for any $t$ such that $f\circ t=0$, we have $f_n\circ p\circ t=0$,
+    hence there exist a unique morphism $u_n$ such that $\ker f_n\circ u_n = p\circ t$.
+    By the definition of limit, there exist a unique morphism $u$ such that $u_n=p\circ u$.
+    Hence $p\circ\ker\circ u=p\circ t$. By the collective injectivity again, $\ker\circ u=t$, which proves $\ker$ is the kernel of $f$.
+  \end{proof}
+
+\subsection{Products and Coproducts}
+\begin{defn}
+  Consider a diagram of type $\mathcal{J}$, where $\mathcal{J}$ is a discrete category. It looks like a family of objects without arrows between them. The limit of such a diagram is called the \termin{product} of these objects. Dually, the colimit of such a diagram is called the \termin{coproduct} of these objects.
+\end{defn}
+\begin{rem}
+  We often denote the product and the coproduct of a family of objects $\{A_i\}_{i\in I}$ as $\prod A_i$ and $\coprod A_i$.
+\end{rem}
+\begin{exam}
+  Since the nullary discrete category is the empty category, the \termin[nullary product]{nullary!product} is just the terminal object. Similar, the \termin[unary product]{unary!product} of any object is itself. Dually, we get \termin[nullary coproduct]{nullary!coproduct} and \termin[unary coproduct]{unary!coproduct}.
+\end{exam}
+\begin{prop}
+  A category has finite products, which means that each family of finite objects has product, if and only if it has binary product and terminal object.
+\end{prop}
+\begin{proof}
+  For $n\geqslant 2$, it is clear that $(\cdots((A_1\times A_2)\times A_3)\cdots\times A_n)$ is the $n-$ary product of $A_1,A_2\cdots,A_n$. Notice that the word ``finite'' include the nullary case, so we still need the existence of terminal object.
+\end{proof}
+\begin{defn}
+  Let $\{f_i\colon A_i\to B_i\}_{i\in I}$ be family of morphisms in a category has products, the product of them is the only morphism $\Pi f_i\colon\Pi A_i\to\Pi B_i$ make the following diagram commutative
+  \begin{displaymath}
+      \xymatrix{
+         \Pi A_i\ar@{-->}[r]^{\Pi f_i}\ar[d]&\Pi B_i\ar[d]\\
+         A_j\ar[r]^{f_j}&B_j
+      }
+  \end{displaymath}
+\end{defn}
+\begin{prop}
+  Product is a functor from $[I,\mathcal{C}]$ to $\mathcal{C}$.
+\end{prop}
+\begin{proof}
+  It's easy to check by definition.
+\end{proof}
+\begin{rem}
+  Similar, we can define coproduct of morphisms and check coproduct is a functor. More general, limit and colimit are functors.
+\end{rem}
+\begin{prop}
+  Monomorphisms are stable under product, which means the product of a family of monomorphisms is also a monomorphism.
+\end{prop}
+\begin{prop}
+  In a category has products, for any $i\in I$, let $(E_i,e_i)$ be the equalizer of $f_i,g_i\colon A_i\to B_i$, then, $(\Pi E_i,\Pi e_i)$ is the equalizer of $\Pi f_i,\Pi g_i\colon \Pi A_i\to\Pi B_i$.
+\end{prop}
+\begin{prop}
+   Regular monomorphisms are stable under product, and so are isomorphisms.
+\end{prop}
+Dually, we have similar propositions for coproduct.
+
+\subsection{Pullback and Pushout}
+\begin{defn}
+  Let $\Jj$ be
+  \begin{displaymath}
+      \xymatrix{
+         \cdot\ar[r]&\cdot&\cdot\ar[l]
+      }
+  \end{displaymath}
+  a limit for a $\Jj-$diagram is of the form
+  \begin{displaymath}
+      \xymatrix{
+         A\ar[r]^{f}&C&B\ar[l]_{g}
+      }
+  \end{displaymath}
+  which can be view as a commutative square in $\Cc$:
+  \begin{displaymath}
+      \xymatrix{
+         P\ar[r]^{\overline{f}}\ar[d]_{\overline{g}}&B\ar[d]^{g}\\
+         A\ar[r]^{f}&C
+      }
+  \end{displaymath}
+  we call it a \termin[pullback square]{pullback!square} or \termin{cartesian diagram}, and say $\overline{g}$ is the \termin{pullback} of $g$ through $f$, $\overline{f}$ is the \emph{\red  pullback} of $f$ through $g$. We also call this limit the \termin[fibre product]{fibre!product} of $A$ and $B$ over $C$, and denoted by $A\times_CB$.
+\end{defn}
+Sometime, we consider such kind of category, in which every pullback exist, we call it a \termin[category with pullbacks]{category!with pullbacks} or say it \emph{\red  has} pullbacks.
+\begin{prop}\label{pullback}
+  Let $\xymatrix@1{A\ar[r]^{f}&C&B\ar[l]_{g}}$ be a pair of morphisms in $\mathcal{C}$, and $\xymatrix@1{A&A\times B\ar[r]^-{p_B}\ar[l]_-{p_A}&B}$ be the product of $A$ and $B$, $e\colon E\to A\times B$ is the equalizer of $fp_A$ and $gp_B$. Then the following diagram is cartesian:
+  \begin{displaymath}
+      \xymatrix{
+         E\ar[r]^{p_Be}\ar[d]_{p_Ae}&B\ar[d]^{g}\\
+         A\ar[r]^{f}&C
+      }
+  \end{displaymath}
+\end{prop}
+\begin{prop}
+  Monomorphisms are \termin{stable} under pullback, which means that the pullback of a monomorphism is also a monomorphism. Moreover, regular monomorphisms are also stable, and so are isomorphisms.
+\end{prop}
+\begin{warn}
+  Epimorphisms may not be stable under pullback in any category with pullbacks.
+\end{warn}
+The following proportion is a good exercise for diagram chase:
+\begin{prop}[Two-pullbacks]\label{Two-pullbacks}
+  Consider a commutative diagram in a category with pullbacks as below:
+  \begin{displaymath}
+      \xymatrix{
+         \cdot\ar[r]\ar[d]&\cdot\ar[r]\ar[d]&\cdot\ar[d]\\
+         \cdot\ar[r]&\cdot\ar[r]&\cdot
+      }
+  \end{displaymath}
+  \begin{enumerate}[1)]
+    \setlength{\itemindent}{2ex}
+    \item  If the two small squares are pullbacks, so is the outer rectangle.
+    \item  If the right square and the outer rectangle are pullbacks, so is the left square.
+  \end{enumerate}
+\end{prop}
+\begin{cor}
+  The pullback of a commutative triangle is a commutative triangle.
+  \begin{displaymath}
+      \xymatrix{
+         \cdot\ar[rr]\ar[dd]\ar[dr]&&\cdot\ar[dd]\ar[dr]&\\
+         &\cdot\ar[dl]&&\cdot\ar[dl]\\
+         \cdot\ar[rr]&&\cdot
+      }
+  \end{displaymath}
+\end{cor}
+
+The dual concept of pullback is pushout.
+\begin{defn}
+  Let $\Jj'$ be
+  \begin{displaymath}
+      \xymatrix{
+         \cdot&\cdot\ar[l]\ar[r]&\cdot
+      }
+  \end{displaymath}
+  a limit for a $\Jj'-$diagram is of the form
+  \begin{displaymath}
+      \xymatrix{
+         B&C\ar[l]_{g}\ar[r]^{f}&A
+      }
+  \end{displaymath}
+  which can be view as a commutative square in $\Cc$:
+  \begin{displaymath}
+      \xymatrix{
+         C\ar[r]^{f}\ar[d]_{g}&A\ar[d]^{\overline{g}}\\
+         B\ar[r]^{\overline{f}}&P
+      }
+  \end{displaymath}
+  we call it a \termin[pushout square]{pushout!square} or \termin{cocartesian diagram}, and say $\overline{g}$ is the \termin{pushout} of $g$ through $f$, $\overline{f}$ is the \emph{\red  pushout} of $f$ through $g$. We also call this limit the \termin[fibre coproduct]{fibre!coproduct} of $A$ and $B$ over $C$, and denoted by $A\amalg_CB$.
+\end{defn}
+By the duality principle, the duality of the properties of pullback are also true.
+
+\begin{defn}
+  Let $\overline{f}$ be the pullback of $f$ through $g$, it is called \termin[descendable]{descendable pullback} if $f$ is also the pushout of $\overline{f}$ through $g$.
+\end{defn}
+
+\begin{prop}\label{Fun.pull-push}
+  Let $\Cc$ be a category with pullbacks (resp, pushouts), then taking pullback (resp. pushout) is a functor from $[\Jj,\Cc]$ to $[\Jj',\Cc]$ (resp. from $[\Jj',\Cc]$ to $[\Jj,\Cc]$).
+\end{prop}
+
+\subsection{Complete Categories}
+\begin{defn}
+  A category is said to be \termin[complete]{complete category}, if every diagram in it has a limit. Similar, a \termin[finite complete category]{finite!complete category} is such a category, in which every finite diagram has a limit. Dually, we have concepts of \termin{cocomplete category} and \termin[finite cocomplete category]{finite!cocomplete category}.
+\end{defn}
+\begin{thm}
+  Let $\mathcal{C}$ be a category, the following statements are equivalent:
+  \begin{enumerate}[a)]
+    \setlength{\itemindent}{2ex}
+    \item $C$ is finite complete.
+    \item $C$ has finite products and equalizers.
+    \item $C$ has pullbacks and terminal object.
+  \end{enumerate}
+\end{thm}
+
+\newpage\section{Exactness}
+\subsection{Exact Categories}
+  \begin{defn}
+    An \termin[exact category]{exact!category} $\Ee$ is an additive category possessing a class $\EEe$ of ``short exact sequences'': triples of objects connected by arrows
+    \begin{equation*}
+      M'\To M\To M''
+    \end{equation*}
+    satisfying the following axioms inspired by the properties of short exact sequences in an abelian category:
+    \begin{enumerate}
+      \item $\Ee$ is closed under isomorphisms and contains the split exact sequences:
+               \begin{equation*}
+                 M'\To M'\oplus M''\To M''
+               \end{equation*}
+      \item Suppose $M\to M''$ occurs as the second arrow of a sequence in $\EEe$ (it is called an \termin[admissible epimorphism]{admissible!epimorphism}) and $N\to M''$ is any arrow in $\Ee$. Then their \emph{pullback} exists and its \emph{projection} to $N$ is also an admissible epimorphism.
+
+          Dually, if $M'\to M$ occurs as the first arrow of a sequence in $\EEe$ (it is called an \termin[admissible monomorphism]{admissible!monomorphism}) and $M'\to N$ is any arrow, then their \emph{pushout} exists and its \emph{coprojection} from $N$ is also an admissible monomorphism.
+
+          \emph{In other words, the admissible epimorphisms are ``stable under pullback'', resp. the admissible monomorphisms are ``stable under pushout''.}
+      \item Admissible monomorphisms are \emph{kernels} of their corresponding admissible epimorphisms, and dually.
+               The composition of two admissible monomorphisms is admissible (likewise admissible epimorphisms);
+      \item Suppose $M\to M''$ is a map in $\Ee$ which admits a kernel in $\Ee$, and suppose $N\to M$ is any map such that the composition
+               $N\to M\to M''$ is an admissible epimorphism. Then so is $M\to M''$.
+
+               Dually, if $M'\to M$ admits a cokernel and $M\to N$ is such that $M'\to M\to N$ is an admissible monomorphism, then so is $M'\to M$.
+    \end{enumerate}
+  \end{defn}
+  \begin{rem}
+    Admissible monomorphisms are generally denoted $\mono$ and admissible epimorphisms are denoted $\epi$. These axioms are not minimal; in fact, the last one has been shown by Bernhard Keller \cite{keller1990chain} to be redundant.
+  \end{rem}
+
+  \begin{defn}
+    An \termin[exact functor]{exact!functor} $F$ from an exact category $\Dd$ to another one $\Ee$ is an additive functor such that if
+    \begin{equation*}
+      M'\mono M\epi M''
+    \end{equation*}
+    is exact in $\Dd$, then
+    \begin{equation*}
+      F(M')\mono F(M) \epi F(M'')
+    \end{equation*}
+    is exact in $\Ee$.
+  \end{defn}
+
+  \begin{defn}
+    A subcategory $\Dd$ of $\Ee$ is called an \termin[exact subcategory]{exact!subcategory} if the inclusion functor is fully faithful and exact.
+  \end{defn}
+
+  \begin{defn}
+    A \termin{Serre subcategory} is a non-empty full subcategory $\Ss$ of an abelian category $\Aa$ such that for all short exact sequences
+    \begin{equation*}
+      0\To M'\To M\To M''\To 0
+    \end{equation*}
+    in $\Aa$, $M$ belongs to $\Ss$ if and only if both $M'$ and $M''$ do. This notion arises from Serre's C-theory.
+  \end{defn}
+
+  \begin{exam}
+    Exact categories come from abelian categories in the following way.
+    Suppose $\Aa$ is abelian and let $\Ss$ be any Serre subcategory.
+    We can take the class $\EEe$ to be simply the sequences in $\Ss$ which are exact in $\Aa$; that is,
+    \begin{equation*}
+      M'\To M\To M''
+    \end{equation*}
+    is in $\EEe$ iff
+    \begin{equation*}
+      0\To M'\To M\To M''\To 0
+    \end{equation*}
+    is exact in $\Aa$. Then $\Ss$ is an exact category.
+  \end{exam}
+  \begin{rem}
+    The condition Serre subcategory can be weakened to be a strictly full additive subcategory which is closed under taking \emph{\red extensions} in the sense that given an exact sequence
+    \begin{equation*}
+      0\To M'\To M\To M''\To 0
+    \end{equation*}
+    in $\Aa$, then if $M',M''$ are in E, so is $M$.
+  \end{rem}
+
+  \begin{exam}
+    The category $\Abtf$ of torsion-free abelian groups is exact.
+  \end{exam}
+
+  \begin{exam}
+    The category $\Ab_{\tor}$ of abelian groups with torsion (and also the zero group) is exact.
+  \end{exam}
+
+\subsection{Exact Functors}
+  \begin{defn}
+    Let $\Aa,\Bb$ be two abelian categories, $F\colon\Aa\To\Bb$ is an additive functor. Let
+    \begin{equation*}
+      0\To A\To B\To C\To 0
+    \end{equation*}
+    be a short exact sequence in $\Aa$. We say that $F$ is
+    \begin{itemize}
+      \item \termin{half exact} if $F(A)\To F(B)\To F(C)$ is exact.
+      \item \termin[left exact]{left!exact} if $0\To F(A)\To F(B)\To F(C)$ is exact.
+      \item \termin[right exact]{right!exact} if $F(A)\To F(B)\To F(C)\To 0$ is exact.
+      \item \termin[exact]{exact!functor} if $0\To F(A)\To F(B)\To F(C)\To 0$ is exact.
+    \end{itemize}
+  \end{defn}
+
+  For contravariant functor, the definition is similar.
+
+  \begin{prop}
+    A covariant (not necessarily additive) functor is left exact if and only if it turns finite limits into limits; a covariant functor is right exact if and only if it turns finite colimits into colimits; a contravariant functor is left exact if and only if it turns finite colimits into limits; a contravariant functor is right exact if and only if it turns finite limits into colimits. A functor is exact if and only if it is both left exact and right exact.
+  \end{prop}
+  \begin{prop}
+    If the functor $F$ is left adjoint to $G$, then $F$ is right exact and $G$ is left exact.
+  \end{prop}
+
+  The degree to which a left exact functor fails to be exact can be measured with its right derived functors; the degree to which a right exact functor fails to be exact can be measured with its left derived functors.
+
+\newpage\section{Diagram Lammas in Abelian Categories}
+\emph{Throughout of this section, the category is assumed to be abelian unless otherwise specified.}
+\subsection{Abelian Category}
+
+The concept of abelian category has been introduced in Chapter 1. We discuss some properties of abelian categories.
+
+\begin{prop}\label{monoic epi 1}
+  A morphism $f\colon A\To B$ is monoic (resp. epi) if and only if $\ker f=0$ (resp. $\coker f=0$) if and only if $\coim f=1_A$ (resp. $\im f=1_B$) if and only if $f=\im f$ (resp. $f=\coim f$).
+\end{prop}
+\begin{proof}
+  We prove the monoic case only, the epi case is dual to it.
+
+  (monoic $\Longrightarrow$ $\ker f=0$.) We have $f\circ\ker f=0=f\circ 0$, since$f$ is monoic, $\ker f=0$.
+
+  ($\ker f=0$ $\Longrightarrow$ $\coim f=1_A$.) It is easy to check that $1_A$ satisfying the universal property of $\coim f$.
+
+   ($\coim f=1_A$ $\Longrightarrow$ $f=\im f$.) By the natural isomorphism $\Psi$.
+
+  ($f=\im f$ $\Longrightarrow$ monoic.) A kernel is always monoic.
+\end{proof}
+
+\begin{prop}
+  Any bimorphism must be a isomorphism.
+\end{prop}
+\begin{proof}
+  Suppose $f\colon A\To B$ is a bimorphism, which means that $f$ is both monoic and epi, hence $\coim f=1_A$ and $\im f=1_B$ by Proposition \ref{monoic epi 1}. Whence the standard factorization become $f=\Psi$ which is a isomorphism in an abelian category.
+\end{proof}
+
+\begin{cor}\label{epi-mono}
+  Every morphism $f$ can be uniquely factorized as an epimorphism $e$ followed by a monomorphism $m$. Moreover, $e=\coim f$, $m=\im f$.
+\end{cor}
+
+\begin{lem}\label{factor through}
+  Let $f$ be factorized as $h$ followed by $g$, then
+  \begin{enumerate}[(i)]
+    \item If $g$ is monoic, then $\ker f=\ker h$;
+    \item If $h$ is epi, then $\coker f=\coker g$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  By check the definition, the statements are clearly true and hold in any category where related concepts make sense.
+\end{proof}
+
+\begin{defn}
+  A monomorphism is called \termin[norm]{norm!monomorphism}, if it is a kernel of some morphism. Dually, an epimorphism is called \termin[norm]{norm!epimorphism}, if it is a cokernel of some morphism.
+\end{defn}
+
+We now introduce some equivalent conditions of abelian category.
+
+\begin{prop}
+  A pre-abelian category becomes abelian if and only if all monomorphisms and epimorphisms are normal.
+\end{prop}
+\begin{proof}
+  The ``only if'' comes from Proposition \ref{monoic epi 1}.
+
+  Conversely, if all monomorphisms and epimorphisms are normal, then for every morphism $f$,
+\end{proof}
+
+\subsection{Cartesian Diagrams}
+\begin{lem}
+  Consider the following diagram:
+  \begin{displaymath}
+      \xymatrix{
+         E\ar[r]^{f'}\ar[d]_{g'}&B\ar[d]^{g}\\
+         A\ar[r]^{f}&C
+      }
+  \end{displaymath}
+  \begin{enumerate}[(i)]
+
+    \item The diagram is commutative if and only if the composition
+             \begin{equation*}
+               \longexseq{E}{\<f',g'\>}{A\oplus B}{\<f,-g\>}{C}
+             \end{equation*}
+             is equal to $0$. Where $\<f',g'\>$ is the unique morphism such that $f'=p_2\<f',g'\>$ and $g'=p_1\<f',g'\>$, $\<f,-g\>$ is the unique morphism such that $f=\<f,-g\>i_1$ and $-g=\<f,-g\>i_2$.
+    \item This diagram is cartesian if and only if $\<f',g'\>=\ker\<f,-g\>$.
+    \item This diagram is cocartesian if and only if $\<f,-g\>=\coker\<f',g'\>$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  \begin{enumerate}[(i)]
+    \item By the definition, we have
+             \begin{equation*}
+               fg'-gf'=\<f,-g\>i_1p_1\<f',g'\>+\<f,-g\>i_2p_2\<f',g'\>=\<f,-g\>\<f',g'\>
+             \end{equation*}
+             Hence $fg'=gf'$ if and only if $\<f,-g\>\<f',g'\>=0$.
+    \item It follows from Proposition \ref{pullback}.
+    \item It is the dual of \emph{(ii)}.
+  \end{enumerate}
+\end{proof}
+
+\begin{prop}\label{bicartesian}
+  In a cartesian diagram, if $f$ is an epimorphism, then so is $f'$, and the diagram is also cocartesian.
+\end{prop}
+\begin{proof}
+  If $f$ is epimorphism, then so is $\<f,-g\>$: let $u\colon C\To T$ be an arbitrary morphism such that $u\<f,-g\>=0$, then $uf=u\<f,-g\>i_1=0$, which implies $u=0$. Thus we get an exact sequence:
+  \begin{equation*}
+    0\To \longexseq{E}{\<f',g'\>}{A\oplus B}{\<f,-g\>}{C} \To 0
+  \end{equation*}
+  Hence $\<f,-g\>=\coker\<f',g'\>$, and the diagram is cocartesian.
+
+  Let $v\colon B\To T$ be an arbitrary morphism such that $vf'=0$, then $vp_2\<f',g'\>=0$, hence there exists a morphism $w\colon C\To T$ such that $vp_2=w\<f,-g\>$.
+  \begin{displaymath}
+      \xymatrix{
+          E\ar[r]^-{\<f',g'\>} & A\oplus B\ar[r]^-{\<f,-g\>}\ar[dr]_{vp_2} & C\ar@{-->}[d]^{w}  \\
+          & & T
+      }
+  \end{displaymath}
+
+  We then have (notice that $p_2i_1=0$)
+  \begin{equation*}
+    0=vp_2i_1=w\<f,-g\>i_1=wf
+  \end{equation*}
+  hence $w=0$ and therefore $v=0$.
+\end{proof}
+
+\begin{prop}
+  In a cartesian diagram, let $k\colon K\To A$ be the kernel of $f$. Then $k$ can be factor as $k=g'k'$ where $k'$ is a kernel of $f'$.
+\end{prop}
+\begin{proof}
+  First, we show that $k$ can be factor as $k=g'k'$:   Since $\<f',g'\>=\ker\<f,-g\>$ and
+  \begin{equation*}
+    \<f,-g\>i_1k=fk=0
+  \end{equation*}
+  there exist a unique morphism $k'\colon K\To E$ such that
+  \begin{equation*}
+     \<f',g'\>k'=i_1k
+  \end{equation*}
+  \begin{displaymath}
+      \xymatrix{
+          E\ar[r]^-{\<f',g'\>} & A\oplus B\ar[r]^-{\<f,-g\>} & C  \\
+          K\ar[ur]_{i_1k}\ar@{-->}[u]^{k'} & &
+      }
+  \end{displaymath}
+  Hence
+  \begin{equation*}
+    g'k'=p_1\<f',g'\>k'=p_1i_1k=k
+  \end{equation*}
+
+  We now prove that $k'$ is a kernel of $f'$:
+  Let $t\colon T\To E$ be an arbitrary morphism such that $f't=0$. Then $fg't=gf't=0$, hence there exists a unique morphism $u$ such that $ku=g't$.
+  \begin{displaymath}
+      \xymatrix{
+          T\ar[r]^{t}\ar@{-->}[d]_{u} & E\ar[r]^{f'}\ar[d]^{g'} & B\ar[d]^{g}  \\
+          K\ar[ur]_{k'}\ar[r]_{k} & A\ar[r]_{f} & C
+      }
+  \end{displaymath}
+  Notice that
+  \begin{equation*}
+    f'k'u=p_2\<f',g'\>k'u=p_2i_1ku=0=f't
+  \end{equation*}
+  and $g'k'u=ku=g't$. Hence $k'u=t$. Which proved $k'$ is a kernel of $f'$.
+\end{proof}
+
+\subsection{Snake Lemma}
+\emph{When we drawing diagrams contain many kernels and cokernels, to simplify the notation, we denoted the domain of the kernel of $f$ by $\ker f$ while the codomain of the cokernel by $\coker f$. $\im f$ and $\coim f$ are similar. This will not make ambiguity since they are just be used as notations of objects in this situation.}
+
+\begin{thm}[Weak Snake Lemma]\label{w.snake}
+  The short exact sequences of morphisms $\alpha,\beta,\gamma$, which means a commutative diagram like below
+\begin{displaymath}
+      \xymatrix{
+         0\ar[r] & A\ar[r]\ar[d]_{\alpha} & B\ar[r]\ar[d]_{\beta} & C\ar[r]\ar[d]_{\gamma} & 0 \\
+         0\ar[r] & A'\ar[r] & B'\ar[r] & C'\ar[r] & 0
+      }
+\end{displaymath}
+  induces an exact sequence relating kernels and cokernels
+    \begin{equation*}
+      0\To\ker\alpha\To\ker\beta\To\ker\gamma\markar{\delta}\coker\alpha\To\coker\beta\To\coker\gamma\To0
+    \end{equation*}
+\end{thm}
+
+\begin{proof}
+  We proceed in steps:
+  \begin{enumerate}
+    \item
+    The morphisms between kers are clearly given by the efinition and the commutative of diagram. By chasing the diagram and use the definition, one can verify that the sequence of kers is exact. For the cokers, the argument is similar. Let's proof that $m_0\colon\ker\alpha\To\ker\beta$ is the kernel of $e_0\colon\ker\beta\To\ker\gamma$ as an example:
+    \begin{displaymath}
+      \xymatrix{
+         T\ar@{-->}[rd]|{t}\ar@/^/[rrd]^{\tau}\ar@{-->}@/_/[rdd]_{\tau'}&&&\\
+         &\ker\alpha\ar[r]^{m_0}\ar[d]_{i} & \ker\beta\ar[r]^-{e_0}\ar[d]_{j} & \ker\gamma\ar[d]_{k} \\
+         &A\ar[r]^{m}\ar[d]_{\alpha} & B\ar[r]^{e}\ar[d]_{\beta} & C\ar[d]_{\gamma}\\
+         &A'\ar[r]^{m'} & B'\ar[r]^{e'} & C'
+      }
+    \end{displaymath}
+
+    By choosing any object $T$ with morphism $\tau$ such that $e_0\tau=0$, we have $ke_0\tau=0$, hence $ej\tau=0$. Since $m$ is the kernel of $e$, there exist a unique $\tau'\colon T\To A$ such that $j\tau=m\tau'$.
+
+    We have
+    \begin{equation*}
+      m'\alpha\tau'=\beta m\tau'=\beta j\tau=0
+    \end{equation*}
+
+    Which implies $\alpha\tau'=0$ since $m'$ is monoic. Hence there exist a unique $t\colon T\To\ker\alpha$ such that $it=\tau'$, hence
+     \begin{equation*}
+       jm_0t=mit=m\tau'=j\tau
+     \end{equation*}
+
+    Which implies $m_0t=\tau$ since $j$ is monoic.
+    Which shows that $m_0$ is a kernel of $e_0$ and the sequence is exact by lemma \ref{exactsq}.
+    \item
+      The morphism $\delta$ can be obtained by this way:
+
+      Consider the following diagram
+    \begin{displaymath}
+      \xymatrix{
+         A\ar@{-->}[r]^{s}\ar@{=}[d] & D\ar[r]^-{u}\ar[d]_{k'}      & \ker\gamma\ar[d]_{k} \\
+         A\ar[r]^{m}\ar[d]_{\alpha}       & B\ar[r]^{e}\ar[d]_{\beta}   & C\ar[d]_{\gamma}        \\
+         A'\ar[r]^{m'}\ar[d]_{c}              & B'\ar[r]^{e'}\ar[d]_{c'}     & C'\ar@{=}[d]                \\
+         \coker\alpha\ar[r]_-{v}           & D'\ar@{-->}[r]_{t}            & C'
+      }
+    \end{displaymath}
+    where the upper-right square is cartesian and the lower-left square is cocartesian. Since $e$ is epi, then $u$ is epi and $u=\coker s$. Similarly,  $v$ is a monoic and $v=\ker t$.
+
+    By the commutativity, $tc'\beta k'=\gamma ku=0$, hence there exists a unique morphism $d\colon D\To \coker\alpha$ such that
+    \begin{equation*}
+      vd=c'\beta k'
+    \end{equation*}
+
+    Similarly, $vds=c'\beta k's=vc\alpha=0$. Then $ds=0$ because $v$ is monoic. Hence there exists a unique morphism
+    \begin{equation*}
+      \delta\colon\ker\gamma\To\coker\alpha
+    \end{equation*}
+    such that $\delta u=d$.
+    Moreover,
+    \begin{equation*}
+      v\delta u=c'\beta k'
+    \end{equation*}
+    \item
+      We now prove that the sequence
+    \begin{equation*}
+      \ker\beta\markar{e_0}\ker\gamma\markar{\delta}\coker\alpha\markar{m_1}\coker\beta
+    \end{equation*}
+     is exact, we prove the exactness at $\ker\gamma$ only, the case at $\coker\alpha$ is dual to this.
+
+    Let $x\colon\ker\delta\To\ker\gamma$ be the kernel of $\delta$, and $t\colon\im e_0\To \ker\gamma$ be the image of $e_0$. We need to show the are equivalent. Since both $x$ and $t$ are monoic, it suffices to show that they can factor through each other.
+
+    (\emph{1})
+    First, we prove that $e_0\delta=0$.
+    \begin{displaymath}
+      \xymatrix{
+         \ker\beta\ar@{-->}[rd]|{\tau}\ar@/^/[rrd]^{e_0}\ar@/_/[rdd]_{j}&&\\
+         &D\ar[r]^{u}\ar[d]_{k'} & \ker\gamma\ar[d]^{k} \\
+         & B\ar[r]_{e} & C
+      }
+    \end{displaymath}
+    Since $ej=ke_0$ there exist a unique $\tau\colon\ker\beta\To D$ such that $u\tau=e_0$ and $k'\tau=j$. Therefore
+    \begin{equation*}
+      v\delta e_0=v\delta u\tau=c'\beta k'\tau=c'\beta j=0
+    \end{equation*}
+    Which implies $\delta e_0=0$ since $v$ is monoic.
+
+    (\emph{2})
+    Therefore $t$ can factor through $x$ by a unique morphism $\mu$. To get a factorization of $x$ through $t$, we pullback $t$ through $x$ and obtain a monomorphism $t'$:
+    \begin{displaymath}
+      \xymatrix{
+         \cdot\ar[r]^{t'}\ar[d]_{x'}   & \ker\delta\ar[d]^{x}        \\
+         \im e_0 \ar[r]_-{t}\ar@{-->}[ur]|{\mu}     & \coker\gamma
+      }
+    \end{displaymath}
+
+    If $t'$ is an isomorphism, then it is clearly that $x=tx't'^{-1}$. To prove this, it suffices to show $t'$ is epi.
+
+    (\emph{3})
+    Consider the diagram in 2. Since $e/\beta k'=\gamma ku=0$, there exist a unique $f\colon D\To A'$ such that $m'f=\beta k'$. We have
+    \begin{equation*}
+      vcf=c'm'f=c'\beta k'=v\delta u
+    \end{equation*}
+    which implies $cf=\delta u$ because $v$ is monoic.
+
+    Pullback $x$ through $u$:
+    \begin{displaymath}
+      \xymatrix{
+         Y\ar[r]^-{y_1}\ar[d]_{y}        & \ker\delta\ar[d]^{x}       \\
+         D\ar[r]_-{u}                          & \ker\gamma
+      }
+    \end{displaymath}
+
+    We have
+    \begin{equation*}
+      cfy=\delta uy=\delta xy_1=0
+    \end{equation*}
+    Hence there exist a unique $f'\colon Y\To\im\alpha=\ker c$ such that
+    \begin{equation*}
+      \alpha_0f'=fy
+    \end{equation*}
+
+    We pullback through the $f'$ the epimorphism $\alpha_1$:
+    \begin{displaymath}
+      \xymatrix{
+         Z\ar[r]^{z_1}\ar[d]_{z}        & Y\ar[d]^{f'}       \\
+         A\ar[r]_-{\alpha_1}                          & \im\alpha
+      }
+    \end{displaymath}
+
+    In order to see more clearly,  we put these morphisms in the following diagram which may not commutative at the upper-left square:
+    \begin{displaymath}
+      \xymatrix{
+         Z\ar@{-->}[r]^{z_1}\ar@{-->}[d]_{z}
+         & Y\ar@{-->}[r]^{y_1}\ar@{-->}[d]^{y}\ar@{-->}[ddl]_{f'}
+         & \ker\delta\ar[d]^{x} \\
+         A\ar[dr]^{m}\ar[d]_{\alpha_1}   & D\ar[r]^-{u}\ar[d]^{k'}\ar[ddl]^{f}      & \ker\gamma\ar[d]^{k} \\
+         \im\alpha\ar[d]_{\alpha_0}        & B\ar[r]^{e}\ar[d]_{\beta}   & C\ar[d]_{\gamma}        \\
+         A'\ar[r]^{m'}\ar[d]_{c}               & B'\ar[r]^{e'}                     & C'                \\
+         \coker\alpha           &              &
+      }
+    \end{displaymath}
+
+    (\emph{4})
+    To measure the non-commutativity, define
+    \begin{equation*}
+      \Delta=k'yz_1-mz
+    \end{equation*}
+    Since
+    \begin{equation*}
+      \beta k' y z_1 = m' f y z_1 = m' \alpha_0 f' z_1 = m' \alpha_0 \alpha_1 z = \beta m z
+    \end{equation*}
+    We have $\beta\Delta=0$ and hence there exist a unique $\theta\colon Z\To\ker\beta$ such that $j\theta=\Delta$.
+
+    On the other hand,
+    \begin{equation*}
+      e\Delta = ek'yz_1-emz = ek'yz_1-0 = kxy_1z_1
+    \end{equation*}
+    Hence $ej\theta=kxy_1z_1$.
+
+    Consider the diagram below:
+    \begin{displaymath}
+      \xymatrix{
+         Z\ar@{-->}[dr]_{\tau}\ar@/^/[drr]^{y_1z_1}\ar[dd]_{\theta} & & \\
+                & \cdot\ar[r]_-{t'}\ar[d]_{x'}   & \ker\delta\ar[d]^{x}        \\
+         \ker\beta\ar[r]^-{e_1}\ar[d]_{j}     & \im e_0\ar[r]^{t}        & \ker\gamma\ar[d]^{k}  \\
+         B\ar[rr]_{e}           & & C
+      }
+    \end{displaymath}
+    We have
+    \begin{equation*}
+      kte_1\theta = ke_0\theta=ej\theta=kxy_1z_1
+    \end{equation*}
+    which implies $te_1\theta=xy_1z_1$ because $k$ is monoic.
+
+    By the universality of pullback, there exist a unique morphism $\tau$, such that $t'\tau=y_1z_1$ which is an epimorphism, hence so is $t'$.
+  \end{enumerate}
+\end{proof}
+
+\begin{thm}[Snake Lemma]
+  The following commutative diagram of exact sequences
+\begin{displaymath}
+      \xymatrix{
+         & A\ar[r]^{f}\ar[d]_{\alpha} & B\ar[r]^{g}\ar[d]_{\beta} & C\ar[d]_{\gamma}\ar[r] & 0 \\
+         0\ar[r] & A'\ar[r]_{f'} & B'\ar[r]_{g'} & C' &
+      }
+\end{displaymath}
+  induces an exact sequence relating kernels and cokernels
+    \begin{equation*}
+      \ker\alpha\longrightarrow\ker\beta\longrightarrow\ker\gamma\markar{\delta}\coker\alpha\longrightarrow\coker\beta\longrightarrow\coker\gamma
+    \end{equation*}
+\end{thm}
+\begin{proof}
+First, we prove that the kernel of $\alpha$ is a pullback of the kernel of $\beta$ through $f$:
+
+    \begin{displaymath}
+      \xymatrix{
+         T\ar@{-->}[rd]|{\tau}\ar@/^/[rrd]^{t'}\ar@/_/[rdd]_{t}&&\\
+         & \ker\alpha\ar[r]^{f_0}\ar[d]_{i} & \ker\beta\ar[d]^{j} \\
+         & A\ar[r]^{f}\ar[d]_{\alpha} & B\ar[d]^{\beta} \\
+         & A'\ar[r]_{f'} & B'
+      }
+    \end{displaymath}
+
+  Let $T$ be an arbitrary object with morphisms $t,t'$ such that $ft=jt'$. Then
+  \begin{equation*}
+    f'\alpha t=\beta ft=\beta jt'=0
+  \end{equation*}
+  which implies $\alpha t=0$ because $f'$ is monoic. Hence there exist a unique $\tau\colon T\To\ker\alpha$ such that $i\tau=t$.
+  Then
+  \begin{equation*}
+    jf_0\tau=fi\tau=ft=jt'
+  \end{equation*}
+  which implies $f_0\tau=t'$ because $j$ is monoic. Hence $i$ is the pullback of $j$ through $f$.
+
+  Let $f_m\colon K\To B$ be the kernel of $g$ and $g_e'\colon B'\To K'$ cokernel of $f'$. Then we get a commutative diagram
+  \begin{displaymath}
+      \xymatrix{
+         A\ar[r]^{f_e}\ar[dr]_-{\alpha} & K\ar[r]^{f_m}\ar@{-->}[d]^{a} & B\ar[r]^{g}\ar[d]^{\beta} & C\ar[dr]^{\gamma}\ar[r]\ar@{-->}[d]_{c} & 0 \\
+         0\ar[r] & A'\ar[r]_{f'} & B'\ar[r]_{g'_e} & K'\ar[r]_{g'_m} & C'
+      }
+  \end{displaymath}
+  where $(f_e,f_m), (g'_e,g'_m)$ are the \emph{epi-mono factorizations}\footnote{Notice that the sequence is exact in $B$ means that $\im f=\ker g$ and, dually, $\coker f=\coim g$. Hence we get the epi-mono factorization.} of $f$ and $g$ respectively, and $a,c$ determined uniquely by the fact that $A'=\ker g'$ and $C=\coker f$.
+
+  Then By the Weak Snake Lemma (\ref{w.snake}), the diagram induces an exact sequence:
+    \begin{equation*}
+      0\To\ker a\To\ker\beta\To\ker c\markar{\delta}\coker a\To\coker\beta\To\coker c\To0
+    \end{equation*}
+
+    Since $f_e$ is epi, by Lemma \ref{factor through}, the cokernel of $a$ and $\alpha$ coincide. Dually, the kernel of $c$ and $\gamma$ coincide.
+
+    Hence it suffices to show that $\ker a\To\ker\beta$ is the image of $\ker\alpha\To\ker\beta$, and the cokernel case is dual to this.
+
+    Consider the following diagram, where $e$ exists and make the diagram commutative since $af_ei=fi=0$.
+  \begin{displaymath}
+      \xymatrix{
+         \ker\alpha\ar[r]^{e}\ar[d]_{i} & \ker a\ar[r]^{m}\ar[d]_{j} & \ker\beta\ar[d]_{k} \\
+         A\ar[r]_{f_e} & K\ar[r]_{f_m} & B
+      }
+  \end{displaymath}
+  By the universal property of kernel, $me$ is the morphism $\ker\alpha\To\ker\beta$ we discussed above.
+
+  By the statements we proved at first, the right square and the outer rectangle are pullbacks, so is the left square by Proposition \ref{Two-pullbacks}.
+  Therefore $e$ is a pullback of $f_e$ and hence epi. By the uniqueness of epi-mono factorization (\ref{epi-mono}), $m$ is the image of $\ker\alpha\To\ker\beta$.
+\end{proof}
+
+  \begin{rem}
+    The morphism $\delta$ is called \termin{connection morphism}, while the long exact sequence is called \termin{snake sequence}.
+  \end{rem}
+  \begin{prop}
+    The the snake sequence is \emph{natural} in the sense that if
+    \begin{displaymath}
+        \xymatrix@!0{
+          &&& \cdot\ar[rr]\ar'[d]^{\alpha'}[dd] && \cdot\ar[rr]\ar'[d]^{\beta'}[dd] && \cdot\ar[rr]\ar'[d]^{\gamma'}[dd] && 0 \\
+          && \cdot\ar[rr]\ar[dd]^(.3){\alpha}\ar[ru] && \cdot\ar[rr]\ar[dd]^(.3){\beta}\ar[ru] && \cdot\ar[rr]\ar[dd]^(.3){\gamma}\ar[ru] && 0 & \\
+          & 0\ar'[r][rr] && \cdot\ar'[r][rr] && \cdot\ar'[r][rr] && \cdot && \\
+          0\ar[rr] && \cdot\ar[rr]\ar[ru] && \cdot\ar[rr]\ar[ru] && \cdot\ar[ru] &&&
+        }
+    \end{displaymath}
+    is a commutative diagram with exact rows, then the snake lemma can be applied twice, to the ``front'' and to the ``back'',
+    yielding two snake sequences; these are related by a commutative diagram of the form:
+    \begin{displaymath}
+        \xymatrix@!0{
+          &\ker\alpha'\ar[rr] && \ker\beta'\ar[rr] && \ker\gamma'\ar[rr]^-{\delta'} && \coker\alpha'\ar[rr] && \coker\beta'\ar[rr] && \coker\gamma' \\
+          \ker\alpha\ar[rr]\ar[ur] && \ker\beta\ar[rr]\ar[ur] && \ker\gamma\ar[rr]^-{\delta}\ar[ur] && \coker\alpha\ar[rr]\ar[ur] && \coker\beta\ar[rr]\ar[ur] && \coker\gamma\ar[ur] &
+        }
+    \end{displaymath}
+  \end{prop}
+  \begin{proof}
+    The commutativity of between kers (resp. cokers) are clear. It suffices to check commutativity at the connection morphisms.
+
+    For $\alpha',\beta',\gamma'$, we have the same diagrams as $\alpha,\beta,\gamma$ in the construction of connection morphism.
+    Without causing ambiguity, we can use the same labels and denote the morphisms from the ``front'' to the ``back'' by $\sigma$.
+
+    Since taking pullback and pushout are functors (\ref{Fun.pull-push}), we have
+    \begin{equation*}
+      v\delta'\sigma u = v\delta'u\sigma = c'\beta'k' \sigma = \cdots = \sigma c'\beta k' = \sigma v\delta u = v\sigma \delta u
+    \end{equation*}
+    Hence $\delta'\sigma=\sigma\delta$.
+  \end{proof}
+
+  \begin{thm}[Short Five Lemma]
+    Consider the following commutative diagram of exact sequences:
+    \begin{displaymath}
+        \xymatrix{
+          & \cdot\ar[r]^{f}\ar[d]_{\alpha} & \cdot\ar[r]^{g}\ar[d]_{\beta} & \cdot\ar[d]_{\gamma}\ar[r] & 0 \\
+          0\ar[r] & \cdot\ar[r]_{f'} & \cdot\ar[r]_{g'} & \cdot &
+        }
+    \end{displaymath}
+    Then,  if $\alpha,\gamma$ are monoic (resp. epi), then so is $\beta$. Moreover, assume $f$ is monoic and $g'$ is epi, then any two of $\alpha,\beta,\gamma$ are isomorphisms implies so is the third.
+  \end{thm}
+  \begin{proof}
+    Check the snake sequence, then the statements are obvious.
+  \end{proof}
+
+  \begin{thm}[Five Lemma]
+    Consider the following exact sequences of five morphisms:
+    \begin{displaymath}
+        \xymatrix{
+          \cdot\ar[r]^{a}\ar[d]_{f_1} & \cdot\ar[r]^{b}\ar[d]_{f_2} & \cdot\ar[r]^{c}\ar[d]_{f_3} & \cdot\ar[r]^{d}\ar[d]_{f_4} & \cdot\ar[d]_{f_5} \\
+          \cdot\ar[r]_{a'} & \cdot\ar[r]_{b'} & \cdot\ar[r]_{c'} & \cdot\ar[r]_{d'} & \cdot
+        }
+    \end{displaymath}
+    Then
+    \begin{enumerate}[a)]
+      \item If $f_1$ is epi and $f_2,f_4$ are monoic, then $f_3$ is monoic;
+      \item If $f_5$ is monoic and $f_2,f_4$ are epi, then $f_3$ is epi;
+      \item If $f_1,f_2,f_4,f_5$ are isomorphisms, then so is $f_3$.
+    \end{enumerate}
+  \end{thm}
+  \begin{proof}
+    First of all, notice that any exact sequence of morphisms can be factored into short exact sequences. For example, our exact sequence above
+    can be factored as
+    \begin{displaymath}
+        \xymatrix@1{
+          \cdot\ar[r]^-{a_e}\ar[d]_{f_1} & \im a \ar[r]^-{a_m}\ar[d]_{f_a}
+          & \cdot\ar[r]^-{b_e}\ar[d]_{f_2} & \im b \ar[r]^-{b_m}\ar[d]_{f_b}
+          & \cdot\ar[r]^-{c_e}\ar[d]_{f_3} & \im c \ar[r]^-{c_m}\ar[d]_{f_c}
+          & \cdot\ar[r]^-{d_e}\ar[d]_{f_4} & \im d \ar[r]^-{d_m}\ar[d]_{f_d}
+          & \cdot\ar[d]_{f_5} \\
+          \cdot\ar[r]_-{a'_e} & \im a' \ar[r]_-{a'_m}
+          & \cdot\ar[r]_-{b'_e} & \im b' \ar[r]_-{b'_m}
+          & \cdot\ar[r]_-{c'_e} & \im c' \ar[r]_-{c'_m}
+          & \cdot\ar[r]_-{d'_e} & \im d' \ar[r]_-{d'_m}
+          & \cdot
+        }
+    \end{displaymath}
+
+    We prove only \emph{a)} as a example:
+
+    Since $a'_ef_1$ is epi, so is $f_a$. Consider the short exact sequence of $f_a,f_2,f_b$, by snake lemma, we have the snake sequence:
+    \begin{equation*}
+      \ker f_a\To\ker f_2\To\ker f_b\markar{\delta}\coker f_a\To\coker f_2\To\coker f_b
+    \end{equation*}
+    Since $f_2$ is monoic and $f_a$ is epi, the exact sequence at $\ker f_b$ become
+    \begin{equation*}
+      0\To\ker f_b\markar{\delta}0
+    \end{equation*}
+    Hence $f_b$ is monoic.
+
+    Since $f_4c_m$ is monoic, so is $f_c$. By the \emph{short five lemma}, $f_3$ is monoic as desired.
+  \end{proof}
+
+
+\newpage\section{Appendix: Some Counterexamples}
+
+
+
+\subsection*{About Category Theory}
+  In this chapter, I try to introduce some concepts in ``category theory''.
+
+  Nowadays, there are numerous books introducing category theory, like \cite{lawvere1997conceptual} and \cite{awodey2010category} which are easily readable books. Of course, The standard textbook is \cite{lane1998categories}.
+  Unless otherwise specified, most of the contents in this chapter comes from them.
+  One can also find them in a modern homological algebra textbook.

@@ -1,0 +1,1659 @@
+\chapter{Modules}
+\section{Some Definitions}
+\subsection{Modules}
+  \begin{defn}
+    Let $R$ be a ring. A \termin[left module]{module}\index{left!module} over $R$, or a left $R-$module $M$ is an abelian group together with an left operation of $R$ on $M$ satisfies both left and right distributive laws.
+  \end{defn}
+%  \begin{rem}
+%    We usually deal only with left modules and hence call these simply modules.
+%  \end{rem}
+
+  \begin{defn}
+    Let $R$ be an \emph{entire} ring and let $M$ be a $R-$module. The \termin[torsion submodule]{torsion!submodule} $M_{\tor}$ is the set of \emph{torsion} elements in $M$.
+  \end{defn}
+
+
+  \begin{prop}
+    Let $_R\mathfrak{I}$ be the ring of left ideals of $R$, then a $R-$module is also a $_R\mathfrak{I}-$module.
+  \end{prop}
+  \begin{rem}
+    We denote $\mathfrak{I}$ to be the ring of ideals of $R$, then the same proposition holds for $\mathfrak{I}$.
+  \end{rem}
+
+\subsection{Algebras}
+  \begin{defn}
+    By an \termin{$R-$algebra}, we mean a $R-$module together with a bilinear map.
+  \end{defn}
+
+  \begin{defn}
+    By an \termin{algebra over $A$}, we mean a ring-homomorphism $f\colon A\To B$ such that $f(A)$ is contained in the center of $B$. We say that the algebra is \termin[finitely generated]{finitely generated!algebra} if $B$ is \emph{finitely generated as a ring} over $f(A)$.
+  \end{defn}
+  \begin{rem}
+    In this case, $B$ can be view as an $A-$module by the operation
+    \begin{equation*}
+      (a,b)\longmapsto f(a)b
+    \end{equation*}
+
+    More over, any $B-$module can be view as an $A-$module by the above operation.
+  \end{rem}
+
+\newpage\section{Homomorphisms}
+In this section, we should assume $R$ is commutative.
+\subsection{Exactness}
+  \begin{prop}
+    The functor $\Hom_R(-,N)$ is \termin[right exact]{right!exact}. Which means each sequence
+    \begin{equation*}
+      M'\To M\To M''\To 0
+    \end{equation*}
+    is exact, then the sequence
+    \begin{equation*}
+      \Hom_R(M',N)\Ot \Hom_R(M,N)\Ot \Hom_R(M'',N)\Ot 0
+    \end{equation*}
+    is exact.
+  \end{prop}
+  \begin{prop}
+    The functor $\Hom_R(M,-)$ is \termin[left exact]{left!exact}. Which means each sequence
+    \begin{equation*}
+      0\To N'\To N\To N''
+    \end{equation*}
+    is exact, then the sequence
+    \begin{equation*}
+      0\To \Hom_R(M,N')\To \Hom_R(M,N)\To \Hom_R(M,N'')
+    \end{equation*}
+    is exact.
+  \end{prop}
+
+\subsection{Representation}
+
+  Let $M$ be an $A-$module, then $\End_A(M)$ is a ring and $M$ is a module over $\End_A(M)$. Moreover, if $A$ is commutative and $\rho\colon R\To \End_A(M)$ is a ring homomorphism, then $M$ is also a module over $R$.
+  \begin{defn}
+    Let $R$ be a ring and let $\rho\colon R\To \End_A(M)$ be a ring homomorphism. Then $\rho$ is called a \termin{representation} of $R$ on $M$.
+  \end{defn}
+
+  \begin{defn}
+    A \emph{morphism} of representation $\rho\colon R\To \End_A(M)$ into another $\rho'\colon R\To \End_A(M')$ is an $A-$module homomorphism $h\colon M\To M'$ such that the following diagram is commutative.
+    \begin{displaymath}
+      \xymatrix@R=0.5cm{
+                &         \End_A(M) \ar[dd]^{[h]}     \\
+              R \ar[ur]^{\rho} \ar[dr]_{\rho'}                 \\
+                &         \End_A(M')                 }
+    \end{displaymath}
+    where $[h]$ is defined by $[h]f=h\circ g\circ h^{-1}$.
+  \end{defn}
+
+  \begin{defn}
+    Let $G$ be a \emph{monoid}. By a \termin[representation]{representation!of monoid} of $G$ on an $A-$module $M$, we mean a homomorphism $\rho\colon G\To \End_A(M)^{\ast}$.
+  \end{defn}
+  \begin{rem}
+    We may extend $\rho$ to be a representation of $A[G]$ on $\End_A(M)$.
+  \end{rem}
+
+\newpage\section{Category of Modules}
+  \begin{defn}
+    A module $M$ is said to be \termin[finitely generated]{finitely generated!module} or of \termin[finite type]{module!of finite type}, or \emph{\red finite} over $R$, if it has a finite number of generators.
+  \end{defn}
+  \begin{defn}
+    An exact sequence of modules $0\To\longexseq{M'}{f}{M}{g}{M''}\To0$ is said to \termin[split]{split!exact sequence}, if it is \termin[equivalent]{equivalent!exact sequences} to the canonical one: $0\To\longexseq{M'}{\imath}{M'\oplus M''}{p}{M''}\To0$. That is there exist an isomorphism $M\To M'\oplus M''$ make the following diagram commutative:
+  \begin{displaymath}
+      \xymatrix{
+         0\ar[r] & M'\ar[r]^{f}\ar@{=}[d] & M\ar[r]^{g}\ar[d]_{\cong} & M''\ar[r]\ar@{=}[d] & 0 \\
+         0\ar[r] & M'\ar[r]_-{\imath} & M'\oplus M''\ar[r]_-{p} & M''\ar[r] & 0
+      }
+  \end{displaymath}
+  \end{defn}
+
+  \begin{prop}
+    Let $0\To\longexseq{M'}{f}{M}{g}{M''}\To0$ be an exact sequence of modules. Then the following statements are equivalent:
+    \begin{enumerate}
+      \setlength{\itemindent}{2ex}
+      \item this sequence is split;
+      \item $f$ is split monomorphism;
+      \item $g$ is split epimorphism.
+    \end{enumerate}
+  \end{prop}
+  \begin{rem}
+    Such a proposition is true in general abelian category.
+  \end{rem}
+
+  \begin{defn}
+    In abelian category, a \termin{kernel} of a morphism $f\colon A\To B$, is a morphism $k\colon K\To A$ such that for any object $X$, the following sequence is exact:
+    \begin{equation*}
+      0 \To \Hom(X,K) \To \Hom(X,A) \To \Hom(X,B) \To 0
+    \end{equation*}
+  \end{defn}
+
+  Similarly, we have
+  \begin{defn}
+    In abelian category, a \termin{cokernel} of a morphism $f\colon A\To B$, is a morphism $c\colon B\To C$ such that for any object $X$, the following sequence is exact:
+    \begin{equation*}
+      0 \To \Hom(A,X) \To \Hom(B,X) \To \Hom(C,X) \To 0
+    \end{equation*}
+  \end{defn}
+  \begin{rem}
+    It is clear that these definitions are consist with the definitions in Chapter1.
+  \end{rem}
+
+  \begin{thm}
+    The category of modules over a ring is an abelian category.
+  \end{thm}
+
+\newpage\section{Free Module}
+  \begin{defn}
+    A non-empty family of elements of $M$ is called a \termin[basis]{basis!of module} of $M$ if it is linearly independent and generates $M$. By a \termin[free]{free!module} module we mean a module admits a basis, or zero module.
+  \end{defn}
+
+  \begin{defn}
+    Let $S$ be a non-empty set, we define the \emph{free} module over a ring $R$ \emph{generated by} $S$, denoted by $R\<S\>$, to be the unique object in $\mathbf{Mod}_R$ satisfying the following universal property
+    \begin{quote}
+      For any $R-$module $M$ and any set-map $f\colon S\To M$, there exist exact one $R-$homomorphism $\tilde{f}\colon F\To M$ making the following diagram commutative
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+                &         F \ar[dd]^{\tilde{f}}     \\
+              S \ar[ur]^{t} \ar[dr]_{f}                 \\
+                &         M                 }
+      \end{displaymath}
+    \end{quote}
+  \end{defn}
+
+  These two definitions are consist. If $S$ is a non-empty set then it is consist with a diagram of type $S$ (view as a discrete category) say $\{Rx_i\}_{i\in S}$. For any $R-$module $M$ and any set-map $f\colon S\To M$, $(M,f)$ induces a nature cocone $(M,\phi_i)$ where $\phi_i$ is the composite of canonical maps
+  \begin{alignat*}{5}
+       Rx_i & \longrightarrow & R & \longrightarrow & M \\
+       rx_i & \longmapsto & r & \longmapsto & ry_i
+  \end{alignat*}
+  where $y_i\in M$ is arbitrary. By such a translation, the solution of the above universal property is exact the colimit of $\{Rx_i\}_{i\in S}$ and hence is $\oplus Rx_i$.
+
+  \begin{prop}
+    If sets $S$ and $S'$ have same cardinality, then $R\<S\>\cong R\<S'\>$.
+  \end{prop}
+
+  \begin{warn}
+     The converse may not be true! If it is true, we say $R$ has \termin[invariant dimension property]{invariant!dimension property}. In this case, we define the \termin{dimension} of a free module $F$ to be the cardinality of a basis of $F$.
+  \end{warn}
+
+  \begin{exam}
+    Let $F$ be a free $A-$module with countable infinite basis, then $R=\End_A(F)$ is a ring. And as $R-$modules $R\cong R\oplus R\oplus \cdots \oplus R$ for any finite number of summands.
+  \end{exam}
+
+  The following propositions about invariant dimension property can be found in \cite{hungerford1974algebra}. We just list them here.
+
+  \begin{prop}
+    Let $F$ be a free $R-$module with infinite basis, then every basis of $F$ has same cardinality.
+  \end{prop}
+
+  \begin{prop}\label{3.5.2}
+    Fields have invariant dimension property.
+  \end{prop}
+
+  \begin{prop}
+    Let $I$ be an ideal of $R$ and $F$ be a free $R-$module with basis $X$. $\pi\colon F\To F/IF$ is the canonical map. Then $F/IF$ is a free $R/I-$module with basis $\pi(X)$ and $|\pi(X)|=|X|$.
+  \end{prop}
+
+  \begin{prop}
+    If $f\colon R\To A$ is an epimorphism where $A$ has invariant dimension property, then so does $R$.
+  \end{prop}
+  \begin{proof}
+    Consider $I=\ker f$, then $A\cong R/I$, and the following comes from the above proposition.
+  \end{proof}
+
+  \begin{prop}
+    Commutative rings have invariant dimension property.
+  \end{prop}
+
+
+  \begin{defn}
+    A module $M$ is called \termin[principal]{principal!module} if there exists an element $x\in M$ such that $M=Ax$.
+  \end{defn}
+
+\subsection{Vector Spaces}
+  \begin{prop}
+    If any $A-$module is free, then $A$ is a division ring.
+  \end{prop}
+  \begin{rem}
+    A ring over which every module is projective is called \termin[semisimple]{semisimple!ring}.
+  \end{rem}
+
+  \begin{thm}[Kernel and Image]
+    If $f\colon V\To W$ is a homomorphism of vector spaces over a field $k$, then
+    \begin{equation*}
+      \dim V=\dim\ker f+\dim\im f
+    \end{equation*}
+  \end{thm}
+
+  \begin{ex}
+    Let $V$ be a vector spaces over a field $k$, and let $U,W$ be subspaces. Show that
+    \begin{equation*}
+      \dim U+\dim W=\dim(U+W)+\dim(U\cap W)
+    \end{equation*}
+  \end{ex}
+  \begin{proof}
+    Let $\{v_1,v_2,\cdots,v_k\}$ be a basis of $U\cap W$. One can extend it to a basis of $U$, say $\{v_1,v_2,\cdots,v_k,u_{k+1},u_{k+2},\cdots,u_n\}$. Similarly, we get a basis of $W$, say $\{v_1,v_2\cdots,v_k,w_{k+1},w_{k+2},\cdots,w_m\}$.
+    Then it is clear that $\{v_1,v_2,\cdots,v_k,u_{k+1},u_{k+2},\cdots,u_n,w_{k+1},w_{k+2},\cdots,w_m\}$ is a basis of $U+W$. Hence we get the formula.
+  \end{proof}
+
+  \begin{ex}
+    Generalize the dimension statement of \ref{3.5.2} to free modules over a commutative ring.
+  \end{ex}
+  \begin{proof}
+    Notice that $F/\mm F$ is a vector space over $A/\mm$.
+  \end{proof}
+
+  \begin{ex}
+    Let $R$ be an entire ring containing a field $k$ as subring. Suppose that $R$ is a finite dimensional vector space over $k$ under the ring multiplication. Show that $R$ is a field.
+  \end{ex}
+  \begin{proof}
+    Let $e^1,e^2,\cdots,e^n$ be a basis of $R$, and $e^ie^j=a^{ij}_ke^k$, then for any $\alpha=\alpha_ie^i,\beta=\beta_je^j\neq0$, the equations $\alpha X=\beta$ has a solution $X=\alpha^{-1}\beta$. Otherwise, $\det(\alpha_ia^{ij}_k)=0$, hence $\alpha X=0$ has a non-zero solution, which contradict to the entireness of $R$.
+  \end{proof}
+
+\newpage\section{Duality}
+  \begin{defn}
+    Let $E$ be a free module over a commutative ring $A$. By the \termin[dual module]{dual!module} $\codual{E}$ of $E$ we mean the module $\Hom(E,A)$. Its elements will be called \termin[functionals]{functional}.
+  \end{defn}
+  \begin{rem}
+    If $x\in E,f\in \codual{E}$, we sometimes denote $f(x)$ by $\<x,f\>$. Keeping $x$ fixed, we get a linear map on $\codual{E}$, which is $0$ if and only if $x=0$. Hence we get an injection $E\To E^{\vee\vee}$ which is not always a surjective. If it is, we call $E$ is \termin{reflexive}.
+  \end{rem}
+
+  \begin{prop}
+    Let $E$ ba a finite free module over the commutative ring $A$, of dimension $n$. Then $\codual{E}$ is also free, and $\dim\codual{E}=n$. If $\{x_1,\cdots,x_n\}$ is a basis for $E$, and $f_i$ is the functional such that $f_i(x_j)=\delta_{ij}$, then $\{f_1,\cdots,f_n\}$ is a basis for $\codual{E}$.
+  \end{prop}
+
+  We call such a basis $\{f_i\}$ the \termin[dual basis]{dual!basis} of $\{x_i\}$.
+
+  \begin{cor}
+    When $E$ is of finite type, then the natural map $E\To E^{\vee\vee}$ is an isomorphism.
+  \end{cor}
+
+  \begin{defn}
+    Let $V,V'$ be two vector spaces over a field $K$. Given a bilinear map
+    \mapdes{V\times V'}{K}{(x,x')}{\<x,x'\>}
+    An element $x\in V$ is said to be \termin{orthogonal} to a subset $s'$ of $V'$ if $\<x,x'\>=0$ for all $x'\in S'$. We define the \termin[kernel]{kernel!of bilinear map} of the bilinear map on the left to be the subspace of $V$ which is orthogonal to $V'$, and similarly for the kernel on the right.
+  \end{defn}
+  \begin{thm}
+    Let $V\times V'\To K$ be a bilinear map, let $W,W'$ be its kernels on the left and right respectively, and assume that $V'/W'$ is finite dimensional. Then the induced homomorphism $V'/W'\To\codual{(V/W)}$ is an iosmorphism.
+  \end{thm}
+
+  \begin{rem}
+    Let $E$ be a module over a commutative ring $A$, then we may form two types of dual:
+
+    $\dual{E}=\Hom(E,\QQ/\ZZ)$, viewing $E$ as an abelian group;
+
+    $\codual{E}=\Hom_A(E,A)$, viewing $E$ as an $A-$module.
+
+    Both are called dual. If we need to distinguish them, we call $\dual{E}$ the \termin{Pontrjagin dual}.
+  \end{rem}
+
+\newpage\section{Modules over Principal Rings}
+  \emph{Throughout this section, we assume that $R$ is a principal entire ring. All modules are over $R$ unless otherwise specified.}
+
+  \begin{prop}
+    Principal rings have invariant dimension property.
+  \end{prop}
+
+  \begin{thm}
+    Let $F$ be a free module, and $M$ a submodule. Then $M$ is free, and its dimension is less than or equal to the dimension of $F$.
+  \end{thm}
+  \begin{proof}
+    Let $\{v_i\}_{i\in I}$ be a basis of $F$. For any subset $J$ of $I$, we let $F_J$ to be the free submodule generated by $\{v_j\}_{j\in J}$, and we let $M_J=F_J\cap M$. Let $S$ be the set of all pairs $(M_J,w)$ where $J$ is a subset of $I$, and $w$ is a basis of $M_J$ indexed by a subset $J'$ of $J$. For two such pairs $(M_J,w), (M_K,u)$, we define $(M_J,w)\prec(M_K,u)$ if $J\subset K$ and if the basis $u$ of $M_K$ is a extension of the basis $w$ of $M_J$. Then we will use Zorn's lemma and the rest are easy to prove.
+  \end{proof}
+  \begin{warn}
+    This is not true in general case. For example, $\ZZ/6$ is a free $\ZZ/6-$module, but  its submodule $\{0,2,4\}$ is not free.
+  \end{warn}
+
+  \begin{cor}
+    Let $E$ be a finitely generated module and $E'$ a submodule. Then $E'$ is finitely generated.
+  \end{cor}
+
+  \begin{defn}
+    A free $1-$dimensional module over $R$ is called \termin{infinite cyclic}.
+  \end{defn}
+  \begin{defn}
+    Let $E$ be a module. An element $x$ of $E$ is called a \termin[torsion element]{torsion!element} if there exists $a\in R,a\neq0$ such that $ax=0$. The \termin[torsion submodule]{torsion!submodule} $E_{\tor}$ is the set of torsion elements in $E$.
+    We say that $E$ is a \termin[torsion module]{torsion!module} if it consists of torsion elements.
+    If $E_{\tor}=0$, we say that $E$ is \termin[torsion free]{torsion!free}.
+  \end{defn}
+
+  \begin{thm}[Structure Theorem of f.g.Modules over PID]\label{f.g.module over PID}
+    Let $E$ be finitely generated. Then $E/E_{\tor}$ is free. There exists a free submodule $F$ of $E$ such that
+    \begin{equation*}
+      E=E_{\tor}\oplus F
+    \end{equation*}
+    The dimension of such a submodule $F$ is uniquely determined.
+  \end{thm}
+  \begin{proof}
+    First prove that $E/E_{\tor}$ is torsion free, then use lemma \ref{torsion free is free} and lemma \ref{free summand}.
+  \end{proof}
+  \begin{lem}\label{torsion free is free}
+    A finitely generated torsion free module is free.
+  \end{lem}
+  \begin{lem}\label{free summand}
+    Let $E,E'$ be modules, and assume that $E'$ is free. Let $f\colon E\To E'$ be surjective. Then there exist a free submodule $F$ of $E$ such that $\local{f}{F}$ is an isomorphism, and such that
+    \begin{equation*}
+      E=F\oplus\ker f
+    \end{equation*}
+  \end{lem}
+
+  \begin{defn}
+    The dimension of the free module $F$ in Theorem \ref{f.g.module over PID} is called the \termin{rank} of $E$.
+  \end{defn}
+
+  \begin{defn}
+    Let $E$ be a module over $R$. For $x\in E$, the map $a\mapsto ax$ is a homomorphism of $R$ onto the submodule generated by $x$, and the kernel $\ann(x)$ is an ideal called the \termin{annihilator} of $x$. We say that $m\in R$ is a \termin{period} of $x$ if $(m)=\ann(x)$. An element $c\in R,c\neq0$ is said to be an \termin{exponent} for $E$ (resp. for $x$) if $cE=0$ (resp. $cx=0$).
+
+    Let $p$ be a rime element. We denoted by $E(p)$ the submodule of $E$ consisting of all elements having an exponent which is a power $p^r(r\geqslant1)$. A \termin{$p-$submodule} of $E$ is a submodule contained in $E(p)$.
+
+    We select once and for all a system of representatives for the prime elements of $R$ (modulo units).
+
+    Let $m\in R,m\neq0$. We denoted by $E_m$ the kernel of the map $x\mapsto mx$. It consists of all elements of $E$ having exponent $m$.
+
+    A module $E$ is said to be \termin{cyclic} if  it is isomorphic to $R/(a)$ for some element $a\in R$. Without loss of generality if $a\neq0$, one may assume that $a$ is a product of primes in our system of representatives, and then we could say that $a$ is the \termin{order} of the module.
+  \end{defn}
+  \begin{defn}
+    Let $r_1,\cdots,r_s$ be integers $\geqslant1$. A $p-$module $E$ is said to be of \termin{type}
+    \begin{equation*}
+      (p^{r_1},\cdots,p^{r_s})
+    \end{equation*}
+    if it is isomorphic to the product of cyclic modules $R/(p^{r_i})$ ($i=1,\cdots,s$). If $p$ is fixed, then one could say that the module is of type $(r_1,\cdots,r_s)$ (relative to $p$).
+  \end{defn}
+
+  \begin{defn}
+    Let $y_1,\cdots,y_m$ be elements of a module, we say that they are \termin{independent} if whenever we have a relation
+    \begin{equation*}
+      a_1y_1+\cdots+a_my_m=0
+    \end{equation*}
+    with $a_i\in R$, then we must have $a_iy_i=0$ for all $i$.
+  \end{defn}
+  \begin{warn}
+    Observe that \emph{independent} does not mean \emph{linearly independent}.
+  \end{warn}
+  \begin{lem}
+    Let $E$ be a torsion module of exponent $p^r(r\geqslant1)$ for some prime element $p$. Let $x_1\in E$ be an element of period $p^r$. Let $\overline{E}=E/(x_1)$. Let $\overline{y}_1,\cdots,\overline{y}_m$ be independent elements of $\overline{E}$. Then for each $i$ there exists a representative $y_i\in E$ of $\overline{y}_i$, such that the period of $y_i$ is the same as the period of $\overline{y}_i$. The elements $x_1,y_1,\cdots,y_m$ are independent.
+  \end{lem}
+
+  \begin{thm}
+    Let $E$ be a finitely generated torsion module $\neq0$. Then $E$ is the direct sum
+    \begin{equation*}
+      E=\bigoplus_p E(p)
+    \end{equation*}
+    taken over all primes $p$ such that $E(p)\neq0$.
+    Each $E(p)$ can be written as a direct sum
+    \begin{equation*}
+      E(p)=R/(p^{r_1})\oplus\cdots\oplus R/(p^{r_s})
+    \end{equation*}
+    with $1\leqslant r_1\leqslant\cdots\leqslant r_s$. The sequence $r_1,\cdots,r_s$ is uniquely determined.
+  \end{thm}
+
+  \begin{thm}
+    Let $E$ be a finitely generated torsion module $\neq0$. Then $E$ is isomorphic to a direct sum of non-zero factors
+    \begin{equation*}
+      R/(q_1)\oplus\cdots\oplus R/(q_r)
+    \end{equation*}
+    where $q_1,\cdots,q_r$ are non-zero elements of $R$, and $q_1|q_2|\cdots|q_r$. The sequence of ideals $(q_1),\cdots,(q_r)$ is uniquely determined by the above conditions.
+  \end{thm}
+  \begin{rem}
+    The ideals $(q_1),\cdots,(q_r)$ are called the \termin[invariants]{invariant!of module} of $E$.
+  \end{rem}
+
+  \begin{thm}[Elementary Divisors]
+    Let $F$ be a free module, and let $M$ be a finitely generated submodule $\neq0$. Then there exists a basis $\BBb$ of $F$, elements $e_1,\cdots,e_m$ in this basis, and non-zero elements $a_1,\cdots,a_m\in R$ such that
+    \begin{enumerate}[(i)]
+      \item The elements $a_1e_1,\cdots,a_me_m$ form a basis of $M$ over $R$.
+      \item We have $a_i|a_{i+1}$ for $i=1,\cdots,m-1$.
+    \end{enumerate}
+    The sequence of ideals $(a_1),\cdots,(a_m)$ is uniquely determined by the preceding conditions.
+  \end{thm}
+  \begin{rem}
+    We call the ideals $(a_1),\cdots,(a_m)$ the \termin[invariants]{invariant!of module} of $M$ in $F$.
+  \end{rem}
+
+  \begin{thm}
+    Assume that the elementary matrices in $R^{n\times n}$ generate $\GL_n(R)$. Let $(c_{ij})$ be a non-zero matrix with components in $R$. Then with a finite number of row and column operations, it is possible to bring the matrix to the form
+    \begin{equation*}
+      \diag\{a_1,a_2,\cdots,a_m,0,\cdots,0\}
+    \end{equation*}
+    with $a_1\cdots a_m\neq0$ and $a_1|a_2|\cdots|a_m$.
+  \end{thm}
+
+
+
+\subsection{Lattice}
+  \begin{ex}
+    Let $A$ be an additive subgroup of Euclidean space $\RR^n$, and assume that in every bounded region of space, there is only a finite number of elements of $A$. Show that $A$ is a free abelian group on $\leqslant n$ generators.
+  \end{ex}
+  \begin{proof}
+    Induction on the maximal number of linearly independent elements of $A$ over $\RR$.
+
+    When this number is $1$, since in every bounded region of space, there is only a finite number of elements of $A$, there must one $a\in A$, such that $d(a,0)=\min\limits_{x\in A\setminus\{0\}}d(x,0)$. Then it is clear that $A=\ZZ a$.
+
+    Let $v_1,\cdots,v_m$ be a maximal set of linearly independent elements of $A$ over $\RR$, and let $A_0$ be the subgroup of $A$ contained in $\RR-$space generated by $v_1,\cdots,v_{m-1}$. By induction, one may assume that any element of $A_0$ is a linear integral combination of $v_1,\cdots,v_{m-1}$.
+
+    Let $S$ be the subset of elements $v\in A$ of the form $v=a_1v_1+\cdots+a_mv_m$ with real coefficients $a_i$ satisfying
+    \begin{align*}
+      &0\leqslant a_i<1  \quad\text{if } i=1,\cdots,m-1 \\
+      &0\leqslant a_m\leqslant1
+    \end{align*}
+
+    Since $S$ is in a bounded region of space, there must be an element $v'_m$ of $S$ with the smallest $a_m\neq0$. It is clear that $\{v_1,\cdots,v_{m-1},v'_m\}$ is a basis of $A$ over $\ZZ$.
+  \end{proof}
+  \begin{rem}
+    Such $A$ is called a \termin{lattice} in a Euclidean space. The above exercise is applied in algebraic number theory to show that the group of units in the ring of integers of a number field modulo torsion is isomorphic to a lattice in a Euclidean space. See.
+  \end{rem}
+
+  \begin{ex}[Artin-Tate]
+    Let $G$ be a finite group operating on a finite set $S$. For $w\in S$, denote $1\cdot w$ by $[w]$, so that we have the direct sum
+    \begin{equation*}
+      \ZZ\<S\>=\sum_{w\in S}\ZZ[w]
+    \end{equation*}
+    Define an action of $G$ on $\ZZ\<S\>$ by defining $\sigma[w]=[\sigma w]$ (for $w\in S$), and extending $\sigma$ to $\ZZ\<S\>$ by linearity. Let $M$ be a subgroup of $\ZZ\<S\>$ of rank $\#[S]$. Show that $M$ has a $\ZZ-$basis $\{y_w\}_{w\in S}$ such that $\sigma y_w=y_{\sigma w}$ for all $w\in S$.
+  \end{ex}
+    \begin{proof}
+      First, we consider a Euclidean space $E$ generated by $S$. Then $M$ is a lattice of this space, hence there exists a real number $r>0$ such that for any $X\in E$, there exist a $x\in M$ such that
+      \begin{equation*}
+        \|X-x\|<r
+      \end{equation*}
+
+      For any integer $n$, we can find some $\{x_v\}_{v\in S}\subset M$ such that
+      \begin{equation*}
+        \left\|n[v]-x_v\right\|<r
+      \end{equation*}
+
+      For any $w\in S$, define $y_w$ as follow
+      \begin{equation*}
+        y_w=\sum_{\substack{
+                                          \sigma\in G\\
+                                          \sigma v=w}}\sigma x_v
+      \end{equation*}
+
+      Then it is clear that $\sigma y_w=y_{\sigma w}$. We will show that $\{y_w\}_{w\in S}$ is a $\RR-$basis of $M$.
+
+      If not, then there exist some real numbers $c_w$, such that
+      \begin{equation*}
+        \sum_{w\in S} c_wy_w=0
+      \end{equation*}
+      Moreover, we can assume that, some $c_w=1$.
+
+      Let $x_v=n[v]+b_v$, then
+      \begin{align*}
+        0&=\sum_{w\in S} c_w\sum_{\substack{
+                                          \sigma\in G\\
+                                          \sigma v=w}}\sigma n[v]+b_v\\
+          &=\sum_{w\in S} \sum_{\substack{
+                                          \sigma\in G\\
+                                          \sigma v=w}} c_wn[w]+b_v
+      \end{align*}
+
+      Hence
+      \begin{equation*}
+        n\leqslant\left\|\sum_{w\in S} \sum_{\substack{
+                                          \sigma\in G\\
+                                          \sigma v=w}} c_wn[w]\right\|
+        =\left\|\sum_{w\in S} \sum_{\substack{
+                                          \sigma\in G\\
+                                          \sigma v=w}} b_v\right\|<|S||G|r
+      \end{equation*}
+
+      However, $n$ can be large enough to make this inequality fail to hold. Thence $\{y_w\}_{w\in S}$ is a $\RR-$basis of $M$, and by multiply some rational numbers, we can get a $\ZZ-$basis of $M$ satisfying the condition.
+    \end{proof}
+
+\subsection{Seminorm}
+  \begin{ex}\label{seminorm}
+    Let $M$ be a finitely generated abelian group. By a \termin{seminorm} on $M$ we mean a real-valued function $v\mapsto|v|$ satisfying the following properties:
+    \begin{enumerate}
+      \item $|v|\geqslant0$ for all $v\in M$;
+      \item $|nv|=|n||v|$ for $n\in\ZZ$;
+      \item $|v+w|\leqslant|v|+|w|$ for all $v,w\in M$.
+    \end{enumerate}
+    By the \emph{kernel} of seminorm we mean the subset of elements $v$ such that $|v|=0$.
+    \begin{enumerate}[a)]
+      \item Let $M_0$ be the kernel. Show that $M_0$ is a subgroup. If $M_0=\{0\}$, then the seminorm is called a \termin{norm}.
+      \item Assume that $M$ has rank $r$. Let $v_1,\cdots,v_r\in M$ be linearly independent over $\ZZ$ mod $M_0$. Prove that there exists a basis $\{w_1,\cdots,w_r\}$ of $M/M_0$ such that
+          \begin{equation*}
+            |w_i|\leqslant\sum_{j=1}^i|v_j|
+          \end{equation*}
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item For $v\in M_0$, by \emph{2}, $0,-v\in M_0$. For $u,v\in M_0$, by \emph{3}, $u+v\in M_0$.
+      \item Without loss of generality, we can assume $M_0=\{0\}$.
+
+               Let $M_1=\<v_1,\cdots,v_r\>$. Let $d$ be the exponent of $M/M_1$.
+               Then $dM$ has a finite index in $M_1$ ($d\geqslant[M:dM]=[M:M_1][M_1:dM]$).
+
+               Let $n_{j,j}$ be the smallest positive integer such that there exist integers $n_{j,1},\cdots,n_{j,j-1}$ satisfying
+               \begin{equation*}
+                 n_{j,1}v_1+\cdots+n_{j,j}v_j=dw_j
+               \end{equation*}
+               for some $w_j\in M$.
+
+               Without loss of generality, we may assume $0\leqslant n_{j,k}\leqslant d-1$. Then $w_1,\cdots,w_r$ form the desired basis:
+
+               First, $w_1,\cdots,w_r$ obversely form a $\RR-$basis. We need to prove that it is also a $\ZZ-$basis. For any $a\in M$, we have $a=a_1w_1+\cdots+a_rw_r$. Without loss of generality, we can assume $0\leqslant a_j<1$. Hence
+               \begin{align*}
+                 da & = a_1dw_1+\cdots+a_rdw_r \\
+                  & = \sum_{j=1}^r a_j \sum_{i=1}^j n_{j,i}v_i \\
+                  & = \sum_{i=1}^r\sum_{j=1}^r a_jn_{j,i}v_i
+               \end{align*}
+
+               Notice that $0\leqslant a_rn_{r,r}<n_{r,r}$, by the minimum of $n_{r,r}$, $a_r$ must be $0$, and the equality become
+               \begin{equation*}
+                 da=\sum_{i=1}^{r-1}\sum_{j=1}^{r-1} a_jn_{j,i}v_i
+               \end{equation*}
+
+               Since $0\leqslant a_jn_{j,j}<n_{j,j}$, we can get all $a_j=0$ by induction. Hence $a=0$, which means that $w_1,\cdots,w_r$ a $\ZZ-$basis.
+
+               The desired inequality comes from
+               \begin{align*}
+                 |w_j| & = \frac{1}{d}|n_{j,1}v_1+\cdots+n_{j,j}v_j| \\
+                  & \leqslant \sum_{i=1}^j\frac{n_{j,i}}{d}|v_i|\leqslant\sum_{i=1}^j|v_i|
+               \end{align*}
+    \end{enumerate}
+  \end{proof}
+
+  \begin{ex}
+    Consider the multiplicative group $\QQ^{\ast}$ of non-zero rational numbers. For a non-zero rational number $x=a/b$ with $a,b\in\ZZ$ and $(a,b)=1$, define the \emph{height}
+    \begin{equation*}
+      h(x)=\log\max(|a|,|b|)
+    \end{equation*}
+    \begin{enumerate}[a)]
+      \item Show that $h$ defines a seminorm on $\QQ^{\ast}$, whose kernel consists of $\pm1$ (the torsion group).
+      \item Let $M_1$ be a subgroup of $\QQ^{\ast}$, generated by $x_1,\cdots,x_m$. Let $M$ be the subgroup of $\QQ^{\ast}$ consisting of those elements $x$ such that $x^s\in M_1$ for some positive integer $s$. Show that $M$ is finitely generated, and using Exercise \ref{seminorm}, find a bound for the seminorm of a set of generators of $M$ in terms of the seminorms of $x_1,\cdots,x_m$.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item \emph{1} is clear. For $x=a/b,(a,b)=1$, if $n>0$, then $(a^n,b^n)=1$, hence
+               \begin{equation*}
+                  h(x^n)=\log\max(|a^n|,|b^n|)=\log(\max(|a|,|b|))^n=nh(x)
+               \end{equation*}
+               if $n<0$, then
+               \begin{equation*}
+                  h(x^n)=\log\max(|b^{|n|}|,|a^{|n|}|)=\log(\max(|b|,|a|))^{|n|}=|n|h(x)
+               \end{equation*}
+               if $n=0$, then
+               \begin{equation*}
+                 h(x^0)=\log\max(1,1)=1=h(1)
+               \end{equation*}
+               Which proves \emph{2}.
+
+               Let $v=a/b,w=c/d,(a,b)=(c,d)=1$, assume $(ac,bd)=e$, then
+               \begin{align*}
+                 h(vw) &=\log\max(|ac/e|,|bd/e|)\\
+                          &\leqslant\log\max(|ac|,|bd|)\\
+                          &\leqslant\log\max(|a|,|b|)+\log\max(|c|,|d|)=h(v)+h(w)
+               \end{align*}
+               Which is \emph{3}.
+
+               Hence $h(x)$ is a seminorm on $\QQ^{\ast}$.
+
+               If $h(a/b)=0$, then $\max(|a|,|b|)=1$, hence $|a|=|b|=1$. So the kernel consists of $\pm1$.
+     \item For $x_i=a_i/b_i$, let $a_i$ and $b_i$ be factorized into power of primes $p_{i,j}$ and $q_{i,j}$ respectively.
+              Then For any $x=a/b\in M_1$, $a$ (resp. $b$) must be a product of some power of $p_{i,j}$ (resp. $q_{i,j}$).
+
+              For $x=a/b\in M$, assume $x^s\in M_1$, then $a^s$ (resp. $b^s$) must be a product of some power of $p_{i,j}$ (resp. $q_{i,j}$),
+              and hence so do $a$ and $b$. Whence $M$ must be a subgroup of the subgroup of $\QQ^{\ast}$ which is generated by those primes.
+
+              Moreover, since for any $x\in M$, there exist a $s$ such that $x^s\in M_1$ and hence can be written by a product of $x_1,\cdots,x_m$. This fact shows that $x_1,\cdots,x_m$ is a maximal linear independent term in $M$.
+              By Exercise \ref{seminorm}, the generators of $y_1,\cdots,y_m$ of $M$ must satisfying
+              \begin{equation*}
+                h(y_i)\leqslant\sum_{j=1}^ih(x_j)
+              \end{equation*}
+              for $i=1,\cdots,m$. Whence we get a bound of the set of generators of $M$, say $\sum\limits_{i=1}^m h(x_i)$.
+    \end{enumerate}
+  \end{proof}
+
+\newpage\section{Localization}
+  \emph{Throughout this section, we assume that $A$ is a commutative ring. All modules are over $A$ unless otherwise specified.}
+
+  \begin{ex}
+    Let $A$ be a commutative ring and let $M$ be an $A-$module. Let $S$ be a multiplicative subset of $A$. Define $S^{-1}M$ in a manner analogous to the one we used to define $S^{-1}A$. Show that
+    \begin{enumerate}[a)]
+      \item $S^{-1}M$ is an $S^{-1}A-$module.
+      \item the functor $M\mapsto S^{-1}M$ is exact.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item We consider pairs $(x,s)$ with $x\in M$ and $s\in S$. we define a relation
+      \begin{equation*}
+        (x,s)\sim(x',s')
+      \end{equation*}
+      between such pairs, by the condition that there exists an element $s_1\in S$ such that
+      \begin{equation*}
+        s_1(s'x-sx')=0
+      \end{equation*}
+      It is then trivially verified that this is an equivalence relation, and the equivalence class containing a pair $(x,s)$ is denoted by $x/s$. The set of equivalence classes is denoted by $S^{-1}M$.
+
+      We define a $S^{-1}A-$module structure on $S^{-1}M$ by
+      \begin{equation*}
+        (a/s)(x/s')=ax/ss'
+      \end{equation*}
+      It is trivially verified that this is well defined. For any $a/s_1,a'/s_1'\in S^{-1}A$ and $x/s_2,x'/s_2'\in S^{-1}M$, we have the left and right distributive laws:
+      \begin{align*}
+        (\frac{a}{s_1}+\frac{a'}{s_1'})\frac{x}{s_2} & = \frac{s_1'a+s_1a'}{s_1s_1'}\frac{x}{s_2} = \frac{s_1'ax+s_1a'x}{s_1s_1's_2} \\
+         & = \frac{ax}{s_1s_2}+\frac{a'x}{s_1's_2} = \frac{a}{s_1}\frac{x}{s_2}+\frac{a'}{s_1'}\frac{x}{s_2} \\
+        \frac{a}{s_1}(\frac{x}{s_2}+\frac{x'}{s_2'}) & = \frac{a}{s_1}\frac{s_2'x+s_2x'}{s_2s_2'} = \frac{s_2'ax+s_2ax'}{s_1s_2s_2'} \\
+         & = \frac{ax}{s_1s_2}+\frac{ax'}{s_1s_2'} = \frac{a}{s_1}\frac{x}{s_2}+\frac{a}{s_1}\frac{x'}{s_2'}
+      \end{align*}
+      \item For any $A-$homomorphism $f\colon M\To M'$, we define $S^{-1}f\colon S^{-1}M\To S^{-1}M'$ to be
+               \begin{equation*}
+                 S^{-1}f(x/s)=f(x)/s
+               \end{equation*}
+               It is trivially verified that this is a $S^{-1}A-$homomophism and the following diagram is commutative:
+               \begin{displaymath}
+                 \xymatrix{
+                    M \ar[r]^-{\varphi_S}\ar[d]_{f} & S^{-1}M\ar[d]^{S^{-1}f}       \\
+                    M' \ar[r]_-{\varphi_S}  & S^{-1}M'             }
+               \end{displaymath}
+               where $\varphi_S$ is the natural map $x\mapsto x/1$. Whence $S^{-1}$ is a functor.
+
+               Given an arbitrary short exact sequence
+               \begin{equation*}
+                 0\To \longexseq{M'}{f}{M}{g}{M''} \To 0
+               \end{equation*}
+               We need to show the sequence
+               \begin{equation*}
+                 0\To \longexseq{S^{-1}M'}{S^{-1}f}{S^{-1}M}{S^{-1}g}{S^{-1}M''} \To 0
+               \end{equation*}
+               is exact.
+               \begin{enumerate}[1)]
+                 \item \emph{$S^{-1}f$ is injective:}
+                          For any $S^{-1}f(x'/s)=0/1$, there exists a $s'\in S$ such that $s'f(x')=0$. Hence $s'x'\in\ker f$. Since $f$ is injective, hence $s'x'=0$, which means $x'/s=0/1$.
+                 \item \emph{$S^{-1}g$ is surjective:}
+                          For any $x''/s\in S^{-1}M''$, there exists a $x\in M$ such that $g(x)=x''$ since $g$ is surjective. Hence $S^{-1}g(x/s)=x''/s$.
+                 \item \emph{$\ker S^{-1}g=\im S^{-1}f$:}
+                          Since $g\circ f=0$ and $S^{-1}$ is a functor, we have $S^{-1}g\circ S^{-1}f=0$.
+                          The rest is to show that $\ker S^{-1}g\subset\im S^{-1}f$:
+                          For any $x/s\in\ker S^{-1}g$, there exists a $s'\in S$ such that $s'g(x)=0$. Hence $s'x\in\ker g$. Since $\ker g=\im f$, there exist a $x'\in M'$ such that $f(x')=s'x$. Whence $S^{-1}f(x'/s's)=x/s$.
+               \end{enumerate}
+    \end{enumerate}
+  \end{proof}
+
+  \begin{prop}
+    If $N,P$ are submodules of an $A-$module $M$, then
+    \begin{enumerate}[(i)]
+      \item $S^{-1}(N+P)=S^{-1}N+S^{-1}P$;
+      \item $S^{-1}(N\cap P)=S^{-1}N\cap S^{-1}P$;
+      \item $S^{-1}(M/N)\cong S^{-1}M/S^{-1}N$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    \emph{(i)} follows from definition. \emph{(ii)} is easy to verify: if $x/s=y/t$ ($x\in N,y\in P, s,t\in S$), then there exist a $u\in S$ such that $u(tx-sy)=0$. Hence $w=utx=usy\in N\cap P$ and $x/s=w/ust\in S^{-1}(N\cap P)$. Consequently, $S^{-1}N\cap S^{-1}P\subset S^{-1}(N\cap P)$, and the reverse inclusion is clear.
+
+    \emph{(iii)}. Apply the functor $S^{-1}$ to the following exact sequence:
+    \begin{equation*}
+      0 \To N \To M \To M/N \To 0
+    \end{equation*}
+  \end{proof}
+  \begin{cor}
+    $S^{-1}(M\oplus N)=S^{-1}M\oplus S^{-1}N$.
+  \end{cor}
+
+  \begin{ex}\label{3.ex10}
+    Let $\pp$ be a prime ideal, define $M_{\pp}$ in a manner analogous to the one we used to define $A_{\pp}$.
+    \begin{enumerate}[a)]
+      \item Show that the natural map
+               \begin{equation*}
+                 M\To\prod M_{\pp}
+               \end{equation*}
+               of a module $M$ into the direct product of all localizations $M_{\pp}$ where $\pp$ ranges over all \emph{maximal} ideals, is injective.
+      \item Show that a sequence
+               \begin{equation*}
+                 0\To \longexseq{M'}{}{M}{}{M''} \To 0
+               \end{equation*}
+               is exact if and only if the sequence
+               \begin{equation*}
+                 0\To \longexseq{M'_{\pp}}{}{M_{\pp}}{}{M''_{\pp}} \To 0
+               \end{equation*}
+               is exact for all primes $\pp$.
+      \item Let $A$ be entire and let $M$ be torsion-free. For each prime $\pp$ of $A$ show that the natural map $M\To M_{\pp}$ is injective.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item Suppose the natural map is not injective, and $x$ is a non-zero element in its kernel, let $\aa=\ann(x)$. It is an ideal $\neq(1)$, hence must be contained in some maximal ideal $\mm$. But by the natural map, there exists a $s\notin\mm$ such that $sx=0$ which contradicts with $\aa\subset\mm$. Whence the natural map must be injective.
+      \item We leave the proof to proposition \ref{L.P.3}.
+      \item The condition implies that $\ann(x)=0$ for any $x\neq0$. Let $x$ be in the kernel, then there exists a $s\notin \pp$ such that $sx=0$, which can be true only when $x=0$.
+    \end{enumerate}
+  \end{proof}
+
+\subsection{Local Properties}
+  See \cite{atiyah1994introduction} and \cite{eisenbud1995commutative}.
+
+  \begin{defn}
+    A property $\Pp$ of $A$ (or of an $A-$module $M$) is said to be a \termin[local property]{local!property} if the following is true:
+    \begin{quote}
+      $A$ (or $M$) has $\Pp$ if and only if $A_{\pp}$ (or $M_{\pp}$) has $\Pp$ for each prime ideal of $A$.
+    \end{quote}
+  \end{defn}
+
+  \begin{prop}\label{L.P.1}
+    Let $M$ be an $A-$module, and $x\in M$. Then the following are equivalent:
+    \begin{enumerate}
+      \item $x=0$;
+      \item $x/1=0/1$ in $M_{\pp}$ for all prime ideals $\pp$ of $A$;
+      \item $x/1=0/1$ in $M_{\mm}$ for all maximal ideals $\mm$ of $A$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    It is clear \emph{1)$\Rightarrow$2)$\Rightarrow$3)}. Suppose \emph{3)}, and $x\neq0$. Let $\aa=\ann(x)$, it is an ideal $\neq(1)$, hence must be contained in some maximal ideal $\mm$. But $x/1=0/1$ in $M_{\mm}$, there exists a $s\notin\mm$ such that $sx=0$ which contradicts with $\aa\subset\mm$.
+  \end{proof}
+  \begin{cor}\label{L.P.1.1}
+    Let $M$ be an $A-$module. Then the following are equivalent:
+    \begin{enumerate}
+      \item $M=0$;
+      \item $M_{\pp}=0$ for all prime ideals $\pp$ of $A$;
+      \item $M_{\mm}=0$ for all maximal ideals $\mm$ of $A$.
+    \end{enumerate}
+  \end{cor}
+
+  \begin{prop}\label{L.P.2}
+    Let $f\colon M\To N$ be an $A-$homomorphism. Then the following are equivalent:
+    \begin{enumerate}
+      \item $f$ is a monomorphism (resp. epimorphism, isomorphism);
+      \item $f_{\pp}\colon M_{\pp}\To N_{\pp}$ is a monomorphism (resp. epimorphism, isomorphism) for each prime ideal $\pp$ of $A$;
+      \item $f_{\mm}\colon M_{\mm}\To N_{\mm}$ is a monomorphism (resp. epimorphism, isomorphism) for each maximal ideal $\mm$ of $A$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    We prove only the statements for monomorphisms:
+
+    \emph{1)$\Rightarrow$2)}. $0\to M\to N$ is exact, hence $0\to M_{\pp}\to N_{\pp}$ is exact, i.e. $f_{\pp}$ is a monomorphism.
+
+    \emph{2)$\Rightarrow$3)} because a maximal ideal is prime.
+
+    \emph{3)$\Rightarrow$1)}. Let $M'$ be the kernel of $f$, then $0\to M'\to M\to N$ is exact, hence so is $0\to M'_{\mm}\to M_{\mm}\to N_{\mm}$. Then $M'_{\mm}=0$ because $f_{\mm}$ is injective. Hence $M=0$ by \ref{L.P.1.1}. Which proved $f$ is injective.
+  \end{proof}
+
+  \begin{prop}\label{L.P.3}
+    Let $0\to M'\to M\to M''\to 0$ be a sequence of $A-$modules. Then the following are equivalent:
+    \begin{enumerate}
+      \item $0\to M'\to M\to M''\to 0$ is exact;
+      \item $0\to M'_{\pp}\to M_{\pp}\to M''_{\pp}\to 0$ is exact for each prime ideal $\pp$ of $A$;
+      \item $0\to M'_{\mm}\to M_{\mm}\to M''_{\mm}\to 0$ is exact for each maximal ideal $\mm$ of $A$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    By the exactness of the functor $S^{-1}$, it is clear \emph{1)$\Rightarrow$2)$\Rightarrow$3)}.
+
+    Denote $M'\To M$ by $f$, and $M\To M''$ by $g$.
+
+    \emph{3)$\Rightarrow$1)}. By proposition \ref{L.P.2}, we only need to prove that $\ker g=\im f$.
+    It is clear that $\ker g_{\mm}=(\ker g)_{\mm}$ and $\im f_{\mm}=(\im f)_{\mm}$, hence $(\ker g)_{\mm}=(\im f)_{\mm}$. Hence $\ker g=\im f$ because the natural map $M\To\prod M_{\mm}$ is injective.
+  \end{proof}
+
+\newpage\section{Projective Modules}
+  \begin{prop}
+    Let $P$ be a $R-$module, then the following are equivalent.
+    \begin{enumerate}[P1]
+      \item Given a homomorphism $f\colon P\To M''$ and surjective homomorphism $g\colon M\To M''$, there exist a homomorphism $h\colon P\To M$ make the following diagram commutative.
+        \begin{displaymath}
+          \xymatrix{
+             & P \ar[dl]_{h}\ar[d]^{f} &        \\
+             M \ar[r]_{g} & M'' \ar[r] & 0             }
+        \end{displaymath}
+      \item Every exact sequence $0\To M'\To M''\To P\To 0$ splits.
+      \item There exists a module $M$ such that $P\oplus M$ is free, or in words, $P$ is a direct summand of a free module.
+      \item The functor $M\mapsto\Hom_R(P,M)$ is exact.
+    \end{enumerate}
+  \end{prop}
+
+  \begin{defn}
+    A \termin[projective module]{projective!module} is a module satisfying \emph{P1}.
+  \end{defn}
+
+  \begin{prop}
+    Direct sums and direct summands of projective modules are projective.
+  \end{prop}
+  \begin{warn}
+    Submodules of projective modules need not be projective; a ring R for which every submodule of a projective left module is projective is called left \termin{hereditary}.
+  \end{warn}
+
+  \begin{prop}
+    In principal domains or local rings, projective modules and free modules coincide.
+  \end{prop}
+  \begin{proof}
+    It is clear that projective is torsion-free, hence free over a principal domain by Theorem \ref{f.g.module over PID}. The local ring case is a deep theorem by Irving Kaplansky, see \cite{kaplansky1958projective}, but the finite generated case is just a corollary to Nakayama's lemma.
+  \end{proof}
+  \begin{rem}
+    There may be other rings over which the similar statement is true. For example, for polynomial rings over a field, any finite projective module is free. This is Quillen-Suslin theorem, see Chapter 21, Theorem 3.7.
+  \end{rem}
+
+  \begin{defn}
+    A module is called locally free if its every localization is free.
+  \end{defn}
+  \begin{cor}
+    Projective module is locally free.
+  \end{cor}
+  \begin{proof}
+    It is clear that a localization of a projective module is a projective module over a local ring, hence is free.
+  \end{proof}
+  \begin{warn}
+    The converse is not always true.
+  \end{warn}
+
+
+
+\subsection{Grothendieck Group}
+  Let $A$ be a ring. Isomorphism classes of finite\footnote{finitely generated} projective modules form an abelian monoid. The addition is defined by
+  \begin{equation*}
+    [P]+[Q]\defeq[P\oplus Q]
+  \end{equation*}
+
+  The corresponding \emph{Grothendieck group} is denoted by $K(A)$.
+
+  We define an equivalence relation (which is called \termin{stably isomorphic}) $\sim$ as follow: $P\sim P'$ if there exist finite free modules $F,F'$ such that $P\oplus F\cong P'\oplus F'$. Under this equivalence relation we obtain another group denoted by $K_0(A)$.
+
+  \begin{prop}
+    $K(A)=K_0(A)$
+  \end{prop}
+  \begin{proof}
+    It suffices to show that $K_0(A)$ satisfying the universal property of $K(A)$.
+
+   Let $M(A)$ be the monoid of isomorphism classes of finite projective modules. Let $i\colon M(A)\To K_0(A)$ be $[M]\mapsto[[M]]$ where the $[[M]]$ denotes the equivalent class contains $M$. This map is well-defined since any isomorphic modules must be stably isomorphic.
+
+    Let $G$ be an arbitrary abelian group, and $f$ be a homomorphism from $M(A)$ to $G$. We need to show that there exists a unique homomorphism $h\colon K_0(A)\To G$ satisfying the commutative diagram:
+    \begin{displaymath}
+      \xymatrix@R=0.5cm{
+                &         K_0(A) \ar[dd]^{h}     \\
+              M(A) \ar[ur]^{i} \ar[dr]_{f}                 \\
+                &         G                 }
+    \end{displaymath}
+
+    \emph{Uniqueness}. Let $h,h'$ be two homomorphisms satisfying the commutative diagram, then for any $[M]\in M(A)$, $h([[M]])=h'([[M]])$.
+  \end{proof}
+  \begin{warn}
+    Since the monoid-homomorphism from an abelian monoid to its Grothendieck group may not be injective in general, two finite projective modules which are isomorphic may not be stably isomorphic.
+  \end{warn}
+
+  A family of modules $\FFf$ is called \termin[exact]{exact!family} if for any short exact sequence $0\To M'\To M\To M''\To 0$, $M\in\FFf$ if and only if $M',M''\in\FFf$.
+
+  Let $\Ff$ be the free abelian group generated by isomorphism classes of modules in $\FFf$. Let $\Gamma$ be the subgroup generated by all elements
+  \begin{equation*}
+    [M']-[M]+[M'']
+  \end{equation*}
+  for which there exist an exact sequence $0\To M'\To M\To M''\To 0$.
+
+  The factor group $\Ff/\Gamma$ is called the \termin{Grothendieck group} $K(R)$.
+
+  More general, one can consider Grothendieck group of an exact category.
+
+  By an \termin[exact category]{exact!category} $\Aa$, we mean an additive category together with a class of distinguished short sequences $A\To B\To C$ which are called ``exact sequences''.
+
+  It is defined in the same way as before as the abelian group with one generator $[M]$ for each isomorphism class of objects in the category and one relation
+  \begin{equation*}
+    [A]-[B]+[C]=0
+  \end{equation*}
+  for each exact sequence $A\To B\To C$.
+
+\subsection{Euler-Poincar\'{e} Maps}
+
+  \begin{defn}
+    Let $A$ be a ring and $\Gamma$ is an abelian group. An \termin{Euler-Poincar\'{e} mapping} is a corresponding $\varphi$ from an exact family of $A-$modules, or a Serre subcategory of $\Mod_A$, to $\Gamma$ such that: for any short exact sequence
+    \begin{equation*}
+      0\To M'\To M\To M''\To 0
+    \end{equation*}
+    we have
+    \begin{equation*}
+      \varphi(M)=\varphi(M')+\varphi(M'')
+    \end{equation*}
+  \end{defn}
+
+  \begin{defn}
+    If $M$ is a module, then a sequence of submodules
+    \begin{equation*}
+      M=M_1\supset M_2\supset\cdots\supset M_r=0
+    \end{equation*}
+    is called a \termin[finite filtration]{finite!filtration}, and $r$ is called the \termin[length]{length!of filtration} of the filtration.
+  \end{defn}
+
+  \begin{defn}
+    A module $M$ is said to be \termin[simple]{simple!module} if $M\neq0$ and if it does not contain any submodule other than $0$ and $M$.
+    A filtration is called \termin[simple]{simple!filtration} if each $M_i/M_{i+1}$ is simple.
+  \end{defn}
+
+  \begin{thm}[Jordan-H\"{o}lder Theorem]
+    Two simple filtrations of a module are equivalent.
+  \end{thm}
+
+  \begin{defn}
+    A module $M$ is said to be \termin[of finite length]{module!of finite length} if it is $0$ or if it admits a simple finite filtration. The length of such a simple filtration is called the \termin[length]{length!of module} of the module.
+  \end{defn}
+
+
+  \begin{thm}
+    Let $\varphi$ be an rule which to each simple module associates an element of an abelian group $\Gamma$, and such that if $M\cong M'$ then
+    \begin{equation*}
+      \varphi(M)=\varphi(M')
+    \end{equation*}
+    Then $\varphi$ has a unique extension to an Euler-Poincar\'{e} mapping defined on all modules of finite length.
+  \end{thm}
+  \begin{proof}
+    Given a simple filtration
+    \begin{equation*}
+      M=M_1\supset M_2\supset\cdots\supset M_r=0
+    \end{equation*}
+    we define
+    \begin{equation*}
+      \varphi(M)=\sum_{i=1}^{r-1} \varphi(M_i/M_{i+1})
+    \end{equation*}
+  \end{proof}
+
+\subsection{Projective Modules over Dedekind Rings}
+  \emph{Let $\oo$ be a Dedekind ring and $K$ its quotient field.}
+
+  \begin{ex}
+    Let $M$ be a finitely generated torsion-free module over $\oo$. Prove that $M$ is projective.
+  \end{ex}
+  \begin{proof}
+    Given a prime ideal $\pp$, the localized module $M_{\pp}$ is finitely generated torsion-free over $\oo_{\pp}$, which is principal. Then $M_{\pp}$ is projective, so if $F$ is finite free over $\oo$, and $f\colon F\to M$ is a surjective homomorphism, then $f_{\pp}\colon F_{\pp}\to M_{\pp}$ has a splitting $g_{\pp}\colon M_{\pp}\to F_{\pp}$. There exists $c_{\pp}\in\oo$ such that $c_{\pp}\notin\pp$ and $c_{\pp}g_{\pp}(M)\subset F$ because $g_{\pp}(M)$ is finitely generated. The family $\{c_{\pp}\}$ generates the unit ideal $\oo$: if not then $\{c_{\pp}\}$ generates an proper ideal hence belongs to some maximal ideal $\mm$, but $c_{\mm}\notin\mm$ which is a contradiction. So there is a finite number of elements $c_{\pp_i}$ and elements $x_i\in\oo$ such that $\sum x_ic_{\pp_i}=1$. Let
+    \begin{equation*}
+      g=\sum x_ic_{\pp_i}g_{\pp_i}
+    \end{equation*}
+    Then $g\colon M\to F$ is a homomorphism, and $f\circ g=f\circ(\sum x_ic_{\pp_i}g_{\pp_i})=\sum x_i f\circ c_{\pp_i} g_{\pp_i}=\sum x_ic_{\pp_i} f_{\pp_i}\circ g_{\pp_i}=\sum x_ic_{\pp_i}\id_{\pp_i}=\id$.
+  \end{proof}
+  \begin{ex}\label{3.ex12}
+    \begin{enumerate}[a)]
+      \item Let $\aa,\bb$ be ideals. Show that there is an isomorphism:
+               \begin{equation*}
+                 \aa\oplus\bb\markar{\cong}\oo\oplus\aa\bb
+               \end{equation*}
+      \item Let $\aa,\bb$ be fractional ideals, and let $f\colon\aa\to\bb$ be an isomorphism (as $\oo-$modules, of course).
+               Then $f$ has an extension to a $K-$linear map $f_K\colon K\to K$. Let $c=f_K(1)$. Show that $\bb=c\aa$ and that $f$ is given by the mapping $m_c\colon x\mapsto cx$.
+      \item Let $\aa$ be a fractional ideal. For each $b\in\aa^{-1}$ the map $m_b\colon\aa\to\oo$ is an element of the dual $\codual{\aa}$.
+               Show that $\aa^{-1}=\codual{\aa}$ under this map, and so $\aa^{\vee\vee}=\aa$.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item Assume $\aa,\bb$ are relatively prime. Then $\aa+\bb=\oo$ and $\aa\bb=\aa\cap\bb$.
+               Consider the canonical map from $\aa\oplus\bb$ to $\aa+\bb$, we get the following exact sequence:
+               \begin{equation*}
+                 0 \To \aa\bb \To \aa\oplus\bb \To \oo \To 0
+               \end{equation*}
+               Since $\oo$ is a free $\oo-$module, $\aa\oplus\bb\cong\oo\oplus\aa\bb$.
+
+               As for the general case, thanks to Exercise 2.19, there exists a $c\in K$ such that $c\aa$ is relatively prime to $\bb$. Hence we have
+               \begin{equation*}
+                 \aa\oplus\bb\cong c\aa\oplus\bb\cong\oo\oplus c\aa\bb\cong\oo\oplus\aa\bb
+               \end{equation*}
+      \item For any $x\in\aa$, we have $c=f_K(1)=f_K(x^{-1}x)=x^{-1}f(x)$ since $f_K$ is a $K-$linear map and an extension of $f$.
+               Hence $f(x)=cx$, which proved the statements since $f$ is an isomorphism.
+      \item The map $b\mapsto m_b$ is clearly injective and a $\oo-$homomorphism. It suffices to show that it is surjective.
+               For any $f\in\codual{\aa}$, by \emph{b)}, there exists a $c\in K$ such that $f=m_c$ and $c\aa\subset\oo$. Since $\aa^{-1}=\{c\in K|c\aa\subset\oo\}$ (if $c\aa\subset\oo$, then $c\aa\aa^{-1}\subset\aa^{-1}$, hence $c\in\aa^{-1}$), we have $c\in\aa^{-1}$.
+    \end{enumerate}
+  \end{proof}
+
+  \begin{ex}
+    \begin{enumerate}[a)]
+      \item Let $M$ be a projective finite module over the Dedekind ring $\oo$.
+               Show that there exist free modules $F$ and $F'$ such that $F\supset M\supset F'$, and $F,F'$ have the same rank, which is called the \termin{rank} of $M$.
+      \item Prove that there exists a basis $\{e_1,\cdots,e_n\}$ of $F$ and ideals $\aa_1,\cdots,\aa_n$ such that $M=\aa_1e_1+\cdots+\aa_ne_n$, or in other words, $M=\bigoplus\aa_i$.
+      \item Prove that $M\cong\oo^{n-1}\oplus\aa$ for some ideal $\aa$, and that the association $M\mapsto\aa$ induces isomorphism of $K_0(\oo)$ with the group of ideal classes $\Pic(\oo)$.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item Let $x_1,\cdots,x_n$ generated $M$, then there exists a maximal linear independent subterm, say $x_1,\cdots,x_k$, then $F'=\<x_1,\cdots,x_k\>\subset M$. For any $x_i, k<i\leqslant n$, assume that $a_ix_i\in F'$, then there exists a $c\in K$ such that $x_i\in F=\<cx_i,\cdots,cx_k\>$ for any $1\leqslant i\leqslant n$. Hence $F'\subset M\subset F$ and $\rank(F)=\rank(F')$.
+      \item Let $p_i\colon F\to\oo$ be the projection from $F$ to the $i-$th coefficient, then $p_i(M)=\aa_i$ is an ideal of $\oo$.
+               It is then clear that $M=\aa_1e_1\cdots+\aa_ne_n$.
+      \item By Exercise \ref{3.ex12}, there exists an ideal $\aa$ such that $M\cong\oo^{n-1}\oplus\aa$, and the map $M\mapsto\aa$ is a homomorphism.
+               Since every ideal is a projective module, the map is clearly surjective. It suffices to show that if $M\cong\oo^n\oplus\aa$, $N\cong\oo^m\oplus\bb$ and $[\aa]=[\bb]$ in $\Pic(\oo)$, then $[M]=[N]$ in $K_0(\oo)$.
+
+               $[\aa]=[\bb]$ means there exists a principal fractional ideal $\cc$ such that $\bb=\cc\aa$.
+               Hence $N\cong\oo^m\oplus\cc\aa\cong\oo^{m-1}\oplus\cc\oplus\aa$. But $\cc$ is clearly a free module.
+               Hence there exist free modules $F$ and $F'$ such that $M\oplus F\cong\oo^r\oplus\aa\cong N\oplus F'$, which means $[M]=[N]$ in $K_0(\oo)$.
+    \end{enumerate}
+  \end{proof}
+
+\newpage\section{Inverse Limits}
+
+  \begin{thm}
+    Inverse limits exist in the category of groups., in the category of modules over a ring, and also in the category of rings.
+  \end{thm}
+
+  \begin{ex}
+    Prove that the inverse limit of a system of simple groups in which the homomorphisms are surjective is either the trivial group, or a simple group.
+  \end{ex}
+  \begin{proof}
+    For any homomorphism $\phi$ in this system, since $\phi$ is surjective and its domisn is simple, $\phi$ must be isomorphism or trivial. If all homomorphisms are isomorphism, then it is clear that the limit is isomorphic to the groups in system, which are simple, or trivial.
+    If not, there must be one trivial homomorphism whose codomain is trivial since it is surjective. Consider the commutative diagram below
+        \begin{displaymath}
+          \xymatrix{
+             \invlim G\ar[r]\ar[dr]^-{0} & G_i\ar[d]^{0}               \\
+             \invlim G\ar[r]_-{0}\ar@{-->}[u]^-{1}_-{0} & G_j }
+        \end{displaymath}
+    where $0$ denote the trivial homomorphisms and $1$ denote the isomorphism. By the universality of $\invlim G$, $1=0$, hence $\invlim G$ is trivial.
+  \end{proof}
+
+  \begin{defn}
+    Let $A$ be a commutative ring and $I$ a proper ideal. Define a \termin{$I-$Cauchy sequence} $\{x_n\}$ to be a sequence of elements of $A$ satisfying the following condition:
+
+    Given a positive integer $k$, there exists $N$ such that for all $n,m\geqslant N$ we have $x_n-x_m\in I^k$.
+
+    Define a \termin{null sequence} to be a sequence for which given $k$ there exists $N$ such that for all $n\geqslant N$ we have $x_n\in I^k$.
+  \end{defn}
+  \begin{prop}
+    Define addition and multiplication of sequences termwise. Then the $I-$Cauchy sequences form a ring $\Cc$, the null sequences form an ideal $\Nn$.
+  \end{prop}
+  \begin{defn}
+    The factor ring $\Cc/\Nn$ is called the \termin[$I-$adic completion]{$I-$adic!completion} of $A$.
+  \end{defn}
+  \begin{prop}
+    There is a natural isomorphism
+    \begin{equation*}
+      \Cc/\Nn \cong \invlim A/I^n
+    \end{equation*}
+  \end{prop}
+
+  \begin{defn}
+    Let $p$ be a prime number. For $n\geqslant m$ we have a canonical surjective ring homomorphism
+    \begin{equation*}
+      \phi^n_m\colon \ZZ/p^n\ZZ \To \ZZ/p^m\ZZ
+    \end{equation*}
+
+    The projective limit is called the ring of $p-$adic integers, and denoted by $\ZZ_p$.
+  \end{defn}
+  \begin{warn}
+     $\ZZ_p$ is not isomorphic to $\ZZ_{(p)}$, the localization of $\ZZ$ at $(p)$. In fact, $\ZZ_p$ has the cardinality of the continuum! By the way, $\ZZ_p$ is the completion of $\ZZ_{(p)}$ at the unique maximal ideal $p\ZZ_{(p)}$.
+  \end{warn}
+
+  \begin{ex}
+    \begin{enumerate}[a)]
+      \item Let $n$ range over the positive integers and let $p$ be a prime number. Show that the abelian groups $A_n=\ZZ/p^n\ZZ$ form a projective system under the canonical homomorphisms. Let $\ZZ_p$ be its inverse limit. Show that $\ZZ_p$ maps surjectively on each $\ZZ/p^n\ZZ$; that $\ZZ_p$ has no divisors of $0$, and has a unique maximal ideal generated by $p$. Show that $\ZZ_p$ is factorial, with only one prime, namely $p$ itself.
+      \item Next consider all ideals of $\ZZ$ as forming a directed system, by divisibility. Prove that
+               \begin{equation*}
+                 \invlim_{(a)} \ZZ/(a) = \prod_p \ZZ_p
+               \end{equation*}
+               where the limit is taken over all ideals $(a)$, and the product is taken over all primes $p$.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item We prove the statements one by one.
+
+        \emph{1). The abelian groups $A_n$ form a projective system under the canonical homomorphisms.}
+
+        For $n\geqslant m$, $\phi^n_m$ is the quotient of $\pi_m$ induced by $\pi_n$, where $\pi_n$ is the canonical map from $\ZZ$ to $\ZZ/p^n\ZZ$.
+        \begin{displaymath}
+          \xymatrix{
+             \ZZ\ar[r]^-{\pi_m}\ar[d]_-{\pi_n} & \ZZ/p^m\ZZ            \\
+             \ZZ/p^n\ZZ\ar[ur]_{\phi^n_m} & }
+        \end{displaymath}
+        By the uniqueness of quotient, $\phi^j_k\circ \phi^i_j = \phi^i_k$ for any $i \leqslant j \leqslant k$. Hence the abelian groups $A_n$ form a projective system under the canonical homomorphisms.
+
+        \emph{2). $\ZZ_p$ maps surjectively on each $A_n$.}
+
+        By the discuss above, $(\ZZ,\pi_n)$ is also a cone of $(A_n,\phi^n_m)$, hence there exists a unique morphism from $(\ZZ,\pi_n)$ to the inverse limit $(\ZZ_p,\phi_n)$. Consider an arbitrary commutative diagram in this morphism:
+        \begin{displaymath}
+          \xymatrix{
+             \ZZ\ar[r]^-{\pi_n}\ar[d] & \ZZ/p^n\ZZ            \\
+             \ZZ_p\ar[ur]_{\phi_n} & }
+        \end{displaymath}
+        Since $\pi_n$ is surjective, hence so is $\phi_n$.
+
+        \emph{3). A $p-$adic integer $\alpha$ equals to $0$ if and only if $\phi_n(\alpha)=0$ for all $n$. }
+
+        Let $\<\alpha\>$ be the subring of $\ZZ_p$ generated by $\alpha$. Then $(\<\alpha\>,0)$ is a cone of $(A_n,\phi^n_m)$, hence there exists a unique morohism from $(\<\alpha\>,0)$ to $(\ZZ_p,\phi_n)$. However, both $0$ and the inclusion $i$ satisfying the commutative diagrams, hence $i=0$, i.e. $\alpha=0$.
+      \begin{displaymath}
+        \xymatrix@R=0.5cm{
+               & &         A_n\ar[dd]^{\phi^n_m}     \\
+            \<\alpha\>\ar@/^/[urr]^{0}\ar@/_/[drr]_{0}\ar@<0.5ex>[r]^{i}\ar@<-0.5ex>[r]_{0}
+               & \ZZ_p \ar[ur]_{\phi_n} \ar[dr]^{\phi_m}                 \\
+               & &         A_m                 }
+      \end{displaymath}
+
+        \emph{4). $\ZZ_p$ has no divisors of $0$.}
+
+        Let $\alpha,\beta$ be two non-zero $p-$adic integers, by the discuss above, when $n$ is large enough, we have $\phi_n(\alpha)\neq0$ and $\phi_n(\beta)\neq0$.
+        Taking $l,m$ to be the largest integers such that $p^l,p^m$ divide $\phi_n(\alpha)$ and $\phi_n(\beta)$ respectively. then for any $N\geqslant n$, the same statements hold for $\phi_N(\alpha)$ and $\phi_N(\beta)$. Therefore, we can assuming $n$ is larger than $l+m$, and hence $\phi_n(\alpha)\phi_n(\beta)\neq0$, which implies $\alpha\beta\neq0$. That shows $\ZZ_p$ has no divisors of $0$.
+
+        \emph{5). Any $p-$adic integer can be uniquely determined by a sequence $x_n\in A_n$ such that}
+             \begin{equation*}
+                x_{n+1} \equiv x_n \mod p^n
+             \end{equation*}
+
+        For any $x_n\in A_n$, since $\ZZ_p$ maps surjectively on each $A_n$, there exist a $p-$adic integer $\alpha$, such that $\phi_n(\alpha)=x_n$. To show that we can choose the same $\alpha$ satisfying $\phi_m(\alpha)=x_m$ for any $m$, it suffices to check that $\phi^n_m(x_n)=(x_m)$ for all $m,n$, which are nothing but the congruences above. The uniqueness comes from \emph{3)}.
+
+        \emph{6). A $p-$adic integer $\alpha$, which is determined by a sequence $x_n\in A_n$, is unit if and only if $x_1\not\equiv 0 \mod p$.}
+
+        Let $\alpha$ be a unit, then there exists a $p-$adic integer $\beta$ such that $\alpha\beta=1$. Let $\beta$ be determined by a sequence $y_n\in A_n$, then
+        \begin{equation*}
+          x_ny_n \equiv 1\mod p^n
+        \end{equation*}
+        In particular, $x_1y_1\equiv 1\mod p$, hence $x_1\not\equiv 0 \mod p$.
+
+        Conversely, let $x_1\not\equiv 0\mod p$, then it is easy to show that
+        \begin{equation*}
+          x_n\equiv x_{n-1}\equiv \cdots \equiv x_1 \not\equiv 0 \mod p
+        \end{equation*}
+
+        Therefore, for any $n$ we can find a $y_n$ satisfying $x_ny_n \equiv 1\mod p^n$.
+        Since $x_{n+1}\equiv x_n\mod p^n$ and $x_{n+1}y_{n+1}\equiv x_ny_n \mod p^n$, then also $y_{n+1}\equiv y_n\mod p^n$. This means the sequence $y_n\in A_n$ determined a $p-$adic integer $\beta$, and by the congruences above, $\alpha\beta=1$.
+
+        \emph{7). $\ZZ_p$ has a unique maximal ideal generated by $p$.}
+
+        By \emph{6)}, any $\alpha\not\in p\ZZ_p$ is a unit, hence $p\ZZ_p$ is the unique maximal ideal.
+
+        \emph{8). $\ZZ_p$ is factorial, with only one prime, namely $p$ itself.}
+
+        Let $\alpha$ be an arbitrary non-zero $p-$adic integer, we need to show that $\alpha$ can be uniquely written in the form $p^m\varepsilon$, where $\varepsilon$ is a unit.
+
+        If $\alpha$ is a unit, then the statement is true. Assume not, let $\alpha$ be determined by $x_n\in A_n$.
+        Then, by \emph{6)}, $x_1\equiv0\mod p$. Since $\alpha\neq0$, by \emph{3)}, the congruences $x_n\equiv0\mod p^n$ can not hold for all $n$.
+        Let $m+1$ be the smallest index for which
+        \begin{equation*}
+          x_{m+1}\not\equiv0\mod p^{m+1}
+        \end{equation*}
+        Then, for $s>0$
+        \begin{equation*}
+          x_{m+s}\equiv x_m \mod p^m
+        \end{equation*}
+        and therefore $y_s=x_{m+s}/p^m$ is an integer.
+        From the congruences
+        \begin{equation*}
+          p^my_{s+1}-p^my_s=x_{m+s+1}-x_{m+s}\equiv0 \mod p^{m+s}
+        \end{equation*}
+        it follows that
+        \begin{equation*}
+          y_{s+1}\equiv y_s \mod p^s
+        \end{equation*}
+        for all $s>0$. Thus the sequence $y_s$ determine a $p-$adic integer $\varepsilon$. Since $y_1=x_{m+1}/p^m\not\equiv0\mod p$, by \emph{6)}, $\varepsilon$ is a unit.
+        Finally, from
+        \begin{equation*}
+          p^my_s= x_{m+s}\equiv x_s \mod p^s
+        \end{equation*}
+        it follows that $p^m\varepsilon=\alpha$ as desired.
+
+        We assume now $\alpha$ can be also written as $\alpha=p^k\eta$, where $\eta$ is a unit. Let $\eta$ be determined by $z_n\in A_n$, then
+        \begin{equation*}
+          p^my_s\equiv p^kz_s \mod p^s
+        \end{equation*}
+        for all $s>0$, and by \emph{6)}, $p$ never divides $y_s$ or $z_s$ since $\varepsilon,\eta$ are unit.
+        From the congruence
+        \begin{equation*}
+          p^kz_{m+1}\equiv p^my_{m+1}\not\equiv0 \mod p^{m+1}
+        \end{equation*}
+        it follows that $k\leqslant m$. By symmetry, we have $m\leqslant k$, hence $k=m$.
+        Therefore
+        \begin{equation*}
+          p^m\varepsilon=\alpha=p^m\eta
+        \end{equation*}
+        which implies $\varepsilon=\eta$ by \emph{4)}.
+
+      \item First, we consider the structure of the inverse system of $\ZZ/(a)$.
+               For any ideals $(a),(b)$ of $\ZZ$, there exist a homomorphism $\phi^a_b\colon\ZZ/(a)\To\ZZ/(b)$ in this system if and only if it is induced from $\pi_b$ by $\pi_a$:
+        \begin{displaymath}
+          \xymatrix{
+             \ZZ\ar[r]^-{\pi_b}\ar[d]_-{\pi_a} & \ZZ/(b)            \\
+             \ZZ/(a)\ar[ur]_{\phi^a_b} & }
+        \end{displaymath}
+               if and only if $(a)\subset\ker\pi_b$, if and only if $b\mid a$.
+
+               To prove our statement, it suffices to check that $\prod\limits_p \ZZ_p$ satisfying the universal property of $\invlim \ZZ/(a)$. Therefore, we need to show the existence and uniqueness of $t$ for any $T$ satisfying the following commutative diagram:
+        \begin{displaymath}
+          \xymatrix@R=0.5cm{
+               & &         \ZZ/(a)\ar[dd]^{\phi^a_b}     \\
+            T\ar@/^/[urr]\ar@/_/[drr]\ar@{-->}[r]^-{t}
+               & \prod_p\ZZ_p \ar[ur]_{\phi_a} \ar[dr]^{\phi_b}                 \\
+               & &         \ZZ/(b)                 }
+        \end{displaymath}
+
+               Let $a=p_1^{n_1}\cdots p_s^{n_s}, b=p_1^{m_1}\cdots p_s^{m_s}$ where $p_1,p_2,\cdots,p_s$ are distinct primes and $n_i\geqslant m_i$ for all $1\leqslant i\leqslant s$.
+               Then $(a)=\bigcap(p_i^{n_i})$ and $(b)=\bigcap(p_i^{m_i})$.
+
+               Hence, by the Chinese Remainder Theorem,
+               \begin{equation*}
+                 \ZZ/(a)=\prod_{i}\ZZ/(p_i^{n_i}) \qquad \ZZ/(b)=\prod_{i}\ZZ/(p_i^{m_i})
+               \end{equation*}
+
+               Hence the diagram above is just the product of the following commutative diagrams:
+        \begin{displaymath}
+          \xymatrix@R=0.5cm{
+               & &         \ZZ/(p_i^{n_i})\ar[dd]^{\phi^{n_i}_{m_i}}     \\
+            T\ar@/^/[urr]\ar@/_/[drr]\ar@{-->}[r]^-{t_{p_i}}
+               & \ZZ_{p_i} \ar[ur]_{\phi_{n_i}} \ar[dr]^{\phi_{m_i}}                 \\
+               & &         \ZZ/(p_i^{m_i})                 }
+        \end{displaymath}
+               Hence $t$ is the product of $t_p$, where each $t_p$ uniquely exists and the product is taken over all primes $p$. Thus $t$ uniquely exists.
+    \end{enumerate}
+  \end{proof}
+
+\subsection{Mittag-Leffler Condition}
+  \begin{defn}
+    A \emph{\red morphism} between inverse system is just a natural transformation between them.
+  \end{defn}
+
+  \begin{defn}
+    In an abelian category $\Cc$, a sequence of inverse systems indexed by the same index $I$
+    \begin{equation*}
+      0 \To (A_i) \To (B_i) \To (C_i) \To 0
+    \end{equation*}
+    is said to be \termin[exact]{exact!sequence} if the corresponding sequence of abelian groups is exact for each $i$.
+  \end{defn}
+
+  \begin{rem}
+     $\Cc^I$ is also abelian, the definition for exact sequence of $I-$system coincide with concept of exact sequence in the abelian category $\Cc^I$.
+  \end{rem}
+
+  \begin{prop}
+    Taking inverse limit is a left exact functor $\Cc^I\To\Cc$.
+  \end{prop}
+  \begin{proof}
+    Draw a commutative diagram, then the it is trivial to verify.
+  \end{proof}
+  \begin{warn}
+    $\invlim$ is, in general case, not right exact, since you can't descent the limit cokernel to the termwise cokernels.
+  \end{warn}
+
+  If $I$ is ordered (not simply partially ordered) and countable, and $\Cc$ is the category $\Ab$ of abelian groups, the \emph{Mittag-Leffler condition} is a condition on the transition morphisms $\phi^i_j$ that ensures the exactness of $\invlim$.
+
+  Specifically, Eilenberg constructed a functor
+  \begin{equation*}
+    \invlim\nolimits^1\colon\Ab^I\To\Ab
+  \end{equation*}
+  (pronounced ``lim one'') such that if $(A_i)$, $(B_i)$, and $(C_i)$ are three projective systems of abelian groups, and
+    \begin{equation*}
+      0 \To (A_i) \To (B_i) \To (C_i) \To 0
+    \end{equation*}
+  is a short exact sequence of inverse systems, then
+    \begin{equation*}
+      0 \To \invlim A_i \To \invlim B_i \To \invlim C_i \To \invlim\nolimits^1 A_i
+    \end{equation*}
+  is an exact sequence in $\Ab$.
+
+  \begin{defn}
+    If the ranges of the morphisms of the inverse system of sets $(A_n, \phi^m_n)$ are \emph{stationary},
+    that is, for every $n$ there exists $m \geqslant n$ such that for all $l \geqslant m$, $\im \phi^l_n=\im \phi^m_n$ one says that the system satisfies the \termin{Mittag-Leffler condition}
+    \footnote{\emph{Why the Mittag-Leffler condition is so named?} This condition comes from Bourbaki's Algebra \cite{bourbaki1998algebra}, but the name first appear in Bourbaki's General Topology, Chapter II, section 3.5 \cite{bourbaki1998general}. The main theorem is attributed to Mittag-Leffler, and is concerned with inverse systems of ``complete Hausdorff uniform spaces''.
+    The Mittag Leffler condition mentioned there says the functions in the system have dense image. The usual theorem about inverse limits is a corollary, for sets with the ``discrete uniformity''.
+    Classical Mittag-Leffler is given as an example of the main theorem. The spaces there are essentially holomorphic functions on balls centred at $0$, continuous on the boundary, with the uniform metric.
+    --- \url{http://mathoverflow.net/questions/14717/mittag-leffler-condition-whats-the-origin-of-its-name}}.
+     Denote $\ML$ to simplify the expressed.
+  \end{defn}
+
+  In fact, by the commutative diagram below, ($l\geqslant m\geqslant n$)
+        \begin{displaymath}
+          \xymatrix{
+               A_l\ar[r]^{\phi^l_m}\ar[dr]_{\phi^l_n} & A_m\ar[d]^{\phi^m_n} \\
+               & A_n                 }
+        \end{displaymath}
+  It is clear that $\im \phi^l_n \subset \im \phi^m_n$ is always true, hence form a \emph{descending chain}:
+  \begin{equation*}
+    A_n=\im \phi^n_n \supset \im \phi^{n+1}_n \supset \cdots \supset \im \phi^m_n \supset \cdots
+  \end{equation*}
+  Then $\ML$ says nothing but the chains are finite for all $n$.
+
+  Suppose $(A_n)$ satisfying $\ML$ and each $A_n$ is non-trivial. Let $A'_n=\bigcap\limits_{m\geqslant n}\im \phi^m_n$.
+  Then $(A'_n)$ is also an inverse system with non-trivial terms and $\invlim A'_n \cong \invlim A_n$. Moreover, each $\phi^m_n\colon A'_m\To A'_n$ is surjective.
+  Hence $\invlim A'_n$ must be non-trivial.
+
+  \begin{exam}
+    The following situations are examples satisfying $\ML$:
+    \begin{itemize}
+      \item a system in which the morphisms $\phi^m_n$ are surjective.
+      \item a system of finite-dimensional vector spaces.
+      \item a system of finite-length $A-$modules.
+    \end{itemize}
+  \end{exam}
+
+  Let's return to consider the inverse system of \textbf{abelian groups}, here is an important theorem:
+  \begin{thm}
+    If $(A_i)$ satisfying $\ML$, then $\invlim^1 A_i=0$.
+  \end{thm}
+  \begin{proof}
+    Consider an arbitrary exact sequence:
+    \begin{equation*}
+      0 \To (A_i) \markar{f_i} (B_i) \markar{g_i} (C_i) \To 0
+    \end{equation*}
+    It suffices to show that $\invlim g_i$ is surjective.
+
+    For any $c\in\invlim C_i$, let $(c_i)$ be its corresponding sequence.
+    By the short exact sequence of $i-$terms, each $D_i=g_i^{-1}(c_i)$ is non-trivial, moreover, a coset of $A_i$ in $B_i$.
+    Therefore $(D_i)$ also form an inverse system (of sets) satisfying $\ML$. Hence $\invlim D_i$ is non-trivial.
+    But any element of $\invlim D_i$ lies in $\invlim B_i$ and is mapped to $c$, this proves $\invlim g_i$ is surjective as desired.
+  \end{proof}
+
+  \begin{exam}
+    Taking $I$ to be the non-negative integers, letting $A_i = p^i\ZZ, B_i = \ZZ$, and $C_i = \ZZ/p^i\ZZ$. Then
+    \begin{equation*}
+      \invlim\nolimits^1 A_i = \ZZ_p/\ZZ
+    \end{equation*}
+    This shows that $(p^i\ZZ)$ dissatisfies $\ML$, in fact, $\invlim p^i\ZZ=0$.
+  \end{exam}
+
+  \begin{prop}
+    If $(A_i)$ satisfying $\ML$, then we have an exact sequence
+    \begin{equation*}
+      0 \To \invlim A_i \To \prod A_i \markar{1-\phi} \prod A_i \To 0
+    \end{equation*}
+    where the map $\phi$ is the product of $\phi^i_{i-1}$.
+  \end{prop}
+  \begin{proof}
+    For any $N$ large enough, the sequence below is exact:
+    \begin{equation*}
+      0 \To \invlim_{1\leqslant i\leqslant N} A_i \To \prod_{i=1}^N A_i \markar{1-\phi} \prod_{i=1}^N A_i \To 0
+    \end{equation*}
+    Moreover, the left terms satisfies $\ML$ since $(A_i)$ satisfies. Hence the sequence in proposition is exact.
+  \end{proof}
+
+  \begin{ex}
+    \begin{enumerate}[a)]
+      \item Let $(A_n)$ be an inverse system of commutative rings, and let $(M_n)$ be an inverse system of modules, each $M_n$ is a module over $A_n$ such that the following diagram is commutative:
+          \begin{displaymath}
+            \xymatrix@1{
+               A_{n+1}\ar@{}[r]|{\times}\ar[d] & M_{n+1}\ar[r]\ar[d] & M_{n+1}\ar[d] \\
+               A_n\ar@{}[r]|{\times} & M_n\ar[r] & M_n                 }
+          \end{displaymath}
+          Show that $\invlim M_n$ is a module over $\invlim A_n$.
+      \item Let $M$ be a $p-$divisible group. Show that $T_p(M)$ is a module over $\ZZ_p$.
+      \item Let $M,N$ be $p-$divisible groups. Show that $T_p(M\oplus N) = T_p(M) \oplus T_p(N)$, as modules over $\ZZ_p$.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \begin{enumerate}[a)]
+      \item It is clear.
+      \item $M[p^n]$ is a module over $\ZZ/p^n\ZZ$. Then by \emph{a)}, $T_p(M)=\invlim M[p^n]$ is a module over $\ZZ_p$.
+      \item It is easy to check that $M \oplus N [p^n] = M[p^n] \oplus N[p^n]$. Then $T_p(M\oplus N) = T_p(M) \oplus T_p(N)$.
+    \end{enumerate}
+  \end{proof}
+
+\newpage\section{Direct Limit}
+
+  The direct limit of the direct system $(A_i,\phi^i_j)$ is can be constructed by the coproduct of the $A_i$ modulo a certain subobject:
+  \begin{equation*}
+    \dirlim A_i = \left.\coprod A_i \right/N
+  \end{equation*}
+  Here, $N$ is generated by all $x^i_j$, $i\leqslant j$, defined below:
+
+  For any $x_i\in A_i$, $x^i_j=\imath(x_i)-\imath(\phi^i_j(x_i))$, where $\imath$ is the canonical injection $A_i\injection \coprod A_i$.
+
+  Hence, if $x_i\in A_i$ and $x_j\in A_j$, then $\imath(x_i) = \imath(x_j)$ if there is some $k$ such that $\phi^i_k(x_i)=\phi^j_k(x_j)$.
+  Heuristically, two elements in the coproduct are equivalent if and only if they ``eventually become equal'' in the direct system.
+  \begin{ex}\label{3.ex19}
+    Let $(A_i, \phi^i_j)$ be a directed system of modules. Let $a_k\in A_k$ for some $k$, and suppose that the image of $a_k$ in the direct limit $A$ is $0$. Show that there exists some index $j\geqslant k$ such that $\phi^k_j(a_k) = 0$.
+  \end{ex}
+
+  \begin{ex}
+    Let $I,J$ be two directed sets, and give the product $I\times J$ as the product of categories. Let $A_{ij}$ be a $I\times J-$system of abelian groups.
+    Show that the direct limits
+    \begin{equation*}
+      \dirlim_i\dirlim_j A_{ij} \qquad \text{and} \qquad \dirlim_j\dirlim_i A_{ij}
+    \end{equation*}
+    are naturally isomorphic. State and prove the same result for inverse limits.
+  \end{ex}
+  \begin{proof}
+    This follows immediately from Proposition \ref{product and power}, i.e.
+    \begin{equation*}
+      \Ab^{I\times J}\simeq(\Ab^J)^I\simeq(\Ab^I)^J
+    \end{equation*}
+  \end{proof}
+
+  \begin{ex}
+    The functor $\dirlim\colon\Mod_R^I\To\Mod_R$ is exact.
+  \end{ex}
+  \begin{proof}
+    Consider an arbitrary exact sequence:
+    \begin{equation*}
+      0 \To (M'_i) \markar{f_i} (M_i) \markar{g_i} (M''_i) \To 0
+    \end{equation*}
+    Only the injectivity of $f=\dirlim f_i$ is non-trivial.
+
+    Assume $f(x)=0$, we need to show $x=0$. Let $(x_i)$ be the corresponding sequence of $x$,
+    Then, the image of $f_i(x_i)$ in $\dirlim M_i$ is $0$, by Exercise \ref{3.ex19}, there exists some index $j\geqslant i$ such that $\phi^i_j(f_i(x_i)) = 0$.
+    Therefore $f_j(\phi^i_j(x_i)) = 0$. But $f_j$ is injective, hence $\phi^i_j(x_i)=0$. Therefore $\imath(x_i)=\imath(x_i)-\imath(\phi^i_j(x_i))\in N$, which shows $x=0$ as desired.
+  \end{proof}
+
+  \begin{ex}
+    \begin{enumerate}[a)]
+      \item Let $\{M_i\}$ be a family of modules. For any module $N$ show that
+                \begin{equation*}
+                  \Hom(\bigoplus M_i,N) = \prod\Hom(M_i,N)
+                \end{equation*}
+      \item Show that
+               \begin{equation*}
+                 \Hom(N,\prod M_i) = \prod\Hom(N,M_i)
+               \end{equation*}
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    \emph{a)} is a special case of Proposition \ref{Hom-dir.lim}, while \emph{b)} is a special case of Proposition \ref{Hom-inv.lim}, here $\Jj$ is the discrete index set of $\{M_i\}$.
+  \end{proof}
+
+  \begin{ex}
+    Let $(M_i)$ be an inverse system of modules. For any module $N$ show that
+    \begin{equation*}
+      \Hom(N,\invlim M_i) = \invlim\Hom(N,M_i)
+    \end{equation*}
+  \end{ex}
+  \begin{proof}
+    This is again a special case of Proposition \ref{Hom-inv.lim}, here $\Jj$ is the index set (which is a FPOS) of $(M_i)$.
+  \end{proof}
+
+  \begin{ex}\label{3.ex24}
+    Show that any module is a direct limit of finitely generated submodules.
+  \end{ex}
+  \begin{proof}
+    The finitely generated submodules of a module $M$ form a directed system under the order of containing.
+    Then $M$ induces a cocone of this system by the inclusions, hence there exist a unique homomorphism from $M$ to the direct limit, say $f$.
+
+    $f$ is injective: for $f(x)=0$, there must be a finitely generated submodule $N$ such that $x\in N$ and hence its image in the direct limit is $0$. By Exercise \ref{3.ex19}, there exist a $N'\supset N$, such that $\phi^N_{N'}(x)=0$, which means $x=0$.
+
+    $f$ is surjective: for any $a$ in the direct limit, let $x$ be it's preimage, then by the definitions, $f(x)=a$.
+  \end{proof}
+
+  \begin{defn}
+    A module $M$ is called \termin{finitely presented} if there is an exact sequence
+    \begin{equation*}
+      F_1\To F_0\To M\To 0
+    \end{equation*}
+    where $F_0,F_1$ are free with finite basis. The image of $F_1$ in $F_0$ is said to be the submodule of \termin{relations}, among the free basis elements of $F_0$.
+  \end{defn}
+  \begin{rem}
+    Any module is \emph{presented}, in the sense that there is an exact sequence
+    \begin{equation*}
+      F_1\To F_0\To M\To 0
+    \end{equation*}
+    where $F_0,F_1$ are free.
+
+    First, for any module $M$ is a quotient of a free module $F_0$, hence we have the an exact sequence
+    \begin{equation*}
+      0\To R\To F_0\To M\To 0
+    \end{equation*}
+    Then $R$ is also a quotient of a free module $F_1$, hence we get an epimorphism $F_1\To R$.
+    By Lemma \ref{factor through}, we obtain the require exact sequence.
+  \end{rem}
+
+  \begin{prop}
+    A module $M$ is finitely presented if and only if there is an exact sequence
+    \begin{equation*}
+      0\To R\To F\To M\To 0
+    \end{equation*}
+    where $F$ is free with finite basis, $R$ is finitely generated.
+  \end{prop}
+
+  \begin{ex}
+    Show that any module is a direct limit of finitely presented modules (not necessarily submodules). In other words, given $M$, there exists a directed system $(M_i)$ with $M_i$ finitely presented for all $i$ such that
+    \begin{equation*}
+      M\cong\dirlim M_i
+    \end{equation*}
+  \end{ex}
+  \begin{proof}
+    First, we have an exact sequence
+    \begin{equation*}
+      0\To R\To F\To M\To 0
+    \end{equation*}
+    By Exercise \ref{3.ex24}, $R$ is the direct limit of its finitely generated submodules. Denote this directed system by $(R_i)$, then it is clear that $R\To F$ is injective. Let $M_i=F/R_i$, then we have a family of exact sequence
+    \begin{equation*}
+      0\To R_i\To F\To M_i\To 0
+    \end{equation*}
+    where each $M_i$ is finitely presented. The connection homomorphisms in $(R_i)$ naturally induce directed systems for $F$ and $\{M_i\}$ of the same type with $(R_i)$. Therefore we have an exact sequence
+    \begin{equation*}
+      0\To (R_i)\To (F)\To (M_i)\To 0
+    \end{equation*}
+    Since $\dirlim$ is exact, we obtain an exact sequence of the limits:
+    \begin{equation*}
+      0\To \dirlim(R_i)\To \dirlim(F)\To \dirlim(M_i)\To 0
+    \end{equation*}
+    where $\dirlim(R_i)=R, \dirlim(F)=F$. Compare it with the first exact sequence, we have $M=\dirlim(M_i)$ as desired.
+  \end{proof}
+
+  \begin{ex}
+    Let $E$ be a module. Let $(M_i)$ be a directed system of modules. If $E$ is finitely generated, show that the natural homomorphism
+    \begin{equation*}
+      \dirlim \Hom(E,M_i) \To \Hom(E,\dirlim M_i)
+    \end{equation*}
+    is injective. If $E$ is finitely presented, show that this homomorphism is an isomorphism.
+  \end{ex}
+  \begin{proof}
+    We finish the proof step by step.
+    \begin{enumerate}
+      \item Any connection homomorphism $\phi^i_j$ in $(M_i)$ induces a homomorphism
+                 \longmapdes{\Phi^i_j}{\Hom(E,M_i)}{\Hom(E,M_j)}{f}{\phi^i_j\circ f}
+                 Thus $(\Hom(E,M_i),\Phi^i_j)$ form a directed system of the same type with $(M_i)$.
+
+                 Any homomorphism $\phi^i\colon M_i\To\dirlim M_i$ induces a homomorphism
+                 \longmapdes{\Phi^i}{\Hom(E,M_i)}{\Hom(E,\dirlim M_j)}{f}{\phi^i\circ f}
+
+                 Then for any $\phi^i=\phi^j\circ\phi^i_j$, $\Phi^i=\Phi^j\circ\Phi^i_j$. Therefore $(\Hom(E,\dirlim M_i),\Phi^i)$ is a cocone of $(\Hom(E,M_i),\Phi^i_j)$. Hence there exist a unique morphism
+                 \begin{equation*}
+                    \dirlim \Hom(E,M_i) \To \Hom(E,\dirlim M_i)
+                 \end{equation*}
+
+                 We denoted the natural homomorphism by $\Psi$.
+
+                 Notice that for any $i,j\in I$, there exist $k\in I$ such that $i\leqslant k,j\leqslant k$,
+      \item \emph{If $E$ is free with finite basis, then $\Psi$ is an isomorphism.}
+
+                 Let $b_1,\cdots,b_n$ be a basis of $E$. We check that $\Hom(E,\dirlim M_i)$ satisfies the universal property of $\dirlim \Hom(E,M_i)$.
+
+                 For any cocone $(S,g_i)$, we need to show there exist a unique morphism $\Hom(E,\dirlim M_i)\To S$.
+
+                 For any $f\in\Hom(E,\dirlim M_i)$, consider the preimage $x_1,\cdots,x_n$ of $b_1,\cdots,b_n$ in $M_i$, then the map $b_j\mapsto x_j$ induces a unique homomorphism $E\To M_i$.
+                 In this way, we get a map $\Hom(E,\dirlim M_i)\To \Hom(E,M_i)$ hence a map $\Hom(E,\dirlim M_i)\To S$. The commutativity is easy to check.
+
+                 Assume there exist two morphisms
+                 \begin{equation*}
+                   h_1,h_2\colon\Hom(E,\dirlim M_i)\To S
+                 \end{equation*}
+
+                 For any $f\in\Hom(E,\dirlim M_i)$, we need to show $h_1(f)=h_2(f)$.
+
+                 Consider $f_i\in g_i^{-1}(h_1(f)), f_i'\in g_i^{-1}(h_2(f))$. For $1\leqslant j\leqslant n$, there exists $k_j\geqslant i$ such that $\phi^i_{k_j}(f_i(b_j))=\phi^i_{k_j}(f_i'(b_j))$. Therefore there exists $k\geqslant i$ such that $\phi^i_{k}(f_i(b_j))=\phi^i_{k}(f_i'(b_j))$ for any $1\leqslant j\leqslant n$.
+                 But the map $b_j\mapsto\phi^i_{k}(f_i(b_j))$ induces a unique homomorphism $f_k\in\Hom(E,M_k)$, hence
+                 $h_1(f)=g_i(f_i)=g_k(f_k)=g_i(f_i')=h_2(f)$.
+      \item \emph{If $E$ is finitely presented by an exact sequence
+                 \begin{equation*}
+                   F_1\To F_0\To M\To 0
+                 \end{equation*}
+                 then $\Psi$ is an isomorphism.}
+
+                 Consider the following commutative diagram with exact rows:
+                 \begin{displaymath}
+                   \xymatrix@1{
+                      0\ar[r] & \dirlim \Hom(E,M_i)\ar[r]\ar[d]_{\Psi} & \dirlim \Hom(F_0,M_i)\ar[r]\ar[d]_{\Psi_0} & \dirlim \Hom(F_1,M_i)\ar[d]_{\Psi_1} \\
+                      0\ar[r] & \Hom(E,\dirlim M_i)\ar[r] & \Hom(F_0,\dirlim M_i)\ar[r] & \Hom(F_1,\dirlim M_i)              }
+                 \end{displaymath}
+                 Here $\Psi_0,\Psi_1$ are isomorphisms by 2.
+                 Hence, by Five Lemma, $\Psi$ is an isomorphism.
+      \item \emph{If $E$ is finitely generated by an epimorphism
+                 \begin{equation*}
+                   F\To M\To 0
+                 \end{equation*}
+                 then $\Psi$ is injective.}
+
+                 Consider the following commutative diagram with exact rows:
+                 \begin{displaymath}
+                   \xymatrix@1{
+                      0\ar[r] & \dirlim \Hom(E,M_i)\ar[r]\ar[d]_{\Psi} & \dirlim \Hom(F,M_i)\ar[d]_{\Psi_0}     \\
+                      0\ar[r] & \Hom(E,\dirlim M_i)\ar[r] & \Hom(F,\dirlim M_i)              }
+                 \end{displaymath}
+                 Here $\Psi_0$ is an isomorphisms by 2.
+                 By $\triangle$ Lemma, $\Psi$ is injective.
+    \end{enumerate}
+  \end{proof}
+
+\newpage\section{Graded Algebras}
+
+  \begin{defn}
+    Let $A$ be an algebra over a field $k$. By a \termin{filtration} of $A$ we mean a sequence of $k-$vector spaces $A_i (i=0,1,\cdots)$ such that
+    \begin{equation*}
+      A_0\subset A_1\subset A_2\subset \cdots \qquad\quad \text{and} \qquad\qquad \bigcup A_i=A
+    \end{equation*}
+    and $A_iA_j\subset A_{i+j}$ for all $i,j\geqslant 0$, In particular, $A$ is an $A_0-$algebra. We then call $A$ a \termin{filtered algebra}. Let $R$ be an algebra. We say that $R$ is \termin[graded]{graded!algebra} if $R$ is a direct sum $R=\bigoplus R_i$ of subspaces such that $R_iR_j\subset R_{i+j}$ for all $i,j\geqslant0$.
+  \end{defn}
+
+  \begin{ex}
+    Let $A$ be filtered algebra. Define $R_i$ for $i\geqslant0$ by $R_i=A_i/A_{i-1}$. By definition, $A_{-1}=\{0\}$. Let $R=\bigoplus R_i$, and $\gr_i(A)=R_i$. Define a natural product on $R$ making $R$ into a graded algebra, denoted by $\gr(A)$, and called the \termin{associated graded algebra}.
+  \end{ex}
+  \begin{proof}
+    The multiplication $\gr(A)\times\gr(A)\To\gr(A)$ is combined from the natural maps
+    \mapdes{A_i/A_{i-1}\times A_j/A_{j-1}}{A_{i+j}/A_{i+j-1}}{(x+A_{i-1},y+A_{j-1})}{xy+A_{i+j-1}}
+    The multiplication is well defined and endows $\gr(A)$ with the structure of a graded algebra, with gradation $\gr_i(A)$.
+  \end{proof}
+
+  \begin{ex}
+    Let $A,B$ be filtered algebras, $A=\bigcup A_i$ and $B=\bigcup B_i$. Let $L\colon A\To B$ be an $(A_0,B_0)-$linear map preserving the filtration, that is $L(A_i)\subset B_i$ for all $i$, and $L(ca)=L(c)L(a)$ for $c\in A_0$ and $a\in A_i$ for all $i$.
+    \begin{enumerate}[a)]
+      \item Show that $L$ induces an $(A_0,B_0)-$linear map
+                 \begin{equation*}
+                   \gr_i(L)\colon \gr_i(A)\To\gr_i(B) \qquad \text{for all }i.
+                 \end{equation*}
+      \item Suppose that $\gr_i(L)$ is an isomorphism for all $i$. Show that $L$ is an $(A_0,B_0)-$isomorphism.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    Consider the following $(A_0,B_0)-$linear map
+    \begin{equation*}
+      A_i\markar{L}B_i\markar{\pi}B_i/B_{i-1}
+    \end{equation*}
+    its kernel contain $A_{i-1}$ since $L(A_{i-1})\subset B_{i-1}$, therefore it induces an quotient map $A_i/A_{i-1}\To B_i/B_{i-1}$.
+
+    Consider the following commutative diagrams and using $5-$lemma, by induction on $i$, it is clear that if $\gr_i(L)$ are isomorphisms for all $i$, then $L$ is an $(A_0,B_0)-$isomorphism.
+                 \begin{displaymath}
+                   \xymatrix@1{
+                      0\ar[r] & A_{i-1}\ar[r]\ar[d]_{L} & A_i\ar[r]\ar[d]_{L} & \gr_i(A)\ar[r]\ar[d]_{\gr_i(L)} & 0     \\
+                      0\ar[r] & B_{i-1}\ar[r] & B_i\ar[r] & \gr_i(B)\ar[r] & 0            }
+                 \end{displaymath}
+  \end{proof}
+
+  \begin{ex}
+    Suppose $k$ has characteristic $0$. Let $\nn$ be the set of all strictly upper triangular matrices of a given size $n\times n$ over $k$.
+    \begin{enumerate}[a)]
+      \item For a given matrix $X\in\nn$, let $D_1(X),\cdots,D_n(X)$ be its diagonals, so $D_1=D_1(X)$ is the main diagonal, and is $0$ by the definition of $\nn$. Let $\nn_i$ be the subset of $\nn$ consisting of those matrices whose diagonals $D_1,\cdots,D_{n-i}$ are $0$. Thus $\nn_0=\{0\}$, $\nn_1$ consists of all matrices whose components are $0$ except possibly for $x_{1n}$; $\nn_2$ consists of all matrices whose components are $0$ except possibly those in the last two diagonals; and so forth. Show that each $\nn_i$ is an algebra, and its elements are nilpotent (in fact the $(i+1)-$th power of its elements is $0$).
+      \item Let $U$ be the set of elements $I+X$ with $X\in\nn$. Show that $U$ is a multiplicative group.
+      \item Let $\exp$ be the exponential series defined as usual. Show that $\exp$ defines a polynomial function on $\nn$ (all but a finite number of terms are $0$ when evaluated on a nilpotent matrix), and establishes a bijection
+          \begin{equation*}
+            \exp\colon\nn\To U
+          \end{equation*}
+          Show that the inverse is given by the standard $\log$ series.
+    \end{enumerate}
+  \end{ex}
+  \begin{proof}
+    It is clear that $xy\in\nn_i$ for any $x,y\in\nn_i$, therefore $\nn_i$ is a subalgebra of $\nn$. Moreover, $xy\in\nn_{i-1}$, therefore the $(i+1)-$th power of $\nn_i$'s elements is $0$.
+
+    The identity of $U$ is $I$, for any $I+X\in U$, its inverse is $\sum(-X)^i$.
+
+    \begin{align*}
+      \exp(X) & = \sum_{k=0}^{\infty} \frac{X^k}{k!} \\
+      \log(X) & = - \sum_{k=1}^{\infty} \frac{(I-X)^k}{k}
+    \end{align*}
+  \end{proof}
+
+\newpage\section{Some Obvious Module Structure}
+\begin{prop}
+  Let $R,S$ be rings, $ _RA_S, _RB_S$ are double modules. Then
+  \begin{enumerate}
+    \item $\Hom_R(A,-)$ is a covatiant functor from $ _R\Mod$ to $ _S\Mod$. The left $S-$module structure is given by $(sf)a=f(as)$.
+    \item $\Hom_R(-,B)$ is a contravariant functor from $ _R\Mod$ to $\Mod_S$. The right $S-$module structure is given by $(fs)a=(f(a))s$.
+  \end{enumerate}
+\end{prop}
+
+  Let $A$ be a $R-$module, then $A\cong\Hom_R(R,A)$. $A^{\ast}\defeq\Hom_R(A,R)$ is called the
+  \termin[dual module]{dual!module} of $A$. If $A\cong A^{\ast\ast}$, then we say it is \termin{reflexive}.
+
+\begin{prop}
+  Let $R,S$ be rings, $ _SA_R, _RB_S$ are double modules. Then
+  \begin{enumerate}
+    \item $A\otimes_R-$ is a covatiant functor from $ _R\Mod$ to $ _S\Mod$.
+    \item $-\otimes_RB$ is a covariant functor from $\Mod_R$ to $\Mod_S$.
+  \end{enumerate}
+\end{prop}

@@ -1,0 +1,106 @@
+\begin{thenomenclature} 
+
+ \nomgroup{A}
+
+  \item [{$(\Cc\down A)$}]\begingroup the slice category over $A$ \nomeqref {4.0}
+		\nompageref{112}
+  \item [{$(A\down\Cc)$}]\begingroup the coslice category with respect to $A$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$(S\down T)$}]\begingroup the comma category from $S$ to $T$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$1_A, \id_A$}]\begingroup the identity over $A$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$[\Cc,\Dd], \Dd^{\Cc}$}]\begingroup the category of functors from $\mathcal{C}$ to $\mathcal{D}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Ab$}]\begingroup the category of abelian groups\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Abtf$}]\begingroup the category of torsion-free abelian groups\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Cat$}]\begingroup the category of all (small) categories\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Cc^{\to}$}]\begingroup the arrow category of $\Cc$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\codual{A}$}]\begingroup the codual group of $A$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\codual{E}$}]\begingroup the dual module of $E$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\coprod A_i$}]\begingroup the coproduct of $\{A_i\}_{i\in I}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\dual{A}$}]\begingroup the dual group of $A$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\dual{E}$}]\begingroup the Pontrjagin dual of $E$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Grp$}]\begingroup the category of groups\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Hom_{\mathcal{C}}(A,B)$}]\begingroup the set of morphisms from $A$ to $B$ in $\mathcal{C}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{0}$}]\begingroup the zero object, zero morphism or empty category, which depends on context\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{Ban}_1$}]\begingroup the category of Banach spaces and linear contractions\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{Cocone}(D)$}]\begingroup the category of co-cones to $D$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{Cone}(D)$}]\begingroup the category of cones to $D$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{hTop}$}]\begingroup the category of topological spaces and homotopy classes\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathbf{Ring}$}]\begingroup the category of rings\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathcal{C}\simeq\mathcal{D}$}]\begingroup $\mathcal{C}$ and $\mathcal{D}$ are equivalent\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathcal{M}^{*}, \mathcal{M}_{*}$}]\begingroup the Yoneda embedding\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathop{\underleftarrow{\lim}}D_j$}]\begingroup the limit for $D$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\mathop{\underrightarrow{\lim}}D_j$}]\begingroup the colimit for $D$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Mod_A$}]\begingroup the category of $A-$modules\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\one$}]\begingroup the category with one object $\ast$ and one morphism\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\prod A_i$}]\begingroup the product of $\{A_i\}_{i\in I}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Quot_{\mathcal{C}}(B)$}]\begingroup the category of quotient objects of $B$ in $\mathcal{C}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Set$}]\begingroup the category of sets\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Sub_{\mathcal{C}}(B)$}]\begingroup the category of subobjects of $B$ in $\mathcal{C}$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$\Top$}]\begingroup the category of topological spaces\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$A\amalg_CB$}]\begingroup the fibre coproduct of $A$ and $B$ over $C$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$A\oplus B$}]\begingroup the biproduct of $A$ and $B$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$A\times_CB$}]\begingroup the fibre product of $A$ and $B$ over $C$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$d(f,g)$}]\begingroup the difference of $f,g$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$f^{*}$}]\begingroup the pullback functor induced by $f$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$f_{*}$}]\begingroup the pushout functor induced by $f$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$G_s$}]\begingroup the stabilizer of a point $s$ in $S$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$Gs$}]\begingroup the orbit of a point $s$ in $S$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$K(A), K_0(A)$}]\begingroup the Grothedieck group of $A$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$M_{\tor}$}]\begingroup the set of torsion elements in $M$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$N\rtimes H$}]\begingroup the semidirect product of $N$ and $H$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$S/G$}]\begingroup the orbit space of $S$ under the action of $G$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$S^1$}]\begingroup the unit circle\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$S^G$}]\begingroup the set of all $G-$invariant element\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$S^g$}]\begingroup the set of fixed points of $g\in G$\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$S_G$}]\begingroup the space of $G-$coinvariants\nomeqref {4.0}
+		\nompageref{112}
+  \item [{$Z(G)$}]\begingroup the center of $G$\nomeqref {4.0}
+		\nompageref{112}
+
+\end{thenomenclature}

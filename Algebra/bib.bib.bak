@@ -1,0 +1,241 @@
+% This file was created with JabRef 2.9.2.
+% Encoding: GBK
+
+@BOOK{atiyah1994introduction,
+  title = {Introduction To Commutative Algebra},
+  publisher = {Westview Press},
+  year = {1994},
+  author = {Atiyah, M.},
+  series = {Addison-Wesley series in mathematics},
+  isbn = {9780813345444},
+  url = {http://books.google.com.hk/books?id=HOASFid4x18C}
+}
+
+@BOOK{awodey2010category,
+  title = {Category Theory},
+  publisher = {OUP Oxford},
+  year = {2010},
+  author = {Awodey, S.},
+  series = {Oxford Logic Guides},
+  isbn = {9780199237180},
+  lccn = {10483708},
+  url = {http://books.google.com.hk/books?id=xC1bpwAACAAJ}
+}
+
+@ARTICLE{balmer2001idempotent,
+  author = {Balmer, Paul and Schlichting, Marco},
+  title = {Idempotent completion of triangulated categories},
+  journal = {Journal of Algebra},
+  year = {2001},
+  volume = {236},
+  pages = {819--834},
+  number = {2},
+  publisher = {Elsevier}
+}
+
+@BOOK{cartan1999homological,
+  title = {Homological Algebra},
+  publisher = {Princeton University Press},
+  year = {1999},
+  author = {Cartan, H. and Eilenberg, S.},
+  volume = {19},
+  series = {Princeton Mathematical Series}
+}
+
+@BOOK{eisenbud1995commutative,
+  title = {Commutative Algebra: With a View Toward Algebraic Geometry},
+  publisher = {Springer},
+  year = {1995},
+  author = {Eisenbud, D.},
+  series = {Graduate Texts in Mathematics},
+  isbn = {9780387942698},
+  lccn = {lc94017351},
+  url = {http://books.google.com.hk/books?id=Fm\_yPgZBucMC}
+}
+
+@INPROCEEDINGS{Freyd70homotopyis,
+  author = {Peter Freyd},
+  title = {Homotopy is not concrete},
+  booktitle = {Lecture Notes in Math. 168},
+  year = {1970},
+  pages = {25--34}
+}
+
+@ARTICLE{freyd1972categories,
+  author = {Freyd, Peter J and Kelly, G Max},
+  title = {Categories of continuous functors, I},
+  journal = {Journal of pure and applied algebra},
+  year = {1972},
+  volume = {2},
+  pages = {169--191},
+  number = {3},
+  publisher = {Elsevier}
+}
+
+@BOOK{hilton1997course,
+  title = {A course in homological algebra},
+  publisher = {Springer},
+  year = {1997},
+  author = {Hilton, P.J. and Stammbach, U.},
+  volume = {72},
+  series = {Graduate Texts in Mathematic}
+}
+
+@BOOK{hungerford1974algebra,
+  title = {Algebra},
+  publisher = {Springer},
+  year = {1974},
+  author = {Hungerford, T.W.},
+  volume = {73},
+  series = {Graduate Texts in Mathematics},
+  isbn = {9780387905181},
+  lccn = {96214823},
+  url = {http://www.google.com.hk/books?id=t6N\_tOQhafoC}
+}
+
+@BOOK{jacobson1980basic,
+  title = {Basic algebra},
+  publisher = {Freeman},
+  year = {1980},
+  author = {Jacobson, N.},
+  volume = {2}
+}
+
+@ARTICLE{kaplansky1958projective,
+  author = {Kaplansky, Irving},
+  title = {Projective modules},
+  journal = {The Annals of Mathematics},
+  year = {1958},
+  volume = {68},
+  pages = {372--377},
+  number = {2},
+  publisher = {JSTOR}
+}
+
+@ARTICLE{keller1990chain,
+  author = {Keller, Bernhard},
+  title = {Chain complexes and stable categories},
+  journal = {manuscripta mathematica},
+  year = {1990},
+  volume = {67},
+  pages = {379--417},
+  number = {1},
+  publisher = {Springer}
+}
+
+@BOOK{kosniowski1980first,
+  title = {A First Course in Algebraic Topology},
+  publisher = {Cambridge University Press},
+  year = {1980},
+  author = {Kosniowski, C.},
+  series = {Books on demand},
+  isbn = {9780521298643},
+  lccn = {79041682},
+  url = {http://books.google.com.tw/books?id=vvU3AAAAIAAJ}
+}
+
+@BOOK{lane1998categories,
+  title = {Categories for the Working Mathematician},
+  publisher = {Springer},
+  year = {1998},
+  author = {Lane, S.M.},
+  volume = {5},
+  series = {Graduate Texts in Mathematics},
+  isbn = {9780387984032},
+  lccn = {97045229},
+  url = {http://books.google.com.hk/books?id=MXboNPdTv7QC}
+}
+
+@BOOK{lang2002algebra,
+  title = {Algebra},
+  publisher = {Springer},
+  year = {2002},
+  author = {Lang, S.},
+  volume = {211},
+  series = {Graduate Texts in Mathematic}
+}
+
+@BOOK{lawvere1997conceptual,
+  title = {Conceptual Mathematics: A First Introduction to Categories},
+  publisher = {Cambridge University Press},
+  year = {1997},
+  author = {Lawvere, F.W. and Schanuel, S.H.},
+  isbn = {9780521472494},
+  lccn = {95044725},
+  url = {http://books.google.com.hk/books?id=D2K3QgAACAAJ}
+}
+
+@BOOK{lidl1996finite,
+  title = {Finite Fields},
+  publisher = {Cambridge University Press},
+  year = {1996},
+  author = {Lidl, R. and Niederreiter, H.},
+  volume = {20},
+  series = {Encyclopedia of Mathematics and Its Applications},
+  url = {http://books.google.com.hk/books?id=xqMqxQTFUkMC}
+}
+
+@BOOK{mac1975homology,
+  title = {Homology},
+  publisher = {Springer},
+  year = {1975},
+  author = {MacLane, S.},
+  volume = {114},
+  series = {Classics in Mathematics}
+}
+
+@BOOK{rotman2008introduction,
+  title = {An introduction to homological algebra},
+  publisher = {Springer},
+  year = {2008},
+  author = {Rotman, J.J.}
+}
+
+@BOOK{rotman2002advanced,
+  title = {Advanced Modern Algebra},
+  publisher = {Prentice Hall},
+  year = {2002},
+  author = {Rotman, J.J.},
+  isbn = {9780130878687},
+  lccn = {2002017072}
+}
+
+@BOOK{serre1980local,
+  title = {Local Fields},
+  publisher = {Springer},
+  year = {1980},
+  author = {Serre, J.P. and Greenberg, M.J.},
+  volume = {67},
+  series = {Graduate Texts in Mathematics},
+  url = {http://books.google.com.hk/books?id=DAxlMdw\_QloC}
+}
+
+@BOOK{warfield1976nilpotent,
+  title = {Nilpotent groups},
+  publisher = {Springer},
+  year = {1976},
+  author = {Warfield, R.B.},
+  volume = {513},
+  series = {Lecture Notes in Mathematics}
+}
+
+
+@book{bourbaki1998algebra,
+  title={Algebra I: Chapters 1-3},
+  author={Bourbaki, N.},
+  isbn={9783540642435},
+  url={http://books.google.com.hk/books?id=STS9aZ6F204C},
+  year={1998},
+  publisher={Springer}
+}
+
+@book{bourbaki1998general,
+  title={General Topology: Chapters 1-4},
+  author={Bourbaki, N.},
+  isbn={9783540642411},
+  lccn={88031206},
+  series={Elements of mathematics / Nicolas Bourbaki},
+  url={http://books.google.com.hk/books?id=kTFSfmsjDM0C},
+  year={1998},
+  publisher={Springer}
+}

@@ -1,0 +1,282 @@
+\chapter{Galois Theory}
+\cite{morandi1996field}
+\section{Galois Extensions}
+  \begin{defn}
+    Let $K$ be a field and let $G$ be a group of automorphisms of $K$. The subset of $K$ consisting of all elements which is fixed under all $\sigma\in G$ is a field. It is called the \termin{fixed field} of $G$, and denoted by $K^G$.
+  \end{defn}
+
+  \begin{defn}
+    An algebraic extension $K$ of a field $k$ is called \termin[Galois]{Galois Extension} if it is both normal and separable.
+  \end{defn}
+
+  \begin{defn}
+    For an extension $K/k$, the group of automorphisms of $K$ over $k$ is denoted by $\Aut(K/k)$. When the extension is Galois, $\Aut(K/k)$ is called the \termin{Galois group} of $K$ over $k$, and is denoted by $\Gal(K/k)$ or $G(K/k)$.
+  \end{defn}
+
+  The main theorem in this section is
+  \begin{thm}[Galois Connection]
+    Let $K$ be a Galois extension of $k$, with Galois group $G$. Denote the set of intermediate field of $K/k$ by $\Int(K/k)$, and the set of subgroups of $G$ by $\Sub(G)$. Then there exists a bijection between them:
+    \mapdes{\Sub(G)}{\Int(K/k)}{H}{E=K^H}
+
+    The field $E$ is Galois if and only if $H$ is normal in $G$. If that is the case, then the map $\sigma\mapsto\local{\sigma}{E}$ induces an isomorphism of $G/H$ onto the Galois group of $E$ over $k$.
+  \end{thm}
+
+  Lang gives the proofs step by step.
+
+  \begin{thm}
+    Let $K$ be a Galois extension of $k$, with Galois group $G$, then $k=K^G$. Denote the set of intermediate field of $K/k$ by $\Int(K/k)$, and the set of subgroups of $G$ by $\Sub(G)$. If $F\in\Int(K/k)$, then $K$ is Galois over $F$. The map
+    \mapdes{\Int(K/k)}{\Sub(G)}{F}{G(K/F)}
+    is injective.
+  \end{thm}
+
+  \begin{defn}
+    We say a subgroup $H$ of $G$ \emph{\red belongs} to an intermediate field $F$ if $H=G(K/F)$.
+  \end{defn}
+
+  \begin{cor}
+    Let $K/k$ be Galois with group $G$. Let $F,F'$ be two intermediate fields, and let $H,H'$ be the subgroups of $G$ belonging to $F,F'$ respectively. Then
+    \begin{enumerate}[a)]
+      \item  $H\cap H'$ belongs to $FF'$;
+      \item  The fixed field of the smallest subgroup of $G$ containing $H,H'$ is $F\cap F'$;
+      \item  $F\subset F'$ if and only if $H'\subset H$.
+    \end{enumerate}
+  \end{cor}
+  Such results can be represented by the corresponding between the following two \emph{Hasse diagrams}
+                 \begin{displaymath}
+                   \xymatrix@!0{
+                      & <H\cup H'> &\ar[ddrr]&&& FF' & \\
+                      H\ar@{-}[ur]\ar@{-}[dr] && H'\ar@{-}[ul]\ar@{-}[dl] && F\ar@{-}[ur]\ar@{-}[dr] && F'\ar@{-}[ul]\ar@{-}[dl] \\
+                      & H\cap H' &\ar[uurr]&&& F\cap F' &            }
+                 \end{displaymath}
+
+  \begin{cor}
+    Let $E$ be a finite separable extension of a field $k$. Let $K$ be the smallest normal extension of $k$ containing $E$. Then $K$ is finite Galois over $k$, and $\Int(E/k)$ is finite.
+  \end{cor}
+
+  \begin{lem}
+    Let $E$ be an algebraic separable extension of $k$. Assume that there is an integer $n\geqslant1$ such that every element of $E$ is of degree $\leqslant n$ over $k$. Then $[E:k]\leqslant n$.
+  \end{lem}
+
+  Now, we have $K^{G(K/F)}=F$, but how about $G(K/K^H)$.
+
+  \begin{thm}[Artin]
+    Let $K$ be a field and let $G$ be a finite group of automorphisms of $K$, of order $n$. Let $k=K^G$ be the fixed field. Then $K$ is a finite Galois extension of $k$, and its Galois group is $G$. We have $[K:k]=n$.
+  \end{thm}
+
+  \begin{cor}
+    Let $K$ be a finite Galois extension of $k$ and let $G$ be its Galois group. Then every subgroup of $G$ belongs to some $F\in\Int(K/k)$.
+  \end{cor}
+  \begin{warn}
+    This statement is not true when $K$ is an infinite Galois extension of $k$.
+  \end{warn}
+
+  \begin{lem}
+    Let $K$ be a Galois extension of $k$. Let
+    \begin{equation*}
+       \lambda\colon K\To \lambda K
+    \end{equation*}
+    be an isomorphism, then
+    \begin{equation*}
+      G(\lambda K/\lambda k)^{\lambda}=G(K/k)
+    \end{equation*}
+    i.e.
+    \begin{equation*}
+      G(\lambda K/\lambda k)=\lambda G(K/k) \lambda^{-1}
+    \end{equation*}
+  \end{lem}
+
+  \begin{thm}
+    Let $K$ be a Galois extension of $k$ with group $G$. Let $F\in\Int(K/k)$, and let $H=G(K/F)$. Then $F$ is normal over $k$ if and only if $H$ is normal in $G$. If that is the case, then the map $\sigma\mapsto\local{\sigma}{E}$ induces a homomorphism of $G$ onto the Galois group of $F$ over $k$, whose kernel is $H$.
+  \end{thm}
+
+  \begin{defn}
+    A Galois extension is said to be \termin[abelian]{abelian extension} (resp. \termin[cyclic]{cyclic extension}) if its Galois group is \emph{abelian} (resp. \emph{cyclic}).
+  \end{defn}
+
+  \begin{cor}
+    Let $K/k$ be abelian (resp. cyclic). If $F\in\Int(K/k)$, then $F/k$ is also abelian (resp. cyclic).
+  \end{cor}
+
+  \begin{thm}
+    Let $K/k$ be Galois, $F/k$ be an arbitrary extension, then $KF/F, K/(K\cap F)$ are Galois. Moreover, we have an isomorphism
+    \isodes{\Gal(KF/F)}{\Gal(K/(K\cap F))}{\sigma}{\local{\sigma}{K}}
+                 \begin{displaymath}
+                   \xymatrix@1{
+                      && KF\ar@{-}[dr] &\\
+                      K\ar@{-}[urr] &&& F\ar@{-}[dll] \\
+                      & K\cap F\ar@{-}[ul] &&\\
+                      & k\ar@{-}[u] &&            }
+                 \end{displaymath}
+  \end{thm}
+
+  \begin{cor}
+    Let $K/k$ be finite Galois, $F/k$ be an arbitrary extension. Then $[KF:F]$ divides $[K:k]$.
+  \end{cor}
+  \begin{warn}
+    The assertion of above corollary is not usually valid if $K/k$ is not Galois.
+
+    Indeed, let
+    \begin{equation*}
+      \alpha=2^{\frac{1}{3}}\quad\zeta=\frac{-1+\sqrt{-3}}{2}\quad\beta=\alpha\zeta
+    \end{equation*}
+    and $k=\QQ,K=\QQ(\beta),F=\QQ(\alpha)$. Then
+    \begin{equation*}
+      [KF:F]=2\quad [K:k]=3
+    \end{equation*}
+  \end{warn}
+
+  \begin{thm}
+    Let $\Gal(K_1/k)=G_1, \Gal(K_2/k)=G_2$, then $K_1K_2/k$ is Galois. Let $G$ be its Galois group, then
+    \mapdes{G}{G_1\times G_2}{\sigma}{(\local{\sigma}{K_1},\local{\sigma}{K_2})}
+    is injective. If $K_1\cap K_2=k$, then it is an isomorphism.
+                 \begin{displaymath}
+                   \xymatrix@1{
+                      & K_1K_2\ar@{-}[dr] &\\
+                      K_1\ar@{-}[ur] && K_2\ar@{-}[dl] \\
+                      & K_1\cap K_2\ar@{-}[ul] &\\
+                      & k\ar@{-}[u] &           }
+                 \end{displaymath}
+  \end{thm}
+
+  \begin{cor}
+    Let $K_1,\cdots,K_n$ be Galois extensions of $k$ with Galois groups $G_1,\cdots, G_n$. Assume $K_{i+1}\cap(K_1\cdots K_i)=k$, then
+    \begin{equation*}
+      \Gal(K_1\cdots K_n/k)\cong G_1\times\cdots\times G_n
+    \end{equation*}
+  \end{cor}
+
+  \begin{cor}
+    Let $K$ be finite Galois over $k$ with group $G$, and assume $G=G_1\times\cdots\times G_n$, let $K_i$ be the fixed field of
+    \begin{equation*}
+      G_1\times\cdots\times 1 \times\cdots\times G_n
+    \end{equation*}
+    then $K_i$ is Galois over $k$ and $K_{i+1}\cap(K_1\cdots K_i)=k, K=K_1\cdots K_n$.
+  \end{cor}
+
+  \begin{thm}
+    Assume all fields contained in some common field.
+    \begin{enumerate}[(i)]
+      \item If $K,L$ are abelian over $k$, then so is $KL$;
+      \item If $K/k$ is abelian and $F/k$ is arbitrary, then $KF/F$ is abelian;
+      \item IF $K/k$ is abelian and $F\in\Int(K/k)$, then $K/F,F/k$ are abelian.
+    \end{enumerate}
+  \end{thm}
+
+  \begin{warn}
+    The converse of last statement may not be true.
+  \end{warn}
+
+  \begin{defn}
+    The composite of all abelian extensions of $k$ in $k^{\ac}$ is called the \termin{abelian closure} of $k$ and denoted by $k^{\ab}$.
+  \end{defn}
+
+\newpage\section{Examples and Applications}
+
+\newpage\section{Norm and Trace}
+  Let $E/k$ be finite, $[E:k]_s=r$, $\alpha\in E$. We define the \termin{norm} and \termin{trace} of $\alpha$ to be
+  \begin{align*}
+    N_{E/k} &= N^E_k(\alpha) = \prod_{v=1}^{r}\sigma_v\alpha^{[E:k]_i} = \left(\prod_{v=1}^r\sigma_v\alpha\right)^{[E:k]_i} \\
+    \Tr_{E/k} &= \Tr^E_k(\alpha) = [E:k]_i\sum_{v=1}^r\sigma_v\alpha
+  \end{align*}
+
+  If $E/k$ is separable, then
+  \begin{align*}
+    N^E_k(\alpha) & =\prod_{\sigma}\sigma\alpha \\
+    \Tr^E_k(\alpha) & = \sum_{\sigma}\sigma\alpha
+  \end{align*}
+
+  \begin{thm}
+    Let $E/k$ be finite, then
+    \begin{enumerate}[(i)]
+      \item $N^E_k(\alpha)$ is a multiplicative homomorphism of $E^{\ast}$ into $k^{\ast}$ and  $\Tr^E_k(\alpha)$ is an additive homomorphism of $E$ into $k$.
+      \item If $E\supset F\supset k$ is a tower, then
+                 \begin{equation*}
+                   N^E_k=N^F_k\circ N^E_F\quad\text{and}\quad \Tr^E_k=\Tr^F_k\circ\Tr^E_F
+                 \end{equation*}
+      \item If $E=k(\alpha)$, and $f(X)=\Irr(\alpha,k,X)=X^n+a_{n-1}X^{n-1}+\cdots+a_0$, then
+                 \begin{equation*}
+                   N^{k(\alpha)}_k(\alpha)=(-1)^na_0\quad\text\quad\Tr^{k(\alpha)}_k(\alpha)=-a_{n-1}
+                 \end{equation*}
+    \end{enumerate}
+  \end{thm}
+
+  \begin{thm}
+    Let $E/k$ be finite separable. Then $\Tr^E_k$ is a nonzero functional. The map
+    \mapdes{E\times E}{k}{(x,y)}{\Tr(xy)}
+    is bilinear, and identifies $E$ with its dual space $\codual{E}$.
+  \end{thm}
+
+  \begin{cor}
+    Let $\omega_1,\cdots,\omega_n$ be a basis of $E/k$. Then there exists a basis $\omega'_1,\cdots,\omega'_n$ of $E/k$ such that $\Tr(\omega_i\omega'_j)=\delta_{ij}$.
+  \end{cor}
+
+  \begin{cor}
+    Let $E/k$ be finite separable, and let $\sigma_1,\cdots,\sigma_n$ be the distinct embeddings. Let $w_1,\cdots,w_n$ be elements of $E$. Then the vectors
+    \begin{gather*}
+      \xi_1=(\sigma_1w_1,\cdots,\sigma_1w_n) \\
+      \cdots \\
+      \xi_n=(\sigma_nw_1,\cdots,\sigma_nw_n)
+    \end{gather*}
+    are linearly independent over $E$ if $w_1,\cdots,w_n$ form a basis of $E/k$.
+  \end{cor}
+
+  \begin{rem}
+    In characteristic $0$, one sees much more trivially that the trace is not identically $0$. Indeed, if $c\in k$ and $c\neq0$, then $\Tr(c)=nc$ where $n=[E;k]$, and $n\neq0$. This argument also holds in characteristic $p$ where $n$ is prime to $p$.
+  \end{rem}
+
+  \begin{prop}
+    Let $E=k(\alpha)$ be separable. Let
+    \begin{equation*}
+      f(X)=\Irr(\alpha,k,X)
+    \end{equation*}
+    and let $f'(X)$ be its derivative. Let
+    \begin{equation*}
+      \frac{f(X)}{(X-\alpha)}=\beta_0+\beta_1X+\cdots+\beta_{n-1}X^{n-1}
+    \end{equation*}
+    with $\beta_i\in E$. Then the dual basis of $1,\alpha,\cdots,\alpha^{n-1}$ is
+    \begin{equation*}
+      \frac{\beta_0}{f'(\alpha)},\cdots,\frac{\beta_{n-1}}{f'(\alpha)}
+    \end{equation*}
+  \end{prop}
+
+  Define
+  \longmapdes{m_{\alpha}}{E}{E}{x}{\alpha x}
+
+  \begin{prop}
+    Let $E/k$ be finite and let $\alpha\in E$. Then
+    \begin{equation*}
+      \det(m_{\alpha})=N_{E/k}(\alpha)\quad\text{and}\quad\Tr(m_{\alpha})=\Tr_{E/k}(\alpha)
+    \end{equation*}
+  \end{prop}
+
+\newpage\section{Cyclic Extensions}
+
+  \begin{thm}[Hilbert's Theorem 90]
+    Let $K/k$ be cyclic of degree $n$ with Galois group $G$. Let $\sigma$ be a generator of $G$. Let $\beta\in K$. The norm $N(\beta)=1$ if and only if there exists an element $\alpha\neq0$ in $K$ such that $\beta=\alpha/\sigma\alpha$.
+  \end{thm}
+
+  \begin{thm}
+    Let $k$ be a field, $n$ an integer $>0$ prime to the characteristic of $k$, and assume that there is a primitive $n-$th root of unity in $k$.
+    \begin{enumerate}[(i)]
+      \item Let $K$ be a cyclic extension of degree $n$. Then there exists $\alpha\in K$ such that $K=k(\alpha)$, and $\alpha$ satisfies an equation $X^n-a=0$ for some $a\in k$.
+      \item Conversely, let $a\in k$. Let $\alpha$ be a root of $X^n-a$. Then $k(\alpha)$ is cyclic over $k$, of degree $d$, $d\mid n$, and $\alpha^d$ is an element of $k$.
+    \end{enumerate}
+  \end{thm}
+
+  \begin{thm}[Hilbert's Theorem 90, Additive Form]
+    Let $K/k$ be cyclic of degree $n$ with Galois group $G$. Let $\sigma$ be a generator of $G$. Let $\beta\in K$. The trace $\Tr(\beta)=0$ if and only if there exists an element $\alpha\neq0$ in $K$ such that $\beta=\alpha-\sigma\alpha$.
+  \end{thm}
+
+  \begin{thm}[Artin-Schreier]
+    Let $k$ be a field of characteristic $p$.
+    \begin{enumerate}[(i)]
+      \item Let $K$ ba a cyclic extension of $k$ of degree $p$. Then there exists $\alpha\in K$ such that $K=k(\alpha)$ and $\alpha$ satisfies an equation $X^p-X-a=0$ with some $a\in k$.
+      \item Conversely, given $a\in k$, the polynomial $f(X)=X^p-X-a$ either has one root in $k$, in which case all its roots are in $k$, or it is irreducible. In this latter case, if $\alpha$ is a root then $k(\alpha)$ is cyclic of degree $p$ over $k$.
+    \end{enumerate}
+  \end{thm}
+
+\newpage\section{Solvable and Radical Extensions}
+  
+  \begin{defn}
+    
+  \end{defn}

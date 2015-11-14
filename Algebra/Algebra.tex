@@ -1,0 +1,105 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                        A Tex File Made by Gau Syu
+%                              GauSyu@Gmail.com
+%
+%###########################################
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                     Include The Common Settings
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{Common-RT}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                 PDF File Information
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{
+             pdftitle={Serge Lang's Algebra : Seminar notes, exercise solutions etc},
+             pdfauthor={Gau Syu},
+             pdfsubject={algebra},
+             pdfkeywords={seminar, notes, solutions},
+             pdfproducer={XeLaTeX},
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                           Title
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{{\normalsize Serge Lang's}\\ \Huge\textsc{Algebra}\\ {\large Seminar notes, exercise solutions etc.}}
+\author{Gau Syu}
+\date{
+\begin{gather*}
+\xymatrix@=5em{
+& Y' \ar@{-->}[dr]^g \ar[ddl]^(0.65){[1]} & \\
+Z' \ar@{-->}[ur]^f \ar[d]_{[1]} & &
+    X' \ar[ll]_{j[1] \circ i}^{[1]}|(0.25)\hole|(0.75)\hole
+       \ar[ddl]_(0.4)i^(0.4){[1]}|(0.25)\hole|(0.5)\hole \\
+X \ar[rr]^{v \circ u} \ar[dr]_u & &
+    Z \ar[u] \ar[uul]\\
+& Y \ar[ur]_v \ar[uul]_(0.6)j|(0.5)\hole|(0.75)\hole &
+}\\
+\\
+\\
+\end{gather*}
+\emph{\small Last Update: \today}}
+
+\begin{document}
+\frontmatter
+\maketitle
+\include{Perface}
+
+\tableofcontents
+\section*{List of Theorems}
+\theoremlisttype{opt}
+\listtheorems{thm,prop,lem}
+\section*{List of Exercises}
+\theoremlisttype{all}
+\listtheorems{ex}
+\mainmatter
+\pagestyle{plain}
+\part{The Basic Objects of Algebra}
+
+\include{Chapter1}%Groups
+\include{Chapter2}%Rings
+\include{Chapter3}%Modules
+\include{Chapter4}%Polynomials
+
+\part{Algebraic Equations}
+\include{Chapter5}%Algebraic Extensions
+\include{Chapter6}%Galois Theory
+
+
+\begin{appendices}
+\renewcommand{\thepart}{}%\Alph{part}.}
+\part{Appendix}
+%\renewcommand{\thechapter}{}
+\include{CategoryTheory}
+\end{appendices}
+
+
+\include{Notations}
+\newpage
+\backmatter
+%Chapter=Bibliography
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{apalike}
+\bibliography{bib}
+\newpage
+%Chapter=Index
+\phantomsection
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+\newpage
+%Chapter=Notations
+\phantomsection
+\addcontentsline{toc}{chapter}{Notations}
+\printnomenclature
+\end{document}

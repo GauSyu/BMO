@@ -95,9 +95,9 @@ Commutative triangles, squares and, more generally, diagrams abound in category 
   A diagram $D$ is said to be \termin[commutative]{commutative diagram}, if it factors through a poset. Informally, a diagram is commutative means its composition is path-independent.
 \end{defn}
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Let $\Ii$ be one of the following categories, describe the diagrams of shape $\Ii$ and their cones and co-cones in terms of objects and morphisms.
+    The followings are typical diagrams used to define limits and colimits.
     \begin{itemize}
       \item $\one$, which has only one object and one morphism.
       \item a \termin{discrete category}, whose only morphisms are the identities.
@@ -271,12 +271,9 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
 
     Use these correspondings, the statements are easy to verify.
   \end{proof}
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Shows that a colimit of a diagram $D$ is just the opposite of a limit of its opposite $D^{\op}$. And use this fact to give another proof of the second statement in Proposition \ref{prop:limit-colimit} under the assumption that the first one it true.
-  \end{ex}
-  \begin{ex}
-    Describe the limits in $\Set$ explicitly.
+    A colimit of a diagram $D$ is just the opposite of a limit of its opposite $D^{\op}$. This fact leads to another proof of the second statement in Proposition \ref{prop:limit-colimit} under the assumption that the first one it true.
   \end{ex}
   \begin{ex}\label{def:limit as rep functor}
     In \cite{Cat&Shf}, a projective limit of a projective system $D\colon\Ii^{\op}\to\Cc$ is defined as a representative of the representable presheaf on $\Cc$ which maps every object $X$ in $\Cc$ to the limit of projective system $\Hom(X,D)$ in $\Set$.
@@ -284,23 +281,22 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
 
     Similarly, an inductive limit of an inductive system $D'\colon\Ii\to\Cc$ is defined as a representative of the representatble functor which maps every object $X$ in $\Cc$ to the limit of projective system $\Hom(D',X)$ in $\Set$.
 
-    Shows that these definitions are coincide with our definitions given in this section. A benefit of such a system of notations is that it allows us to talk about some properties of limits without assumption their existence.
+    These definitions are coincide with our definitions given in this section. A benefit of such a system of notations is that it allows us to talk about some properties of limits without assumption their existence.
   \end{ex}
 
   \begin{ex}
-    Let $D\colon\Ii\to[\Jj,\Cc]$ be an inductive system, then, by \ref{prop:power law for functor}, it can be also viewed as a functor from $\Jj$ to $[\Ii,\Cc]$.
-    Shows that
+    Let $D\colon\Ii\to[\Jj,\Cc]$ be an inductive system, then, by \ref{prop:power law for functor}, it can be also viewed as a functor from $\Jj$ to $[\Ii,\Cc]$. In this way, we have
     \begin{equation*}
       (\dirlim_{\Ii}D)(j)\cong\dirlim_{\Ii}(D(j))\quad\forall j\in\ob\Jj
     \end{equation*}
     i.e. the functor $\dirlim_{\Ii}D$ is naturally isomorphic to the functor which maps every object $j$ in $\Jj$ to the inductive limit of the functor $D(j)$.
 
-    Prove the similar result for projective limit.
+    The similar result holds for projective limit.
   \end{ex}
 
   \begin{ex}
-    Let $\Ii$ be a \termin{connected category} (that is a nonempty category in which every two objects are connected by a zigzag of morphisms) and $X$ be an object in a category $\Cc$. Shows that $X\approx\invlim\Delta_X$ and $\dirlim\Delta_X\approx X$.
-    [Hint: one can direct check them. Or first prove them in $\Set$, then use \ref{def:limit as rep functor}.]
+    Let $\Ii$ be a \termin{connected category} (that is a nonempty category in which every two objects are connected by a zigzag of morphisms) and $X$ be an object in a category $\Cc$. Thent $X\approx\invlim\Delta_X$ and $\dirlim\Delta_X\approx X$.
+%    [Hint: one can direct check them. Or first prove them in $\Set$, then use \ref{def:limit as rep functor}.]
   \end{ex}
 
 \newpage\section{Products and coproducts}
@@ -405,13 +401,7 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
     Coequalisers can be large: There are exactly two functors from the category $\one$ having one object and one identity arrow, to the category $\mathbf{2}$ with two objects and exactly one non-identity arrow going between them. The coequaliser of these two functors is the monoid of natural numbers under addition, considered as a one-object category. In particular, this shows that while every coequalising arrow is epic, it is not necessarily surjective.
   \end{exam}
 
-\subsection{Exercises}
-  \begin{ex}
-    Describe a coproduct of a family of objects $\{A_i\}_{i\in I}$ by a universal property.
-  \end{ex}
-  \begin{ex}
-    Describe an equalizer and a coequalizer of two parallel morphisms by universal properties.
-  \end{ex}
+
 
 \newpage\section{Pullbacks and pushouts}
   \begin{defn}
@@ -628,13 +618,7 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
   \begin{exam}
     In the category $\Set$, the kernel pair of a function $f$ is just the equivalence relation on $A$ determined by $f$.
   \end{exam}
-\subsection{Exercises}
-  \begin{ex}
-    Describe pullbacks and pushouts by universal properties.
-  \end{ex}
-  \begin{ex}
-    Describe the corresponding concepts and propositions in this section for pushouts. Then prove these propositions.
-  \end{ex}
+\subsection{Observations}
   \begin{ex}\label{prop:pullback=eq+prod}
     Let $\xymatrix@1{A\ar[r]^{f}&C&B\ar[l]_{g}}$ be a pair of morphisms, and $(A\times B, p_A, p_B)$ be a product of $A$ and $B$, $e\colon E\to A\times B$ is an equalizer of $f\circ p_A$ and $g\circ p_B$. Then the following diagram is cartesian:
     \begin{displaymath}
@@ -883,9 +867,9 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
     Notice that a cone over $D$ is uniquely determined by these $D_{f_i}$, thus we can replace the second product in the proof of \ref{thm:complete_category} by $\prod\limits_{i=1}^n D_{s.f_i}$, and the statement follows.
   \end{proof}
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Describe and verify the dual notations and propositions in this section for colimit.
+    The dual notations and propositions in this section work for colimit.
   \end{ex}
   \begin{ex}
     Let $\Cc$ be a complete category and $\Ii$ a small category. Then taking projective limit objects is a functor from $[\Ii^{\op},\Cc]$ to $\Cc$, while taking inductive limit objects is a functor from $[\Ii,\Cc]$ to $\Cc$.
@@ -972,15 +956,15 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
     Notice that a fully faithful functor reflects terminal objects, thus the result follows.
   \end{proof}
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Describe the corresponding concepts (``preserve colimits'', ``cocontinuous functor'', ``reflect colimit'') and propositions for colimits and then prove them.
+    There are corresponding concepts (``preserve colimits'', ``cocontinuous functor'', ``reflect colimit'') and propositions for colimits.
   \end{ex}
+%  \begin{ex}
+%    Consider a category $\Cc$ having products and a diagram $D$ with small index category. Construct $\alpha$ and $\beta$ as in the proof of Theorem \ref{thm:complete_category}. Prove that $\ker(\alpha,\beta)$ exists if and only if $\invlim D$ exists.
+%  \end{ex}
   \begin{ex}
-    Consider a category $\Cc$ having products and a diagram $D$ with small index category. Construct $\alpha$ and $\beta$ as in the proof of Theorem \ref{thm:complete_category}. Prove that $\ker(\alpha,\beta)$ exists if and only if $\invlim D$ exists.
-  \end{ex}
-  \begin{ex}
-    Consider a category $\Aa$ having products and a functor $F\colon\Aa\To\Bb$ preserving products and equalizers. Show that $F$ preserves limits.
+    Consider a category $\Aa$ having products and a functor $F\colon\Aa\To\Bb$ preserving products and equalizers. Then $F$ preserves limits.
   \end{ex}
 
 
@@ -1100,9 +1084,9 @@ A colimit of a diagram sometimes works like an epimorphism, although an individu
 
     Therefore, $\mu$ is a colimit of $D$. Moreover, the equations in this proof are obvious preserved by any functor. Thus $\mu$ is absolute.
   \end{proof}
-\subsection{Exercises}
+\subsection{Observations}
 \begin{exam}
-  Let $(C,e)$ be the coequalizer of its kernel pair $(f,g)$. Shows that if $e$ is split epi, then the coequalizer is split and thus absolute.
+  Let $(C,e)$ be the coequalizer of its kernel pair $(f,g)$. If $e$ is split epi, then the coequalizer is split and thus absolute.
 \end{exam}
 
 
@@ -1260,9 +1244,9 @@ A useful sufficient condition is
   It is often said that two diagrams are cofinal even when neither has a colimit, if they acquire a common colimit on passing to a suitable completion of $\Cc$. This can probably be phrased internally to $\Cc$, at the cost of intuition.
 \end{rem}
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Let $D\colon\Ii^{\op}\to\Cc$ be a diagram. The category $\Cone(D)$ has a functor to $\Cc$, mapping each cone to its vertex. Prove that $D$ has a limit if and only if this functor has a colimit.
+    Let $D\colon\Ii^{\op}\to\Cc$ be a diagram. The category $\Cone(D)$ has a functor to $\Cc$, mapping each cone to its vertex. $D$ has a limit if and only if this functor has a colimit.
   \end{ex}
 
 \newpage\section{Commutativity of limits and colimits}
@@ -1722,13 +1706,6 @@ A useful sufficient condition is
   \end{proof}
   The universality of colimits is a very peculiar property which is much less common than to be filtered.
 
-\subsection{Exercises}
-  \begin{ex}
-    Prove the interchange property for colimits.
-  \end{ex}
-  \begin{ex}
-    Construct the colimit of a filtered diagram in $\Set$ explicitly.
-  \end{ex}
 
 
 \newpage\section{Limits and colimits in functor categories}
@@ -1823,13 +1800,13 @@ A useful sufficient condition is
     The category $[\Aa.\Bb]$ can be complete even when $\Bb$ is not. An obvious example is obtained by taking $\Aa$ and $\Bb$ to be empty: $\Bb$ is not complete or cocomplete, since it does not have a terminal or an initial object. But $[\Aa,\Bb]$ is the category with just one single object (the empty functor) and the identity on it; that category is obviously both complete and cocomplete. And since $\Aa$ doesn't have any object, limits in $[\Aa,\Bb]$ are still pointwise! %See exercise 2.17.10 for a non-pointwise limit.
   \end{exam}
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
     If $\Aa$ is small and $\Bb$ is complete, then a natural transformation $\alpha$ in $[\Aa,\Bb]$ is monic if and only if its every component is monic.
   \end{ex}
-  \begin{ex}
-    Consider the category $\mathbf{2}$ with two objects $0,1$ and one single non-identity arrow $0\to1$. Find a category $\Cc$ and two functors from $\mathbf{2}$ to $\Cc$ such that their product exists but is not pointwise. [Hint: find a poset.]
-  \end{ex}
+%  \begin{ex}
+%    Consider the category $\mathbf{2}$ with two objects $0,1$ and one single non-identity arrow $0\to1$. Find a category $\Cc$ and two functors from $\mathbf{2}$ to $\Cc$ such that their product exists but is not pointwise. [Hint: find a poset.]
+%  \end{ex}
 
 
 \newpage\section{Limits and colimits in comma categories}
@@ -1866,10 +1843,10 @@ A useful sufficient condition is
 The similar result hold for coslide categories.
 
 Notice that the identity functor $\Id_{\Cc}$ is continuous, these results are just special cases of the following one, which we leave as exercises.
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Let $\Aa,\Bb$ be two complete (resp. cocomplete) categories, $F\colon\Aa\to\Cc$ a continuous (resp. cocontinuous)  functor and $G\colon\Bb\to\Cc$ an arbitrary functor. Show that the comma category $(F \down G)$ is complete (resp. cocomplete). [Hint: use Proposition \ref{prop:globalmonic} and \ref{prop:globalepi}]
+    Let $\Aa,\Bb$ be two complete (resp. cocomplete) categories, $F\colon\Aa\to\Cc$ a continuous (resp. cocontinuous)  functor and $G\colon\Bb\to\Cc$ an arbitrary functor. Then, by Proposition \ref{prop:globalmonic} and \ref{prop:globalepi}, the comma category $(F \down G)$ is complete (resp. cocomplete). %[Hint: use Proposition \ref{prop:globalmonic} and \ref{prop:globalepi}]
   \end{ex}
   \begin{ex}
-    Show that the domain functor $\Cc/I\to\Cc$ and codomain functor $I/\Cc\to\Cc$ reflects limits and colimits. So the limits and colimits in slide and coslide categories are computed as limits in the original categories.
+    The domain functor $\Cc/I\to\Cc$ and codomain functor $I/\Cc\to\Cc$ reflects limits and colimits. So the limits and colimits in slide and coslide categories are computed as limits in the original categories.
   \end{ex}

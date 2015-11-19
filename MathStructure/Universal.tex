@@ -257,17 +257,17 @@ The key ideal of adjoint functor is that they are dual to each other.
 
 
 
-\subsection{Exercises}
+\subsection{Observations}
   \begin{ex}
-    Consider the category $\Cc$ with a single object $\ast$ and just two arrows: the identity $1$ on $\ast$ and a morphism $f$ such that $f \circ f = 1$. Show that $f$ determines a natural transformation $\phi\colon\Id\to\Id$. The identity functor $\Id$ is left adjoint to itself and the unit $\eta\colon\Id\to\Id\circ\Id$ and counit $\epsilon\colon\Id\circ\Id\to\Id$ can both be chosen to be the identity; but they can also both be chosen to be the transformation $\phi$. However, the identity and $\phi$ do not exhibit the adjunction.
+    Consider the category $\Cc$ with a single object $\ast$ and just two arrows: the identity $1$ on $\ast$ and a morphism $f$ such that $f \circ f = 1$. Then $f$ determines a natural transformation $\phi\colon\Id\to\Id$. The identity functor $\Id$ is left adjoint to itself and the unit $\eta\colon\Id\to\Id\circ\Id$ and counit $\epsilon\colon\Id\circ\Id\to\Id$ can both be chosen to be the identity; but they can also both be chosen to be the transformation $\phi$. However, the identity and $\phi$ do not exhibit the adjunction.
   \end{ex}
   \begin{ex}
     Consider the category $\mathbf{Idem}$ whose objects are the pairs $(X,v)$ of a set $X$ provided with an idempotent endomorphism $v\colon X\to X, v\circ v=v$. A morphism $(X, v) \to (Y, w)$ is just a function $f\colon X \to Y$ satisfying $w\circ f = f\circ v$.
     There is a canonical full embedding of the category $\Set$ in $\mathbf{Idem}$:
     \longmapdes{\imath}{\Set}{\mathbf{Idem}}{X}{(X,1_X)}
-    Consider now the functor determined by
+    The functor determined by
     \longmapdes{\jmath}{\mathbf{Idem}}{\Set}{(X,v)}{\{x\in X\mid v(x)=x\}}
-    Prove that $\jmath$ is both left and right adjoint to $\imath$.
+    is both left and right adjoint to $\imath$.
   \end{ex}
 
 
@@ -1044,7 +1044,7 @@ Therefore, if $\Cc$ has all $\Ii-$limits and colimits, we have:
     Indeed, for any $(A',g)$ in $(p\down\Delta_{p(A)})$, since $p$ is fully faithful, there exists a unique morphism $f\in\Hom(A',A)$ such that $p(f)=g$. Then $f$ is a morphism from $(A',g)$ to $(A,1_{p(A)})$. Conversely, for any morphism $f$ from $(A',g)$ to $(A,1_{p(A)})$, we have $p(f)=g$. Thus $(A,1_{p(A)})$ is the terminal object.
   \end{proof}
 
-\subsection{Exercises}
+\subsection{Observations}
 
   \begin{ex}
     Consider two functors $p\colon\Aa\to\Aa'$ and $F\colon\Aa\to\Bb$, with the property
@@ -1052,11 +1052,12 @@ Therefore, if $\Cc$ has all $\Ii-$limits and colimits, we have:
       \forall A,A\in\ob\Aa, \forall f,f'\colon A\to A',  F(f)=F(f')\Longrightarrow p(f)=p(f')
     \end{equation*}
     Suppose $\Aa,\Aa'$ are small, $\Bb$ is cocomplete and $p$ is full. 
-    Show that $\Lan_pF$ exists and the isomorphism $F = \Lan_pF \circ p$ holds.
+    Then $\Lan_pF$ exists and the isomorphism $F = \Lan_pF \circ p$ holds.
   \end{ex}
   \begin{ex}
     Consider a functor $p\colon\Aa\to\Aa'$ between small categories. For each object $A$ in $\Aa$, the Kan extension $\Lan_p\Hom_{\Aa}(A,-)$ exists and is given by 
-    $\Hom_{\Aa'}(p(A),-)$. [Hint: apply the Yoneda lemma.] The equality 
+    $\Hom_{\Aa'}(p(A),-)$.% [Hint: apply the Yoneda lemma.] 
+    The equality 
     \begin{equation*}
       \Lan_p\Hom_{\Aa}(A,-)\circ p = \Hom_{\Aa}(A,-)
     \end{equation*}
@@ -1065,5 +1066,5 @@ Therefore, if $\Cc$ has all $\Ii-$limits and colimits, we have:
   \begin{ex}
     Consider the category $\one$ with a single object $A$ and a single arrow $1_A$, the category $\mathbf{2}$ with two distinct objects $A, B$ and just the identity arrows $1_A,1_B$, and the category $\vec{\mathbf{2}}$ with two distinct objects $A, B$, the identity arrrows $1_A, 1_B$ and an additional arrow $f\colon B \to A$. 
     Define the functors $p\colon \one \to \vec{\mathbf{2}}$ and $F\colon \one \to \mathbf{2}$ by $p(A) = A, F(A) = A$. 
-    Observe that the only two functors from $\vec{\mathbf{2}}$ to $\mathbf{2}$ are the constant functors $\Delta_A$ and $\Delta_{A'}$. Check that $A$ a is the left Kan extension $\Lan_pF$. Prove that $(p\down\Delta_A)$ is an empty category and $\Delta_A(B)$ is not isomorphic to the colimit of $(p\down\Delta_X)\to\one\markar{F}\mathbf{2}$. So the Kan extension $\Lan_pF$ is not pointwise.
+    Observe that the only two functors from $\vec{\mathbf{2}}$ to $\mathbf{2}$ are the constant functors $\Delta_A$ and $\Delta_{A'}$. Then $A$ a is the left Kan extension $\Lan_pF$, $(p\down\Delta_A)$ is an empty category and $\Delta_A(B)$ is not isomorphic to the colimit of $(p\down\Delta_X)\to\one\markar{F}\mathbf{2}$. So the Kan extension $\Lan_pF$ is not pointwise.
   \end{ex}

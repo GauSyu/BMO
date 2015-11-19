@@ -1026,9 +1026,9 @@ The basic notions about functions are injectivity, surjectivity and bijectivity.
     The \nlab gives another description of this corollary: the presentation of $F$ is the \emph{terminal object} in the comma category $(\Upsilon\down\Delta_{F})$.
   \end{rem}
 
-\newpage\section{Exercises}
+\newpage\section{Obersions}
 \begin{ex}
-  Let $f\colon X\to Y$ be a morphism in $\Cc$. Show that
+  Let $f\colon X\to Y$ be a morphism in $\Cc$. Then
   \begin{enumerate}
     \item $f$ is monic if and only if the induced function
                \begin{equation*}
@@ -1053,7 +1053,7 @@ The basic notions about functions are injectivity, surjectivity and bijectivity.
   \end{enumerate}
 \end{ex}
 \begin{ex}
-  Let $S,T\colon\Aa\to\Bb$ be two functors. Shows that there exists a 1-1 corresponding between the set of natural transformations from $S$ to $T$ and the set of sections of both domain functor and codomain functor.
+  Let $S,T\colon\Aa\to\Bb$ be two functors. Then there exists a 1-1 corresponding between the set of natural transformations from $S$ to $T$ and the set of sections of both domain functor and codomain functor.
 \end{ex}
 \begin{ex}\label{prop:power law for functor}
   For any categories $\Aa,\Bb,\Cc$,
@@ -1067,22 +1067,22 @@ The basic notions about functions are injectivity, surjectivity and bijectivity.
   $\Bb^{\Aa}$ is just another notation of $[\Aa,\Bb]$.
 \end{rec}
 \begin{ex}
-  Show that the functor category $[\Aa,\Bb]$ is functorial in both $\Aa$ and $\Bb$. That means, $[-,-]\colon\Cat^{\op}\times\Cat\to\Cat$ is a bifunctor.
+  The functor category $[\Aa,\Bb]$ is functorial in both $\Aa$ and $\Bb$. That means, $[-,-]\colon\Cat^{\op}\times\Cat\to\Cat$ is a bifunctor.
+\end{ex}
+%\begin{ex}
+%  Use the duality principle to define the notion of covariant representable functor explicitly.
+%\end{ex}
+\begin{ex}
+  A covariant representable functor preserves monomorphisms. On the other hand, a contravariant representable functor maps an epimorphism to a monomorphism.
 \end{ex}
 \begin{ex}
-  Use the duality principle to define the notion of covariant representable functor explicitly.
-\end{ex}
-\begin{ex}
-  Show that a covariant representable functor preserves monomorphisms. On the other hand, a contravariant representable functor maps an epimorphism to a monomorphism.
-\end{ex}
-\begin{ex}
-  Prove the covariant Yoneda lemma: There is a canonical isomorphism
+  There is a covariant Yoneda lemma: There is a canonical isomorphism
     \begin{equation*}
       \Nat(\Hom(X,-),F)\cong F(X)
     \end{equation*}
     natural in both $X$ and $F$.
 \end{ex}
 \begin{ex}
-  Consider the category $\PSh(\Cc)$ of presheaves on a small category $\Cc$, show that a morphism in $\PSh(\Cc)$ is monic if and only if its every component is monic.
-  However, if we replace $\PSh(\Cc)$ by an arbitrary functor category $[\Cc,\Dd]$, then the previous statement is no longer valid. Show this by a counterexample.
+  Consider the category $\PSh(\Cc)$ of presheaves on a small category $\Cc$. A morphism in $\PSh(\Cc)$ is monic if and only if its every component is monic.
+  However, if we replace $\PSh(\Cc)$ by an arbitrary functor category $[\Cc,\Dd]$, then the previous statement is no longer valid.
 \end{ex}
